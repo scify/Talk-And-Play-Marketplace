@@ -1,0 +1,73 @@
+// Body
+$body-bg: #f3f3f3;
+
+// Typography
+$font-family-sans-serif: 'Roboto', sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+$body-color: #2e2e2e;
+// Colors
+$color-01: #0647ba;
+$color-02: #00ffff;
+$color-03: #eddcd9;
+$color-04: #039eda;
+$color-05: #00f3fa;
+$color-06: #ff8324;
+$color-07: #5b5b5b;
+$color-08: #e4e4e4;
+$color-09: #00f8d6;
+
+$blue: $color-01;
+$blue-dark: #244685;
+$blue-light: $color-04;
+$blue-lighter: #C4CFEE;
+$blue-lighter-2: #D6F3FE;
+$indigo: #6574cd;
+$purple: #9561e2;
+$pink: #f66d9b;
+$red: #e3342f;
+$orange: $color-06;
+$yellow: #ffed4a;
+$green: #39BA6E;
+$green-light: #D4F2E1;
+$teal: #4dc0b5;
+$cyan: #6cb2eb;
+$grey: #9E9E9E;
+$beige: #dbbeb4;
+$white: #ffffff;
+
+$font-size-base: 1rem;
+$line-height-base: 1.6;
+$body-color: #000000;
+
+
+$font-size-body: 16px;
+$font-size-text: 14px;
+$font-size-notes: 12px;
+
+$grey: #AAAAAA;
+
+$font-color: $body-color;
+
+$background-color: $color-01;
+$border-radius: 15px;
+$btn-height: 48px;
+$title-font-size: 28px;
+$outer-padding: 15px;
+$input-border-width: 3px;
+
+$colors: (
+    "blue": $color-01,
+    "orange": $color-06,
+    "gray": $grey,
+    "gray-dark": $color-07,
+    "gray-light": $color-08
+);
+
+$theme-colors: (
+    "primary": $color-01,
+    "danger": $red,
+    "success": $color-09
+);
+$html-font-size: 16px;
+$navbar-light-bg-color: #E6F6F1;

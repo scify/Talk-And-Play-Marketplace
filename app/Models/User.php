@@ -2,14 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\UserRole\UserRole;
+use App\Models\UserRole\UserRoleLkp;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, HasApiTokens, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -17,6 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'id',
         'name',
         'email',
         'password',
@@ -40,4 +46,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The relationships that are loaded by default
+     *
+     * @var array
+     */
+    protected $with = ['roles'];
+
+    public function roles(): BelongsToMany {
+        return $this->belongsToMany(UserRoleLkp::class, 'user_roles', 'user_id', 'role_id')
+            ->wherePivot('deleted_at', null);
+    }
+
+    public function userRoles(): HasMany {
+        return $this->hasMany(UserRole::class, 'user_id', 'id');
+    }
 }

@@ -1,5 +1,5 @@
 const mix = require('laravel-mix');
-
+mix.disableSuccessNotifications();
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -11,7 +11,18 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+mix.js('resources/js/app.js', 'public/dist/js')
+    .sourceMaps()
+    .webpackConfig({
+        devtool: 'source-map'
+    })
+    .version()
+    .vue();
+
+mix.sass('resources/sass/app.scss', 'public/dist/css')
+    .sass('resources/sass/user-management-page.scss', 'public/dist/css')
+    .sourceMaps()
+    .webpackConfig({
+        devtool: 'source-map'
+    })
+    .version();

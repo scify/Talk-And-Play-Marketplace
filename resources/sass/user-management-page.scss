@@ -1,0 +1,47 @@
+@import "variables";
+
+#user-management-page {
+
+    h4,label {
+        color: $body-color;
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px $white inset;
+        color: $body-color;
+    }
+
+    .form-group {
+        .form-control {
+            border: 1px solid $body-color;
+        }
+    }
+
+    .form-control, .form-control:focus {
+        background-color: $white;
+        color: $body-color;
+    }
+
+    .form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: $body-color;
+        opacity: 1; /* Firefox */
+        font-style: italic;
+    }
+
+    .form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: $body-color;
+        font-style: italic;
+    }
+
+    .form-control::-ms-input-placeholder { /* Microsoft Edge */
+        color: $body-color;
+        font-style: italic;
+    }
+
+    .was-validated .form-control:invalid, .form-control.is-invalid {
+        border-color: theme-color('danger');
+    }
+}
