@@ -1,7 +1,12 @@
 // bootstrap
-@import "~bootstrap/scss/bootstrap";
 @import "variables";
+@import "~bootstrap/scss/bootstrap";
+@import "footer";
 
 .navbar {
     background-color: $navbar-light-bg-color;
+}
+
+.alert {
+    z-index: 1;
 }

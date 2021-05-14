@@ -5,7 +5,7 @@ namespace App\Repository\User;
 
 use App\Models\User;
 use App\Repository\Repository;
-use App\Repository\UserRole\UserRolesLkp;
+use App\Repository\User\UserRole\UserRolesLkp;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;

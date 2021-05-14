@@ -36,7 +36,7 @@ class UserManager {
             'password' => trim($requestData["password"]),
         ]);
         $this->userRoleManager->assignRegisteredUserRoleTo($user);
-        if (isset($requestData["newUserAdmin"]) && $requestData["newUserAdmin"])
+        if (isset($requestData["admin"]) && $requestData["admin"])
             $this->userRoleManager->assignAdminUserRoleTo($user);
 
         return $user;

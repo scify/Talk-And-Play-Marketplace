@@ -38,9 +38,9 @@ class UserController extends Controller {
      */
     public function store(Request $request): RedirectResponse {
         $request->validate([
-            'newUserName' => 'required',
-            'newUserEmail' => 'required|email|unique:users,email',
-            'newUserPassword' => 'required|min:8',
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8',
         ]);
         try {
             $this->userManager->create($request->all());
@@ -61,8 +61,8 @@ class UserController extends Controller {
      */
     public function update(Request $request, User $user): RedirectResponse {
         $request->validate([
-            'userName' => 'required',
-            'userEmail' => 'required|email|unique:users,email,' . $user->id
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $user->id
         ]);
         try {
             $this->userManager->update($user->id, $request->all());

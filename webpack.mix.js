@@ -12,6 +12,10 @@ mix.disableSuccessNotifications();
  */
 
 mix.js('resources/js/app.js', 'public/dist/js')
+    .js('resources/js/admin/user-management.js', 'public/dist/js')
+    .extract([
+        'jquery'
+    ])
     .sourceMaps()
     .webpackConfig({
         devtool: 'source-map'
@@ -19,8 +23,13 @@ mix.js('resources/js/app.js', 'public/dist/js')
     .version()
     .vue();
 
+mix.autoload({
+    'jquery': ['$', 'window.jQuery', 'jQuery']
+});
+
 mix.sass('resources/sass/app.scss', 'public/dist/css')
     .sass('resources/sass/user-management-page.scss', 'public/dist/css')
+    .sass('resources/sass/footer.scss', 'public/dist/css')
     .sourceMaps()
     .webpackConfig({
         devtool: 'source-map'
