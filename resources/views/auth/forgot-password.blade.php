@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
+    <div class="container py-5">
+        <div class="row justify-content-center py-5">
+            <div class="col-md-8 py-5">
                 <div class="card">
                     <div class="card-header">{{ __('Reset Password') }}</div>
 
@@ -17,7 +17,7 @@
                         <form method="POST" action="{{ route('password.email') }}">
                             @csrf
 
-                            <div class="form-group row">
+                            <div class="form-group row mb-2">
                                 <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                                 <div class="col-md-6">
