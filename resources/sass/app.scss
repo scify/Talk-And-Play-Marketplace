@@ -1,6 +1,7 @@
 // bootstrap
 @import "variables";
 @import "~bootstrap/scss/bootstrap";
+@import "buttons";
 @import "footer";
 
 .navbar {
@@ -9,4 +10,5 @@
 
 .alert {
     z-index: 1;
+    margin-bottom: 0;
 }

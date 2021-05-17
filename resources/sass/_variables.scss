@@ -4,11 +4,9 @@ $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 $body-color: #2e2e2e;
 // Colors
-$blue: #76b7d6;
+$blue: #76B7D6;
 $blue-dark: darken($blue, 50%);
-$blue-light: lighten($blue, 20%);
-$blue-lighter: #C4CFEE;
-$blue-lighter-2: #D6F3FE;
+$blue-light: #D0EFFE;
 $indigo: #6574cd;
 $purple: #9561e2;
 $pink: #f66d9b;
@@ -16,10 +14,11 @@ $red: #e3342f;
 $orange: #FFCC95;
 $yellow: #ffed4a;
 $green: #39BA6E;
-$green-light: #D4F2E1;
+$green-light: #71c6ac;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
 $grey: #C7C7C7;
+$gray-600: #8a8a8a;
 $beige: #dbbeb4;
 $white: #ffffff;
 
@@ -39,7 +38,7 @@ $colors: (
     "blue": $blue,
     "orange": $orange,
     "gray": $grey,
-    "gray-dark": #5b5b5b,
+    "gray-dark": #8a8a8a,
     "gray-light": #e4e4e4
 );
 

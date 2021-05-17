@@ -1,0 +1,112 @@
+@import 'variables';
+
+/*button-variant(
+$background,
+$border,
+$hover-background: darken($background, 7.5%),
+$hover-border: darken($border, 10%),
+$active-background: darken($background, 10%),
+$active-border: darken($border, 12.5%))
+*/
+
+/*button-outline-variant(
+$color,
+$color-hover,
+$active-background: darken($background, 7.5%),
+$active-border: darken($border, 10%)
+*/
+
+$button-padding-y: 0.6rem;
+$button-padding-x: 1.5rem;
+$button-thick-border-width: 1px;
+$btn-height: 52px;
+$btn-primary-hover-bg-color: #71C6AC;
+$btn-primary-activated-border-color: #75fbac;
+
+.btn {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 800;
+    font-size: large;
+    height: $btn-height;
+    border-radius: 5px;
+    padding: $button-padding-y $button-padding-x;
+
+    &:focus, &:active {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+}
+
+.btn-link {
+    color: $grey;
+    text-decoration: underline;
+}
+
+.btn-primary {
+    @include button-variant($green, $green, $btn-primary-hover-bg-color,
+        $btn-primary-hover-bg-color, $btn-primary-hover-bg-color, $btn-primary-activated-border-color);
+    color: $white;
+
+    &:hover:enabled, &:focus:enabled {
+        color: $white;
+    }
+
+    &:active {
+        color: $btn-primary-activated-border-color;
+    }
+
+    &:hover:disabled, &:focus:disabled {
+        color: color("gray-dark");
+    }
+}
+
+.btn-secondary {
+    @include button-variant($blue-light, $blue-light, $blue,
+        $blue, $blue-light, $btn-primary-activated-border-color);
+    color: $body-color;
+
+    &:hover:enabled, &:focus:enabled {
+        color: $body-color;
+    }
+}
+
+.btn-outline-primary {
+    @include button-outline-variant($green, $btn-primary-hover-bg-color, $white, $btn-primary-hover-bg-color);
+    border-width: $button-thick-border-width;
+    padding: calc(#{$button-padding-y} - (#{$button-thick-border-width} / 2)) calc(calc(#{$button-padding-x} - (#{$button-thick-border-width} / 2)) - 1px);
+
+    &:hover:enabled, &:focus:enabled {
+        color: $btn-primary-hover-bg-color;
+    }
+}
+
+.btn-primary, .btn-secondary {
+    &:active {
+        border-width: $button-thick-border-width;
+        padding: calc(#{$button-padding-y} - (#{$button-thick-border-width} / 2)) calc(calc(#{$button-padding-x} - (#{$button-thick-border-width} / 2)) - 1px);
+    }
+
+    &:disabled, &.disabled {
+        background-color: $grey;
+    }
+}
+
+.btn-primary, .btn-secondary, .btn-outline-primary {
+    &:disabled, &.disabled {
+        border-color: $grey;
+        color: $gray-600;
+    }
+}
+
+.btn.square-icon-btn {
+    float: right;
+    height: 25px;
+    width: 25px;
+    padding: 0;
+    border-width: 1px;
+    border-radius: 25px;
+
+    i {
+        display: block;
+    }
+}
