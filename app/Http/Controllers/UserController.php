@@ -94,8 +94,10 @@ class UserController extends Controller {
     }
 
     public function setLangLocaleCookie(Request $request): RedirectResponse {
-        if(!in_array($request->lang, ['en', 'el', 'es', 'it']))
-            abort(Response::HTTP_BAD_REQUEST);
+        if(!in_array($request->lang, ['en', 'el', 'de'])) {
+            session()->flash('flash_message_failure', 'Wrong language.');
+            return back();
+        }
         Cookie::queue( Cookie::forever('lang', $request->lang) );
         return redirect('/');
     }
