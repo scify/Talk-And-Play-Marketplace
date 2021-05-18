@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Http\Response;
 
 class UserController extends Controller {
     protected $administrationVMProvider;
@@ -89,5 +91,12 @@ class UserController extends Controller {
         } finally {
             return back();
         }
+    }
+
+    public function setLangLocaleCookie(Request $request): RedirectResponse {
+        if(!in_array($request->lang, ['en', 'el', 'es', 'it']))
+            abort(Response::HTTP_BAD_REQUEST);
+        Cookie::queue( Cookie::forever('lang', $request->lang) );
+        return redirect('/');
     }
 }
