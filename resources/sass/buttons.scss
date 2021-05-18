@@ -73,17 +73,20 @@ $btn-primary-activated-border-color: #75fbac;
 .btn-outline-primary {
     @include button-outline-variant($green, $btn-primary-hover-bg-color, $white, $btn-primary-hover-bg-color);
     border-width: $button-thick-border-width;
-    padding: calc(#{$button-padding-y} - (#{$button-thick-border-width} / 2)) calc(calc(#{$button-padding-x} - (#{$button-thick-border-width} / 2)) - 1px);
 
     &:hover:enabled, &:focus:enabled {
         color: $btn-primary-hover-bg-color;
+    }
+
+    &:active {
+        color: $btn-primary-activated-border-color;
+        border-color: $btn-primary-activated-border-color;
     }
 }
 
 .btn-primary, .btn-secondary {
     &:active {
         border-width: $button-thick-border-width;
-        padding: calc(#{$button-padding-y} - (#{$button-thick-border-width} / 2)) calc(calc(#{$button-padding-x} - (#{$button-thick-border-width} / 2)) - 1px);
     }
 
     &:disabled, &.disabled {
