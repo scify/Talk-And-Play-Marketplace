@@ -11,7 +11,7 @@
                         <div class="carousel-cell">
                             <div class="container">
                                 <div class="row align-items-center">
-                                    <div class="col-7">
+                                    <div class="col-6">
                                         <h1>Talk & Play marketplace</h1>
                                         <p class="description mt-4">
                                             To Talk & Play marketplace δημιουργήθηκε για να διευκολύνει ειδικούς και
@@ -23,12 +23,15 @@
                                             Κάρτες Επικοινωνίας και Κάρτες παιχνιδιών που υπάρχουν στο <b>Talk & Play
                                                 app</b>.
                                         </p>
-                                        <p class="mt-5 see-more fw-bold">
+                                        <p class="mt-4 see-more fw-bold">
                                             Μάθε περισσότερα για το <a href="#">Talk & Play app</a>
                                         </p>
                                     </div>
-                                    <div class="col-5">
-                                        111111111111111
+                                    <div class="col-5 offset-1">
+                                        <img
+                                            loading="lazy"
+                                            src="{{ asset('img/home/' . \Illuminate\Support\Facades\App::getLocale() . '/marketplace_intro.png') }}"
+                                            class="w-100" alt="Marketplace intro">
                                     </div>
                                 </div>
                             </div>
@@ -36,7 +39,7 @@
                         <div class="carousel-cell">
                             <div class="container">
                                 <div class="row align-items-center">
-                                    <div class="col-7">
+                                    <div class="col-6">
                                         <h1>Talk & Play app</h1>
                                         <p class="description mt-4">
                                             To <b>Talk & Play app</b> δημιουργήθηκε για να διευκολύνει τους ασθενείς που
@@ -56,12 +59,15 @@
                                         <a href="#" class="btn btn-primary">
                                             Κατέβασε την εφαρμογή
                                         </a>
-                                        <p class="mt-5 see-more fw-bold">
+                                        <p class="mt-4 see-more fw-bold">
                                             Μάθε περισσότερα για το <a href="#">Talk & Play app</a>
                                         </p>
                                     </div>
-                                    <div class="col-5">
-                                        2222222222222
+                                    <div class="col-5 offset-1">
+                                        <img
+                                            loading="lazy"
+                                            src="{{ asset('img/home/' . \Illuminate\Support\Facades\App::getLocale() . '/app_intro.png') }}"
+                                            class="w-100" alt="Communication cards">
                                     </div>
                                 </div>
                             </div>

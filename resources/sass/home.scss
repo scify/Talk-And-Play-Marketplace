@@ -1,0 +1,29 @@
+@import "variables";
+
+#intro-carousel-row {
+    height: calc(100vh - 75px - 3rem - 100px);
+    background-image: url("/img/background-carousel-landing-page.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.flickity-page-dots {
+    bottom: -150px;
+}
+
+.flickity-page-dots .dot {
+    background: $green;
+    height: 15px;
+    width: 15px;
+    opacity: 1;
+
+    &:not(.is-selected) {
+        background-color: white;
+        border: 2.5px solid $green;
+    }
+}
+
+.carousel-cell {
+    width: 100%;
+}
