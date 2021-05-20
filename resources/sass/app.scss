@@ -1,14 +1,32 @@
 // bootstrap
 @import "variables";
 @import "~bootstrap/scss/bootstrap";
+@import "~flickity/dist/flickity.min.css";
 @import "buttons";
 @import "footer";
 
 .navbar {
     background-color: $navbar-light-bg-color;
+
+    .nav-link {
+        font-weight: bold;
+    }
 }
 
 .alert {
     z-index: 1;
     margin-bottom: 0;
+}
+
+h1 {
+    font-weight: bolder;
+}
+
+a {
+    color: $green;
+    text-decoration: none;
+
+    &:hover {
+        color: $green-light;
+    }
 }

@@ -11,7 +11,8 @@ $indigo: #6574cd;
 $purple: #9561e2;
 $pink: #f66d9b;
 $red: #e3342f;
-$orange: #FFCC95;
+$orange: #FEE8D0;
+$orange-dark: #FFCC95;
 $yellow: #ffed4a;
 $green: #39BA6E;
 $green-light: #71c6ac;
@@ -27,10 +28,6 @@ $body-bg: $white;
 
 $font-size-base: 1rem;
 $line-height-base: 1.6;
-
-$font-size-body: 16px;
-$font-size-text: 14px;
-$font-size-notes: 12px;
 
 $font-color: $body-color;
 
@@ -50,3 +47,17 @@ $theme-colors: (
 
 $html-font-size: 16px;
 $navbar-light-bg-color: #E6F6F1;
+
+@function toRem($value) {
+    $remValue: ($value / 16) + rem;
+    @return $remValue;
+}
+
+$display-font-sizes: (
+    1: toRem(50px),
+    2: 4.5rem,
+    3: 4rem,
+    4: 3.5rem,
+    5: 3rem,
+    6: 2.5rem
+);

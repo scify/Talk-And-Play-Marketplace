@@ -3,19 +3,19 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 col-md-3 item">
-                    <h3>Services</h3>
+                    <h3>{!! __('messages.services') !!}</h3>
                     <ul>
-                        <li><a href="#">Communication cards</a></li>
-                        <li><a href="#">Game cards</a></li>
-                        <li><a href="#">Content guidelines</a></li>
+                        <li><a href="#">{!! __('messages.communication_cards') !!}</a></li>
+                        <li><a href="#">{!! __('messages.game_cards') !!}</a></li>
+                        <li><a href="#">{!! __('messages.content_guidelines') !!}</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-6 col-md-3 item">
                     <h3>About</h3>
                     <ul>
-                        <li><a href="https://www.scify.gr/site/en/">Team</a></li>
-                        <li><a href="#">Download Talk & Play</a></li>
-                        <li><a href="#">Contact us</a></li>
+                        <li><a href="https://www.scify.gr/site/en/">{!! __('messages.team') !!}</a></li>
+                        <li><a href="#">{!! __('messages.download') !!} Talk & Play</a></li>
+                        <li><a href="#">{!! __('messages.contact_us') !!}</a></li>
                     </ul>
                 </div>
                 <div class="col-md-6 item text">

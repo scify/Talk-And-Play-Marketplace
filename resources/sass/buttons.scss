@@ -62,11 +62,29 @@ $btn-primary-activated-border-color: #75fbac;
 
 .btn-secondary {
     @include button-variant($blue-light, $blue-light, $blue,
-        $blue, $blue-light, $btn-primary-activated-border-color);
+        $blue, $blue-light, $body-color);
     color: $body-color;
 
     &:hover:enabled, &:focus:enabled {
         color: $body-color;
+    }
+    &:active {
+        border-color: $btn-primary-activated-border-color;
+        color: $btn-primary-activated-border-color;
+    }
+}
+
+.btn-third {
+    @include button-variant($orange, $orange, $orange-dark,
+        $orange-dark, $orange, $body-color);
+    color: $body-color;
+
+    &:hover:enabled, &:focus:enabled {
+        color: $body-color;
+    }
+    &:active {
+        border-color: $btn-primary-activated-border-color;
+        color: $btn-primary-activated-border-color;
     }
 }
 

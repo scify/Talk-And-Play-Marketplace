@@ -8,10 +8,6 @@
     background-size: contain;
 }
 
-.flickity-page-dots {
-    bottom: -150px;
-}
-
 .flickity-page-dots .dot {
     background: $green;
     height: 15px;
@@ -24,6 +20,27 @@
     }
 }
 
+.carousel {
+    height: 500px;
+}
+
+.carousel-cell {
+    height: 100%;
+}
+
+.flickity-page-dots {
+    bottom: 10px;
+}
+
 .carousel-cell {
     width: 100%;
+}
+
+#communication-cards {
+    padding-top: 20rem;
+}
+
+#game-cards {
+    padding-top: 20rem;
+    margin-bottom: 10rem;
 }
