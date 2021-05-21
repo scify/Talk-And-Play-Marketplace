@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserRoleLkpTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(UserRolesTableSeeder::class);
+        $this->call(ResourceStatusLkpTableSeeder::class);
         $this->call(ProduceAPITokenForDefaultAdmin::class);
     }
 }
