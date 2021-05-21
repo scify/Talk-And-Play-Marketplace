@@ -32,6 +32,7 @@ mix.sass('resources/sass/app.scss', 'public/dist/css')
     .sass('resources/sass/user-management-page.scss', 'public/dist/css')
     .sass('resources/sass/footer.scss', 'public/dist/css')
     .sass('resources/sass/home.scss', 'public/dist/css')
+    .sass('resources/sass/communication-cards.scss', 'public/dist/css')
     .sourceMaps()
     .webpackConfig({
         devtool: 'source-map'

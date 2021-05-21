@@ -21,6 +21,7 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.15.3",
         "@popperjs/core": "^2.9.2",
         "bootstrap": "^5.0.0",
         "flickity": "^2.2.2",

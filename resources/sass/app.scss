@@ -2,6 +2,11 @@
 @import "variables";
 @import "~bootstrap/scss/bootstrap";
 @import "~flickity/dist/flickity.min.css";
+// FontAwesome
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/brands';
 @import "buttons";
 @import "footer";
 
@@ -29,4 +34,8 @@ a {
     &:hover {
         color: $green-light;
     }
+}
+
+a.link-info {
+    color: $blue;
 }

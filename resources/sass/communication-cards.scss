@@ -1,0 +1,40 @@
+@import "variables";
+
+#communication-cards-intro {
+    .link-info {
+        font-style: italic;
+    }
+}
+
+.accordion-item {
+    box-shadow: 2px 4px 8px 4px rgba(0, 0, 0, 0.1);
+
+    .title-number {
+        padding: 10px;
+        border: 1px solid $blue;
+        margin-right: 15px;
+        border-radius: 100%;
+        width: 40px;
+        height: 35px;
+        text-align: center;
+        padding-top: -3px;
+        padding-bottom: 29px;
+        font-weight: bold;
+    }
+
+    .note {
+        font-style: italic;
+        color: darken($orange-dark, 20);
+        font-size: 90%;
+    }
+}
+
+#communication-cards-content {
+    .hint {
+        color: $blue;
+    }
+
+    .hint-arrow {
+        font-size: toRem(32);
+    }
+}
