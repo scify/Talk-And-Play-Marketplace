@@ -20,9 +20,9 @@ class ContentLanguageLkpSeeder extends Seeder {
         echo "\nRunning Content Language lkp Seeder...\n";
 
         $data = [
-            ['id' => 1, 'name' => 'Ελληνικά', 'code' => 'el'],
-            ['id' => 2, 'name' => 'English', 'code' => 'en'],
-            ['id' => 3, 'name' => 'Deutsch', 'code' => 'de']
+            ['id' => 1, 'name' => 'Ελληνικά', 'code' => 'el', 'img_path' => '/img/lang/el.png'],
+            ['id' => 2, 'name' => 'English', 'code' => 'en', 'img_path' => '/img/lang/en.png'],
+            ['id' => 3, 'name' => 'Deutsch', 'code' => 'de', 'img_path' => '/img/lang/de.png']
         ];
 
         foreach ($data as $datum) {
