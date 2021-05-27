@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\CommunicationCardsController;
+use App\Http\Controllers\Resource\CommunicationResourceController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home')->name('home');
 Route::get('/lang/{lang}', [UserController::class, 'setLangLocaleCookie'])->name('set-lang-locale');
-Route::get('/communication-cards', [CommunicationCardsController::class, 'showCommunicationCardsPage'])->name('communication_cards.index');
+Route::get('/communication-cards', [CommunicationResourceController::class, 'index'])->name('communication_resources.index');
+
 Route::middleware(['auth'])->group(function () {
     Route::prefix('administration')->middleware("can:manage-platform")->name('administration.')->group(function () {
         Route::resource('users', UserController::class)->except([
@@ -25,3 +27,29 @@ Route::middleware(['auth'])->group(function () {
         ]);
     });
 });
+
+Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
+    Route::get("/content-languages", [CommunicationResourceController::class, 'getContentLanguages'])->name('content_languages.get');
+});
+
+Route::get('js/translations.js', function () {
+    $lang = config('app.locale');
+    Cache::flush();
+    $strings = Cache::rememberForever('lang_'.$lang.'.js', function () use($lang) {
+        $files = [
+            resource_path('lang/' . $lang . '/messages.php'),
+            resource_path('lang/' . $lang . '/validation.php'),
+        ];
+        $strings = [];
+
+        foreach ($files as $file) {
+            $name = basename($file, '.php');
+            $strings[$name] = require $file;
+        }
+
+        return $strings;
+    });
+    header('Content-Type: text/javascript');
+    echo('window.i18n = ' . json_encode($strings) . ';');
+    exit();
+})->name('translations');

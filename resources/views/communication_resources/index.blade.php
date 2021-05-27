@@ -26,7 +26,7 @@
                         <div class="accordion-item my-3">
                             <h2 class="accordion-header">
                                 <h2 class="accordion-button" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                     <span class="title-number">1</span> Διάλεξε κατηγορία
                                 </h2>
                             </h2>
@@ -50,7 +50,8 @@
                                 <div class="accordion-body">
                                     Βρές έτοιμα πακέτα λέξεων και διάλεξε αυτά που σε εξυπηρετούν.
 
-                                    <p class="note mt-3">Σημείωση: Όταν δημιουργείς ένα καινούργιο πακέτο ή κάρτα θα πρέπει
+                                    <p class="note mt-3">Σημείωση: Όταν δημιουργείς ένα καινούργιο πακέτο ή κάρτα θα
+                                        πρέπει
                                         πρώτα να εγκριθεί απο ένα διαχειριστή για να εμφανιστεί στη συλλογή.</p>
                                 </div>
                             </div>
@@ -66,7 +67,8 @@
                             <div id="collapseThree" class="accordion-collapse collapse show"
                                  aria-labelledby="headingThree">
                                 <div class="accordion-body">
-                                    Κάθε κάρτα ή πακέτο έχει ένα ειδικό εικονίδιο <i class="fas fa-file-download"></i>. Πάτα το εικονίδιο για να κατέβουν τα
+                                    Κάθε κάρτα ή πακέτο έχει ένα ειδικό εικονίδιο <i class="fas fa-file-download"></i>.
+                                    Πάτα το εικονίδιο για να κατέβουν τα
                                     αρχεία στη συσκευή σου. Έπειτα φόρτωσε τα αρχεία στην εφαρμογή.
                                 </div>
                             </div>
@@ -128,6 +130,12 @@
                 <div class="col text-center">
                     <h5 class="hint mb-1">Επεξεργάσου τις κάρτες</h5>
                     <i class="hint hint-arrow fas fa-arrow-down"></i>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col">
+                    <communication-resources-with-filters>
+                    </communication-resources-with-filters>
                 </div>
             </div>
         </div>

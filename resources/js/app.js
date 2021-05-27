@@ -1,10 +1,38 @@
 import 'bootstrap';
 import $ from 'jquery';
+import Vue from 'vue';
+require('./bootstrap');
 window.$ = window.jQuery = $;
+window.route = require('./backend-route');
+import store from './store/store';
 
+import getLodash from "lodash/get";
+import eachRightLodash from "lodash/eachRight";
+import replaceLodash from "lodash/replace";
+
+
+window.translate = function(string, args){
+    let value = getLodash(window.i18n, string);
+
+    eachRightLodash(args, (paramVal, paramKey) => {
+        value = replaceLodash(value, `:${paramKey}`, paramVal);
+    });
+    return value;
+}
+
+Vue.prototype.trans = (string, args) => {
+    return window.translate(string, args);
+};
+
+Vue.component('communication-resources-with-filters', require('./vue-components/resources/communication-resources/CommunicationResourcesWithFilters.vue').default);
+
+const app = new Vue({
+    el: '#app',
+    store: store
+});
 (function ($) {
 
-    let init = function() {
+    let init = function () {
         closeDismissableAlerts();
     };
 
@@ -24,3 +52,4 @@ window.$ = window.jQuery = $;
     });
 
 })(window.jQuery);
+

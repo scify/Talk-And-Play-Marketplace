@@ -21,12 +21,12 @@
         padding-bottom: 29px;
         font-weight: bold;
     }
+}
 
-    .note {
-        font-style: italic;
-        color: darken($orange-dark, 20);
-        font-size: 90%;
-    }
+.note {
+    font-style: italic;
+    color: $orange-darker;
+    font-size: 90%;
 }
 
 #communication-cards-content {
