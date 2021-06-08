@@ -1,13 +1,13 @@
 <template>
     <div v-if="resource.id">
-        <div class="card w-100" @click="showChildrenResourcesModal(resource)">
+        <div class="card w-100">
             <div class="dropdown-container">
                 <div class="dropdown">
                     <button class="btn btn-outline-secondary dropdown-toggle actions-btn" type="button"
-                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            :id="'dropdownMenuButton_' + resource.id" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-ellipsis-v"></i>
                     </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <ul class="dropdown-menu" :aria-labelledby="'dropdownMenuButton_' + resource.id">
                         <li><a class="dropdown-item" href="#"><i class="fas fa-file-download me-2"></i>Download</a></li>
                         <li><a class="dropdown-item" href="#"><i class="far fa-edit me-2"></i>Edit</a></li>
                     </ul>
