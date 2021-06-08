@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="row mt-5" v-if="resources.length">
-            <div class="col-md-2 col-sm-12" v-for="resource in resources" :key="resource.id">
+            <div class="col-md-2 col-sm-12" v-for="(resource, index) in resources" :key="index">
                 <communication-resource-with-children :resource="resource">
                 </communication-resource-with-children>
             </div>

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="resource.id">
         <div class="card w-100" @click="showChildrenResourcesModal(resource)">
             <div class="dropdown-container">
                 <div class="dropdown">
