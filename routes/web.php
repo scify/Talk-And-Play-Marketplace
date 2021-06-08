@@ -26,6 +26,17 @@ Route::middleware(['auth'])->group(function () {
             'create', 'edit', 'show'
         ]);
     });
+    Route::resource('communication-cards', CommunicationResourceController::class)
+        ->except([
+            'index', 'show'
+        ])
+        ->names([
+            'create' => 'communication_resources.create',
+            'store' => 'communication_resources.store',
+            'edit' => 'communication_resources.edit',
+            'update' => 'communication_resources.update',
+            'destroy' => 'communication_resources.destroy'
+        ]);
 });
 
 Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
@@ -37,7 +48,7 @@ Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
 Route::get('js/translations.js', function () {
     $lang = config('app.locale');
     Cache::flush();
-    $strings = Cache::rememberForever('lang_'.$lang.'.js', function () use($lang) {
+    $strings = Cache::rememberForever('lang_' . $lang . '.js', function () use ($lang) {
         $files = [
             resource_path('lang/' . $lang . '/messages.php'),
             resource_path('lang/' . $lang . '/validation.php'),

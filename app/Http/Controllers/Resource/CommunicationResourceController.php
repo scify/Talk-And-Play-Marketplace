@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Resource;
 
 use App\BusinessLogicLayer\Resource\CommunicationResourceManager;
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -22,21 +20,20 @@ class CommunicationResourceController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Application|Factory|View|Response
+     * @return View
      */
-    public function index()
-    {
+    public function index(): View {
         return view('communication_resources.index');
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return View
      */
-    public function create()
-    {
-        //
+    public function create(): View {
+        // TODO create a new ViewModel instance for the page
+        return view('communication_resources.create-edit');
     }
 
     /**
@@ -46,17 +43,6 @@ class CommunicationResourceController extends Controller
      * @return Response
      */
     public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
     {
         //
     }

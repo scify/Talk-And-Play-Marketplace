@@ -1,57 +1,59 @@
 @import "resources/sass/variables";
 
 .card-title {
-    font-weight: bold;
-    font-size: toRem(18);
+  font-weight: bold;
+  font-size: toRem(18);
 }
 
 .card-subtitle {
-    font-size: toRem(14);
-    font-style: italic;
+  font-size: toRem(14);
+  font-style: italic;
 }
 
 .rate-text {
-    font-size: toRem(10);
-    color: $gray-600;
+  font-size: toRem(10);
+  color: $gray-600;
 }
 
 .rate-link {
-    text-decoration: underline;
-    color: $gray-600;
+  text-decoration: underline;
+  color: $gray-600;
 }
 
 .fa-star {
-    font-style: toRem(20);
-    color: $yellow;
+  font-style: toRem(20);
+  color: $yellow;
 }
 
 .dropdown-toggle::after {
-    display: none;
+  display: none;
 }
 
 .dropdown-container {
-    position: absolute;
-    right: 0;
+  position: absolute;
+  right: 0;
 
-    .actions-btn {
-        height: auto;
-        padding: 5px;
-    }
+  .actions-btn {
+    height: auto;
+    padding: 5px;
+  }
 }
 
 .card {
-    box-shadow: 2px 4px 8px 4px rgba(0, 0, 0, 0.1);
-    transition: 0.3s ease-in-out;
-    &:hover:not(.disabled) {
-        cursor: pointer;
-        box-shadow: 3px 5px 9px 5px rgba(0, 0, 0, 0.2);
-        -ms-transform: translate(0px, -5px); /* IE 9 */
-        transform: translate(0px, -5px); /* Standard syntax */
-    }
+  box-shadow: 2px 4px 8px 4px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease-in-out;
+  &:hover:not(.disabled) {
+      cursor: pointer;
+      box-shadow: 3px 5px 9px 5px rgba(0, 0, 0, 0.2);
+  }
 }
 
 .modal {
-    .modal-wrapper {
-        padding-top: 5%;
-    }
+  .modal-wrapper {
+    padding-top: 5%;
+  }
+}
+
+.dropdown-menu {
+  z-index: 100000;
 }
