@@ -3,7 +3,8 @@
         <div class="row justify-content-start mb-3">
             <div v-for="language in contentLanguages" class="col-md-2 col-sm-4">
                 <button @click="getContentForLanguage(language)"
-                        class="w-100 btn btn-secondary">
+                        class="w-100 btn btn-secondary"
+                        v-bind:class="{ selected: language.id === selectedContentLanguage.id }">
                     {{ language.name }}
                 </button>
             </div>
@@ -13,6 +14,21 @@
                 <p class="note">
                     {{ trans('messages.communication_cards_note') }}
                 </p>
+            </div>
+        </div>
+        <div class="row mt-5" v-if="loadingResources">
+            <div class="col justify-content-center">
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5" v-if="resources.length">
+            <div class="col-md-2 col-sm-12" v-for="resource in resources" :key="resource.id">
+                <communication-resource-with-children :resource="resource">
+                </communication-resource-with-children>
             </div>
         </div>
     </div>
@@ -27,7 +43,11 @@ export default {
     },
     data: function () {
         return {
-            contentLanguages: []
+            contentLanguages: [],
+            selectedContentLanguage: {},
+            loadingResources: false,
+            resources: [],
+            maxRating: 5
         }
     },
     methods: {
@@ -41,10 +61,23 @@ export default {
                 urlRelative: false
             }).then(response => {
                 this.contentLanguages = response.data;
+                this.getContentForLanguage(this.contentLanguages[0]);
             });
         },
         getContentForLanguage(language) {
-
+            this.selectedContentLanguage = language;
+            this.loadingResources = true;
+            this.resources = [];
+            this.get({
+                url: route('communication_resources.for_language') + '?lang_id=' + language.id,
+                urlRelative: false
+            }).then(response => {
+                this.resources[0] = response.data[0];
+                this.resources[1] = response.data[0];
+                this.resources[2] = response.data[0];
+                this.resources[3] = response.data[0];
+                this.loadingResources = false;
+            });
         }
     }
 }
@@ -52,5 +85,9 @@ export default {
 
 <style scoped lang="scss">
 @import "resources/sass/variables";
+
+.btn.selected {
+    background-color: $blue;
+}
 
 </style>

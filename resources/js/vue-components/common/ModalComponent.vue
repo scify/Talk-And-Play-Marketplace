@@ -1,5 +1,5 @@
 <template>
-    <transition name="modal" v-if="open">
+    <transition name="modal" v-if="open" @click="cancel">
         <div class="modal-mask">
             <div class="modal-wrapper">
                 <div class="modal-container">

@@ -2,8 +2,12 @@
 
 namespace App\Models\Resource;
 
+use App\Models\Participant\ParticipantRoleLookup;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Resource extends Model
@@ -24,6 +28,19 @@ class Resource extends Model
     protected $fillable = [
         'name', 'status_id',
         'lang_id', 'creator_user_id',
-        'admin_user_id', 'img_path', 'audio_path'
+        'admin_user_id', 'img_path', 'audio_path',
+        'resource_parent_id', 'type_id'
     ];
+
+    public function childrenResources(): HasMany {
+        return $this->hasMany(
+            Resource::class,
+            'resource_parent_id',
+            'id'
+        );
+    }
+
+    public function creator(): HasOne {
+        return $this->hasOne(User::class, 'id', 'creator_user_id');
+    }
 }

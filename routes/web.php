@@ -30,6 +30,8 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
     Route::get("/content-languages", [CommunicationResourceController::class, 'getContentLanguages'])->name('content_languages.get');
+    Route::get("/communication-resources", [CommunicationResourceController::class, 'getCommunicationResourcesForLanguage'])->name('communication_resources.for_language');
+
 });
 
 Route::get('js/translations.js', function () {

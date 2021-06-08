@@ -21,7 +21,7 @@ Laravel 8 Web Application for Creating content for the Talk & Play application
 1. After cloning the project, create an .env file (should be a copy of .env.example),
    containing the information about your database name and credentials.
    Then run ```php artisan migrate``` to create the DB schema and
-   ```php artisan db:seed --class=DatabaseSeederRunOnEmptyDB``` in order to insert the starter data to the DB
+   ```php artisan db:seed``` in order to insert the starter data to the DB
 
 2. Install laravel/back-end dependencies
 ```

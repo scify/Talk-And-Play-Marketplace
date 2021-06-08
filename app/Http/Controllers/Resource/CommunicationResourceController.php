@@ -98,4 +98,8 @@ class CommunicationResourceController extends Controller
     public function getContentLanguages() {
         return $this->communicationResourceManager->getContentLanguagesForCommunicationResources();
     }
+
+    public function getCommunicationResourcesForLanguage(Request $request) {
+        return $this->communicationResourceManager->getFirstLevelResourcesWithChildren($request->lang_id);
+    }
 }

@@ -24,7 +24,9 @@ Vue.prototype.trans = (string, args) => {
     return window.translate(string, args);
 };
 
+Vue.component('modal', require('./vue-components/common/ModalComponent').default);
 Vue.component('communication-resources-with-filters', require('./vue-components/resources/communication-resources/CommunicationResourcesWithFilters.vue').default);
+Vue.component('communication-resource-with-children', require('./vue-components/resources/communication-resources/CommunicationResourceWithChildren.vue').default);
 
 const app = new Vue({
     el: '#app',
