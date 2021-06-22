@@ -15,4 +15,5 @@ class ResourceRepository extends Repository {
     function getModelClassName() {
         return Resource::class;
     }
+
 }

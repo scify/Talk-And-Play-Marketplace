@@ -1,7 +1,9 @@
+
 @extends('layouts.app')
 @push('css')
     <link rel="stylesheet" href="{{ mix('dist/css/home.css') }}">
 @endpush
+
 @section('content')
     <section id="intro-carousel-row">
         <div class="container h-100">

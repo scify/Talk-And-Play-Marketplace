@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Resource;
 
 use App\BusinessLogicLayer\Resource\CommunicationResourceManager;
 use App\Http\Controllers\Controller;
+use App\ViewModels\CreateEditResourceVM;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -33,18 +34,37 @@ class CommunicationResourceController extends Controller
      */
     public function create(): View {
         // TODO create a new ViewModel instance for the page
-        return view('communication_resources.create-edit');
+        $contentLanguages = $this->communicationResourceManager->getContentLanguagesForCommunicationResources();
+        $createResourceViewModel = new CreateEditResourceVM($contentLanguages);
+        //$createResourceViewModel->languages=$contentLanguages->map(function($slug){return $slug->name;});
+        return view('communication_resources.create-edit')->with(['viewModel' => $createResourceViewModel]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+
+        $this->validate($request, [
+            'name' => 'required|string|max:100',
+            'sound' => 'required|file|between:10,1000|nullable',
+            'image' => 'required|file|between:10,500|nullable'
+        ]);
+
+        $ret = $this->communicationResourceManager->storeCommunicationResourceAttachments($request);
+        if($ret){
+            return redirect()->route('communication_resources.store',['id'=>$ret->id])->with('flash_message_success', 'The resource package has been successfully created');
+        }
+        else{
+            return redirect()->with('flash_message_failure', 'The resource package has not been created');
+
+        }
+
+
     }
 
     /**
