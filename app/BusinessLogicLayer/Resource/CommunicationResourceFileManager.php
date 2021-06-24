@@ -5,6 +5,7 @@ namespace App\BusinessLogicLayer\Resource;
 
 
 use App\BusinessLogicLayer\UserRole\UserRoleManager;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 class CommunicationResourceFileManager
@@ -19,6 +20,40 @@ class CommunicationResourceFileManager
         $this->RESOURCE_PREFIX_FOLDER = getenv('RESOURCE_PREFIX_FOLDER') ?: "storage/" ;
 
     }
+
+    public function keepLatinCharactersAndNumbersString($string){
+        #todo να το βάλω στον CommunicationResourceManager?
+        $newString = preg_replace("/[^A-Za-z0-9.!?\-()]/",'',$string);
+        return $newString;
+    }
+
+    public function getResourceFileWithoutExtension($string){
+        return pathinfo($string)['filename'];
+    }
+
+    public function getNormalizedResourceName($resource,$id){
+        $resourceFullName = $resource->getClientOriginalName();
+        $resourceNameWithoutExtension = $this->getResourceFileWithoutExtension($resourceFullName);
+        $resourceNameCleaned = $this->keepLatinCharactersAndNumbersString($resourceNameWithoutExtension);
+        return $id . '_' . $resourceNameCleaned. '_' . date("Y-m-d_h:i:s", time()) . '.' . $resource->getClientOriginalExtension();
+    }
+
+    public  function saveAudio($id, Request $request){
+        $contentAudio = $request->file('sound');
+        $audioFolder = $this->getResourceFileFolder("audio");
+        $normalizedAudioName =$this->getNormalizedResourceName($contentAudio,$id);
+        $contentAudio->storeAs($audioFolder, $normalizedAudioName, ['disk' => 'public']);
+        return $this->getResourceFullPath($normalizedAudioName,"audio");
+    }
+
+    public  function saveImage($id, Request $request){
+        $contentImage = $request->file('image');
+        $imageFolder = $this->getResourceFileFolder("image");
+        $normalizedImageName =$this->getNormalizedResourceName($contentImage,$id);
+        $contentImage->storeAs($imageFolder, $normalizedImageName, ['disk' => 'public']);
+        return $this->getResourceFullPath($normalizedImageName,"image");
+    }
+
 
     public function getResourceFullPath($name,$type): ?string
     {

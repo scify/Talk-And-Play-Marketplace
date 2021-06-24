@@ -6,9 +6,15 @@
 #TODO na gurnaei message Success se epitixmeni (redirect back)
 #TODO alliws kokkino to error message stin forma
 -->
-@section('content')
 
-    <form class="md-form" action="{{route('communication_resources.store')}}" method="POST" enctype="multipart/form-data">
+@section('content')
+    <form id="md-form" enctype="multipart/form-data" role="form" method="POST"
+          action="{{ $viewModel->isEditMode() ? route('communication_resources.update', $viewModel->resource->id) : route('communication_resources.store') }}">
+        @if($viewModel->isEditMode())
+            @method('PUT')
+        @endif
+
+    <!--form class="md-form" action="{{route('communication_resources.store')}}" method="POST" enctype="multipart/form-data"-->
         {{ csrf_field() }}
         <div class="container rounded py-4" style="border:1px solid grey">
             <div class="mx-3">
@@ -20,7 +26,10 @@
                 <!-- Content here -->
                 <div class="mb-3">
                     <label for="category_name" class="form-label">Όνομα <span style="color:#ff0000">*</span></label>
-                    <input type="text" class="form-control" id="category_name" name="name" required value="{{old('name')}}">
+                    <input type="text" class="form-control" id="category_name"
+                            name="name"
+                            required
+                            value="{{ old('name') ? old('name') : $viewModel->resource->name }}">
                 </div>
                 <div class="mb-3">
                     <label for="category_lang" class="form-label">Γλώσσα</label>
@@ -62,7 +71,7 @@
                         </a>
                     </div>
                     <audio id="player" controls style="display:none" class="mt-3">
-                        <source src={{asset('storage/zresources/audio/happiness.mp3')}} id="mp3_src" type="audio/mpeg">
+                        <source src={{asset('storage/resources/audio/happiness.mp3')}} id="mp3_src" type="audio/mpeg">
                     </audio>
                 </div>
                 @error('sound')
@@ -73,11 +82,11 @@
             <hr/>
             <div class="d-flex justify-content-end">
                 <!--<input class="btn btn-outline-primary" type="reset" value="Ακύρωση">-->
-                <button class="btn btn-outline-primary" onclick="document.getElementById('form').reset(); document.getElementById('from').value = null; return false;">
+                <a class="btn btn-outline-primary" href="{{route('communication_resources.index')}}">
                     Ακύρωση
-                </button>
+                </a>
 
-                <input class="btn btn-primary ms-4" type="submit" value="Δημιουργία Κάρτας">
+                <input class="btn btn-primary ms-4" type="submit" value="Αποθήκευση Κάρτας">
             </div>
         </div>
     </form>

@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Resource;
 
 use App\BusinessLogicLayer\Resource\CommunicationResourceManager;
 use App\Http\Controllers\Controller;
+use App\Models\Resource\Resource;
 use App\ViewModels\CreateEditResourceVM;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -17,6 +19,7 @@ class CommunicationResourceController extends Controller
     public function __construct(CommunicationResourceManager $communicationResourceManager) {
         $this->communicationResourceManager = $communicationResourceManager;
     }
+
 
     /**
      * Display a listing of the resource.
@@ -33,12 +36,11 @@ class CommunicationResourceController extends Controller
      * @return View
      */
     public function create(): View {
-        // TODO create a new ViewModel instance for the page
-        $contentLanguages = $this->communicationResourceManager->getContentLanguagesForCommunicationResources();
-        $createResourceViewModel = new CreateEditResourceVM($contentLanguages);
-        //$createResourceViewModel->languages=$contentLanguages->map(function($slug){return $slug->name;});
+
+        $createResourceViewModel = $this->communicationResourceManager->getCreateResourceViewModel();
         return view('communication_resources.create-edit')->with(['viewModel' => $createResourceViewModel]);
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -55,16 +57,13 @@ class CommunicationResourceController extends Controller
             'image' => 'required|file|between:10,500|nullable'
         ]);
 
-        $ret = $this->communicationResourceManager->storeCommunicationResourceAttachments($request);
+        $ret = $this->communicationResourceManager->storeCommunicationResource($request);
+
         if($ret){
-            return redirect()->route('communication_resources.store',['id'=>$ret->id])->with('flash_message_success', 'The resource package has been successfully created');
-        }
-        else{
-            return redirect()->with('flash_message_failure', 'The resource package has not been created');
-
+            return redirect()->route('communication_resources.edit',$ret->id)->with('flash_message_success', 'The resource package has been successfully created');
         }
 
-
+        return redirect()->with('flash_message_failure', 'The resource package has not been created');
     }
 
     /**
@@ -73,9 +72,15 @@ class CommunicationResourceController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function edit($id)#returns view
     {
-        //
+
+        try {
+            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
+            return view('communication_resources.create-edit')->with(['viewModel' => $createResourceViewModel]);
+        } catch (ModelNotFoundException $e){
+            abort(404);
+        }
     }
 
     /**
@@ -83,11 +88,28 @@ class CommunicationResourceController extends Controller
      *
      * @param Request $request
      * @param  int  $id
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id)#after submit, (action-route submit button directs here)
     {
-        //
+
+        $this->validate($request, [
+            'name' => 'required|string|max:100',
+            'sound' => 'file|between:10,1000|nullable',
+            'image' => 'file|between:10,500|nullable'
+        ]);
+        #TODO if(isset($request['sound'])call manager to delete old/store new under same id
+        #same for image
+
+        try {
+            $ret = $this->communicationResourceManager->updateCommunicationResource($request,$id);
+            return redirect()->route('communication_resources.edit',$ret->id)->with('flash_message_success', 'The resource package has been successfully updated');
+        } catch(\Exception $e){
+            return redirect()->back()->with('flash_message_failure', 'The resource package has not been updated');
+        }
+
+
+
     }
 
     /**
