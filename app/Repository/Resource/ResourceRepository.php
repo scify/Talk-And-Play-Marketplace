@@ -6,6 +6,7 @@ namespace App\Repository\Resource;
 
 use App\Models\Resource\Resource;
 use App\Repository\Repository;
+use Illuminate\Support\Collection;
 
 class ResourceRepository extends Repository {
 
@@ -14,6 +15,11 @@ class ResourceRepository extends Repository {
      */
     function getModelClassName() {
         return Resource::class;
+    }
+
+    #TODO
+    function getChildrenCardsWithParent($id):Collection{
+        #
     }
 
 }

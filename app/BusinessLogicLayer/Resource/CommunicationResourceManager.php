@@ -18,12 +18,14 @@ class CommunicationResourceManager extends ResourceManager
     public function getCreateResourceViewModel(): CreateEditResourceVM
     {
         $contentLanguages = $this->getContentLanguagesForCommunicationResources();
+        #TODO children ids--- return  new CreateEditResourceVM($contentLanguages, new  Resource(), new Collection());
         return  new CreateEditResourceVM($contentLanguages, new  Resource());
     }
 
     public function getEditResourceViewModel($id): CreateEditResourceVM
     {
         $contentLanguages = $this->getContentLanguagesForCommunicationResources();
+        #TODO children ids--- return  new CreateEditResourceVM($contentLanguages, Retrieve all children by calling ResourceRepository::getChildrenCardsWithParent($id));
         return new CreateEditResourceVM($contentLanguages,$this->resourceRepository->find($id));
     }
 
@@ -47,8 +49,6 @@ class CommunicationResourceManager extends ResourceManager
 
 
 
-    #move everything else to FileManager
-
     public function storeCommunicationResource($request)
     {
         $storeArr = [
@@ -58,7 +58,7 @@ class CommunicationResourceManager extends ResourceManager
             "audio_path" => null,
             'type_id' => ResourceTypesLkp::COMMUNICATION,
             'status_id' => ResourceStatusesLkp::CREATED_PENDING_APPROVAL,
-            'resource_parent_id' => null,
+            'resource_parent_id' => $request['parentId'] ?: null ,
             'creator_user_id' => \Illuminate\Support\Facades\Auth::id(),
             'admin_user_id' => null
         ];

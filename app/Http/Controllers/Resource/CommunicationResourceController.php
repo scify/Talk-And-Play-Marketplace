@@ -57,13 +57,18 @@ class CommunicationResourceController extends Controller
             'image' => 'required|file|between:10,500|nullable'
         ]);
 
-        $ret = $this->communicationResourceManager->storeCommunicationResource($request);
+        try {
+            $ret = $this->communicationResourceManager->storeCommunicationResource($request);
+            if($ret->resource_parent_id) {
+                return redirect()->route('communication_resources.edit', $ret->resource_parent_id)->with('flash_message_success', 'The resource package has been successfully created');
+            }
+            return redirect()->route('communication_resources.edit', $ret->id)->with('flash_message_success', 'A new resource card has been successfully added to the package');
 
-        if($ret){
-            return redirect()->route('communication_resources.edit',$ret->id)->with('flash_message_success', 'The resource package has been successfully created');
+        }
+        catch (Exception $e){
+            return redirect()->with('flash_message_failure', 'Failure - resource card has not been added');
         }
 
-        return redirect()->with('flash_message_failure', 'The resource package has not been created');
     }
 
     /**
@@ -107,9 +112,6 @@ class CommunicationResourceController extends Controller
         } catch(\Exception $e){
             return redirect()->back()->with('flash_message_failure', 'The resource package has not been updated');
         }
-
-
-
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\BusinessLogicLayer\Resource;
 
 
 use App\BusinessLogicLayer\UserRole\UserRoleManager;
+use App\Models\Resource\Resource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
@@ -15,14 +16,19 @@ class CommunicationResourceFileManager
     private $RESOURCE_PREFIX_FOLDER;
     private array $SUPPORTED_FILE_TYPES = ["audio","image"];
     public function __construct() {
-        $this->IMG_FOLDER = getenv('IMG_FOLDER ') ?: "images/" ;
-        $this->AUDIO_FOLDER = getenv('AUDIO_FOLDER ') ?: "audios/" ;
-        $this->RESOURCE_PREFIX_FOLDER = getenv('RESOURCE_PREFIX_FOLDER') ?: "storage/" ;
+        $this->IMG_FOLDER = getenv('IMG_FOLDER ') ?: "img/" ;
+        $this->AUDIO_FOLDER = getenv('AUDIO_FOLDER ') ?: "audio/" ;
+        $this->RESOURCE_PREFIX_FOLDER = getenv('RESOURCE_PREFIX_FOLDER') ?: "resources/" ;
 
     }
 
+    #todo
+    public function deleteAttachments(Resource $resource){
+        #retrieve resource paths
+        #delete files -- https://laravel.com/docs/8.x/filesystem#deleting-files
+    }
+
     public function keepLatinCharactersAndNumbersString($string){
-        #todo να το βάλω στον CommunicationResourceManager?
         $newString = preg_replace("/[^A-Za-z0-9.!?\-()]/",'',$string);
         return $newString;
     }
@@ -35,7 +41,7 @@ class CommunicationResourceFileManager
         $resourceFullName = $resource->getClientOriginalName();
         $resourceNameWithoutExtension = $this->getResourceFileWithoutExtension($resourceFullName);
         $resourceNameCleaned = $this->keepLatinCharactersAndNumbersString($resourceNameWithoutExtension);
-        return $id . '_' . $resourceNameCleaned. '_' . date("Y-m-d_h:i:s", time()) . '.' . $resource->getClientOriginalExtension();
+        return $id . '_' . $resourceNameCleaned. '_' . date("Y-m-d_h_i_s", time()) . '.' . $resource->getClientOriginalExtension();
     }
 
     public  function saveAudio($id, Request $request){
