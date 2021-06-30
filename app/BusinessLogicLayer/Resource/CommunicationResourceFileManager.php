@@ -6,8 +6,10 @@ namespace App\BusinessLogicLayer\Resource;
 
 use App\BusinessLogicLayer\UserRole\UserRoleManager;
 use App\Models\Resource\Resource;
+use App\Repository\Resource\ResourceRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
 
 class CommunicationResourceFileManager
 {
@@ -19,15 +21,16 @@ class CommunicationResourceFileManager
         $this->IMG_FOLDER = getenv('IMG_FOLDER ') ?: "img/" ;
         $this->AUDIO_FOLDER = getenv('AUDIO_FOLDER ') ?: "audio/" ;
         $this->RESOURCE_PREFIX_FOLDER = getenv('RESOURCE_PREFIX_FOLDER') ?: "resources/" ;
-
     }
 
     #todo
-    public function deleteAttachments(Resource $resource){
-        #retrieve resource paths
-        #delete files -- https://laravel.com/docs/8.x/filesystem#deleting-files
+    public function deleteResourceImage(Resource $resource){
+        Storage::disk('public')->delete($resource->img_path);
     }
 
+    public function deleteResourceAudio(Resource $resource){
+        Storage::disk('public')->delete($resource->audio_path);
+    }
     public function keepLatinCharactersAndNumbersString($string){
         $newString = preg_replace("/[^A-Za-z0-9.!?\-()]/",'',$string);
         return $newString;

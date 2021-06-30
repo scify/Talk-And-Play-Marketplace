@@ -89,16 +89,18 @@ class CommunicationResourceManager extends ResourceManager
             'creator_user_id' => \Illuminate\Support\Facades\Auth::id(),
             'admin_user_id' => null
         ];
+        $old_resource = $this->resourceRepository->find($id);
         $resource = $this->resourceRepository->update($storeArr,$id);
         $resourceFileManager = new CommunicationResourceFileManager();
         if(isset($request['image'])){
+            $resourceFileManager->deleteResourceImage($old_resource);
             $img_path = $resourceFileManager->saveImage($resource->id, $request);
             $resource = $this->resourceRepository->update([
                 'img_path' => $img_path],
                 $resource->id);
-
         }
         if(isset($request['sound'])) {
+            $resourceFileManager->deleteResourceAudio($old_resource);
             $audio_path = $resourceFileManager->saveAudio($resource->id, $request);
             $resource = $this->resourceRepository->update([
                 'audio_path' => $audio_path],
