@@ -11,6 +11,7 @@ use App\Repository\Resource\ResourceRepository;
 use App\ViewModels\CreateEditResourceVM;
 use Illuminate\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 class CommunicationResourceManager extends ResourceManager
 {
@@ -18,15 +19,14 @@ class CommunicationResourceManager extends ResourceManager
     public function getCreateResourceViewModel(): CreateEditResourceVM
     {
         $contentLanguages = $this->getContentLanguagesForCommunicationResources();
-        #TODO children ids--- return  new CreateEditResourceVM($contentLanguages, new  Resource(), new Collection());
-        return  new CreateEditResourceVM($contentLanguages, new  Resource());
+        return  new CreateEditResourceVM($contentLanguages, new  Resource(), new Collection());
     }
 
     public function getEditResourceViewModel($id): CreateEditResourceVM
     {
         $contentLanguages = $this->getContentLanguagesForCommunicationResources();
-        #TODO children ids--- return  new CreateEditResourceVM($contentLanguages, Retrieve all children by calling ResourceRepository::getChildrenCardsWithParent($id));
-        return new CreateEditResourceVM($contentLanguages,$this->resourceRepository->find($id));
+        $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($id);
+        return new CreateEditResourceVM($contentLanguages,$this->resourceRepository->find($id), $childrenResourceCards);
     }
 
 
@@ -36,6 +36,7 @@ class CommunicationResourceManager extends ResourceManager
     {
         return $this->contentLanguageLkpRepository->all();
     }
+
 
     public function getFirstLevelResourcesWithChildren(int $lang_id)
     {

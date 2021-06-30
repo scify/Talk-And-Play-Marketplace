@@ -112,6 +112,12 @@
                 Προσθήκη Νέας Κάρτας
             </button>
         </div>
+        @foreach($viewModel->childrenCards as $child)
+            <div class="mt-5" align="center">
+                <img src={{asset("storage/".$child->img_path)}} id="url" class="mt-3"
+                     height="200px"/>
+            </div>
+        @endforeach
     @endif
 
 
