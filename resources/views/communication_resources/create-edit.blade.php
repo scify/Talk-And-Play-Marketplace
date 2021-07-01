@@ -122,9 +122,21 @@
                     <b>Προστιθέμενες Κάρτες</b>
                 </div>
 
-                <div class="card-group">
+                <!--div class="card-group">
                     @foreach($viewModel->childrenCards as $child)
                         <div class="card px-5">
+
+                            <div class="dropdown-container">
+                                <div class="dropdown">
+                                    <button class="btn btn-outline-secondary dropdown-toggle actions-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#"><i class="fas fa-file-download me-2"></i>Download</a></li>
+                                        <li><a class="dropdown-item" href="#"><i  class="far fa-edit me-2"></i>Edit</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                             <div class="card-title">
                                 <p> {{ $child->name }} </p>
                             </div>
@@ -136,7 +148,39 @@
                             </div>
                         </div>
                     @endforeach
+                </div-->
+
+
+                <div class="all-cards">
+                    @foreach($viewModel->childrenCards as $child)
+                        <div class="single-card px-5">
+
+                            <div class="dropdown-container">
+                                <div class="dropdown">
+                                    <button class="btn btn-outline-secondary dropdown-toggle actions-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#"><i class="fas fa-file-download me-2"></i>Download</a></li>
+                                        <li><a class="dropdown-item" href="#"><i  class="far fa-edit me-2"></i>Edit</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-title">
+                                <p> {{ $child->name }} </p>
+                            </div>
+                            <img src="{{asset("storage/".$child->img_path)}}" class="card-img-top">
+                            <div class="card-body">
+                                <audio controls class="mt-5" style="width:200px">
+                                    <source src={{asset("storage/".$child->audio_path)}} type="audio/mpeg">
+                                </audio>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
+
+
+
             </div>
         @endif
     @endif

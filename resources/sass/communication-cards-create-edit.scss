@@ -43,9 +43,48 @@
 .card {
     box-shadow: 2px 4px 8px 4px rgba(0, 0, 0, 0.1);
     transition: 0.3s ease-in-out;
+    flex: 0;
     &:hover:not(.disabled) {
         cursor: pointer;
         box-shadow: 3px 5px 9px 5px rgba(0, 0, 0, 0.2);
+    }
+    width:300px;
+    margin-right:20px;
+    min-width:auto;
+    margin-bottom: 20px;
+    img {
+        width: 150px;
+
+    }
+
+}
+
+
+.all-cards {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    .single-card {
+        width: 300px;
+        position: relative;
+        margin-right: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+
+        .card-title {
+            min-height: 50px;
+        }
+
+        img {
+            width: 150px;
+            height: 150px;
+        }
+
+        .card-body {
+            width: 200px;
+        }
+
     }
 }
 
