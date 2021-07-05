@@ -49,8 +49,6 @@ import {Modal} from 'bootstrap';
 
             let modal = document.getElementById('newCardModal');
 
-
-
             // 1. Traverse the card elemnt to get id, name, image, audio --- DONE
             // 2. populate the form elements of the modal (the id will go in a hidden input) todo
             // 3. Open the modal programmatically via Javascript (#.modal) Prwta pernaw ta pedia kai meta kanw trigger na anoiksei
