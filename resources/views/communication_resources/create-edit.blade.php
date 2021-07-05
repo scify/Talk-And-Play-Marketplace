@@ -109,78 +109,42 @@
     <!--input type="hidden" name="communicationCardId" id="communicationCardId" value={{$viewModel->resource->id}}-->
     @if($viewModel->isEditMode())
         <div class="mt-5 mb-5" align="center">
-            <button type="button" id="newCardId" class="btn btn-primary mt-5 btn-block" data-bs-toggle="modal"
+            <button type="button" id="newCardBtn" class="btn btn-primary mt-5 btn-block" data-bs-toggle="modal"
                     data-bs-target="#newCardModal">
                 Προσθήκη Νέας Κάρτας
             </button>
         </div>
-
         @if(sizeof($viewModel->childrenCards)>0)
-            <div class="container rounded py-4" style="border:1px solid grey;width:1000px">
-
-                <div class="mb-5 text-center">
-                    <b>Προστιθέμενες Κάρτες</b>
-                </div>
-
-                <!--div class="card-group">
+            <div class="container">
+                <div class="row">
                     @foreach($viewModel->childrenCards as $child)
-                        <div class="card px-5">
-
-                            <div class="dropdown-container">
-                                <div class="dropdown">
-                                    <button class="btn btn-outline-secondary dropdown-toggle actions-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#"><i class="fas fa-file-download me-2"></i>Download</a></li>
-                                        <li><a class="dropdown-item" href="#"><i  class="far fa-edit me-2"></i>Edit</a></li>
-                                    </ul>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="card w-100 mb-5">
+                                <img src="{{asset("storage/".$child->img_path)}}" class="card-img-top" style="width:auto;height:200px;">
+                                <div class="dropdown-container">
+                                    <div class="dropdown">
+                                        <button class="btn btn-outline-secondary dropdown-toggle actions-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" id="dropdown-menu">
+                                            {{--                                        TODO Na kanei traverse apo to Card gia na pairnei name,imgpath,audiopath apo ta antistoixa divs--}}
+                                            <li><a class="dropdown-item editCardBtn" href="#"><i class="far fa-edit me-2"></i>Edit</a></li>
+                                            <li><a class="dropdown-item" href="#"><i class="fas fa-file-download me-2"></i>Delete</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card-title">
-                                <p> {{ $child->name }} </p>
-                            </div>
-                            <img src="{{asset("storage/".$child->img_path)}}" class="card-img-top">
-                            <div class="card-body">
-                                <audio controls class="mt-5" style="position:absolute;bottom:0">
-                                    <source src={{asset("storage/".$child->audio_path)}} type="audio/mpeg">
-                                </audio>
-                            </div>
-                        </div>
-                    @endforeach
-                </div-->
-
-
-                <div class="all-cards">
-                    @foreach($viewModel->childrenCards as $child)
-                        <div class="single-card px-5">
-
-                            <div class="dropdown-container">
-                                <div class="dropdown">
-                                    <button class="btn btn-outline-secondary dropdown-toggle actions-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-v"></i>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#"><i class="fas fa-file-download me-2"></i>Download</a></li>
-                                        <li><a class="dropdown-item" href="#"><i  class="far fa-edit me-2"></i>Edit</a></li>
-                                    </ul>
+                                <div class="card-title">
+                                    <p> {{ $child->name }} </p>
                                 </div>
-                            </div>
-                            <div class="card-title">
-                                <p> {{ $child->name }} </p>
-                            </div>
-                            <img src="{{asset("storage/".$child->img_path)}}" class="card-img-top">
-                            <div class="card-body">
-                                <audio controls class="mt-5" style="width:200px">
-                                    <source src={{asset("storage/".$child->audio_path)}} type="audio/mpeg">
-                                </audio>
+                                <div class="card-body">
+                                    <audio controls class="mt-5">
+                                        <source src={{asset("storage/".$child->audio_path)}} type="audio/mpeg">
+                                    </audio>
+                                </div>
                             </div>
                         </div>
                     @endforeach
                 </div>
-
-
-
             </div>
         @endif
     @endif
@@ -207,7 +171,7 @@
 
                             <div class="container-sm px-5">
 
-                                <input type="text" name="parentId" id="parentId" value='{{$viewModel->resource->id}}'/>
+                                <input type="hidden" name="parentId" id="parentId" value='{{$viewModel->resource->id}}'/>
 
                                 <!-- Content here -->
                                 <div class="mb-3">

@@ -31,6 +31,21 @@
         });
     }
 
+    let listenForEditCardClick = function() {
+        $('.editCardBtn').on("click",function () {
+            const route = window.route('communication_resources.update', 104);
+            console.log(route);
+            let card = document.getElementById('card');
+
+            // TODO
+            // 1. Traverse the card elemnt to get id, name, image, audio
+            // 2. populate the form elements of the modal (the id will go in a hidden input)
+            // 3. Open the modal programmatically via Javascript (#.modal) Prwta pernaw ta pedia kai meta kanw trigger na anoiksei
+            // 4. the modal form should have the update card url, with the selected card id (/communication-resources/100/update) . This entire url should be set via Javascript
+        });
+    }
+
+
     // data attr in $this
 
 
@@ -60,13 +75,15 @@
     }
 
     let scrollToButton = function(){
-
-        $('html, body').animate({
-            scrollTop: $("#newCardId").offset().top
-        }, 2000);
-        if($("#newCardId").is(':visible')){
-            let form = document.getElementById('md-form');
-            $(form).css('background-color', 'rgba(128, 128, 128, 0.1)');
+        let newCardButton = $("#newCardBtn");
+        if(newCardButton.length) {
+            $('html, body').animate({
+                scrollTop: newCardButton.offset().top
+            }, 2000);
+            if (newCardButton.is(':visible')) {
+                let form = document.getElementById('md-form');
+                $(form).css('background-color', 'rgba(128, 128, 128, 0.1)');
+            }
         }
     }
 
@@ -94,6 +111,7 @@
         listenForModalSoundChanges();
         listenForModalImageChanges();
         scrollToButton();
+        listenForEditCardClick();
     };
 
 })();
