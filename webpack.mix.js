@@ -17,7 +17,7 @@ mix.js('resources/js/app.js', 'public/dist/js')
     .js('resources/js/create-edit-resource.js', 'public/dist/js')
 
     .extract([
-        'jquery'
+        'jquery', 'bootstrap'
     ])
     .sourceMaps()
     .webpackConfig({
