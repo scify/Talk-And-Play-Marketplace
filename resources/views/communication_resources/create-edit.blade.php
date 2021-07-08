@@ -113,9 +113,10 @@
 
     @if($viewModel->isEditMode())
         <div class="mt-5 mb-5" align="center">
-            <button type="button" id="newCardBtn" class="btn btn-primary mt-5 btn-block" data-bs-toggle="modal"
-                    data-bs-target="#newCardModal">
-                <!-- na antikatastiso to data-bs-toggle me js event handler wste na kanei reset ta pedia kai to PUT method kai to route.create-->
+            <button type="button" id="newCardBtn" class="btn btn-primary mt-5 btn-block"
+{{--                    data-bs-toggle="modal"--}}
+{{--                    data-bs-target="#newCardModal"--}}
+            >
                 Προσθήκη Νέας Κάρτας
             </button>
         </div>
@@ -163,7 +164,7 @@
          aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header text-center">
+                <div class="modal-header text-center" id='modalHeader'>
                     <h5 class="modal-title w-100" id="ModalLabel">Προσθήκη Νέας Κάρτας</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -174,8 +175,7 @@
                           action="{{route('communication_resources.store')}}">
                         {{ csrf_field() }}
 
-                        <input id='ToDelete' type="hidden" name="_method" value="PUT">
-                        <!--TODO:append this line with js and delete id when new card to reset-->
+
 
                         <div class="container-sm px-5">
 
@@ -212,7 +212,7 @@
                                                name="image" id="modal_upload_img">
                                     </a>
                                 </div>
-                                <img src={{asset('storage/resources/img/happiness.png')}} style="display:none"
+                                <img src="" style="display:none"
                                      id="modal_url" class="mt-3"
                                      height="200px"/>
 
