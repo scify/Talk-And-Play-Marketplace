@@ -92,23 +92,20 @@ class CommunicationResourceController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)#after submit, (action-route submit button directs here)
+    public function update(Request $request, int $id)#after submit, (action-route submit button directs here)
     {
-
         $this->validate($request, [
             'name' => 'required|string|max:100',
             'sound' => 'file|between:10,1000|nullable',
             'image' => 'file|between:10,500|nullable'
         ]);
-        #TODO if(isset($request['sound'])call manager to delete old/store new under same id
-        #same for image
-
         try {
             $ret = $this->communicationResourceManager->updateCommunicationResource($request,$id);
-            return redirect()->route('communication_resources.edit',$ret->id)->with('flash_message_success', 'The resource package has been successfully updated');
+            $redirect_id = $ret['resource_parent_id'] ?: $ret->id;
+            return redirect()->route('communication_resources.edit',$redirect_id)->with('flash_message_success', 'The resource package has been successfully updated');
         } catch(\Exception $e){
             return redirect()->back()->with('flash_message_failure', 'The resource package has not been updated');
         }

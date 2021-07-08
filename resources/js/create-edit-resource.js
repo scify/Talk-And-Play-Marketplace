@@ -34,6 +34,7 @@ import {Modal} from 'bootstrap';
     let listenForEditCardClick = function() {
         $('.editCardBtn').on("click",function () {
 
+
             let card = $(this).parents('.card');
             let card_title= card.children('.card-title').children('p').css(
                 {"color": "green", "border": "2px solid green"}
@@ -41,17 +42,40 @@ import {Modal} from 'bootstrap';
             let card_img= card.children('.card-img-top').attr('src');
             let card_audio= card.children('.card-body').children('audio').children('source').attr('src');
             let card_id = card.children('input').attr('value');
+            const route = window.route('communication_resources.update', card_id);
 
+            //$('#md-modal-form').attr('method', 'PUT');
+            $('#md-modal-form').attr('action', route);
+
+            console.log(route);
             console.log(card_title.html());
             console.log(card_img);
             console.log(card_audio);
             console.log(card_id);
 
+            //let modal_sound = document.getElementById('modal_mp3_src');
+            $("#modal_mp3_src").attr('src',card_audio);
+
+            //let modal_img = document.getElementById('modal_url');
+            $("#modal_url").attr('src',card_img);
+
+            //let modal_card_id = document.getElementById('cardId');
+            $("#cardId").attr('value',card_id)
+            $("#modal_category_name").attr('value',card_title.html())
             let modal = document.getElementById('newCardModal');
+            new Modal(modal).show();
+            $('#modal_url').show('slow');
+            var audio = $("#modal_player");
+            audio[0].pause();
+            audio[0].load();
+            audio[0].play();
+            audio[0].oncanplaythrough = audio[0].play();
+            $('#modal_player').show('slow');
+
 
             // 1. Traverse the card elemnt to get id, name, image, audio --- DONE
-            // 2. populate the form elements of the modal (the id will go in a hidden input) todo
-            // 3. Open the modal programmatically via Javascript (#.modal) Prwta pernaw ta pedia kai meta kanw trigger na anoiksei
+            // 2. populate the form elements of the modal (the id will go in a hidden input) -- DONE
+            // 3. Open the modal programmatically via Javascript (#.modal) Prwta pernaw ta pedia kai meta kanw trigger na anoiksei -- DONE
             // 4. the modal form should have the update card url, with the selected card id (/communication-resources/100/update) . This entire url should be set via Javascript
         });
     }

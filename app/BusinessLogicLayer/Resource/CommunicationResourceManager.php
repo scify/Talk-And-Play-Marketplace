@@ -85,11 +85,13 @@ class CommunicationResourceManager extends ResourceManager
             "audio_path" => null,
             'type_id' => ResourceTypesLkp::COMMUNICATION,
             'status_id' => ResourceStatusesLkp::CREATED_PENDING_APPROVAL,
-            'resource_parent_id' => null,
+            'resource_parent_id' => $request->parentId ? intval($request->parentId) : null,
             'creator_user_id' => \Illuminate\Support\Facades\Auth::id(),
             'admin_user_id' => null
         ];
         $old_resource = $this->resourceRepository->find($id);
+        $storeArr['img_path'] = $old_resource['img_path'];
+        $storeArr['audio_path'] = $old_resource['audio_path'];
         $resource = $this->resourceRepository->update($storeArr,$id);
         $resourceFileManager = new CommunicationResourceFileManager();
         if(isset($request['image'])){
@@ -106,6 +108,7 @@ class CommunicationResourceManager extends ResourceManager
                 'audio_path' => $audio_path],
                 $resource->id);
         }
+
         return $resource;
 
 

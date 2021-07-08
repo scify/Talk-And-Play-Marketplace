@@ -115,6 +115,7 @@
         <div class="mt-5 mb-5" align="center">
             <button type="button" id="newCardBtn" class="btn btn-primary mt-5 btn-block" data-bs-toggle="modal"
                     data-bs-target="#newCardModal">
+                <!-- na antikatastiso to data-bs-toggle me js event handler wste na kanei reset ta pedia kai to PUT method kai to route.create-->
                 Προσθήκη Νέας Κάρτας
             </button>
         </div>
@@ -132,7 +133,6 @@
                                             <i class="fas fa-ellipsis-v"></i>
                                         </button>
                                         <ul class="dropdown-menu" id="dropdown-menu">
-                                            {{--                                        TODO Na kanei traverse apo to Card gia na pairnei name,imgpath,audiopath apo ta antistoixa divs--}}
                                             <li><a class="dropdown-item editCardBtn" href="#"><i class="far fa-edit me-2"></i>Edit</a></li>
                                             <li><a class="dropdown-item" href="#"><i class="fas fa-file-download me-2"></i>Delete</a></li>
                                         </ul>
@@ -174,11 +174,13 @@
                           action="{{route('communication_resources.store')}}">
                         {{ csrf_field() }}
 
+                        <input id='ToDelete' type="hidden" name="_method" value="PUT">
+                        <!--TODO:append this line with js and delete id when new card to reset-->
 
                         <div class="container-sm px-5">
 
                             <input type="hidden" name="parentId" id="parentId" value='{{$viewModel->resource->id}}'/>
-
+                            <input type="hidden" name="cardId" id="cardId" value=''/>
                             <!-- Content here -->
                             <div class="mb-3">
                                 <label for="category_name" class="form-label">Όνομα <span
@@ -228,7 +230,7 @@
                                         <input type="button" class="btn btn-third" id="ModalLoadFileXml" value="+"
                                                onclick="document.getElementById('modal_sound_file').click();"/>
                                         <input type="file" accept=".mp3"
-                                               class="btn btn-third  @error('sound') is-invalid @enderror"
+                                               class="btn btn-third @error('sound') is-invalid @enderror"
                                                style="display:none;"
                                                name="sound" id="modal_sound_file">
                                     </a>
