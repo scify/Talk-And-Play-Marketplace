@@ -44,8 +44,9 @@ import {Modal} from 'bootstrap';
             } catch ($e) {
             }
             const route = window.route('communication_resources.store');
+            $('#modal_player').hide();
             $('#md-modal-form').attr('action', route);
-            $("#modalHeader").prepend('<h5 className="modal-title w-100" id="ModalLabel">Προσθήκη Νέας Κάρτας</h5>');
+            $("#modalHeader").prepend('<h5 class="modal-title w-100" id="ModalLabel">Προσθήκη Νέας Κάρτας</h5>');
             $("#modal_mp3_src").attr('src', null);
             $("#modal_url").attr('src', null);
             $("#cardId").attr('value', null)
@@ -56,13 +57,32 @@ import {Modal} from 'bootstrap';
         });
     }
 
+    let listenForDeleteCardClick = function() {
+        $('.deleteCardBtn').on("click", function () {
+            let modal = document.getElementById('deleteConfirmationModal');
+            let card = $(this).parents('.card');
+            let card_title = card.children('.card-title').children('p').css(
+                {"color": "green", "border": "2px solid green"});
+            console.log(card_title.html());
+            let card_id = card.children('input').attr('value');
 
-    let listenForEditCardClick = function () {
+            const route = window.route('communication_resources.destroy', card_id);
+            $("#md-delete-form").attr('action',route)
+
+            console.log(route);
+
+            new Modal(modal).show();
+        });
+    }
+
+
+
+        let listenForEditCardClick = function () {
         $('.editCardBtn').on("click", function () {
 
 
             document.getElementById("ModalLabel").remove();
-            $("#modalHeader").prepend('<h5 className="modal-title w-100" id="ModalLabel">Επεξεργασία Κάρτας</h5>');
+            $("#modalHeader").prepend('<h5 class="modal-title w-100" id="ModalLabel">Επεξεργασία Κάρτας</h5>');
             $("#md-modal-form").append('<input id=\'ToDelete\' type="hidden" name="_method" value="PUT">')
 
             let card = $(this).parents('.card');
@@ -112,6 +132,7 @@ import {Modal} from 'bootstrap';
     }
 
 
+
     let listenForModalImageChanges = function () {
         $('#modal_upload_img').on("change", function ($event) {
             $('#modal_url').hide('fast');
@@ -159,6 +180,7 @@ import {Modal} from 'bootstrap';
         scrollToButton();
         listenForEditCardClick();
         listenForNewCardClick();
+        listenForDeleteCardClick();
     };
 
 })();

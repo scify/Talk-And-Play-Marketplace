@@ -17,11 +17,4 @@ class ResourceRepository extends Repository {
         return Resource::class;
     }
 
-    function getChildrenCardsWithParent($parentId):Collection{
-        return $this->allWhere([
-            'type_id' => ResourceTypesLkp::COMMUNICATION,
-            'resource_parent_id' => $parentId
-        ], array('*'), 'id', 'asc', ['childrenResources', 'creator']);
-    }
-
 }

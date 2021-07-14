@@ -112,6 +112,9 @@
     </form>
 
     @if($viewModel->isEditMode())
+
+
+
         <div class="mt-5 mb-5" align="center">
             <button type="button" id="newCardBtn" class="btn btn-primary mt-5 btn-block"
 {{--                    data-bs-toggle="modal"--}}
@@ -119,6 +122,14 @@
             >
                 Προσθήκη Νέας Κάρτας
             </button>
+            @if(sizeof($viewModel->childrenCards)>0)
+            <button type="button" id="saveBundleBtn" class="btn btn-primary mt-5 btn-block"
+                {{--                    data-bs-toggle="modal"--}}
+                {{--                    data-bs-target="#newCardModal"--}}
+            >
+                Οριστικοποίηση Πακέτου
+            </button>
+            @endif
         </div>
         @if(sizeof($viewModel->childrenCards)>0)
             <div class="container">
@@ -128,14 +139,15 @@
                             <div class="card w-100 mb-5">
                                 <input type="hidden" value={{$child->id}}>
                                 <img src="{{asset("storage/".$child->img_path)}}" class="card-img-top" style="width:auto;height:200px;">
-                                <div class="dropdown-container">
+                                <div class="dropdown-container rounder" style="background-color: white;" >
                                     <div class="dropdown">
                                         <button class="btn btn-outline-secondary dropdown-toggle actions-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v"></i>
                                         </button>
-                                        <ul class="dropdown-menu" id="dropdown-menu">
-                                            <li><a class="dropdown-item editCardBtn" href="#"><i class="far fa-edit me-2"></i>Edit</a></li>
-                                            <li><a class="dropdown-item" href="#"><i class="fas fa-file-download me-2"></i>Delete</a></li>
+                                        <ul class="dropdown-menu" id="dropdown-menu" >
+                                            <li><a class="dropdown-item editCardBtn"  href="#"><i class="far fa-edit me-2"></i>Edit</a></li>
+                                            <li><a class="dropdown-item deleteCardBtn"  href="#"><i class="fas fa-file-download me-2"></i>Delete</a></li>
+{{--                                            TODO prevent scrolling cancel (event propagation?) --}}
                                         </ul>
                                     </div>
                                 </div>
@@ -152,11 +164,14 @@
                     @endforeach
                 </div>
             </div>
+
         @endif
+
     @endif
 
 
 @endsection
+{{--TODO: white background for treis telitses--}}
 @push('modals')
 
     <!-- Modal -->
@@ -260,6 +275,38 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModal">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center" id='deleteModalHeader'>
+                    <h5 class="modal-title w-100" id="deleteModalLabel">Διαγραφή Κάρτας </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <span style="color:#ff0000">Προσοχή! Αυτή η ενέργεια είναι μη αναστρέψιμη</span>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <!--<input class="btn btn-outline-primary" type="reset" value="Ακύρωση">-->
+                    <form id="md-delete-form" enctype="multipart/form-data" role="form" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input class="btn btn-primary ms-4" type="submit" id="deletionConfirmed"
+                               value="Διαγραφή">
+                        &nbsp;
+                        &nbsp;
+                        <a class="btn btn-outline-primary" data-bs-dismiss="modal">
+                            Ακύρωση
+                        </a>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endpush
 @push('scripts')
     <script src="{{ mix('dist/js/create-edit-resource.js') }}"></script>

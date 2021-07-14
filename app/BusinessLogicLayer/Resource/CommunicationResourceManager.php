@@ -16,39 +16,6 @@ use Illuminate\Support\Collection;
 class CommunicationResourceManager extends ResourceManager
 {
 
-    public function getCreateResourceViewModel(): CreateEditResourceVM
-    {
-        $contentLanguages = $this->getContentLanguagesForCommunicationResources();
-        return  new CreateEditResourceVM($contentLanguages, new  Resource(), new Collection());
-    }
-
-    public function getEditResourceViewModel($id): CreateEditResourceVM
-    {
-        $contentLanguages = $this->getContentLanguagesForCommunicationResources();
-        $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($id);
-        return new CreateEditResourceVM($contentLanguages,$this->resourceRepository->find($id), $childrenResourceCards);
-    }
-
-
-
-
-    public function getContentLanguagesForCommunicationResources()
-    {
-        return $this->contentLanguageLkpRepository->all();
-    }
-
-
-    public function getFirstLevelResourcesWithChildren(int $lang_id)
-    {
-        return $this->resourceRepository->allWhere([
-            'type_id' => ResourceTypesLkp::COMMUNICATION,
-            'status_id' => ResourceStatusesLkp::APPROVED,
-            'resource_parent_id' => null,
-            'lang_id' => $lang_id
-        ], array('*'), 'id', 'asc', ['childrenResources', 'creator']);
-    }
-
-
 
     public function storeCommunicationResource($request)
     {
@@ -58,7 +25,7 @@ class CommunicationResourceManager extends ResourceManager
             "img_path" => null,
             "audio_path" => null,
             'type_id' => ResourceTypesLkp::COMMUNICATION,
-            'status_id' => ResourceStatusesLkp::CREATED_PENDING_APPROVAL,
+//            'status_id' => ResourceStatusesLkp::CREATED_PENDING_APPROVAL,
             'resource_parent_id' => $request['parentId'] ?: null ,
             'creator_user_id' => \Illuminate\Support\Facades\Auth::id(),
             'admin_user_id' => null
@@ -84,7 +51,7 @@ class CommunicationResourceManager extends ResourceManager
             "img_path" => null,
             "audio_path" => null,
             'type_id' => ResourceTypesLkp::COMMUNICATION,
-            'status_id' => ResourceStatusesLkp::CREATED_PENDING_APPROVAL,
+//            'status_id' => ResourceStatusesLkp::CREATED_PENDING_APPROVAL,
             'resource_parent_id' => $request->parentId ? intval($request->parentId) : null,
             'creator_user_id' => \Illuminate\Support\Facades\Auth::id(),
             'admin_user_id' => null
@@ -112,6 +79,14 @@ class CommunicationResourceManager extends ResourceManager
         return $resource;
 
 
+    }
+
+    public function destroyCommunicationResource($id){
+        $resource = $this->resourceRepository->find($id);
+        $resourceFileManager = new CommunicationResourceFileManager();
+        $resourceFileManager->deleteResourceAudio($resource);
+        $resourceFileManager->deleteResourceImage($resource);
+        $this->resourceRepository->delete($id);
     }
 
 }

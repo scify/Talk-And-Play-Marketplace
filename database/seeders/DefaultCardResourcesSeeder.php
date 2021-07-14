@@ -26,7 +26,7 @@ class DefaultCardResourcesSeeder extends Seeder {
             [
                 'id' => 1,
                 'name' => 'Συναισθήματα',
-                'status_id' => ResourceStatusesLkp::APPROVED,
+//                'status_id' => ResourceStatusesLkp::APPROVED,
                 'lang_id' => ContentLanguagesLkp::GREEK,
                 'creator_user_id' => 1,
                 'admin_user_id' => 1,
@@ -38,7 +38,7 @@ class DefaultCardResourcesSeeder extends Seeder {
             [
                 'id' => 2,
                 'name' => 'Θυμός',
-                'status_id' => ResourceStatusesLkp::APPROVED,
+//                'status_id' => ResourceStatusesLkp::APPROVED,
                 'lang_id' => ContentLanguagesLkp::GREEK,
                 'creator_user_id' => 1,
                 'admin_user_id' => 1,
@@ -50,7 +50,7 @@ class DefaultCardResourcesSeeder extends Seeder {
             [
                 'id' => 3,
                 'name' => 'Λύπη',
-                'status_id' => ResourceStatusesLkp::APPROVED,
+//                'status_id' => ResourceStatusesLkp::APPROVED,
                 'lang_id' => ContentLanguagesLkp::GREEK,
                 'creator_user_id' => 1,
                 'admin_user_id' => 1,
@@ -62,7 +62,7 @@ class DefaultCardResourcesSeeder extends Seeder {
             [
                 'id' => 4,
                 'name' => 'Χαρά',
-                'status_id' => ResourceStatusesLkp::APPROVED,
+//                'status_id' => ResourceStatusesLkp::APPROVED,
                 'lang_id' => ContentLanguagesLkp::GREEK,
                 'creator_user_id' => 1,
                 'admin_user_id' => 1,
@@ -74,7 +74,7 @@ class DefaultCardResourcesSeeder extends Seeder {
             [
                 'id' => 5,
                 'name' => 'Αηδία',
-                'status_id' => ResourceStatusesLkp::APPROVED,
+//                'status_id' => ResourceStatusesLkp::APPROVED,
                 'lang_id' => ContentLanguagesLkp::GREEK,
                 'creator_user_id' => 1,
                 'admin_user_id' => 1,
@@ -86,7 +86,7 @@ class DefaultCardResourcesSeeder extends Seeder {
             [
                 'id' => 6,
                 'name' => 'Φόβος',
-                'status_id' => ResourceStatusesLkp::APPROVED,
+//                'status_id' => ResourceStatusesLkp::APPROVED,
                 'lang_id' => ContentLanguagesLkp::GREEK,
                 'creator_user_id' => 1,
                 'admin_user_id' => 1,
