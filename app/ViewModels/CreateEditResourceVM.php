@@ -17,7 +17,7 @@ class CreateEditResourceVM{
         $this->childrenCards = $childrenCards;
     }
 
-    private $maximumCardThreshold=6;
+    private $maximumCardThreshold=10;
     public function ReachedMaximumCardLimit(){
         $numCards = sizeof($this->childrenCards);
         if($numCards > $this->maximumCardThreshold){
