@@ -116,10 +116,13 @@
 
 
         <div class="mt-5 mb-5" align="center">
-            <button type="button" id="newCardBtn" class="btn btn-primary mt-5 btn-block"
+
+            <button type="button" id="newCardBtn" class="btn btn-primary mt-5 btn-block
+            @if(sizeof($viewModel->childrenCards) == $viewModel->ReachedMaximumCardLimit()) disabled
+            @endif
 {{--                    data-bs-toggle="modal"--}}
 {{--                    data-bs-target="#newCardModal"--}}
-            >
+            ">
                 Προσθήκη Νέας Κάρτας
             </button>
             @if(sizeof($viewModel->childrenCards)>0)

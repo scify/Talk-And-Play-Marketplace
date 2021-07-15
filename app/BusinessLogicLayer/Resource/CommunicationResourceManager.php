@@ -17,6 +17,8 @@ class CommunicationResourceManager extends ResourceManager
 {
 
 
+
+
     public function storeCommunicationResource($request)
     {
         $storeArr = [
@@ -30,6 +32,7 @@ class CommunicationResourceManager extends ResourceManager
             'creator_user_id' => \Illuminate\Support\Facades\Auth::id(),
             'admin_user_id' => null
         ];
+
         $resource = $this->resourceRepository->create($storeArr);
         $resourceFileManager = new CommunicationResourceFileManager();
         $img_path = $resourceFileManager->saveImage($resource->id, $request);
