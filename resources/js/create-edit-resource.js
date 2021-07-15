@@ -76,6 +76,12 @@ import {Modal} from 'bootstrap';
     }
 
 
+        let listenForSaveBundleClick = function() {
+            $('#saveBundleBtn').on("click", function () {
+                let modal = document.getElementById('saveBundleModal');
+                new Modal(modal).show();
+            });
+        }
 
         let listenForEditCardClick = function () {
         $('.editCardBtn').on("click", function () {
@@ -181,6 +187,7 @@ import {Modal} from 'bootstrap';
         listenForEditCardClick();
         listenForNewCardClick();
         listenForDeleteCardClick();
+        listenForSaveBundleClick();
     };
 
 })();

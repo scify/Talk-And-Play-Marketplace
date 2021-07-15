@@ -179,7 +179,6 @@
 
 
 @endsection
-{{--TODO: white background for treis telitses--}}
 @push('modals')
 
     <!-- Modal -->
@@ -319,6 +318,38 @@
         </div>
     </div>
 
+
+    <div class="modal fade" id="saveBundleModal" tabindex="-1" role="dialog" aria-labelledby="saveBundleModal">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center" id='saveBundleModalHeader'>
+                    <h5 class="modal-title w-100" id="saveBundleModalLabel">Οριστικοποίηση Πακέτου </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <span style="color:#ff0000">Είστε σίγουρος? Αν πατήσετε Οριστικοποιηση δεν θα μπορειτε να προσθεσετε άλλες κάρτες</span>
+                    Το πακέτο με τις κάρτες θα αποστελεί για έλεγχο από έναν διαχειριστή της πλατφόρμας. Αν το περιεχόμενο είναι σύμφωνο με τους κανόνες, τότε θα είναι διαθέσιμο για κατέβασμα μόλις ειδοποιηθείτε με email
+
+                </div>
+
+                <div class="modal-footer">
+                    <div class="d-flex justify-content-end">
+
+                        <form id="md-save-bundle-form" enctype="multipart/form-data" role="form" method="POST">
+                            {{ csrf_field() }}
+                            <a class="btn btn-outline-primary" data-bs-dismiss="modal">
+                                Ακύρωση
+                            </a>
+                            <input class="btn btn-primary ms-4" type="submit" id="saveBundleConfirmed"
+                                   value="Oριστικοποίηση">
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endpush
 @push('scripts')
     <script src="{{ mix('dist/js/create-edit-resource.js') }}"></script>
