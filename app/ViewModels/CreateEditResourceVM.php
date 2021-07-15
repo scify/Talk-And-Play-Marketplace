@@ -23,7 +23,7 @@ class CreateEditResourceVM{
         if($numCards > $this->maximumCardThreshold){
             throw new \Error('Violation of maximum card limit');
         }
-        return  $numCards == $this->maximumCardThreshold;
+        return  $numCards === $this->maximumCardThreshold;
     }
     public function isEditMode(): bool{
         return ($this->resource->id != null);

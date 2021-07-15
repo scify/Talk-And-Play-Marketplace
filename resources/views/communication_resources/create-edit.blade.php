@@ -33,9 +33,14 @@
                 </div>
                 <div class="mb-3">
                     <label for="category_lang" class="form-label">Γλώσσα</label>
-                    <select class="form-select" aria-label="category_lang" name="lang">
+                    <select class="form-select"@if($viewModel->resource->lang_id != null) disabled @endif aria-label="category_lang" name="lang">
                         @foreach ($viewModel->languages as $lang){
-                        <option value="{{$lang->id}}"> {{$lang->name}} </option>
+                        @if($viewModel->resource->lang_id == $lang->id)
+                            <option selected> {{$lang->name}} </option>
+                        @else
+                            <option value="{{$lang->id}}"> {{$lang->name}} </option>
+                        @endif
+
                         @endforeach
                     </select>
                     <!--<input type="radio" class="form-control" id="category_lang"> -->
@@ -209,9 +214,13 @@
                             </div>
                             <div class="mb-3">
                                 <label for="category_lang" class="form-label">Γλώσσα</label>
-                                <select class="form-select" aria-label="category_lang" name="lang">
+                                <select class="form-select" disabled aria-label="category_lang" name="lang">
                                     @foreach ($viewModel->languages as $lang){
-                                    <option value="{{$lang->id}}"> {{$lang->name}} </option>
+                                    @if($viewModel->resource->lang_id == $lang->id)
+                                        <option selected> {{$lang->name}} </option>
+                                    @else
+                                        <option value="{{$lang->id}}"> {{$lang->name}} </option>
+                                    @endif
                                     @endforeach
                                 </select>
                                 <!--<input type="radio" class="form-control" id="category_lang"> -->

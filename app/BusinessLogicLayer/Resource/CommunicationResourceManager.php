@@ -17,13 +17,11 @@ class CommunicationResourceManager extends ResourceManager
 {
 
 
-
-
     public function storeCommunicationResource($request)
     {
         $storeArr = [
             "name" => $request['name'],
-            "lang_id" => $request['lang'],
+            "lang_id" =>  $request['parentId']? $this->resourceRepository->find( $request['parentId'])['lang_id']: $request['lang'],#if parent exists, then inherit its language
             "img_path" => null,
             "audio_path" => null,
             'type_id' => ResourceTypesLkp::COMMUNICATION,
@@ -37,6 +35,7 @@ class CommunicationResourceManager extends ResourceManager
         $resourceFileManager = new CommunicationResourceFileManager();
         $img_path = $resourceFileManager->saveImage($resource->id, $request);
         $audio_path = $resourceFileManager->saveAudio($resource->id, $request);
+
         return $this->resourceRepository->update([
             'img_path' => $img_path,
             'audio_path' => $audio_path],
