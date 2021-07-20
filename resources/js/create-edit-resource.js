@@ -78,7 +78,10 @@ import {Modal} from 'bootstrap';
 
         let listenForSaveBundleClick = function() {
             $('#saveBundleBtn').on("click", function () {
+                let id = $("#packageId").attr('value');
                 let modal = document.getElementById('saveBundleModal');
+                const route = window.route('communication_resources.approve',id);
+                $("#md-save-bundle-form").attr('action',route)
                 new Modal(modal).show();
             });
         }

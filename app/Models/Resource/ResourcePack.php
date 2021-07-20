@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Resource extends Model
+class ResourcePack extends Model
 {
     use SoftDeletes;
     /**
@@ -18,7 +18,7 @@ class Resource extends Model
      *
      * @var string
      */
-    protected $table = 'resources';
+    protected $table = 'communication_resources_pack';
 
     /**
      * The attributes that are mass assignable.
@@ -26,10 +26,10 @@ class Resource extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
         'lang_id', 'creator_user_id',
-        'admin_user_id', 'img_path', 'audio_path',
-        'resource_parent_id', 'type_id'
+        'admin_user_id',
+        'resource_parent_id', 'type_id',
+        'card_id', 'status_id'
     ];
 
     public function childrenResources(): HasMany {

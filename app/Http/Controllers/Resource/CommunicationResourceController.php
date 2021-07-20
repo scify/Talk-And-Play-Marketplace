@@ -62,11 +62,12 @@ class CommunicationResourceController extends Controller
         ]);
 
         try {
-            $ret = $this->communicationResourceManager->storeCommunicationResource($request);
-            if($ret->resource_parent_id) {
-                return redirect()->route('communication_resources.edit', $ret->resource_parent_id)->with('flash_message_success', 'The resource package has been successfully created');
+            $resource = $this->communicationResourceManager->storeCommunicationResource($request);
+            if($resource->resource_parent_id == null) {
+                $this->communicationResourcesPackManager->storeCommunicationResourcesPackage($resource);
+                return redirect()->route('communication_resources.edit', $resource->id)->with('flash_message_success', 'The resource package has been successfully created');
             }
-            return redirect()->route('communication_resources.edit', $ret->id)->with('flash_message_success', 'A new resource card has been successfully added to the package');
+            return redirect()->route('communication_resources.edit', $resource->resource_parent_id)->with('flash_message_success', 'A new resource card has been successfully added to the package');
 
         }
         catch (Exception $e){
@@ -86,8 +87,9 @@ class CommunicationResourceController extends Controller
 
         try {
 //            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
-            $createResourcesPackViewModel = $this->communicationResourcesPackManager->getEditResourcesPackViewModel($id);
-            return view('communication_resources.create-edit')->with(['viewModel' => $createResourcesPackViewModel]);
+            $packageId =  $this->communicationResourcesPackManager->getCommunicationResourcesPackageId($id);
+            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id, $packageId);
+            return view('communication_resources.create-edit')->with(['viewModel' => $createResourceViewModel]);
         } catch (ModelNotFoundException $e){
             abort(404);
         }
@@ -101,7 +103,6 @@ class CommunicationResourceController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
 
-    //TODO Resource has been succesfully updated (/stored) when card has parent
     public function update(Request $request, int $id)#after submit, (action-route submit button directs here)
     {
         $this->validate($request, [
@@ -138,11 +139,27 @@ class CommunicationResourceController extends Controller
         #Manager calls repository
     }
 
+
+    public function submit(int $id): \Illuminate\Http\RedirectResponse
+    {
+        try {
+            $this->communicationResourcesPackManager->approveCommunicationResourcesPackage($id);
+            return redirect()->back()->with('flash_message_success', 'Success! The resource has been approved');
+        } catch(\Exception $e){
+            return redirect()->back()->with('flash_message_failure', 'Warning! The resource has not been approved');
+        }
+
+        //
+        #Manager get id of card
+        #Manager calls repository
+    }
+
+
     public function getContentLanguages() {
-        return $this->communicationResourcesPackManager->getContentLanguagesForCommunicationResources();
+        return $this->communicationResourceManager->getContentLanguagesForCommunicationResources();
     }
 
     public function getCommunicationResourcesForLanguage(Request $request) {
-        return $this->communicationResourcesPackManager->getFirstLevelResourcesWithChildren($request->lang_id);
+        return $this->communicationResourceManager->getFirstLevelResourcesWithChildren($request->lang_id);
     }
 }

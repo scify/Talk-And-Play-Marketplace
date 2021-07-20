@@ -17,7 +17,7 @@ use Illuminate\Support\Collection;
 
 class CommunicationResourcesPackManager extends ResourceManager
 {
-    protected ResourcesPackRepository $resourcesPackRepository;
+    public ResourcesPackRepository $resourcesPackRepository;
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
     protected ResourceRepository $resourceRepository;
 
@@ -32,16 +32,38 @@ class CommunicationResourcesPackManager extends ResourceManager
     public function getCreateResourcesPackViewModel(): CreateEditResourceVM
     {
         $contentLanguages = $this->getContentLanguagesForCommunicationResources();
-        return new CreateEditResourceVM($contentLanguages, new  Resource(), new Collection());
+        return new CreateEditResourceVM($contentLanguages, new  Resource(), new Collection(), -1);
     }
 
-
-    public function getEditResourcesPackViewModel($id): CreateEditResourceVM
+    public function storeCommunicationResourcesPackage($request)
     {
-        $contentLanguages = $this->getContentLanguagesForCommunicationResources();
-        $childrenResourceCards = $this->resourcesPackRepository->getChildrenCardsWithParent($id);
-        return new CreateEditResourceVM($contentLanguages, $this->resourceRepository->find($id), $childrenResourceCards);
+
+        $this->resourcesPackRepository->create(
+            [
+                #'type_id' => ResourceTypesLkp::COMMUNICATION,
+                'status_id' => ResourceStatusesLkp::CREATED_PENDING_APPROVAL,
+                'lang_id' => $request['id'] ? $this->resourceRepository->find($request['id'])['lang_id'] : $request['lang'],
+                'creator_user_id' => \Illuminate\Support\Facades\Auth::id(),
+                'admin_user_id' => null,
+                'card_id' => $request['id']
+            ]
+        );
+
     }
+
+    public function getCommunicationResourcesPackageId($id){
+        return $this->resourcesPackRepository->getResourcePack($id)->first()['id'];
+    }
+
+    public function approveCommunicationResourcesPackage($id)
+    {
+        return  $this->resourcesPackRepository->update(
+            ['status_id' => ResourceStatusesLkp::APPROVED]
+            , $id);
+    }
+
+
+
 
 
     public function getContentLanguagesForCommunicationResources()

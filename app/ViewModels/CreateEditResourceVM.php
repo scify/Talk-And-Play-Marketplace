@@ -7,29 +7,33 @@ namespace App\ViewModels;
 use App\Models\Resource\Resource;
 use Illuminate\Support\Collection;
 
-class CreateEditResourceVM{
+class CreateEditResourceVM
+{
     public Collection $languages;
     public Resource $resource;
     public Collection $childrenCards;
-    public function __construct(Collection $languages, Resource $resource, Collection $childrenCards){
+    public int $packageId;
+
+    public function __construct(Collection $languages, Resource $resource, Collection $childrenCards, int $packageId)
+    {
         $this->languages = $languages;
         $this->resource = $resource;
         $this->childrenCards = $childrenCards;
+        $this->packageId = $packageId;
     }
 
-    private $maximumCardThreshold=10;
-    public function ReachedMaximumCardLimit(){
+    private $maximumCardThreshold = 10;
+
+    public function ReachedMaximumCardLimit()
+    {
         $numCards = sizeof($this->childrenCards);
-        if($numCards > $this->maximumCardThreshold){
-            throw new \Error('Violation of maximum card limit');
-        }
-        return  $numCards === $this->maximumCardThreshold;
+        return $numCards === $this->maximumCardThreshold;
     }
-    public function isEditMode(): bool{
+
+    public function isEditMode(): bool
+    {
         return ($this->resource->id != null);
     }
-
-
 
 
 }

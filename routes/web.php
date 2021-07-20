@@ -37,6 +37,8 @@ Route::middleware(['auth'])->group(function () {
             'update' => 'communication_resources.update',
             'destroy' => 'communication_resources.destroy'
         ]);
+    Route::put("/communication-cards/approve/{id}", [CommunicationResourceController::class, 'submit'])->name('communication_resources.approve');
+
 });
 
 Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {

@@ -123,7 +123,7 @@
         <div class="mt-5 mb-5" align="center">
 
             <button type="button" id="newCardBtn" class="btn btn-primary mt-5 btn-block
-            @if(sizeof($viewModel->childrenCards) == $viewModel->ReachedMaximumCardLimit()) disabled
+            @if(sizeof($viewModel->childrenCards) === $viewModel->ReachedMaximumCardLimit()) disabled
             @endif
 {{--                    data-bs-toggle="modal"--}}
 {{--                    data-bs-target="#newCardModal"--}}
@@ -334,12 +334,13 @@
 
                 <div class="modal-footer">
                     <div class="d-flex justify-content-end">
-
                         <form id="md-save-bundle-form" enctype="multipart/form-data" role="form" method="POST">
                             {{ csrf_field() }}
+                            <input type="hidden" name="_method" value="PUT">
                             <a class="btn btn-outline-primary" data-bs-dismiss="modal">
                                 Ακύρωση
                             </a>
+                            <input type="hidden" name="packageId" id="packageId" value='{{$viewModel->packageId}}'/>
                             <input class="btn btn-primary ms-4" type="submit" id="saveBundleConfirmed"
                                    value="Oριστικοποίηση">
 
