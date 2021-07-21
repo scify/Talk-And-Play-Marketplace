@@ -5,6 +5,7 @@ namespace App\BusinessLogicLayer\Resource;
 
 use App\Http\Controllers\Resource\CommunicationResourceController;
 use App\Models\Resource\Resource;
+use App\Models\Resource\ResourcePack;
 use App\Repository\ContentLanguageLkpRepository;
 use App\Repository\Resource\ResourceRepository;
 use App\Repository\Resource\ResourceStatusesLkp;
@@ -32,7 +33,7 @@ class CommunicationResourcesPackManager extends ResourceManager
     public function getCreateResourcesPackViewModel(): CreateEditResourceVM
     {
         $contentLanguages = $this->getContentLanguagesForCommunicationResources();
-        return new CreateEditResourceVM($contentLanguages, new  Resource(), new Collection(), new Collection());
+        return new CreateEditResourceVM($contentLanguages, new  Resource(), new Collection(), new ResourcePack());
     }
 
     public function storeCommunicationResourcesPackage($resource, $lang)

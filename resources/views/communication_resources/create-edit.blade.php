@@ -33,9 +33,9 @@
                 </div>
                 <div class="mb-3">
                     <label for="category_lang" class="form-label">Γλώσσα</label>
-                    <select class="form-select"@if($viewModel->package['lang_id'] != null) disabled @endif aria-label="category_lang" name="lang">
+                    <select class="form-select"@if($viewModel->package->lang_id != null) disabled @endif aria-label="category_lang" name="lang">
                         @foreach ($viewModel->languages as $lang){
-                        @if($viewModel->package['lang_id'] === $lang->id)
+                        @if($viewModel->package->lang_id === $lang->id)
                             <option selected> {{$lang->name}} </option>
                         @else
                             <option value="{{$lang->id}}"> {{$lang->name}} </option>
@@ -215,7 +215,7 @@
                                 <label for="category_lang" class="form-label">Γλώσσα</label>
                                 <select class="form-select" disabled aria-label="category_lang" name="lang">
                                     @foreach ($viewModel->languages as $lang){
-                                    @if($viewModel->package['lang_id'] === $lang->id)
+                                    @if($viewModel->package->lang_id === $lang->id)
                                         <option selected> {{$lang->name}} </option>
                                     @else
                                         <option value="{{$lang->id}}"> {{$lang->name}} </option>
