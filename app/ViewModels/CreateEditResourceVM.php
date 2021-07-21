@@ -5,21 +5,30 @@ namespace App\ViewModels;
 
 
 use App\Models\Resource\Resource;
+use Illuminate\Collections\ItemNotFoundException;
 use Illuminate\Support\Collection;
+use PHPUnit\Exception;
 
 class CreateEditResourceVM
 {
     public Collection $languages;
     public Resource $resource;
     public Collection $childrenCards;
-    public int $packageId;
+    public $package;
 
-    public function __construct(Collection $languages, Resource $resource, Collection $childrenCards, int $packageId)
+    public function __construct(Collection $languages, Resource $resource, Collection $childrenCards, $package)
     {
         $this->languages = $languages;
         $this->resource = $resource;
         $this->childrenCards = $childrenCards;
-        $this->packageId = $packageId;
+        $this->package = $package;
+        try {
+            $this->package['lang_id'];
+        } catch (ItemNotFoundException $e) {
+            $this->package['lang_id'] = null;
+            $this->package['id'] = null;
+        }
+
     }
 
     private $maximumCardThreshold = 10;

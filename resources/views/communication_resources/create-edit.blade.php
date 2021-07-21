@@ -33,9 +33,9 @@
                 </div>
                 <div class="mb-3">
                     <label for="category_lang" class="form-label">Γλώσσα</label>
-                    <select class="form-select"@if($viewModel->resource->lang_id != null) disabled @endif aria-label="category_lang" name="lang">
+                    <select class="form-select"@if($viewModel->package['lang_id'] != null) disabled @endif aria-label="category_lang" name="lang">
                         @foreach ($viewModel->languages as $lang){
-                        @if($viewModel->resource->lang_id == $lang->id)
+                        @if($viewModel->package['lang_id'] === $lang->id)
                             <option selected> {{$lang->name}} </option>
                         @else
                             <option value="{{$lang->id}}"> {{$lang->name}} </option>
@@ -215,7 +215,7 @@
                                 <label for="category_lang" class="form-label">Γλώσσα</label>
                                 <select class="form-select" disabled aria-label="category_lang" name="lang">
                                     @foreach ($viewModel->languages as $lang){
-                                    @if($viewModel->resource->lang_id == $lang->id)
+                                    @if($viewModel->package['lang_id'] === $lang->id)
                                         <option selected> {{$lang->name}} </option>
                                     @else
                                         <option value="{{$lang->id}}"> {{$lang->name}} </option>
@@ -340,7 +340,7 @@
                             <a class="btn btn-outline-primary" data-bs-dismiss="modal">
                                 Ακύρωση
                             </a>
-                            <input type="hidden" name="packageId" id="packageId" value='{{$viewModel->packageId}}'/>
+                            <input type="hidden" name="packageId" id="packageId" value='{{$viewModel->package['id']}}'/>
                             <input class="btn btn-primary ms-4" type="submit" id="saveBundleConfirmed"
                                    value="Oριστικοποίηση">
 

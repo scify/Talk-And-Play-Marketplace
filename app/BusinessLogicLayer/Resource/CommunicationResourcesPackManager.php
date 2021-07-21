@@ -32,27 +32,29 @@ class CommunicationResourcesPackManager extends ResourceManager
     public function getCreateResourcesPackViewModel(): CreateEditResourceVM
     {
         $contentLanguages = $this->getContentLanguagesForCommunicationResources();
-        return new CreateEditResourceVM($contentLanguages, new  Resource(), new Collection(), -1);
+        return new CreateEditResourceVM($contentLanguages, new  Resource(), new Collection(), new Collection());
     }
 
-    public function storeCommunicationResourcesPackage($request)
+    public function storeCommunicationResourcesPackage($resource, $lang)
     {
+
 
         $this->resourcesPackRepository->create(
             [
-                #'type_id' => ResourceTypesLkp::COMMUNICATION,
+                'type_id' => ResourceTypesLkp::COMMUNICATION,
                 'status_id' => ResourceStatusesLkp::CREATED_PENDING_APPROVAL,
-                'lang_id' => $request['id'] ? $this->resourceRepository->find($request['id'])['lang_id'] : $request['lang'],
+                'lang_id' => $lang,
                 'creator_user_id' => \Illuminate\Support\Facades\Auth::id(),
                 'admin_user_id' => null,
-                'card_id' => $request['id']
+                'card_id' => $resource['id']
             ]
         );
 
+
     }
 
-    public function getCommunicationResourcesPackageId($id){
-        return $this->resourcesPackRepository->getResourcePack($id)->first()['id'];
+    public function getCommunicationResourcesPackage($id){
+        return $this->resourcesPackRepository->getResourcePack($id)->first();
     }
 
     public function approveCommunicationResourcesPackage($id)

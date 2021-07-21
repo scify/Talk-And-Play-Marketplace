@@ -25,11 +25,11 @@ class CommunicationResourceManager extends ResourceManager
 
 
 
-    public function getEditResourceViewModel($id, $packageId): CreateEditResourceVM
+    public function getEditResourceViewModel($id, $package): CreateEditResourceVM
     {
         $contentLanguages = $this->getContentLanguagesForCommunicationResources();
         $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($id);
-        return new CreateEditResourceVM($contentLanguages, $this->resourceRepository->find($id), $childrenResourceCards, $packageId);
+        return new CreateEditResourceVM($contentLanguages, $this->resourceRepository->find($id), $childrenResourceCards, $package);
     }
 
 
@@ -37,11 +37,11 @@ class CommunicationResourceManager extends ResourceManager
     {
         $storeArr = [
             "name" => $request['name'],
-            "lang_id" => $request['parentId'] ? $this->resourceRepository->find($request['parentId'])['lang_id'] : $request['lang'],#if parent exists, then inherit its language
+//            "lang_id" => $request['parentId'] ? $this->resourceRepository->find($request['parentId'])['lang_id'] : $request['lang'],#if parent exists, then inherit its language
             "img_path" => null,
             "audio_path" => null,
-            'type_id' => ResourceTypesLkp::COMMUNICATION,
-            #'status_id' => null,
+//            'type_id' => ResourceTypesLkp::COMMUNICATION,
+//            'status_id' => null,
             'resource_parent_id' => $request['parentId'] ?: null,
             'creator_user_id' => \Illuminate\Support\Facades\Auth::id(),
             'admin_user_id' => null
@@ -67,12 +67,12 @@ class CommunicationResourceManager extends ResourceManager
     {
         $storeArr = [
             "name" => $request['name'],
-            "lang_id" => $request['lang'],
+//            "lang_id" => $request['lang'],
             "img_path" => null,
             "audio_path" => null,
-            'type_id' => ResourceTypesLkp::COMMUNICATION,
+//            'type_id' => ResourceTypesLkp::COMMUNICATION,
 //            'status_id' => ResourceStatusesLkp::CREATED_PENDING_APPROVAL,
-            'resource_parent_id' => $request->parentId ? intval($request->parentId) : null,
+//            'resource_parent_id' => $request->parentId ? intval($request->parentId) : null,
             'creator_user_id' => \Illuminate\Support\Facades\Auth::id(),
             'admin_user_id' => null
         ];

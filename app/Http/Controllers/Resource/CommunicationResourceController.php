@@ -62,9 +62,10 @@ class CommunicationResourceController extends Controller
         ]);
 
         try {
+
             $resource = $this->communicationResourceManager->storeCommunicationResource($request);
             if($resource->resource_parent_id == null) {
-                $this->communicationResourcesPackManager->storeCommunicationResourcesPackage($resource);
+                $this->communicationResourcesPackManager->storeCommunicationResourcesPackage($resource, $request['lang']);
                 return redirect()->route('communication_resources.edit', $resource->id)->with('flash_message_success', 'The resource package has been successfully created');
             }
             return redirect()->route('communication_resources.edit', $resource->resource_parent_id)->with('flash_message_success', 'A new resource card has been successfully added to the package');
@@ -87,8 +88,8 @@ class CommunicationResourceController extends Controller
 
         try {
 //            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
-            $packageId =  $this->communicationResourcesPackManager->getCommunicationResourcesPackageId($id);
-            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id, $packageId);
+            $package =  $this->communicationResourcesPackManager->getCommunicationResourcesPackage($id);
+            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id, $package);
             return view('communication_resources.create-edit')->with(['viewModel' => $createResourceViewModel]);
         } catch (ModelNotFoundException $e){
             abort(404);
@@ -144,9 +145,9 @@ class CommunicationResourceController extends Controller
     {
         try {
             $this->communicationResourcesPackManager->approveCommunicationResourcesPackage($id);
-            return redirect()->back()->with('flash_message_success', 'Success! The resource has been approved');
+            return redirect()->back()->with('flash_message_success', 'Success! The resource package has been approved');
         } catch(\Exception $e){
-            return redirect()->back()->with('flash_message_failure', 'Warning! The resource has not been approved');
+            return redirect()->back()->with('flash_message_failure', 'Warning! The resource package has not been approved');
         }
 
         //
