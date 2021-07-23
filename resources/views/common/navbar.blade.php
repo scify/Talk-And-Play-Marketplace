@@ -18,7 +18,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link {{ UrlMatchesMenuItem("game_resources.index") }}"
+                        href="{{route('game_resources.index')}}">
                         {!! __('messages.game_cards') !!}
                     </a>
                 </li>

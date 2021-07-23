@@ -47,6 +47,6 @@ return [
     "add_new_card" => "Προσθήκη Νέας Κάρτας",
     "edit" => "Επεξεργασία",
     "new_package" => "Νέο Πακέτο",
-    "name" => "Όνομα"
-
+    "name" => "Όνομα",
+    "find_similar_tagline" => "Βρές το όμοιο"
 ];

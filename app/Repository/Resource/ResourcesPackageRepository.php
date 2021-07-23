@@ -5,20 +5,21 @@ namespace App\Repository\Resource;
 
 
 use App\Models\Resource\Resource;
-use App\Models\Resource\ResourcePack;
+use App\Models\Resource\ResourcesPackage;
 use App\Repository\Repository;
 use Illuminate\Support\Collection;
 
-class ResourcesPackRepository extends Repository {
+class ResourcesPackageRepository extends Repository {
 
     /**
      * @inheritDoc
      */
-    function getModelClassName() {
-        return ResourcePack::class;
+    function getModelClassName(): string
+    {
+        return ResourcesPackage::class;
     }
 
-    public function getResourcePack($id)
+    public function getResourcesPackage($id)
     {
         return  $this->allWhere(
             [

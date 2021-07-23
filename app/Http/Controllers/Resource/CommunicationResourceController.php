@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Resource;
 
 use App\BusinessLogicLayer\Resource\CommunicationResourceManager;
-use App\BusinessLogicLayer\Resource\CommunicationResourcesPackManager;
+use App\BusinessLogicLayer\Resource\CommunicationResourcesPackageManager;
 use App\Http\Controllers\Controller;
 use App\Models\Resource\Resource;
 use App\ViewModels\CreateEditResourceVM;
@@ -16,11 +16,11 @@ class CommunicationResourceController extends Controller
 {
 
     protected CommunicationResourceManager $communicationResourceManager;
-    protected CommunicationResourcesPackManager $communicationResourcesPackManager;
+    protected CommunicationResourcesPackageManager $communicationResourcesPackageManager;
 
-    public function __construct(CommunicationResourceManager $communicationResourceManager, CommunicationResourcesPackManager $communicationResourcesPackManager) {
+    public function __construct(CommunicationResourceManager $communicationResourceManager, CommunicationResourcesPackageManager $communicationResourcesPackageManager) {
         $this->communicationResourceManager = $communicationResourceManager;
-        $this->communicationResourcesPackManager = $communicationResourcesPackManager;
+        $this->communicationResourcesPackageManager = $communicationResourcesPackageManager;
     }
 
 
@@ -41,8 +41,8 @@ class CommunicationResourceController extends Controller
     public function create(): View {
 
 //        $createResourceViewModel = $this->communicationResourceManager->getCreateResourceViewModel();
-        $createResourcesPackViewModel = $this->communicationResourcesPackManager->getCreateResourcesPackViewModel();
-        return view('communication_resources.create-edit')->with(['viewModel' => $createResourcesPackViewModel]);
+        $createResourcesPackageViewModel = $this->communicationResourcesPackageManager->getCreateResourcesPackageViewModel();
+        return view('communication_resources.create-edit')->with(['viewModel' => $createResourcesPackageViewModel]);
     }
 
 
@@ -65,7 +65,7 @@ class CommunicationResourceController extends Controller
 
             $resource = $this->communicationResourceManager->storeCommunicationResource($request);
             if($resource->resource_parent_id == null) {
-                $this->communicationResourcesPackManager->storeCommunicationResourcesPackage($resource, $request['lang']);
+                $this->communicationResourcesPackageManager->storeCommunicationResourcesPackage($resource, $request['lang']);
                 return redirect()->route('communication_resources.edit', $resource->id)->with('flash_message_success', 'The resource package has been successfully created');
             }
             return redirect()->route('communication_resources.edit', $resource->resource_parent_id)->with('flash_message_success', 'A new resource card has been successfully added to the package');
@@ -88,7 +88,7 @@ class CommunicationResourceController extends Controller
 
         try {
 //            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
-            $package =  $this->communicationResourcesPackManager->getCommunicationResourcesPackage($id);
+            $package =  $this->communicationResourcesPackageManager->getCommunicationResourcesPackage($id);
             $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id, $package);
             return view('communication_resources.create-edit')->with(['viewModel' => $createResourceViewModel]);
         } catch (ModelNotFoundException $e){
@@ -144,7 +144,7 @@ class CommunicationResourceController extends Controller
     public function submit(int $id): \Illuminate\Http\RedirectResponse
     {
         try {
-            $this->communicationResourcesPackManager->approveCommunicationResourcesPackage($id);
+            $this->communicationResourcesPackageManager->approveCommunicationResourcesPackage($id);
             return redirect()->back()->with('flash_message_success', 'Success! The resource package has been approved');
         } catch(\Exception $e){
             return redirect()->back()->with('flash_message_failure', 'Warning! The resource package has not been approved');

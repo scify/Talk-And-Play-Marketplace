@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ResourcePack extends Model
+class ResourcesPackage extends Model
 {
     use SoftDeletes;
     /**
@@ -18,7 +18,7 @@ class ResourcePack extends Model
      *
      * @var string
      */
-    protected $table = 'communication_resources_pack';
+    protected $table = 'resources_package';
 
     /**
      * The attributes that are mass assignable.

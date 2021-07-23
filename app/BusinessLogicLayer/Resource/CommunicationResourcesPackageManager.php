@@ -5,42 +5,42 @@ namespace App\BusinessLogicLayer\Resource;
 
 use App\Http\Controllers\Resource\CommunicationResourceController;
 use App\Models\Resource\Resource;
-use App\Models\Resource\ResourcePack;
+use App\Models\Resource\ResourcesPackage;
 use App\Repository\ContentLanguageLkpRepository;
 use App\Repository\Resource\ResourceRepository;
 use App\Repository\Resource\ResourceStatusesLkp;
 use App\Repository\Resource\ResourceTypesLkp;
-use App\Repository\Resource\ResourcesPackRepository;
+use App\Repository\Resource\ResourcesPackageRepository;
 use App\ViewModels\CreateEditResourceVM;
 use Illuminate\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
-class CommunicationResourcesPackManager extends ResourceManager
+class CommunicationResourcesPackageManager extends ResourceManager
 {
-    public ResourcesPackRepository $resourcesPackRepository;
+    public ResourcesPackageRepository $resourcesPackageRepository;
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
     protected ResourceRepository $resourceRepository;
 
-    public function __construct(ResourceRepository $resourceRepository, ContentLanguageLkpRepository $contentLanguageLkpRepository, ResourcesPackRepository $resourcesPackRepository)
+    public function __construct(ResourceRepository $resourceRepository, ContentLanguageLkpRepository $contentLanguageLkpRepository, ResourcesPackageRepository $resourcesPackageRepository)
     {
         $this->resourceRepository = $resourceRepository;
         $this->contentLanguageLkpRepository = $contentLanguageLkpRepository;
-        $this->resourcesPackRepository = $resourcesPackRepository;
+        $this->resourcesPackageRepository = $resourcesPackageRepository;
         parent::__construct($resourceRepository, $contentLanguageLkpRepository);
     }
 
-    public function getCreateResourcesPackViewModel(): CreateEditResourceVM
+    public function getCreateResourcesPackageViewModel(): CreateEditResourceVM
     {
         $contentLanguages = $this->getContentLanguagesForCommunicationResources();
-        return new CreateEditResourceVM($contentLanguages, new  Resource(), new Collection(), new ResourcePack());
+        return new CreateEditResourceVM($contentLanguages, new  Resource(), new Collection(), new ResourcesPackage());
     }
 
     public function storeCommunicationResourcesPackage($resource, $lang)
     {
 
 
-        $this->resourcesPackRepository->create(
+        $this->resourcesPackageRepository->create(
             [
                 'type_id' => ResourceTypesLkp::COMMUNICATION,
                 'status_id' => ResourceStatusesLkp::CREATED_PENDING_APPROVAL,
@@ -55,12 +55,12 @@ class CommunicationResourcesPackManager extends ResourceManager
     }
 
     public function getCommunicationResourcesPackage($id){
-        return $this->resourcesPackRepository->getResourcePack($id)->first();
+        return $this->resourcesPackageRepository->getResourcesPackage($id)->first();
     }
 
     public function approveCommunicationResourcesPackage($id)
     {
-        return  $this->resourcesPackRepository->update(
+        return  $this->resourcesPackageRepository->update(
             ['status_id' => ResourceStatusesLkp::APPROVED]
             , $id);
     }
