@@ -18,7 +18,7 @@
         {{ csrf_field() }}
         <div class="container rounded py-4" style="border:1px solid grey">
             <div class="mx-3">
-                <b>Νέο Πακέτο</b>
+                <b>{{trans("messages.new_package")}}</b>
             </div>
             <hr/>
             <div class="container-sm px-5">
@@ -32,7 +32,7 @@
                            value="{{ old('name') ? old('name') : $viewModel->resource->name }}">
                 </div>
                 <div class="mb-3">
-                    <label for="category_lang" class="form-label">Γλώσσα</label>
+                    <label for="category_lang" class="form-label">{{trans("messages.language")}}</label>
                     <select class="form-select"@if($viewModel->package->lang_id != null) disabled @endif aria-label="category_lang" name="lang">
                         @foreach ($viewModel->languages as $lang){
                         @if($viewModel->package->lang_id === $lang->id)
@@ -46,7 +46,7 @@
                     <!--<input type="radio" class="form-control" id="category_lang"> -->
                 </div>
                 <div class="mb-3">
-                    <label for="upload_img" class="form-label">Ανέβασε εικόνα <span
+                    <label for="upload_img" class="form-label"> {{trans("messages.upload_img")}} <span
                             style="color:#ff0000">*</span></label>
                     <div class="file-field px-5">
                         <a class="btn-floating float-left">
@@ -75,7 +75,7 @@
                 <div class="alert alert-danger">{{$message}}</div>
                 @enderror
                 <div class="mb-3">
-                    <label for="sound_file" class="form-label">Ανέβασε επεξηγηματικό αρχείο ήχου (mp3) <span
+                    <label for="sound_file" class="form-label">{{trans("messages.upload_audio")}}<span
                             style="color:#ff0000">*</span></label>
                     <div class="file-field px-5">
                         <a class="btn-floating purple-gradient mt-0 float-left">
@@ -107,10 +107,10 @@
             <div class="d-flex justify-content-end">
                 <!--<input class="btn btn-outline-primary" type="reset" value="Ακύρωση">-->
                 <a class="btn btn-outline-primary" href="{{route('communication_resources.index')}}">
-                    Ακύρωση
+                    {{trans("messages.cancel")}}
                 </a>
 
-                <input class="btn btn-primary ms-4" type="submit" value="Αποθήκευση Κάρτας">
+                <input class="btn btn-primary ms-4" type="submit" value={{trans("messages.save_card")}}>
             </div>
         </div>
 
@@ -128,14 +128,14 @@
 {{--                    data-bs-toggle="modal"--}}
 {{--                    data-bs-target="#newCardModal"--}}
             ">
-                Προσθήκη Νέας Κάρτας
+                {{trans("messages.add_new_card")}}
             </button>
             @if(sizeof($viewModel->childrenCards)>0)
             <button type="button" id="saveBundleBtn" class="btn btn-primary mt-5 btn-block"
                 {{--                    data-bs-toggle="modal"--}}
                 {{--                    data-bs-target="#newCardModal"--}}
             >
-                Οριστικοποίηση Πακέτου
+                {{trans("messages.submit_package")}}
             </button>
             @endif
         </div>
@@ -153,8 +153,8 @@
                                             <i class="fas fa-ellipsis-v"></i>
                                         </button>
                                         <ul class="dropdown-menu" id="dropdown-menu" >
-                                            <li><a class="dropdown-item editCardBtn"  href="#"><i class="far fa-edit me-2"></i>Edit</a></li>
-                                            <li><a class="dropdown-item deleteCardBtn"  href="#"><i class="fas fa-file-download me-2"></i>Delete</a></li>
+                                            <li><a class="dropdown-item editCardBtn"  href="#"><i class="far fa-edit me-2"></i>{{trans("messages.edit")}}</a></li>
+                                            <li><a class="dropdown-item deleteCardBtn"  href="#"><i class="fas fa-file-download me-2"></i>{{trans("messages.delete")}}</a></li>
 {{--                                            TODO prevent scrolling cancel (event propagation?) --}}
                                         </ul>
                                     </div>
@@ -187,7 +187,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header text-center" id='modalHeader'>
-                    <h5 class="modal-title w-100" id="ModalLabel">Προσθήκη Νέας Κάρτας</h5>
+                    <h5 class="modal-title w-100" id="ModalLabel">{{trans("messages.add_new_card")}}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -205,7 +205,7 @@
                             <input type="hidden" name="cardId" id="cardId" value=''/>
                             <!-- Content here -->
                             <div class="mb-3">
-                                <label for="category_name" class="form-label">Όνομα <span
+                                <label for="category_name" class="form-label">{{trans("messages.name")}} <span
                                         style="color:#ff0000">*</span></label>
                                 <input type="text" class="form-control" id="modal_category_name"
                                        name="name"
@@ -225,7 +225,7 @@
                                 <!--<input type="radio" class="form-control" id="category_lang"> -->
                             </div>
                             <div class="mb-3">
-                                <label for="modal_upload_img" class="form-label">Ανέβασε εικόνα <span
+                                <label for="modal_upload_img" class="form-label">{{trans("messages.upload_img")}} <span
                                         style="color:#ff0000">*</span></label>
                                 <div class="file-field px-5">
                                     <a class="btn-floating float-left">
@@ -247,7 +247,7 @@
                             <div class="alert alert-danger">{{$message}}</div>
                             @enderror
                             <div class="mb-3">
-                                <label for="modal_sound_file" class="form-label">Ανέβασε επεξηγηματικό αρχείο ήχου
+                                <label for="modal_sound_file" class="form-label">{{trans('messages.upload_audio')}}
                                     (mp3)
                                     <span
                                         style="color:#ff0000">*</span></label>
@@ -274,10 +274,10 @@
                         <div class="d-flex justify-content-end">
                             <!--<input class="btn btn-outline-primary" type="reset" value="Ακύρωση">-->
                             <a class="btn btn-outline-primary" data-bs-dismiss="modal">
-                                Ακύρωση
+                                {{trans("messages.cancel")}}
                             </a>
                             <input class="btn btn-primary ms-4" type="submit" id="submitModal"
-                                   value="Αποθήκευση Κάρτας">
+                                   value="{{trans('messages.save_card')}}">
                         </div>
                     </form>
                 </div>
@@ -291,11 +291,11 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header text-center" id='deleteModalHeader'>
-                    <h5 class="modal-title w-100" id="deleteModalLabel">Διαγραφή Κάρτας </h5>
+                    <h5 class="modal-title w-100" id="deleteModalLabel">{{trans("messages.delete_card")}} </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <span style="color:#ff0000">Προσοχή! Αυτή η ενέργεια είναι μη αναστρέψιμη</span>
+                    <span style="color:#ff0000">{{trans("messages.warning_deletion")}}</span>
                 </div>
                 <div class="d-flex justify-content-end">
                     <!--<input class="btn btn-outline-primary" type="reset" value="Ακύρωση">-->
@@ -303,11 +303,11 @@
                         {{ csrf_field() }}
                         <input type="hidden" name="_method" value="DELETE">
                         <input class="btn btn-primary ms-4" type="submit" id="deletionConfirmed"
-                               value="Διαγραφή">
+                               value="{{trans('messages.delete_card')}}}">
                         &nbsp;
                         &nbsp;
                         <a class="btn btn-outline-primary" data-bs-dismiss="modal">
-                            Ακύρωση
+                            {{trans('messages.delete')}}
                         </a>
                     </form>
 
@@ -323,13 +323,12 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header text-center" id='saveBundleModalHeader'>
-                    <h5 class="modal-title w-100" id="saveBundleModalLabel">Οριστικοποίηση Πακέτου </h5>
+                    <h5 class="modal-title w-100" id="saveBundleModalLabel">{{trans('messages.submit_package')}} </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <span style="color:#ff0000">Είστε σίγουρος? Αν πατήσετε Οριστικοποιηση δεν θα μπορειτε να προσθεσετε άλλες κάρτες</span>
-                    Το πακέτο με τις κάρτες θα αποστελεί για έλεγχο από έναν διαχειριστή της πλατφόρμας. Αν το περιεχόμενο είναι σύμφωνο με τους κανόνες, τότε θα είναι διαθέσιμο για κατέβασμα μόλις ειδοποιηθείτε με email
-
+                    <span style="color:#ff0000">{{trans('messages.warning_submission')}}</span>
+                    {{trans('messages.info_submission')}}
                 </div>
 
                 <div class="modal-footer">
@@ -338,11 +337,11 @@
                             {{ csrf_field() }}
                             <input type="hidden" name="_method" value="PUT">
                             <a class="btn btn-outline-primary" data-bs-dismiss="modal">
-                                Ακύρωση
+                                {{trans('messages.cancel')}}
                             </a>
                             <input type="hidden" name="packageId" id="packageId" value='{{$viewModel->package['id']}}'/>
                             <input class="btn btn-primary ms-4" type="submit" id="saveBundleConfirmed"
-                                   value="Oριστικοποίηση">
+                                   value="{{trans('messages.submit')}}">
 
                         </form>
 
