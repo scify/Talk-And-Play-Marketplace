@@ -83,13 +83,13 @@ class GameResourceController extends Controller
         try {
 
             if ($type_id === ResourceTypesLkp::SIMILAR_GAME) {
-                $resource = $this->similarityGameResourceManager->storeCommunicationResource($request);
+                $resource = $this->similarityGameResourceManager->storeResource($request);
                 if ($resource->resource_parent_id == null) {
-                    $this->similarityGameResourcesPackageManager->storeCommunicationResourcesPackage($resource, $request['lang']);
-                    return redirect()->route('game_resources.edit', $resource->id)->with('flash_message_success', 'The resource package has been successfully created');
+                    $this->similarityGameResourcesPackageManager->storeResourcePackage($resource, $request['lang']);
+                    return redirect()->route('game_resources.edit_game', [$resource->id, $type_id])->with('flash_message_success', 'The resource package has been successfully created');
                 }
             }
-            return redirect()->route('game_resources.edit', $resource->resource_parent_id)->with('flash_message_success', 'A new resource card has been successfully added to the package');
+            return redirect()->route('game_resources.edit_game', [$resource->resource_parent_id, $type_id])->with('flash_message_success', 'A new resource card has been successfully added to the package');
 
         } catch (Exception $e) {
             return redirect()->with('flash_message_failure', 'Failure - resource card has not been added');

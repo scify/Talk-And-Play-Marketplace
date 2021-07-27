@@ -63,9 +63,9 @@ class CommunicationResourceController extends Controller
 
         try {
 
-            $resource = $this->communicationResourceManager->storeCommunicationResource($request);
+            $resource = $this->communicationResourceManager->storeResource($request);
             if($resource->resource_parent_id == null) {
-                $this->communicationResourcesPackageManager->storeCommunicationResourcesPackage($resource, $request['lang']);
+                $this->communicationResourcesPackageManager->storeResourcePackage($resource, $request['lang']);
                 return redirect()->route('communication_resources.edit', $resource->id)->with('flash_message_success', 'The resource package has been successfully created');
             }
             return redirect()->route('communication_resources.edit', $resource->resource_parent_id)->with('flash_message_success', 'A new resource card has been successfully added to the package');

@@ -8,18 +8,16 @@ use App\Repository\ContentLanguageLkpRepository;
 use App\Repository\Resource\ResourceRepository;
 use App\Repository\Resource\ResourceTypesLkp;
 use App\ViewModels\CreateEditResourceVM;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class ResourceManager {
 
     protected ResourceRepository $resourceRepository;
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
     protected int $maximumCardsThreshold;
-    protected int $type_id;
-    public function __construct(ResourceRepository $resourceRepository,ContentLanguageLkpRepository  $contentLanguageLkpRepository, int $maximumCardsThreshold=0, int $type_id=-1) {
+    public function __construct(ResourceRepository $resourceRepository,ContentLanguageLkpRepository  $contentLanguageLkpRepository) {
         $this->resourceRepository = $resourceRepository;
         $this->contentLanguageLkpRepository = $contentLanguageLkpRepository;
-        $this->maximumCardsThreshold = $maximumCardsThreshold;
-        $this->type_id= $type_id;
     }
 
 
@@ -35,11 +33,11 @@ class ResourceManager {
     {
         $contentLanguages = $this->getContentLanguagesForCommunicationResources();
         $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($id);
-        return new CreateEditResourceVM($contentLanguages, $this->resourceRepository->find($id), $childrenResourceCards, $package, $this->maximumCardsThreshold, $this->type_id);
+        return new CreateEditResourceVM($contentLanguages, $this->resourceRepository->find($id), $childrenResourceCards, $package);
     }
 
 
-    public function storeCommunicationResource($request)
+    public function storeResource($request)
     {
         $storeArr = [
             "name" => $request['name'],
@@ -58,7 +56,12 @@ class ResourceManager {
 
         $resourceFileManager = new CommunicationResourceFileManager();
         $img_path = $resourceFileManager->saveImage($resource->id, $request);
-        $audio_path = $resourceFileManager->saveAudio($resource->id, $request);
+        try{
+            $audio_path = $resourceFileManager->saveAudio($resource->id, $request);
+        }
+        catch(FileNotFoundException $e){
+            $audio_path = null;
+        }
 
 
         return $this->resourceRepository->update([

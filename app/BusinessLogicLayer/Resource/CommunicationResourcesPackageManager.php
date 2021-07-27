@@ -27,7 +27,7 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager
         $this->resourceRepository = $resourceRepository;
         $this->contentLanguageLkpRepository = $contentLanguageLkpRepository;
         $this->resourcesPackageRepository = $resourcesPackageRepository;
-        parent::__construct($resourceRepository, $contentLanguageLkpRepository,$resourcesPackageRepository, ResourceTypesLkp::COMMUNICATION );
+        parent::__construct($resourceRepository, $contentLanguageLkpRepository,$resourcesPackageRepository, ResourceTypesLkp::COMMUNICATION);
     }
 
 

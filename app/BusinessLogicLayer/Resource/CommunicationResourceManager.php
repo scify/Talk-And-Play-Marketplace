@@ -15,8 +15,6 @@ class CommunicationResourceManager extends ResourceManager
 
     protected ResourceRepository $resourceRepository;
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
-    const maximumCardsThreshold = 10;
-
     public function __construct(ResourceRepository $resourceRepository, ContentLanguageLkpRepository $contentLanguageLkpRepository)
     {
         $this->resourceRepository = $resourceRepository;

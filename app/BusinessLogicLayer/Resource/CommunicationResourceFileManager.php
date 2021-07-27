@@ -7,6 +7,7 @@ namespace App\BusinessLogicLayer\Resource;
 use App\BusinessLogicLayer\UserRole\UserRoleManager;
 use App\Models\Resource\Resource;
 use App\Repository\Resource\ResourceRepository;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
@@ -48,8 +49,14 @@ class CommunicationResourceFileManager
         return $id . '_' . $resourceNameCleaned. '_' . date("Y-m-d_h_i_s", time()) . '.' . $resource->getClientOriginalExtension();
     }
 
+    /**
+     * @throws FileNotFoundException
+     */
     public  function saveAudio($id, Request $request){
         $contentAudio = $request->file('sound');
+        if (!$contentAudio){
+            throw(new FileNotFoundException('Audio missing'));
+        }
         $audioFolder = $this->getResourceFileFolder("audio");
         $normalizedAudioName =$this->getNormalizedResourceName($contentAudio,$id);
         $contentAudio->storeAs($audioFolder, $normalizedAudioName, ['disk' => 'public']);

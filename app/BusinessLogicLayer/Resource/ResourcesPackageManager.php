@@ -26,18 +26,18 @@ class ResourcesPackageManager extends ResourceManager
     public function __construct(ResourceRepository $resourceRepository,
                                 ContentLanguageLkpRepository $contentLanguageLkpRepository,
                                 ResourcesPackageRepository $resourcesPackageRepository,
-                                int $type_id=0)
+                                int $type_id=-1)
     {
         $this->resourceRepository = $resourceRepository;
         $this->contentLanguageLkpRepository = $contentLanguageLkpRepository;
         $this->resourcesPackageRepository = $resourcesPackageRepository;
         $this->type_id = $type_id;
-        parent::__construct($resourceRepository, $contentLanguageLkpRepository);
+        parent::__construct($resourceRepository, $contentLanguageLkpRepository );
     }
 
 
 
-    public function storeCommunicationResourcesPackage(Resource $resource, int $lang)
+    public function storeResourcePackage(Resource $resource, int $lang)
     {
 
 
