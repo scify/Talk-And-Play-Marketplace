@@ -43,7 +43,7 @@ import {Modal} from 'bootstrap';
                 document.getElementById("ModalLabel").remove();
             } catch ($e) {
             }
-            const route = window.route('communication_resources.store');
+            const route = window.route('resources.store');
             $('#modal_player').hide();
             $('#md-modal-form').attr('action', route);
             $("#modalHeader").prepend('<h5 class="modal-title w-100" id="ModalLabel">Προσθήκη Νέας Κάρτας</h5>');
@@ -66,7 +66,7 @@ import {Modal} from 'bootstrap';
             console.log(card_title.html());
             let card_id = card.children('input').attr('value');
 
-            const route = window.route('communication_resources.destroy', card_id);
+            const route = window.route('resources.destroy', card_id);
             $("#md-delete-form").attr('action',route)
 
             console.log(route);
@@ -80,7 +80,7 @@ import {Modal} from 'bootstrap';
             $('#saveBundleBtn').on("click", function () {
                 let id = $("#packageId").attr('value');
                 let modal = document.getElementById('saveBundleModal');
-                const route = window.route('communication_resources.approve',id);
+                const route = window.route('resources.approve',id);
                 $("#md-save-bundle-form").attr('action',route)
                 new Modal(modal).show();
             });
@@ -102,7 +102,7 @@ import {Modal} from 'bootstrap';
             let card_img = card.children('.card-img-top').attr('src');
             let card_audio = card.children('.card-body').children('audio').children('source').attr('src');
             let card_id = card.children('input').attr('value');
-            const route = window.route('communication_resources.update', card_id);
+            const route = window.route('resources.update', card_id);
 
             //$('#md-modal-form').attr('method', 'PUT');
             $('#md-modal-form').attr('action', route);

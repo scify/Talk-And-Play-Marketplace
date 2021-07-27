@@ -88,7 +88,7 @@ class CommunicationResourceController extends Controller
 
         try {
 //            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
-            $package =  $this->communicationResourcesPackageManager->getCommunicationResourcesPackage($id);
+            $package =  $this->communicationResourcesPackageManager->getResourcesPackage($id);
             $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id, $package);
             return view('communication_resources.create-edit')->with(['viewModel' => $createResourceViewModel]);
         } catch (ModelNotFoundException $e){
@@ -96,71 +96,5 @@ class CommunicationResourceController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
 
-    public function update(Request $request, int $id)#after submit, (action-route submit button directs here)
-    {
-        $this->validate($request, [
-            'name' => 'required|string|max:100',
-            'sound' => 'file|between:10,1000|nullable',
-            'image' => 'file|between:10,500|nullable'
-        ]);
-        try {
-            $ret = $this->communicationResourceManager->updateCommunicationResource($request,$id);
-            $redirect_id = $ret['resource_parent_id'] ?: $ret->id;
-            return redirect()->route('communication_resources.edit',$redirect_id)->with('flash_message_success', 'The resource package has been successfully updated');
-        } catch(\Exception $e){
-            return redirect()->back()->with('flash_message_failure', 'The resource package has not been updated');
-        }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     */
-
-    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
-    {
-        try {
-            $this->communicationResourceManager->destroyCommunicationResource($id);
-            return redirect()->back()->with('flash_message_success', 'Success! The resource has been deleted');
-        } catch(\Exception $e){
-            return redirect()->back()->with('flash_message_failure', 'Warning! The resource has not been deleted');
-        }
-
-        //
-        #Manager get id of card
-        #Manager calls repository
-    }
-
-
-    public function submit(int $id): \Illuminate\Http\RedirectResponse
-    {
-        try {
-            $this->communicationResourcesPackageManager->approveCommunicationResourcesPackage($id);
-            return redirect()->back()->with('flash_message_success', 'Success! The resource package has been approved');
-        } catch(\Exception $e){
-            return redirect()->back()->with('flash_message_failure', 'Warning! The resource package has not been approved');
-        }
-
-        //
-        #Manager get id of card
-        #Manager calls repository
-    }
-
-
-    public function getContentLanguages() {
-        return $this->communicationResourceManager->getContentLanguagesForCommunicationResources();
-    }
-
-    public function getCommunicationResourcesForLanguage(Request $request) {
-        return $this->communicationResourceManager->getFirstLevelResourcesWithChildren($request->lang_id);
-    }
 }

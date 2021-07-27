@@ -21,7 +21,7 @@ class ResourceManager {
     }
 
 
-    public function getContentLanguagesForCommunicationResources()
+    public function getContentLanguagesForResources()
     {
         return $this->contentLanguageLkpRepository->all();
     }
@@ -31,7 +31,7 @@ class ResourceManager {
 
     public function getEditResourceViewModel($id, $package): CreateEditResourceVM
     {
-        $contentLanguages = $this->getContentLanguagesForCommunicationResources();
+        $contentLanguages = $this->getContentLanguagesForResources();
         $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($id);
         return new CreateEditResourceVM($contentLanguages, $this->resourceRepository->find($id), $childrenResourceCards, $package);
     }
@@ -72,7 +72,7 @@ class ResourceManager {
     }
 
 
-    public function updateCommunicationResource($request, $id)
+    public function updateResource($request, $id)
     {
         $storeArr = [
             "name" => $request['name'],
@@ -110,7 +110,7 @@ class ResourceManager {
 
     }
 
-    public function destroyCommunicationResource($id)
+    public function destroyResource($id)
     {
         $resource = $this->resourceRepository->find($id);
         $resourceFileManager = new CommunicationResourceFileManager();

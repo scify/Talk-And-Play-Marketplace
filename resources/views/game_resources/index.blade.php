@@ -7,7 +7,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-6">
-                    <a href="{{route('game_resources.game_creation',$gameCategoriesLkp::SIMILAR)}}" class="btn btn-primary">{{trans("messages.find_similar_tagline")}}</a>
+                    <a href="{{route('game_resources.create',['type_id'=>$gameCategoriesLkp::SIMILAR])}}" class="btn btn-primary">{{trans("messages.find_similar_tagline")}}</a>
                 </div>
             </div>
         </div>

@@ -9,12 +9,12 @@
 
 
     <form id="md-form" enctype="multipart/form-data" role="form" method="POST"
-          action="{{ $viewModel->isEditMode() ? route('game_resources.update', $viewModel->resource->id) : route('game_resources.store_game',$viewModel->type_id) }}">
+          action="{{ $viewModel->isEditMode() ? route('game_resources.update', $viewModel->resource->id) : route('game_resources.store',['type_id'=>$viewModel->type_id]) }}">
     @if($viewModel->isEditMode())
         @method('PUT')
     @endif
 
-    <!--form class="md-form" action="{{route('game_resources.store_game',$viewModel->type_id)}}" method="POST" enctype="multipart/form-data"-->
+    <!--form class="md-form" action="{{route('game_resources.store',['type_id'=>$viewModel->type_id])}}" method="POST" enctype="multipart/form-data"-->
         {{ csrf_field() }}
         <div class="container rounded py-4" style="border:1px solid grey">
             <div class="mx-3">
@@ -162,7 +162,7 @@
 
 
                     <form id="md-modal-form" enctype="multipart/form-data" role="form" method="POST"
-                          action="{{route('game_resources.store_game',$viewModel->type_id)}}">
+                          action="{{route('game_resources.store',['type_id'=>$viewModel->type_id])}}">
                         {{ csrf_field() }}
 
 

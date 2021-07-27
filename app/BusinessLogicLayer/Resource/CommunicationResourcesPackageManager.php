@@ -33,7 +33,7 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager
 
     public function getCreateResourcesPackageViewModel(): CreateEditResourceVM
     {
-        $contentLanguages = $this->getContentLanguagesForCommunicationResources();
+        $contentLanguages = $this->getContentLanguagesForResources();
         return new CreateEditResourceVM($contentLanguages,
             new  Resource(),
             new Collection(),

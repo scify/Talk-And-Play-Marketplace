@@ -56,11 +56,11 @@ class ResourcesPackageManager extends ResourceManager
 
     }
 
-    public function getCommunicationResourcesPackage($id){
+    public function getResourcesPackage($id){
         return $this->resourcesPackageRepository->getResourcesPackage($id)->first();
     }
 
-    public function approveCommunicationResourcesPackage($id)
+    public function approveResourcesPackage($id)
     {
         return  $this->resourcesPackageRepository->update(
             ['status_id' => ResourceStatusesLkp::APPROVED]
@@ -71,7 +71,7 @@ class ResourcesPackageManager extends ResourceManager
 
 
 
-    public function getContentLanguagesForCommunicationResources()
+    public function getContentLanguagesForResources()
     {
         return $this->contentLanguageLkpRepository->all();
     }

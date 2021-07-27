@@ -9,7 +9,7 @@
 
 
     <form id="md-form" enctype="multipart/form-data" role="form" method="POST"
-          action="{{ $viewModel->isEditMode() ? route('communication_resources.update', $viewModel->resource->id) : route('communication_resources.store') }}">
+          action="{{ $viewModel->isEditMode() ? route('resources.update', $viewModel->resource->id) : route('communication_resources.store') }}">
     @if($viewModel->isEditMode())
         @method('PUT')
     @endif

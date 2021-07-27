@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Resource\CommunicationResourceController;
 use App\Http\Controllers\Resource\GameResourceController;
+use App\Http\Controllers\Resource\ResourceController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,9 @@ Route::view('/', 'home')->name('home');
 Route::get('/lang/{lang}', [UserController::class, 'setLangLocaleCookie'])->name('set-lang-locale');
 Route::get('/communication-cards', [CommunicationResourceController::class, 'index'])->name('communication_resources.index');
 Route::get('/game-cards', [GameResourceController::class, 'index'])->name('game_resources.index');
+//TODO new route for resources with only methods ->only([]) without aliases
+
+
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('administration')->middleware("can:manage-platform")->name('administration.')->group(function () {
@@ -28,18 +32,28 @@ Route::middleware(['auth'])->group(function () {
             'create', 'edit', 'show'
         ]);
     });
-    Route::resource('communication-cards', CommunicationResourceController::class)
+
+
+    Route::resource('communication-resources', CommunicationResourceController::class)
         ->except([
             'index', 'show'
         ])
         ->names([
             'create' => 'communication_resources.create',
             'store' => 'communication_resources.store',
-            'edit' => 'communication_resources.edit',
-            'update' => 'communication_resources.update',
-            'destroy' => 'communication_resources.destroy'
+            'edit' => 'communication_resources.edit'
         ]);
-    Route::put("/communication-cards/approve/{id}", [CommunicationResourceController::class, 'submit'])->name('communication_resources.approve');
+    Route::put("/resources/approve/{id}", [ResourceController::class, 'submit'])->name('resources.approve');
+
+    Route::resource('resources', ResourceController::class)
+        ->except([
+            'index', 'show', 'create', 'edit'
+        ])
+        ->names([
+            'store' => 'resources.store',
+            'update' => 'resources.update',
+            'destroy' => 'resources.destroy'
+        ]);
 
     Route::resource('game-cards', GameResourceController::class)
         ->except([
@@ -49,14 +63,15 @@ Route::middleware(['auth'])->group(function () {
             'create' => 'game_resources.create',
             'store' => 'game_resources.store',
             'edit' => 'game_resources.edit',
-            'update' => 'game_resources.update',
-            'destroy' => 'game_resources.destroy'
+            'update' => 'game_resources.update'
         ]);
-    Route::get('/game-cards/game_creation/{id}', [GameResourceController::class, 'game_creation'])->name('game_resources.game_creation');
-    Route::put('/game-cards/{id}/edit_game/{type_id}', [GameResourceController::class, 'edit_game'])->name('game_resources.edit_game');
-    Route::post('/game-cards/{id}/store_game', [GameResourceController::class, 'store_game'])->name('game_resources.store_game');
+
+    Route::put("/resources/approve/{id}", [ResourceController::class, 'submit'])->name('resources.approve');
+
 
 });
+
+
 
 Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
     Route::get("/content-languages", [CommunicationResourceController::class, 'getContentLanguages'])->name('content_languages.get');

@@ -55,13 +55,28 @@ class GameResourceController extends Controller
     }
 
 
-    public function game_creation(int $game_id): View
+    public function create(Request $request): View
     {
-        if ($game_id === GameCategoriesLkp::SIMILAR) {
+        $this->validate($request, [
+            'type_id' => 'required'//TODO check if exists in DB tab
+        ]);
+
+        if (intval($request->type_id) === GameCategoriesLkp::SIMILAR) {
             $createResourcesPackageViewModel = $this->similarityGameResourcesPackageManager->getCreateResourcesPackageViewModel();
             return view('game_resources.create-edit-similarity-game')->with(['viewModel' => $createResourcesPackageViewModel]);
         }
     }
+
+
+
+//
+//    public function game_creation(int $game_id): View
+//    {
+//        if ($game_id === GameCategoriesLkp::SIMILAR) {
+//            $createResourcesPackageViewModel = $this->similarityGameResourcesPackageManager->getCreateResourcesPackageViewModel();
+//            return view('game_resources.create-edit-similarity-game')->with(['viewModel' => $createResourcesPackageViewModel]);
+//        }
+//    }
 
 
     /**
@@ -72,24 +87,25 @@ class GameResourceController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store_game(Request $request, int $type_id): \Illuminate\Http\RedirectResponse
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
 
         $this->validate($request, [
             'name' => 'required|string|max:100',
-            'image' => 'required|file|between:10,500|nullable'
+            'image' => 'required|file|between:10,500|nullable',
+            'type_id' => 'required'
         ]);
 
         try {
 
-            if ($type_id === ResourceTypesLkp::SIMILAR_GAME) {
+            if (intval($request->type_id) === ResourceTypesLkp::SIMILAR_GAME) {
                 $resource = $this->similarityGameResourceManager->storeResource($request);
                 if ($resource->resource_parent_id == null) {
                     $this->similarityGameResourcesPackageManager->storeResourcePackage($resource, $request['lang']);
-                    return redirect()->route('game_resources.edit_game', [$resource->id, $type_id])->with('flash_message_success', 'The resource package has been successfully created');
+                    return redirect()->route('game_resources.edit', $resource->id)->with('flash_message_success', 'The resource package has been successfully created');
                 }
             }
-            return redirect()->route('game_resources.edit_game', [$resource->resource_parent_id, $type_id])->with('flash_message_success', 'A new resource card has been successfully added to the package');
+            return redirect()->route('game_resources.edit', $resource->resource_parent_id)->with('flash_message_success', 'A new resource card has been successfully added to the package');
 
         } catch (Exception $e) {
             return redirect()->with('flash_message_failure', 'Failure - resource card has not been added');
@@ -97,23 +113,18 @@ class GameResourceController extends Controller
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @param int $type_id
-     * @return Response
-     */
-    public function edit_game(int $id, int $type_id): Response#returns view
+
+    public function edit(int $id)#returns view
     {
         try {
-            if ($type_id === ResourceTypesLkp::SIMILAR_GAME) {
-                $package = $this->similarityGameResourcesPackageManager->getCommunicationResourcesPackage($id);
+            $package = $this->resourcesPackageManager->getResourcesPackage($id);
+            if ($package->type_id === ResourceTypesLkp::SIMILAR_GAME) {
                 $createResourceViewModel = $this->similarityGameResourceManager->getEditResourceViewModel($id, $package);
+                return view('game_resources.create-edit-similarity-game')->with(['viewModel' => $createResourceViewModel]);
             } else {
                 throw(new ResourceNotFoundException("Game type not yet supported"));
             }
-            return view('game_resources.create-edit')->with(['viewModel' => $createResourceViewModel]);
+
         } catch (ModelNotFoundException $e) {
             abort(404);
         }
@@ -135,7 +146,7 @@ class GameResourceController extends Controller
             'image' => 'file|between:10,500|nullable'
         ]);
         try {
-            $ret = $this->resourceManager->updateCommunicationResource($request, $id);
+            $ret = $this->resourceManager->updateResource($request, $id);
             $redirect_id = $ret['resource_parent_id'] ?: $ret->id;
             return redirect()->route('game_resources.edit', $redirect_id)->with('flash_message_success', 'The resource package has been successfully updated');
         } catch (\Exception $e) {
