@@ -18,7 +18,9 @@ class ResourceTypeLkpTableSeeder extends Seeder {
 
         $data = [
             ['id' => 1, 'name' => 'Communication', 'description' => 'Communication resource'],
-            ['id' => 2, 'name' => 'Game', 'description' => 'Game resource']
+            ['id' => 2, 'name' => 'Response', 'description' => 'Ερέθισμα - Αντίδραση - Game resource'],
+            ['id' => 3, 'name' => 'Time', 'description' => 'Χρονική Αλληλουχία- Game resource'],
+            ['id' => 4, 'name' => 'Similar', 'description' => 'Βρες το Όμοιο - Game resource'],
         ];
 
         foreach ($data as $datum) {

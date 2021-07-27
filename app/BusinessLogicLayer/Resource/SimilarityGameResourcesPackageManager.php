@@ -16,20 +16,20 @@ use Illuminate\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
-class CommunicationResourcesPackageManager extends ResourcesPackageManager
+class SimilarityGameResourcesPackageManager extends ResourcesPackageManager
 {
     public ResourcesPackageRepository $resourcesPackageRepository;
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
     protected ResourceRepository $resourceRepository;
-    const maximumCardsThreshold = 10;
+    const maximumCardsThreshold = 4;
+
     public function __construct(ResourceRepository $resourceRepository, ContentLanguageLkpRepository $contentLanguageLkpRepository, ResourcesPackageRepository $resourcesPackageRepository)
     {
         $this->resourceRepository = $resourceRepository;
         $this->contentLanguageLkpRepository = $contentLanguageLkpRepository;
         $this->resourcesPackageRepository = $resourcesPackageRepository;
-        parent::__construct($resourceRepository, $contentLanguageLkpRepository,$resourcesPackageRepository, ResourceTypesLkp::COMMUNICATION );
+        parent::__construct($resourceRepository, $contentLanguageLkpRepository,$resourcesPackageRepository, ResourceTypesLkp::SIMILAR_GAME);
     }
-
 
     public function getCreateResourcesPackageViewModel(): CreateEditResourceVM
     {
@@ -39,7 +39,8 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager
             new Collection(),
             new ResourcesPackage(),
             self::maximumCardsThreshold,
-            ResourceTypesLkp::COMMUNICATION);
+            ResourceTypesLkp::SIMILAR_GAME);
     }
+
 
 }

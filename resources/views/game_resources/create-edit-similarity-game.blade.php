@@ -9,12 +9,12 @@
 
 
     <form id="md-form" enctype="multipart/form-data" role="form" method="POST"
-          action="{{ $viewModel->isEditMode() ? route('communication_resources.update', $viewModel->resource->id) : route('communication_resources.store') }}">
+          action="{{ $viewModel->isEditMode() ? route('game_resources.update', $viewModel->resource->id) : route('game_resources.store_game',$viewModel->type_id) }}">
     @if($viewModel->isEditMode())
         @method('PUT')
     @endif
 
-    <!--form class="md-form" action="{{route('communication_resources.store')}}" method="POST" enctype="multipart/form-data"-->
+    <!--form class="md-form" action="{{route('game_resources.store_game',$viewModel->type_id)}}" method="POST" enctype="multipart/form-data"-->
         {{ csrf_field() }}
         <div class="container rounded py-4" style="border:1px solid grey">
             <div class="mx-3">
@@ -74,39 +74,12 @@
                 @error('image')
                 <div class="alert alert-danger">{{$message}}</div>
                 @enderror
-                <div class="mb-3">
-                    <label for="sound_file" class="form-label">{{trans("messages.upload_audio")}}<span
-                            style="color:#ff0000">*</span></label>
-                    <div class="file-field px-5">
-                        <a class="btn-floating purple-gradient mt-0 float-left">
-                            <input type="button" class="btn btn-third" id="loadFileXml" value="+"
-                                   onclick="document.getElementById('sound_file').click();"/>
-                            <input type="file" accept=".mp3" class="btn btn-third  @error('sound') is-invalid @enderror"
-                                   style="display:none;"
-                                   name="sound" id="sound_file">
-                        </a>
-                    </div>
-                    @if($viewModel->isEditMode())
-                        <audio id="player" controls class="mt-3">
-                            <source src={{asset("storage/".$viewModel->resource->audio_path)}} id="mp3_src"
-                                    type="audio/mpeg">
-                        </audio>
-                    @else
-                        <audio id="player" controls style="display:none" class="mt-3">
-                            <source src={{asset('storage/resources/audio/happiness.mp3')}} id="mp3_src"
-                                    type="audio/mpeg">
-                        </audio>
-                    @endif
-                </div>
-                @error('sound')
-                <div class="alert alert-danger">{{$message}}</div>
-                @enderror
             </div>
 
             <hr/>
             <div class="d-flex justify-content-end">
                 <!--<input class="btn btn-outline-primary" type="reset" value="Ακύρωση">-->
-                <a class="btn btn-outline-primary" href="{{route('communication_resources.index')}}">
+                <a class="btn btn-outline-primary" href="{{route('game_resources.index')}}">
                     {{trans("messages.cancel")}}
                 </a>
 
@@ -162,11 +135,6 @@
                                 <div class="card-title">
                                     <p> {{ $child->name }} </p>
                                 </div>
-                                <div class="card-body">
-                                    <audio controls class="mt-5">
-                                        <source src={{asset("storage/".$child->audio_path)}} type="audio/mpeg">
-                                    </audio>
-                                </div>
                             </div>
                         </div>
                     @endforeach
@@ -194,7 +162,7 @@
 
 
                     <form id="md-modal-form" enctype="multipart/form-data" role="form" method="POST"
-                          action="{{route('communication_resources.store')}}">
+                          action="{{route('game_resources.store_game',$viewModel->type_id)}}">
                         {{ csrf_field() }}
 
 
@@ -244,30 +212,6 @@
 
                             </div>
                             @error('image')
-                            <div class="alert alert-danger">{{$message}}</div>
-                            @enderror
-                            <div class="mb-3">
-                                <label for="modal_sound_file" class="form-label">{{trans('messages.upload_audio')}}
-                                    (mp3)
-                                    <span
-                                        style="color:#ff0000">*</span></label>
-                                <div class="file-field px-5">
-                                    <a class="btn-floating purple-gradient mt-0 float-left">
-                                        <input type="button" class="btn btn-third" id="ModalLoadFileXml" value="+"
-                                               onclick="document.getElementById('modal_sound_file').click();"/>
-                                        <input type="file" accept=".mp3"
-                                               class="btn btn-third @error('sound') is-invalid @enderror"
-                                               style="display:none;"
-                                               name="sound" id="modal_sound_file">
-                                    </a>
-                                </div>
-                                <audio id="modal_player" controls style="display:none" class="mt-3">
-                                    <source
-                                        src={{asset('storage/resources/audio/happiness.mp3')}} id="modal_mp3_src"
-                                        type="audio/mpeg">
-                                </audio>
-                            </div>
-                            @error('sound')
                             <div class="alert alert-danger">{{$message}}</div>
                             @enderror
                         </div>

@@ -10,13 +10,14 @@ class UsersTableSeeder extends Seeder {
     protected UserRepository $userRepository;
 
     public function __construct(UserRepository $userRepository) {
+
         $this->userRepository = $userRepository;
     }
 
 
     public function run() {
         echo "\nRunning User Seeder...\n";
-
+        echo env('DEFAULT_ADMIN_USER_PASSWORD_FOR_SEED')."\n";
         $data = [
             [
                 'id' => 1,

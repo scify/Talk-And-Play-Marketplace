@@ -53,6 +53,9 @@ Route::middleware(['auth'])->group(function () {
             'destroy' => 'game_resources.destroy'
         ]);
     Route::get('/game-cards/game_creation/{id}', [GameResourceController::class, 'game_creation'])->name('game_resources.game_creation');
+    Route::put('/game-cards/edit_game/{id}', [GameResourceController::class, 'edit_game'])->name('game_resources.edit_game');
+    Route::post('/game-cards/store_game/{id}', [GameResourceController::class, 'store_game'])->name('game_resources.store_game');
+
 });
 
 Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
