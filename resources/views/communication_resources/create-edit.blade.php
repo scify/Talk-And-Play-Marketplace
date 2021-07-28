@@ -130,6 +130,9 @@
             ">
                 {{trans("messages.add_new_card")}}
             </button>
+            @if($viewModel->ReachedMaximumCardLimit())
+                <div class="alert alert-danger">{{trans("messages.reached_card_limit")}}</div>
+            @endif
             @if(sizeof($viewModel->childrenCards)>0)
             <button type="button" id="saveBundleBtn" class="btn btn-primary mt-5 btn-block"
                 {{--                    data-bs-toggle="modal"--}}
