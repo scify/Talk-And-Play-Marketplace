@@ -4,23 +4,35 @@ namespace App\Http\Controllers\Resource;
 
 use App\BusinessLogicLayer\Resource\ResourceManager;
 use App\BusinessLogicLayer\Resource\ResourcesPackageManager;
+use App\BusinessLogicLayer\Resource\CommunicationResourcesPackageManager;
+use App\BusinessLogicLayer\Resource\SimilarityGameResourcesPackageManager;
+use App\Repository\Resource\ResourceTypesLkp;
 use App\Http\Controllers\Controller;
 use App\Models\Resource\Resource;
 use App\ViewModels\CreateEditResourceVM;
+use Illuminate\Collections\ItemNotFoundException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 class ResourceController extends Controller
 {
 
     protected ResourceManager $ResourceManager;
     protected ResourcesPackageManager $ResourcesPackageManager;
+    protected SimilarityGameResourcesPackageManager $SimilarityGameResourcesPackageManager;
+    protected CommunicationResourcesPackageManager $CommunicationResourcesPackageManager;
 
-    public function __construct(ResourceManager $ResourceManager, ResourcesPackageManager $ResourcesPackageManager) {
+    public function __construct(ResourceManager $ResourceManager, ResourcesPackageManager $ResourcesPackageManager,
+                                CommunicationResourcesPackageManager $CommunicationResourcesPackageManager,
+                                SimilarityGameResourcesPackageManager $SimilarityGameResourcesPackageManager)
+    {
         $this->ResourceManager = $ResourceManager;
         $this->ResourcesPackageManager = $ResourcesPackageManager;
+        $this->SimilarityGameResourcesPackageManager = $SimilarityGameResourcesPackageManager;
+        $this->CommunicationResourcesPackageManager = $CommunicationResourcesPackageManager;
     }
 
 
@@ -29,10 +41,10 @@ class ResourceController extends Controller
      *
      * @return View
      */
-    public function index(): View {
+    public function index(): View
+    {
         return view('resources.index');
     }
-
 
 
     /**
@@ -40,29 +52,43 @@ class ResourceController extends Controller
      *
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
     {
 
         $this->validate($request, [
             'name' => 'required|string|max:100',
-            'sound' => 'required|file|between:10,1000|nullable',
-            'image' => 'required|file|between:10,500|nullable'
+            'image' => 'required|file|between:10,500|nullable',
+            'type_id' => 'required'
         ]);
 
-        try {
+        $type_id = intval($request->type_id);
 
-            $resource = $this->ResourceManager->storeResource($request);
-            if($resource->resource_parent_id == null) {
-                $this->ResourcesPackageManager->storeResourcePackage($resource, $request['lang']);
-                return redirect()->route('resources.edit', $resource->id)->with('flash_message_success', 'The resource package has been successfully created');
-            }
-            return redirect()->route('resources.edit', $resource->resource_parent_id)->with('flash_message_success', 'A new resource card has been successfully added to the package');
-
+        if ($type_id === ResourceTypesLkp::COMMUNICATION) {
+            $this->validate($request, ['sound' => 'required|file|between:10,1000|nullable']);
+            $manager = $this->CommunicationResourcesPackageManager;
+            $ret_route = "communication_resources.edit";
+        } else if ($type_id === ResourceTypesLkp::SIMILAR_GAME) {
+            $manager = $this->SimilarityGameResourcesPackageManager;
+            $ret_route = "game_resources.edit";
         }
-        catch (Exception $e){
+        else{
+            throw(new \ValueError("Type not supported"));
+        }
+        try {
+            $resource = $this->ResourceManager->storeResource($request);
+            $redirect_id = $resource->resource_parent_id;
+            if ($redirect_id == null) {
+                $manager->storeResourcePackage($resource, $request['lang']);
+                $redirect_id = $resource->id;
+                return redirect()->route($ret_route, $redirect_id)
+                    ->with('flash_message_success', 'The communication resource package has been successfully created');
+            }
+        } catch (Exception $e) {
             return redirect()->with('flash_message_failure', 'Failure - resource card has not been added');
         }
+
 
     }
 
@@ -79,14 +105,16 @@ class ResourceController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|max:100',
-            'sound' => 'file|between:10,1000|nullable',
+//            'sound' => 'file|between:10,1000|nullable',
             'image' => 'file|between:10,500|nullable'
         ]);
         try {
-            $ret = $this->ResourceManager->updateResource($request,$id);
+            $ret = $this->ResourceManager->updateResource($request, $id);
+
             $redirect_id = $ret['resource_parent_id'] ?: $ret->id;
-            return redirect()->route('resources.edit',$redirect_id)->with('flash_message_success', 'The resource package has been successfully updated');
-        } catch(\Exception $e){
+            $package = $this->resourcesPackageManager->getResourcesPackage($id);
+            return redirect()->route('game_resources.edit', $redirect_id)->with('flash_message_success', 'The resource package has been successfully updated');
+        } catch (\Exception $e) {
             return redirect()->back()->with('flash_message_failure', 'The resource package has not been updated');
         }
     }
@@ -102,7 +130,7 @@ class ResourceController extends Controller
         try {
             $this->ResourceManager->destroyResource($id);
             return redirect()->back()->with('flash_message_success', 'Success! The resource has been deleted');
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             return redirect()->back()->with('flash_message_failure', 'Warning! The resource has not been deleted');
         }
 
@@ -117,7 +145,7 @@ class ResourceController extends Controller
         try {
             $this->ResourcesPackageManager->approveResourcesPackage($id);
             return redirect()->back()->with('flash_message_success', 'Success! The resource package has been approved');
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             return redirect()->back()->with('flash_message_failure', 'Warning! The resource package has not been approved');
         }
 
@@ -127,12 +155,13 @@ class ResourceController extends Controller
     }
 
 
-
-    public function getContentLanguages() {
+    public function getContentLanguages()
+    {
         return $this->ResourceManager->getContentLanguagesForResources();
     }
 
-    public function getResourcesForLanguage(Request $request) {
+    public function getResourcesForLanguage(Request $request)
+    {
         return $this->ResourceManager->getFirstLevelResourcesWithChildren($request->lang_id);
     }
 }

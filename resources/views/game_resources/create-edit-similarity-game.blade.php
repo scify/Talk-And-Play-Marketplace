@@ -9,12 +9,13 @@
 
 
     <form id="md-form" enctype="multipart/form-data" role="form" method="POST"
-          action="{{ $viewModel->isEditMode() ? route('game_resources.update', $viewModel->resource->id) : route('game_resources.store',['type_id'=>$viewModel->type_id]) }}">
+          action="{{ $viewModel->isEditMode() ? route('resources.update', $viewModel->resource->id) : route('resources.store',['type_id'=>$viewModel->type_id]) }}">
+        <input type="hidden" id="type_id" value='{{$viewModel->type_id}}'/>
     @if($viewModel->isEditMode())
         @method('PUT')
     @endif
 
-    <!--form class="md-form" action="{{route('game_resources.store',['type_id'=>$viewModel->type_id])}}" method="POST" enctype="multipart/form-data"-->
+    <!--form class="md-form" action="{{route('resources.store',['type_id'=>$viewModel->type_id])}}" method="POST" enctype="multipart/form-data"-->
         {{ csrf_field() }}
         <div class="container rounded py-4" style="border:1px solid grey">
             <div class="mx-3">
@@ -162,7 +163,7 @@
 
 
                     <form id="md-modal-form" enctype="multipart/form-data" role="form" method="POST"
-                          action="{{route('game_resources.store',['type_id'=>$viewModel->type_id])}}">
+                          action="{{route('resources.store',['type_id'=>$viewModel->type_id])}}">
                         {{ csrf_field() }}
 
 
@@ -247,7 +248,7 @@
                         {{ csrf_field() }}
                         <input type="hidden" name="_method" value="DELETE">
                         <input class="btn btn-primary ms-4" type="submit" id="deletionConfirmed"
-                               value="{{trans('messages.delete_card')}}}">
+                               value="{{trans('messages.delete_card')}}">
                         &nbsp;
                         &nbsp;
                         <a class="btn btn-outline-primary" data-bs-dismiss="modal">

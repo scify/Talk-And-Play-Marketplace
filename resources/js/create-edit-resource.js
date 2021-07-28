@@ -43,7 +43,12 @@ import {Modal} from 'bootstrap';
                 document.getElementById("ModalLabel").remove();
             } catch ($e) {
             }
-            const route = window.route('resources.store');
+
+            let type_id =  $("#type_id").attr('value');
+
+
+            const route = window.route('resources.store,[type_id=>\''.concat(type_id).concat('\'])'));
+
             $('#modal_player').hide();
             $('#md-modal-form').attr('action', route);
             $("#modalHeader").prepend('<h5 class="modal-title w-100" id="ModalLabel">Προσθήκη Νέας Κάρτας</h5>');
