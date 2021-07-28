@@ -123,7 +123,7 @@
         <div class="mt-5 mb-5" align="center">
 
             <button type="button" id="newCardBtn" class="btn btn-primary mt-5 btn-block
-            @if(sizeof($viewModel->childrenCards) === $viewModel->ReachedMaximumCardLimit()) disabled
+            @if($viewModel->ReachedMaximumCardLimit()) disabled
             @endif
 {{--                    data-bs-toggle="modal"--}}
 {{--                    data-bs-target="#newCardModal"--}}
