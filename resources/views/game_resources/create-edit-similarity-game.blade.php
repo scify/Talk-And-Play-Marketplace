@@ -97,13 +97,14 @@
         <div class="mt-5 mb-5" align="center">
 
             <button type="button" id="newCardBtn" class="btn btn-primary mt-5 btn-block
-            @if(sizeof($viewModel->childrenCards) === $viewModel->ReachedMaximumCardLimit()) disabled
+            @if($viewModel->ReachedMaximumCardLimit()) disabled  @error('MaximumCardLimit') is-invalid @enderror"
             @endif
 {{--                    data-bs-toggle="modal"--}}
 {{--                    data-bs-target="#newCardModal"--}}
             ">
                 {{trans("messages.add_new_card")}}
             </button>
+
             @if(sizeof($viewModel->childrenCards)>0)
             <button type="button" id="saveBundleBtn" class="btn btn-primary mt-5 btn-block"
                 {{--                    data-bs-toggle="modal"--}}
@@ -113,6 +114,9 @@
             </button>
             @endif
         </div>
+        @error('MaximumCardLimit')
+        <div class="alert alert-danger">You can not add more cards to this package! Maximum card limit has been reached.</div>
+        @enderror
         @if(sizeof($viewModel->childrenCards)>0)
             <div class="container">
                 <div class="row">
