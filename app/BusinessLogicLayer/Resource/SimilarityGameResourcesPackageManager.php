@@ -42,5 +42,18 @@ class SimilarityGameResourcesPackageManager extends ResourcesPackageManager
             ResourceTypesLkp::SIMILAR_GAME);
     }
 
+    public function getEditResourceViewModel($id, $package): CreateEditResourceVM
+    {
+        $contentLanguages = $this->getContentLanguagesForResources();
+        $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($id);
+        return new CreateEditResourceVM($contentLanguages,
+            $this->resourceRepository->find($id),
+            $childrenResourceCards,
+            $package,
+            self::maximumCardsThreshold,
+            ResourceTypesLkp::SIMILAR_GAME);
+    }
+
+
 
 }

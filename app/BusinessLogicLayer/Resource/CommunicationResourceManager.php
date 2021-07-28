@@ -24,4 +24,6 @@ class CommunicationResourceManager extends ResourceManager
             $this->contentLanguageLkpRepository);
     }
 
+
+
 }

@@ -29,12 +29,6 @@ class ResourceManager {
 
 
 
-    public function getEditResourceViewModel($id, $package): CreateEditResourceVM
-    {
-        $contentLanguages = $this->getContentLanguagesForResources();
-        $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($id);
-        return new CreateEditResourceVM($contentLanguages, $this->resourceRepository->find($id), $childrenResourceCards, $package);
-    }
 
 
     public function storeResource($request)

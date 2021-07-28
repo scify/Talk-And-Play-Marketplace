@@ -42,4 +42,16 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager
             ResourceTypesLkp::COMMUNICATION);
     }
 
+    public function getEditResourceViewModel($id, $package): CreateEditResourceVM
+    {
+        $contentLanguages = $this->getContentLanguagesForResources();
+        $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($id);
+        return new CreateEditResourceVM($contentLanguages,
+            $this->resourceRepository->find($id),
+            $childrenResourceCards,
+            $package,
+            self::maximumCardsThreshold,
+            ResourceTypesLkp::COMMUNICATION);
+    }
+
 }

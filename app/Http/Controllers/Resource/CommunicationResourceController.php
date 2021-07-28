@@ -89,7 +89,7 @@ class CommunicationResourceController extends Controller
         try {
 //            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
             $package =  $this->communicationResourcesPackageManager->getResourcesPackage($id);
-            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id, $package);
+            $createResourceViewModel = $this->communicationResourcesPackageManager->getEditResourceViewModel($id, $package);
             return view('communication_resources.create-edit')->with(['viewModel' => $createResourceViewModel]);
         } catch (ModelNotFoundException $e){
             abort(404);

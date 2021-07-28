@@ -119,7 +119,7 @@ class GameResourceController extends Controller
         try {
             $package = $this->resourcesPackageManager->getResourcesPackage($id);
             if ($package->type_id === ResourceTypesLkp::SIMILAR_GAME) {
-                $createResourceViewModel = $this->similarityGameResourceManager->getEditResourceViewModel($id, $package);
+                $createResourceViewModel = $this->similarityGameResourcesPackageManager->getEditResourceViewModel($id, $package);
                 return view('game_resources.create-edit-similarity-game')->with(['viewModel' => $createResourceViewModel]);
             } else {
                 throw(new ResourceNotFoundException("Game type not yet supported"));

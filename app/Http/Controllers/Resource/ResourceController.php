@@ -82,9 +82,9 @@ class ResourceController extends Controller
             if ($redirect_id == null) {
                 $manager->storeResourcePackage($resource, $request['lang']);
                 $redirect_id = $resource->id;
-                return redirect()->route($ret_route, $redirect_id)
-                    ->with('flash_message_success', 'The communication resource package has been successfully created');
             }
+            return redirect()->route($ret_route, $redirect_id)
+                ->with('flash_message_success', 'The resource package has been successfully created');
         } catch (Exception $e) {
             return redirect()->with('flash_message_failure', 'Failure - resource card has not been added');
         }
