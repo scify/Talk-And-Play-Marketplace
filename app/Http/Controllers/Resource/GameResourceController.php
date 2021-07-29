@@ -154,6 +154,49 @@ class GameResourceController extends Controller
         }
     }
 
+    public function show_packages(int $type_id)
+    {
+        try {
+//            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
+            if ($type_id === ResourceTypesLkp::SIMILAR_GAME) {
+                $displayPackageVM = $this->similarityGameResourcesPackageManager->getApprovedSimilarityGamePackagesParentResources();
+                return view('game_resources.approved-packages')->with(['viewModel' => $displayPackageVM]);
+            }
+            else {
+                    throw(new ResourceNotFoundException("Game type not yet supported"));
+                }
+        } catch (ModelNotFoundException $e) {
+            abort(404);
+        }
+    }
+
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id
+     * @return Response
+     */
+
+    public function show_package(int $id)
+    {
+        $package = $this->resourcesPackageManager->getResourcesPackage($id);
+
+        try {
+//            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
+            if ($package->type_id === ResourceTypesLkp::SIMILAR_GAME) {
+                $createResourceViewModel = $this->similarityGameResourcesPackageManager->getEditResourceViewModel($id, $package);
+                return view('game_resources.show-package')->with(['viewModel' => $createResourceViewModel]);
+            }
+            else {
+                throw(new ResourceNotFoundException("Game type not yet supported"));
+            }
+        } catch (ModelNotFoundException $e) {
+            abort(404);
+        }
+    }
+
+
 
 
 

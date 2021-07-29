@@ -12,6 +12,8 @@ use App\Repository\Resource\ResourceStatusesLkp;
 use App\Repository\Resource\ResourceTypesLkp;
 use App\Repository\Resource\ResourcesPackageRepository;
 use App\ViewModels\CreateEditResourceVM;
+use App\ViewModels\DisplayPackageVM;
+use App\ViewModels\ResourcePackagesVM;
 use Illuminate\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -22,12 +24,14 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
     protected ResourceRepository $resourceRepository;
     const maximumCardsThreshold = 10;
+    const type_id = ResourceTypesLkp::COMMUNICATION;
+
     public function __construct(ResourceRepository $resourceRepository, ContentLanguageLkpRepository $contentLanguageLkpRepository, ResourcesPackageRepository $resourcesPackageRepository)
     {
         $this->resourceRepository = $resourceRepository;
         $this->contentLanguageLkpRepository = $contentLanguageLkpRepository;
         $this->resourcesPackageRepository = $resourcesPackageRepository;
-        parent::__construct($resourceRepository, $contentLanguageLkpRepository,$resourcesPackageRepository, ResourceTypesLkp::COMMUNICATION);
+        parent::__construct($resourceRepository, $contentLanguageLkpRepository, $resourcesPackageRepository, self::type_id);
     }
 
 
@@ -39,7 +43,7 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager
             new Collection(),
             new ResourcesPackage(),
             self::maximumCardsThreshold,
-            ResourceTypesLkp::COMMUNICATION);
+            self::type_id);
     }
 
     public function getEditResourceViewModel($id, $package): CreateEditResourceVM
@@ -53,5 +57,23 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager
             self::maximumCardsThreshold,
             ResourceTypesLkp::COMMUNICATION);
     }
+
+
+    public function getApprovedCommunicationPackagesParentResources(): DisplayPackageVM
+    {
+
+        $approvedCommunicationPackages = $this->resourcesPackageRepository->getApprovedPackagesOfType(self::type_id);
+        $parentResources = Collection::empty();
+        foreach ($approvedCommunicationPackages as $package) {
+            $parentId = $package->card_id;
+            $parent = $this->resourceRepository->find($parentId);
+            $parentResources->push($parent);
+        }
+
+        return new DisplayPackageVM($parentResources);
+
+    }
+
+
 
 }

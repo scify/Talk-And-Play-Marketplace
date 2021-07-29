@@ -41,10 +41,15 @@ Route::middleware(['auth'])->group(function () {
         ->names([
             'create' => 'communication_resources.create',
             'store' => 'communication_resources.store',
-            'edit' => 'communication_resources.edit'
+            'edit' => 'communication_resources.edit',
+            'show_packages' => 'communication_resources.show_packages',
+            'show_package' => 'communication_resources.show_package'
         ]);
-    Route::put("/resources/approve/{id}", [ResourceController::class, 'submit'])->name('resources.approve');
+    Route::get("/communication-cards/show/packages", [CommunicationResourceController::class, 'show_packages'])->name('communication_resources.show_packages');
+    Route::get("/communication-cards/show/package/{id}", [CommunicationResourceController::class, 'show_package'])->name('communication_resources.show_package');
 
+
+    Route::put("/resources/approve/{id}", [ResourceController::class, 'submit'])->name('resources.approve');
     Route::resource('resources', ResourceController::class)
         ->except([
             'index', 'show', 'create', 'edit'
@@ -63,10 +68,13 @@ Route::middleware(['auth'])->group(function () {
             'create' => 'game_resources.create',
             'store' => 'game_resources.store',
             'edit' => 'game_resources.edit',
-            'update' => 'game_resources.update'
+            'update' => 'game_resources.update',
+            'show_packages' => 'game_resources.show_packages',
+            'show_package' => 'game_resources.show_package'
         ]);
 
-    Route::put("/resources/approve/{id}", [ResourceController::class, 'submit'])->name('resources.approve');
+    Route::get("/game-cards/show/packages/{type_id}", [GameResourceController::class, 'show_packages'])->name('game_resources.show_packages');
+    Route::get("/game-cards/show/package/{id}", [GameResourceController::class, 'show_package'])->name('game_resources.show_package');
 
 
 });

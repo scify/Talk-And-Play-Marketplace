@@ -12,6 +12,7 @@ use App\Repository\Resource\ResourceStatusesLkp;
 use App\Repository\Resource\ResourceTypesLkp;
 use App\Repository\Resource\ResourcesPackageRepository;
 use App\ViewModels\CreateEditResourceVM;
+use App\ViewModels\DisplayPackageVM;
 use Illuminate\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -22,13 +23,14 @@ class SimilarityGameResourcesPackageManager extends ResourcesPackageManager
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
     protected ResourceRepository $resourceRepository;
     const maximumCardsThreshold = 4;
+    const type_id = ResourceTypesLkp::SIMILAR_GAME;
 
     public function __construct(ResourceRepository $resourceRepository, ContentLanguageLkpRepository $contentLanguageLkpRepository, ResourcesPackageRepository $resourcesPackageRepository)
     {
         $this->resourceRepository = $resourceRepository;
         $this->contentLanguageLkpRepository = $contentLanguageLkpRepository;
         $this->resourcesPackageRepository = $resourcesPackageRepository;
-        parent::__construct($resourceRepository, $contentLanguageLkpRepository,$resourcesPackageRepository, ResourceTypesLkp::SIMILAR_GAME);
+        parent::__construct($resourceRepository, $contentLanguageLkpRepository,$resourcesPackageRepository, self::type_id);
     }
 
     public function getCreateResourcesPackageViewModel(): CreateEditResourceVM
@@ -39,7 +41,7 @@ class SimilarityGameResourcesPackageManager extends ResourcesPackageManager
             new Collection(),
             new ResourcesPackage(),
             self::maximumCardsThreshold,
-            ResourceTypesLkp::SIMILAR_GAME);
+            self::type_id);
     }
 
     public function getEditResourceViewModel($id, $package): CreateEditResourceVM
@@ -51,7 +53,22 @@ class SimilarityGameResourcesPackageManager extends ResourcesPackageManager
             $childrenResourceCards,
             $package,
             self::maximumCardsThreshold,
-            ResourceTypesLkp::SIMILAR_GAME);
+            self::type_id);
+    }
+
+    public function getApprovedSimilarityGamePackagesParentResources(): DisplayPackageVM
+    {
+
+        $approvedCommunicationPackages = $this->resourcesPackageRepository->getApprovedPackagesOfType(self::type_id);
+        $parentResources = Collection::empty();
+        foreach ($approvedCommunicationPackages as $package) {
+            $parentId = $package->card_id;
+            $parent = $this->resourceRepository->find($parentId);
+            $parentResources->push($parent);
+        }
+
+        return new DisplayPackageVM($parentResources);
+
     }
 
 
