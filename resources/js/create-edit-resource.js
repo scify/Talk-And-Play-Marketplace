@@ -107,6 +107,9 @@ import {Modal} from 'bootstrap';
             let card_img = card.children('.card-img-top').attr('src');
             let card_audio = card.children('.card-body').children('audio').children('source').attr('src');
             let card_id = card.children('input').attr('value');
+
+            let type_id =  $("#type_id").attr('value');
+            // const route = window.route('resources.update_resource,[\'id\' => '.concat(card_id).concat(', \'type_id\' => ').concat(type_id).concat(']'));
             const route = window.route('resources.update', card_id);
 
             //$('#md-modal-form').attr('method', 'PUT');

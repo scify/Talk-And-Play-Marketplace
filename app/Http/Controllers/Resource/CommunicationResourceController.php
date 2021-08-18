@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Resource;
 
 use App\BusinessLogicLayer\Resource\CommunicationResourceManager;
 use App\BusinessLogicLayer\Resource\CommunicationResourcesPackageManager;
+use App\BusinessLogicLayer\Resource\ResourceManager;
 use App\Http\Controllers\Controller;
 use App\Models\Resource\Resource;
 use App\ViewModels\CreateEditResourceVM;
@@ -15,12 +16,12 @@ use Illuminate\Http\Response;
 class CommunicationResourceController extends Controller
 {
 
-    protected CommunicationResourceManager $communicationResourceManager;
+    protected ResourceManager $resourceManager;
     protected CommunicationResourcesPackageManager $communicationResourcesPackageManager;
 
-    public function __construct(CommunicationResourceManager $communicationResourceManager, CommunicationResourcesPackageManager $communicationResourcesPackageManager)
+    public function __construct(ResourceManager $resourceManager, CommunicationResourcesPackageManager $communicationResourcesPackageManager)
     {
-        $this->communicationResourceManager = $communicationResourceManager;
+        $this->resourceManager = $resourceManager;
         $this->communicationResourcesPackageManager = $communicationResourcesPackageManager;
     }
 
@@ -66,7 +67,7 @@ class CommunicationResourceController extends Controller
 
         try {
 
-            $resource = $this->communicationResourceManager->storeResource($request);
+            $resource = $this->resourceManager->storeResource($request);
             if ($resource->resource_parent_id == null) {
                 $this->communicationResourcesPackageManager->storeResourcePackage($resource, $request['lang']);
                 return redirect()->route('communication_resources.edit', $resource->id)->with('flash_message_success', 'The resource package has been successfully created');

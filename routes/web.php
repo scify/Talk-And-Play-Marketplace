@@ -35,7 +35,7 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::resource('communication-resources', CommunicationResourceController::class)
-        ->except([
+        ->except([//ONLY
             'index', 'show'
         ])
         ->names([
@@ -56,9 +56,11 @@ Route::middleware(['auth'])->group(function () {
         ])
         ->names([
             'store' => 'resources.store',
-            'update' => 'resources.update',
+//            'update' => 'resources.update',
             'destroy' => 'resources.destroy'
         ]);
+    Route::put("/resources/update_resource/{id}/{type_id}", [ResourceController::class, 'update_resource'])->name('resources.update_resource');
+
 
     Route::resource('game-cards', GameResourceController::class)
         ->except([

@@ -19,7 +19,15 @@
         {{ csrf_field() }}
         <div class="container rounded py-4" style="border:1px solid grey">
             <div class="mx-3">
-                <b>{{trans("messages.new_package")." Παιχνιδιού - \"Βρές το Όμοιο\""}}</b>
+                @if ($game === "SIMILAR")
+                    <b>{{trans("messages.new_package").' '.trans("messages.find_similar_tagline")}}</b>
+                @elseif ($game === "TIME")
+                    <b>{{trans("messages.new_package").' '.trans("messages.find_time_tagline")}}</b>
+                @elseif ($game === "RESPONSE")
+                    <b>{{trans("messages.new_package").' '.trans("messages.find_response_tagline")}}</b>
+                @else
+                    <b>{{trans("messages.new_package").$viewModel->type_id}}</b>
+                @endif
             </div>
             <hr/>
             <div class="container-sm px-5">
@@ -34,7 +42,8 @@
                 </div>
                 <div class="mb-3">
                     <label for="category_lang" class="form-label">{{trans("messages.language")}}</label>
-                    <select class="form-select"@if($viewModel->package->lang_id != null) disabled @endif aria-label="category_lang" name="lang">
+                    <select class="form-select" @if($viewModel->package->lang_id != null) disabled
+                            @endif aria-label="category_lang" name="lang">
                         @foreach ($viewModel->languages as $lang){
                         @if($viewModel->package->lang_id === $lang->id)
                             <option selected> {{$lang->name}} </option>
@@ -100,9 +109,9 @@
             <button type="button" id="newCardBtn" class="btn btn-primary mt-5 btn-block
             @if($viewModel->ReachedMaximumCardLimit()) disabled
             @endif
-{{--                    data-bs-toggle="modal"--}}
-{{--                    data-bs-target="#newCardModal"--}}
-            ">
+            {{--                    data-bs-toggle="modal"--}}
+            {{--                    data-bs-target="#newCardModal"--}}
+                ">
                 {{trans("messages.add_new_card")}}
             </button>
             @if($viewModel->ReachedMaximumCardLimit())
@@ -110,12 +119,12 @@
             @endif
 
             @if(sizeof($viewModel->childrenCards)>0)
-            <button type="button" id="saveBundleBtn" class="btn btn-primary mt-5 btn-block"
-                {{--                    data-bs-toggle="modal"--}}
-                {{--                    data-bs-target="#newCardModal"--}}
-            >
-                {{trans("messages.submit_package")}}
-            </button>
+                <button type="button" id="saveBundleBtn" class="btn btn-primary mt-5 btn-block"
+                    {{--                    data-bs-toggle="modal"--}}
+                    {{--                    data-bs-target="#newCardModal"--}}
+                >
+                    {{trans("messages.submit_package")}}
+                </button>
             @endif
         </div>
 
@@ -126,16 +135,21 @@
                         <div class="col-md-4 col-sm-12">
                             <div class="card w-100 mb-5">
                                 <input type="hidden" value={{$child->id}}>
-                                <img src="{{asset("storage/".$child->img_path)}}" class="card-img-top" style="width:auto;height:200px;">
-                                <div class="dropdown-container rounder" style="background-color: white;" >
+                                <img src="{{asset("storage/".$child->img_path)}}" class="card-img-top"
+                                     style="width:auto;height:200px;">
+                                <div class="dropdown-container rounder" style="background-color: white;">
                                     <div class="dropdown">
-                                        <button class="btn btn-outline-secondary dropdown-toggle actions-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <button class="btn btn-outline-secondary dropdown-toggle actions-btn"
+                                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v"></i>
                                         </button>
-                                        <ul class="dropdown-menu" id="dropdown-menu" >
-                                            <li><a class="dropdown-item editCardBtn"  href="#"><i class="far fa-edit me-2"></i>{{trans("messages.edit")}}</a></li>
-                                            <li><a class="dropdown-item deleteCardBtn"  href="#"><i class="fas fa-file-download me-2"></i>{{trans("messages.delete")}}</a></li>
-{{--                                            TODO prevent scrolling cancel (event propagation?) --}}
+                                        <ul class="dropdown-menu" id="dropdown-menu">
+                                            <li><a class="dropdown-item editCardBtn" href="#"><i
+                                                        class="far fa-edit me-2"></i>{{trans("messages.edit")}}</a></li>
+                                            <li><a class="dropdown-item deleteCardBtn" href="#"><i
+                                                        class="fas fa-file-download me-2"></i>{{trans("messages.delete")}}
+                                                </a></li>
+                                            {{--                                            TODO prevent scrolling cancel (event propagation?) --}}
                                         </ul>
                                     </div>
                                 </div>
@@ -171,7 +185,6 @@
                     <form id="md-modal-form" enctype="multipart/form-data" role="form" method="POST"
                           action="{{route('resources.store',['type_id'=>$viewModel->type_id])}}">
                         {{ csrf_field() }}
-
 
 
                         <div class="container-sm px-5">
@@ -238,7 +251,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModal">
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog"
+         aria-labelledby="deleteConfirmationModal">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header text-center" id='deleteModalHeader'>

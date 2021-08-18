@@ -6,15 +6,12 @@ namespace App\BusinessLogicLayer\Resource;
 
 use App\Repository\ContentLanguageLkpRepository;
 use App\Repository\Resource\ResourceRepository;
-use App\Repository\Resource\ResourceTypesLkp;
-use App\ViewModels\CreateEditResourceVM;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class ResourceManager {
 
     protected ResourceRepository $resourceRepository;
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
-    protected int $maximumCardsThreshold;
     public function __construct(ResourceRepository $resourceRepository,ContentLanguageLkpRepository  $contentLanguageLkpRepository) {
         $this->resourceRepository = $resourceRepository;
         $this->contentLanguageLkpRepository = $contentLanguageLkpRepository;

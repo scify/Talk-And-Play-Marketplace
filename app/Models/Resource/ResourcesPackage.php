@@ -43,4 +43,8 @@ class ResourcesPackage extends Model
     public function creator(): HasOne {
         return $this->hasOne(User::class, 'id', 'creator_user_id');
     }
+
+    public function parent(): HasOne {
+        return $this->hasOne(Resource::class, 'id', 'card_id');
+    }
 }

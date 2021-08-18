@@ -9,6 +9,7 @@ use App\Models\Resource\ResourcesPackage;
 use Illuminate\Collections\ItemNotFoundException;
 use Illuminate\Support\Collection;
 use PHPUnit\Exception;
+use App\Repository\Resource\ResourceTypesLkp;
 
 class CreateEditResourceVM
 {
@@ -19,7 +20,12 @@ class CreateEditResourceVM
     public int $maximumCardThreshold;
     public int $type_id;
 
-    public function __construct(Collection $languages, Resource $resource, Collection $childrenCards, ResourcesPackage $package, $maximumCardThreshold = 10, int $type_id = -1)
+    public function __construct(Collection $languages,
+                                Resource $resource,
+                                Collection $childrenCards,
+                                ResourcesPackage $package,
+                                $maximumCardThreshold = 10,
+                                int $type_id = -1)
     {
         $this->languages = $languages;
         $this->resource = $resource;
@@ -30,7 +36,7 @@ class CreateEditResourceVM
 
     }
 
-    public function ReachedMaximumCardLimit()
+    public function ReachedMaximumCardLimit(): bool
     {
         $numCards = sizeof($this->childrenCards);
         return $numCards === $this->maximumCardThreshold;

@@ -6,33 +6,35 @@ use App\BusinessLogicLayer\Resource\ResourceManager;
 use App\BusinessLogicLayer\Resource\ResourcesPackageManager;
 use App\BusinessLogicLayer\Resource\CommunicationResourcesPackageManager;
 use App\BusinessLogicLayer\Resource\SimilarityGameResourcesPackageManager;
+use App\BusinessLogicLayer\Resource\TimeGameResourcesPackageManager;
+use App\BusinessLogicLayer\Resource\ResponseGameResourcesPackageManager;
 use App\Repository\Resource\ResourceTypesLkp;
 use App\Http\Controllers\Controller;
-use App\Models\Resource\Resource;
-use App\ViewModels\CreateEditResourceVM;
-use Illuminate\Collections\ItemNotFoundException;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 class ResourceController extends Controller
 {
 
-    protected ResourceManager $ResourceManager;
-    protected ResourcesPackageManager $ResourcesPackageManager;
-    protected SimilarityGameResourcesPackageManager $SimilarityGameResourcesPackageManager;
-    protected CommunicationResourcesPackageManager $CommunicationResourcesPackageManager;
+    protected ResourceManager $resourceManager;
+    protected ResourcesPackageManager $resourcesPackageManager;
+    protected SimilarityGameResourcesPackageManager $similarityGameResourcesPackageManager;
+    protected TimeGameResourcesPackageManager $timeGameResourcesPackageManager;
+    protected ResponseGameResourcesPackageManager $responseGameResourcesPackageManager;
+    protected CommunicationResourcesPackageManager $communicationResourcesPackageManager;
 
-    public function __construct(ResourceManager $ResourceManager, ResourcesPackageManager $ResourcesPackageManager,
-                                CommunicationResourcesPackageManager $CommunicationResourcesPackageManager,
-                                SimilarityGameResourcesPackageManager $SimilarityGameResourcesPackageManager)
+    public function __construct(ResourceManager $resourceManager, ResourcesPackageManager $resourcesPackageManager,
+                                CommunicationResourcesPackageManager $communicationResourcesPackageManager,
+                                SimilarityGameResourcesPackageManager $similarityGameResourcesPackageManager,
+                                TimeGameResourcesPackageManager $timeGameResourcesPackageManager,
+                                ResponseGameResourcesPackageManager $responseGameResourcesPackageManager)
     {
-        $this->ResourceManager = $ResourceManager;
-        $this->ResourcesPackageManager = $ResourcesPackageManager;
-        $this->SimilarityGameResourcesPackageManager = $SimilarityGameResourcesPackageManager;
-        $this->CommunicationResourcesPackageManager = $CommunicationResourcesPackageManager;
+        $this->resourceManager = $resourceManager;
+        $this->resourcesPackageManager = $resourcesPackageManager;
+        $this->similarityGameResourcesPackageManager = $similarityGameResourcesPackageManager;
+        $this->communicationResourcesPackageManager = $communicationResourcesPackageManager;
+        $this->responseGameResourcesPackageManager = $responseGameResourcesPackageManager;
+        $this->timeGameResourcesPackageManager = $timeGameResourcesPackageManager;
     }
 
 
@@ -64,27 +66,36 @@ class ResourceController extends Controller
         ]);
 
         $type_id = intval($request->type_id);
+        /*switch($type_id){
+            case ResourceTypesLkp::COMMUNICATION:
 
+        }
+        */
         if ($type_id === ResourceTypesLkp::COMMUNICATION) {
             $this->validate($request, ['sound' => 'required|file|between:10,1000|nullable']);
-            $manager = $this->CommunicationResourcesPackageManager;
+            $manager = $this->communicationResourcesPackageManager;
             $ret_route = "communication_resources.edit";
         } else if ($type_id === ResourceTypesLkp::SIMILAR_GAME) {
-            $manager = $this->SimilarityGameResourcesPackageManager;
+            $manager = $this->similarityGameResourcesPackageManager;
             $ret_route = "game_resources.edit";
-        }
-        else{
+        } else if ($type_id === ResourceTypesLkp::TIME_GAME) {
+            $manager = $this->timeGameResourcesPackageManager;
+            $ret_route = "game_resources.edit";
+        } else if ($type_id === ResourceTypesLkp::RESPONSE_GAME) {
+            $manager = $this->responseGameResourcesPackageManager;
+            $ret_route = "game_resources.edit";
+        } else {
             throw(new \ValueError("Type not supported"));
         }
         try {
-            $resource = $this->ResourceManager->storeResource($request);
+            $resource = $this->resourceManager->storeResource($request);
             $redirect_id = $resource->resource_parent_id;
             if ($redirect_id == null) {
                 $manager->storeResourcePackage($resource, $request['lang']);
                 $redirect_id = $resource->id;
             }
             return redirect()->route($ret_route, $redirect_id)
-                ->with('flash_message_success', 'The resource package has been successfully created');
+                ->with('flash_message_success', 'The resource has been successfully created');
         } catch (Exception $e) {
             return redirect()->with('flash_message_failure', 'Failure - resource card has not been added');
         }
@@ -101,19 +112,28 @@ class ResourceController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
 
-    public function update(Request $request, int $id)#after submit, (action-route submit button directs here)
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse#after submit, (action-route submit button directs here)
     {
         $this->validate($request, [
             'name' => 'required|string|max:100',
-//            'sound' => 'file|between:10,1000|nullable',
-            'image' => 'file|between:10,500|nullable'
+            'image' => 'file|between:10,500|nullable',
+            'type_id' => 'required'
         ]);
-        try {
-            $ret = $this->ResourceManager->updateResource($request, $id);
 
+        $type_id = intval($request->type_id);
+//        $id = intval($request->id);
+        if ($type_id === ResourceTypesLkp::COMMUNICATION) {
+            $this->validate($request, ['sound' => 'required|file|between:10,1000|nullable']);
+            $ret_route = "communication_resources.edit";
+        } else if ($type_id === ResourceTypesLkp::SIMILAR_GAME) {
+            $ret_route = "game_resources.edit";
+        } else {
+            throw(new \ValueError("Type not supported"));
+        }
+        try {
+            $ret = $this->resourceManager->updateResource($request, $id);
             $redirect_id = $ret['resource_parent_id'] ?: $ret->id;
-            $package = $this->resourcesPackageManager->getResourcesPackage($id);
-            return redirect()->route('game_resources.edit', $redirect_id)->with('flash_message_success', 'The resource package has been successfully updated');
+            return redirect()->route($ret_route, $redirect_id)->with('flash_message_success', 'The resource package has been successfully updated');
         } catch (\Exception $e) {
             return redirect()->back()->with('flash_message_failure', 'The resource package has not been updated');
         }
@@ -128,7 +148,7 @@ class ResourceController extends Controller
     public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         try {
-            $this->ResourceManager->destroyResource($id);
+            $this->resourceManager->destroyResource($id);
             return redirect()->back()->with('flash_message_success', 'Success! The resource has been deleted');
         } catch (\Exception $e) {
             return redirect()->back()->with('flash_message_failure', 'Warning! The resource has not been deleted');
@@ -143,7 +163,7 @@ class ResourceController extends Controller
     public function submit(int $id): \Illuminate\Http\RedirectResponse
     {
         try {
-            $this->ResourcesPackageManager->approveResourcesPackage($id);
+            $this->resourcesPackageManager->approveResourcesPackage($id);
             return redirect()->back()->with('flash_message_success', 'Success! The resource package has been approved');
         } catch (\Exception $e) {
             return redirect()->back()->with('flash_message_failure', 'Warning! The resource package has not been approved');
@@ -157,11 +177,11 @@ class ResourceController extends Controller
 
     public function getContentLanguages()
     {
-        return $this->ResourceManager->getContentLanguagesForResources();
+        return $this->resourceManager->getContentLanguagesForResources();
     }
 
     public function getResourcesForLanguage(Request $request)
     {
-        return $this->ResourceManager->getFirstLevelResourcesWithChildren($request->lang_id);
+        return $this->resourceManager->getFirstLevelResourcesWithChildren($request->lang_id);
     }
 }

@@ -34,7 +34,7 @@ class ResourcesPackageRepository extends Repository {
             [
                 'type_id' => $type_id,
                 'status_id'=> ResourceStatusesLkp::APPROVED
-            ], array('*'), 'id', 'asc', ['childrenResources', 'creator']);
+            ], array('*'), 'id', 'asc', ['childrenResources', 'creator','parent']);
     }
 
 }

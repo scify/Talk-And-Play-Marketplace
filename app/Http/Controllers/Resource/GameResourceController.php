@@ -2,46 +2,43 @@
 
 namespace App\Http\Controllers\Resource;
 
-use App\BusinessLogicLayer\Resource\CommunicationResourceManager;
-use App\BusinessLogicLayer\Resource\CommunicationResourcesPackageManager;
 use App\BusinessLogicLayer\Resource\ResourceManager;
 use App\BusinessLogicLayer\Resource\ResourcesPackageManager;
-use App\BusinessLogicLayer\Resource\SimilarityGameResourceManager;
 use App\BusinessLogicLayer\Resource\SimilarityGameResourcesPackageManager;
+use App\BusinessLogicLayer\Resource\TimeGameResourcesPackageManager;
+use App\BusinessLogicLayer\Resource\ResponseGameResourcesPackageManager;
+
 use App\Http\Controllers\Controller;
-use App\Models\ContentLanguageLkp;
 use App\Repository\Resource\GameCategoriesLkp;
-use App\Repository\GameCategoriesLkpRepository;
-use App\Models\Resource\Resource;
-use App\ViewModels\CreateEditResourceVM;
-#
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use App\Repository\Resource\ResourceTypesLkp;
 use Illuminate\Http\Response;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class GameResourceController extends Controller
 {
-    protected SimilarityGameResourceManager $similarityGameResourceManager;
     protected GameCategoriesLkp $gameCategoriesLkp;
     protected SimilarityGameResourcesPackageManager $similarityGameResourcesPackageManager;
+    protected TimeGameResourcesPackageManager $timeGameResourcesPackageManager;
+    protected ResponseGameResourcesPackageManager $responseGameResourcesPackageManager;
     protected ResourceManager $resourceManager;
     protected ResourcesPackageManager $resourcesPackageManager;
 
     public function __construct(GameCategoriesLkp $gameCategoriesLkp,
-                                SimilarityGameResourceManager $similarityGameResourceManager,
                                 SimilarityGameResourcesPackageManager $similarityGameResourcesPackageManager,
+                                TimeGameResourcesPackageManager $timeGameResourcesPackageManager,
+                                ResponseGameResourcesPackageManager $responseGameResourcesPackageManager,
                                 ResourceManager $resourceManager,
                                 ResourcesPackageManager $resourcesPackageManager)
     {
         $this->gameCategoriesLkp = $gameCategoriesLkp;
         $this->resourceManager = $resourceManager;
-        $this->similarityGameResourceManager = $similarityGameResourceManager;
         $this->resourcesPackageManager = $resourcesPackageManager;
 
         $this->similarityGameResourcesPackageManager = $similarityGameResourcesPackageManager;
+        $this->responseGameResourcesPackageManager = $responseGameResourcesPackageManager;
+        $this->timeGameResourcesPackageManager = $timeGameResourcesPackageManager;
     }
 
 
@@ -56,75 +53,58 @@ class GameResourceController extends Controller
     }
 
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function create(Request $request): View
     {
         $this->validate($request, [
             'type_id' => 'required'//TODO check if exists in DB tab
         ]);
 
-        if (intval($request->type_id) === GameCategoriesLkp::SIMILAR) {
-            $createResourcesPackageViewModel = $this->similarityGameResourcesPackageManager->getCreateResourcesPackageViewModel();
-            return view('game_resources.create-edit-similarity-game')->with(['viewModel' => $createResourcesPackageViewModel]);
+
+        switch (intval($request->type_id)) {
+            case GameCategoriesLkp::SIMILAR:
+                $createResourcesPackageViewModel = $this->similarityGameResourcesPackageManager->getCreateResourcesPackageViewModel();
+                $game = 'SIMILAR';
+                break;
+            case  GameCategoriesLkp::TIME:
+                $createResourcesPackageViewModel = $this->timeGameResourcesPackageManager->getCreateResourcesPackageViewModel();
+                $game = 'TIME';
+                break;
+            case GameCategoriesLkp::RESPONSE:
+                $createResourcesPackageViewModel = $this->responseGameResourcesPackageManager->getCreateResourcesPackageViewModel();
+                $game = 'RESPONSE';
+                break;
+            default:
+                throw(new ResourceNotFoundException('Game type under development'));
         }
+        return view('game_resources.create-edit-game')->with(['viewModel' => $createResourcesPackageViewModel, 'game' => $game]);
+
     }
-
-
-
-//
-//    public function game_creation(int $game_id): View
-//    {
-//        if ($game_id === GameCategoriesLkp::SIMILAR) {
-//            $createResourcesPackageViewModel = $this->similarityGameResourcesPackageManager->getCreateResourcesPackageViewModel();
-//            return view('game_resources.create-edit-similarity-game')->with(['viewModel' => $createResourcesPackageViewModel]);
-//        }
-//    }
-
-
-//    /**
-//     * Store a newly created resource in storage.
-//     *
-//     * @param Request $request
-//     * @param int $type_id
-//     * @return \Illuminate\Http\RedirectResponse
-//     * @throws \Illuminate\Validation\ValidationException
-//     */
-//    public function store(Request $request): \Illuminate\Http\RedirectResponse
-//    {
-//
-//        $this->validate($request, [
-//            'name' => 'required|string|max:100',
-//            'image' => 'required|file|between:10,500|nullable',
-//            'type_id' => 'required'
-//        ]);
-//
-//        try {
-//
-//            if (intval($request->type_id) === ResourceTypesLkp::SIMILAR_GAME) {
-//                $resource = $this->similarityGameResourceManager->storeResource($request);
-//                if ($resource->resource_parent_id == null) {
-//                    $this->similarityGameResourcesPackageManager->storeResourcePackage($resource, $request['lang']);
-//                    return redirect()->route('game_resources.edit', $resource->id)->with('flash_message_success', 'The resource package has been successfully created');
-//                }
-//            }
-//            return redirect()->route('game_resources.edit', $resource->resource_parent_id)->with('flash_message_success', 'A new resource card has been successfully added to the package');
-//
-//        } catch (Exception $e) {
-//            return redirect()->with('flash_message_failure', 'Failure - resource card has not been added');
-//        }
-//
-//    }
 
 
     public function edit(int $id)#returns view
     {
         try {
             $package = $this->resourcesPackageManager->getResourcesPackage($id);
-            if ($package->type_id === ResourceTypesLkp::SIMILAR_GAME) {
-                $createResourceViewModel = $this->similarityGameResourcesPackageManager->getEditResourceViewModel($id, $package);
-                return view('game_resources.create-edit-similarity-game')->with(['viewModel' => $createResourceViewModel]);
-            } else {
-                throw(new ResourceNotFoundException("Game type not yet supported"));
+            switch ($package->type_id) {
+                case GameCategoriesLkp::SIMILAR:
+                    $editResourceViewModel = $this->similarityGameResourcesPackageManager->getEditResourceViewModel($id, $package);
+                    $game = 'SIMILAR';
+                    break;
+                case  GameCategoriesLkp::TIME:
+                    $editResourceViewModel = $this->timeGameResourcesPackageManager->getEditResourceViewModel($id, $package);
+                    $game = 'TIME';
+                    break;
+                case GameCategoriesLkp::RESPONSE:
+                    $editResourceViewModel = $this->responseGameResourcesPackageManager->getEditResourceViewModel($id, $package);
+                    $game = 'RESPONSE';
+                    break;
+                default:
+                    throw(new ResourceNotFoundException('Game category not yet implemented'));
             }
+            return view('game_resources.create-edit-game')->with(['viewModel' => $editResourceViewModel, 'game'=>$game]);
 
         } catch (ModelNotFoundException $e) {
             abort(404);
@@ -158,14 +138,20 @@ class GameResourceController extends Controller
     public function show_packages(int $type_id)
     {
         try {
-//            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
-            if ($type_id === ResourceTypesLkp::SIMILAR_GAME) {
-                $displayPackageVM = $this->similarityGameResourcesPackageManager->getApprovedSimilarityGamePackagesParentResources();
-                return view('game_resources.approved-packages')->with(['viewModel' => $displayPackageVM]);
+            switch ($type_id) {
+                case GameCategoriesLkp::SIMILAR:
+                    $displayPackageVM = $this->similarityGameResourcesPackageManager->getApprovedSimilarityGamePackagesParentResources();
+                    break;
+                case  GameCategoriesLkp::TIME:
+                    $displayPackageVM = $this->timeGameResourcesPackageManager->getApprovedTimeGamePackagesParentResources();
+                    break;
+                case GameCategoriesLkp::RESPONSE:
+                    $displayPackageVM = $this->responseGameResourcesPackageManager->getApprovedResponseGamePackagesParentResources();
+                    break;
+                default:
+                    throw(new ResourceNotFoundException('Game category not yet implemented'));
             }
-            else {
-                    throw(new ResourceNotFoundException("Game type not yet supported"));
-                }
+            return view('game_resources.approved-packages')->with(['viewModel' => $displayPackageVM]);
         } catch (ModelNotFoundException $e) {
             abort(404);
         }
@@ -179,26 +165,29 @@ class GameResourceController extends Controller
      * @return Response
      */
 
-    public function show_package(int $id)
+    public function show_package(int $id): View
     {
         $package = $this->resourcesPackageManager->getResourcesPackage($id);
 
         try {
-//            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
-            if ($package->type_id === ResourceTypesLkp::SIMILAR_GAME) {
-                $createResourceViewModel = $this->similarityGameResourcesPackageManager->getEditResourceViewModel($id, $package);
-                return view('game_resources.show-package')->with(['viewModel' => $createResourceViewModel]);
+            switch ($package->type_id) {
+                case GameCategoriesLkp::SIMILAR:
+                    $createResourceViewModel = $this->similarityGameResourcesPackageManager->getEditResourceViewModel($id, $package);
+                    break;
+                case  GameCategoriesLkp::TIME:
+                    $createResourceViewModel = $this->timeGameResourcesPackageManager->getEditResourceViewModel($id, $package);
+                    break;
+                case GameCategoriesLkp::RESPONSE:
+                    $createResourceViewModel = $this->responseGameResourcesPackageManager->getEditResourceViewModel($id, $package);
+                    break;
+                default:
+                    throw(new ResourceNotFoundException('Game category not yet implemented'));
             }
-            else {
-                throw(new ResourceNotFoundException("Game type not yet supported"));
-            }
+            return view('game_resources.show-package')->with(['viewModel' => $createResourceViewModel]);
         } catch (ModelNotFoundException $e) {
             abort(404);
         }
     }
-
-
-
 
 
 }

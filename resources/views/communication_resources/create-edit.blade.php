@@ -9,7 +9,8 @@
 
 
     <form id="md-form" enctype="multipart/form-data" role="form" method="POST"
-          action="{{ $viewModel->isEditMode() ? route('resources.update', $viewModel->resource->id) : route('communication_resources.store') }}">
+          action="{{ $viewModel->isEditMode() ? route('resources.update',$viewModel->resource->id) : route('communication_resources.store') }}">
+        <input type="hidden" id="type_id" value='{{$viewModel->type_id}}'/>
     @if($viewModel->isEditMode())
         @method('PUT')
     @endif
@@ -251,7 +252,6 @@
                             @enderror
                             <div class="mb-3">
                                 <label for="modal_sound_file" class="form-label">{{trans('messages.upload_audio')}}
-                                    (mp3)
                                     <span
                                         style="color:#ff0000">*</span></label>
                                 <div class="file-field px-5">

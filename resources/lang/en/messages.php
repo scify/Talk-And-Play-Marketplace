@@ -49,5 +49,7 @@ return [
     "new_package" => "Νέο Πακέτο",
     "name" => "Όνομα",
     "find_similar_tagline" => "Βρές το όμοιο",
-    "reached_card_limit"=>"You can not add more cards to this package! Maximum card limit has been reached."
+    "find_time_tagline" => "Χρονικής Αλληλουχίας",
+    "find_response_tagline" => "Ερέθισμα - Αντίδραση",
+    "reached_card_limit"=>"Δεν μπορείτε να προσθέσετε άλλες κάρτες στο πακέτο! Έχετε φτάσει τον μέγιστο επιτρεπόμενο αριθμό καρτών"
 ];
