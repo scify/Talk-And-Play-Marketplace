@@ -120,12 +120,16 @@ class ResourceController extends Controller
             'type_id' => 'required'
         ]);
 
-        $type_id = intval($request->type_id);
 //        $id = intval($request->id);
+        $type_id = intval($request->type_id);
         if ($type_id === ResourceTypesLkp::COMMUNICATION) {
-            $this->validate($request, ['sound' => 'required|file|between:10,1000|nullable']);
+            $this->validate($request, ['sound' => 'file|between:10,1000|nullable']);
             $ret_route = "communication_resources.edit";
-        } else if ($type_id === ResourceTypesLkp::SIMILAR_GAME) {
+        } else if (in_array($type_id, [
+            ResourceTypesLkp::SIMILAR_GAME,
+            ResourceTypesLkp::TIME_GAME,
+            ResourceTypesLkp::RESPONSE_GAME
+        ])) {
             $ret_route = "game_resources.edit";
         } else {
             throw(new \ValueError("Type not supported"));

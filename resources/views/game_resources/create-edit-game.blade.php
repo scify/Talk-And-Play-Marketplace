@@ -93,7 +93,7 @@
                     {{trans("messages.cancel")}}
                 </a>
 
-                <input class="btn btn-primary ms-4" type="submit" value={{trans("messages.save_card")}}>
+                <input id="packageSubmitBtn" class="btn btn-primary ms-4" type="submit" value={{trans("messages.save_card")}}>
             </div>
         </div>
 

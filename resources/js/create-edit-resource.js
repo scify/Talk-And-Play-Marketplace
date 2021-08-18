@@ -44,7 +44,7 @@ import {Modal} from 'bootstrap';
             } catch ($e) {
             }
 
-            let type_id =  $("#type_id").attr('value');
+            let type_id = $("#type_id").attr('value');
 
 
             const route = window.route('resources.store,[type_id=>\''.concat(type_id).concat('\'])'));
@@ -62,7 +62,7 @@ import {Modal} from 'bootstrap';
         });
     }
 
-    let listenForDeleteCardClick = function() {
+    let listenForDeleteCardClick = function () {
         $('.deleteCardBtn').on("click", function () {
             let modal = document.getElementById('deleteConfirmationModal');
             let card = $(this).parents('.card');
@@ -72,7 +72,7 @@ import {Modal} from 'bootstrap';
             let card_id = card.children('input').attr('value');
 
             const route = window.route('resources.destroy', card_id);
-            $("#md-delete-form").attr('action',route)
+            $("#md-delete-form").attr('action', route)
 
             console.log(route);
 
@@ -81,17 +81,28 @@ import {Modal} from 'bootstrap';
     }
 
 
-        let listenForSaveBundleClick = function() {
-            $('#saveBundleBtn').on("click", function () {
-                let id = $("#packageId").attr('value');
-                let modal = document.getElementById('saveBundleModal');
-                const route = window.route('resources.approve',id);
-                $("#md-save-bundle-form").attr('action',route)
-                new Modal(modal).show();
-            });
-        }
+    let listenForPackageSubmitClick = function () {
+        $('#packageSubmitBtn').on("click", function () {
+            let parent_id = $("#parentId").attr('value');
+            let type_id = $("#type_id").attr('value');
+            // const route = window.route('resources.update_resource,[\'id\' => '.concat(card_id).concat(', \'type_id\' => ').concat(type_id).concat(']'));
+            const route = window.route('resources.update', parent_id.concat("?type_id=").concat(type_id));
+            console.log(route)
+            $('#md-form').attr('action', route);
+        });
+    }
 
-        let listenForEditCardClick = function () {
+    let listenForSaveBundleClick = function () {
+        $('#saveBundleBtn').on("click", function () {
+            let id = $("#packageId").attr('value');
+            let modal = document.getElementById('saveBundleModal');
+            const route = window.route('resources.approve', id);
+            $("#md-save-bundle-form").attr('action', route)
+            new Modal(modal).show();
+        });
+    }
+
+    let listenForEditCardClick = function () {
         $('.editCardBtn').on("click", function () {
 
 
@@ -108,9 +119,10 @@ import {Modal} from 'bootstrap';
             let card_audio = card.children('.card-body').children('audio').children('source').attr('src');
             let card_id = card.children('input').attr('value');
 
-            let type_id =  $("#type_id").attr('value');
+            let type_id = $("#type_id").attr('value');
             // const route = window.route('resources.update_resource,[\'id\' => '.concat(card_id).concat(', \'type_id\' => ').concat(type_id).concat(']'));
-            const route = window.route('resources.update', card_id);
+
+            const route = window.route('resources.update', card_id.concat("?type_id=").concat(type_id));
 
             //$('#md-modal-form').attr('method', 'PUT');
             $('#md-modal-form').attr('action', route);
@@ -147,7 +159,6 @@ import {Modal} from 'bootstrap';
             // 4. the modal form should have the update card url, with the selected card id (/communication-resources/100/update) . This entire url should be set via Javascript
         });
     }
-
 
 
     let listenForModalImageChanges = function () {
@@ -199,6 +210,7 @@ import {Modal} from 'bootstrap';
         listenForNewCardClick();
         listenForDeleteCardClick();
         listenForSaveBundleClick();
+        listenForPackageSubmitClick();
     };
 
 })();
