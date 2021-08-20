@@ -4,6 +4,7 @@ use App\Http\Controllers\Resource\CommunicationResourceController;
 use App\Http\Controllers\Resource\GameResourceController;
 use App\Http\Controllers\Resource\ResourceController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
@@ -24,14 +25,14 @@ Route::get('/communication-cards', [CommunicationResourceController::class, 'ind
 Route::get('/game-cards', [GameResourceController::class, 'index'])->name('game_resources.index');
 //TODO new route for resources with only methods ->only([]) without aliases
 
-
-
+#Auth::routes(['verify' => true]);
 Route::middleware(['auth'])->group(function () {
     Route::prefix('administration')->middleware("can:manage-platform")->name('administration.')->group(function () {
         Route::resource('users', UserController::class)->except([
             'create', 'edit', 'show'
         ]);
     });
+
 
 
     Route::resource('communication-resources', CommunicationResourceController::class)
@@ -43,10 +44,12 @@ Route::middleware(['auth'])->group(function () {
             'store' => 'communication_resources.store',
             'edit' => 'communication_resources.edit',
             'show_packages' => 'communication_resources.show_packages',
-            'show_package' => 'communication_resources.show_package'
+            'show_package' => 'communication_resources.show_package',
+            'download_package' => 'communication_resources.download_package'
         ]);
     Route::get("/communication-cards/show/packages", [CommunicationResourceController::class, 'show_packages'])->name('communication_resources.show_packages');
     Route::get("/communication-cards/show/package/{id}", [CommunicationResourceController::class, 'show_package'])->name('communication_resources.show_package');
+    Route::get("/communication-cards/download/package/{id}", [CommunicationResourceController::class, 'download_package'])->name('communication_resources.download_package');
 
 
     Route::put("/resources/approve/{id}", [ResourceController::class, 'submit'])->name('resources.approve');

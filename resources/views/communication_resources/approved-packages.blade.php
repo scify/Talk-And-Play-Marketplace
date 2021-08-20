@@ -19,10 +19,10 @@
                                     <i class="fas fa-ellipsis-v"></i>
                                 </button>
                                 <ul class="dropdown-menu" id="dropdown-menu">
-                                    <li><a class="dropdown-item editCardBtn" href="{{route('communication_resources.show_package',$resource->id)}}"><i
-                                                class="far fa-edit me-2"></i>{{trans("messages.edit")}}</a></li>
-                                    <li><a class="dropdown-item deleteCardBtn" href="#"><i
-                                                class="fas fa-file-download me-2"></i>{{trans("messages.delete")}}</a>
+                                    <li><a class="dropdown-item viewPackageBtn" href="{{route('communication_resources.show_package',$resource->id)}}"><i
+                                                class="far fa-edit me-2"></i>{{__("messages.open")}}</a></li>
+                                    <li><a class="dropdown-item downloadPackagedBtn" href="{{route('communication_resources.download_package',$resource->id)}}"><i
+                                                class="fas fa-file-download me-2"></i>{{__("messages.download")}}</a>
                                     </li>
                                     {{--                                            TODO prevent scrolling cancel (event propagation?) --}}
                                 </ul>

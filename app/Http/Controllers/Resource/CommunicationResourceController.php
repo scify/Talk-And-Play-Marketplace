@@ -118,14 +118,25 @@ class CommunicationResourceController extends Controller
      * @return Response
      */
 
-    public function show_package(int $id)
+    public function show_package(int $id): View
     {
-
         try {
 //            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
             $package = $this->communicationResourcesPackageManager->getResourcesPackage($id);
             $createResourceViewModel = $this->communicationResourcesPackageManager->getEditResourceViewModel($id, $package);
             return view('communication_resources.show-package')->with(['viewModel' => $createResourceViewModel]);
+        } catch (ModelNotFoundException $e) {
+            abort(404);
+        }
+    }
+
+    public function download_package(int $id): View
+    {
+        try {
+//            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
+            $package = $this->communicationResourcesPackageManager->getResourcesPackage($id);
+            $this->communicationResourcesPackageManager->downloadPackage($id, $package);
+            return $this->show_packages();
         } catch (ModelNotFoundException $e) {
             abort(404);
         }

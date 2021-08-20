@@ -75,6 +75,11 @@
                     </div>
                 </div>
             </div>
+            <div class="row justify-content-center mt-3">
+                <a class="btn btn-link" style="color: darkred;}" href="{{ route('register') }} ">
+                    {{ __('Register') }}
+                </a>
+            </div>
         </div>
     </div>
 @endsection
