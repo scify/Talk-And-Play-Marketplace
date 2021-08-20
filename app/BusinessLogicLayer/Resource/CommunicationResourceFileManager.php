@@ -11,6 +11,8 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use ZipArchive;
 
 class CommunicationResourceFileManager
 {
@@ -111,7 +113,25 @@ class CommunicationResourceFileManager
         return $this->RESOURCE_PREFIX_FOLDER.$this->AUDIO_FOLDER;
     }
 
+    public function copyResourceToDirectory($directory, $name, $type){
+        copy(storage_path('app/public').'/'.$this->getResourceFullPath($name,$type), $directory.'/'.$name);
+    }
 
+    public function getCreateZip($zipName, $directory): ZipArchive
+    {
+        $zip = new ZipArchive;
+        if($zip -> open($zipName, ZipArchive::CREATE ) === TRUE) {
+            // Store the path into the variable
+            $stream = opendir($directory);
+            while($file = readdir($stream)) {
+                if(is_file($directory.'/'.$file)) {
+                    $zip -> addFile($directory.'/'.$file, $file);
+                }
+            }
+            $zip ->close();
+        }
+        return $zip;
+    }
 
 
 

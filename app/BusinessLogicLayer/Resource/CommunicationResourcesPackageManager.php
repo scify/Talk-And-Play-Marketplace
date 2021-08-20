@@ -79,13 +79,12 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager
 
     public function downloadPackage($id, $package)
     {
-
         $fileManager = new CommunicationResourceFileManager();
-
         $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($id);
         $parentResource = $this->resourceRepository->find($id);
-        $tmpDir = sys_get_temp_dir().'/'.'package-'.strval($id);
-        if(directoryExists($tmpDir) == false) {
+
+        $tmpDir = sys_get_temp_dir().'/'.'package-'. $id;
+        if(is_dir($tmpDir) == false) {
             mkdir($tmpDir, 0700);
         }
         $header =
@@ -103,8 +102,9 @@ XML;
 
         $image_name = basename($parentResource->img_path);
         $audio_name =  basename($parentResource->audio_path);
-        copy(storage_path('app/public').'/'.$fileManager->getResourceFullPath($image_name,"image"), $tmpDir.'/'.$image_name);
-        copy(storage_path('app/public').'/'.$fileManager->getResourceFullPath($audio_name,"audio"), $tmpDir.'/'.$audio_name);
+        $fileManager->copyResourceToDirectory($tmpDir, $image_name, "image");
+        $fileManager->copyResourceToDirectory($tmpDir, $audio_name, "audio");
+
 
         $xmlTemplate->addChild('image',$image_name);
         $xmlTemplate->addChild('sound', $audio_name);
@@ -115,30 +115,16 @@ XML;
             $category = $categories->addChild('category');
             $image_name = basename($child->img_path);
             $audio_name =  basename($child->audio_path);
-            copy(storage_path('app/public').'/'.$fileManager->getResourceFullPath($image_name,"image"), $tmpDir.'/'.$image_name);
-            copy(storage_path('app/public').'/'.$fileManager->getResourceFullPath($audio_name,"audio"), $tmpDir.'/'.$audio_name);
+            $fileManager->copyResourceToDirectory($tmpDir, $image_name, "image");
+            $fileManager->copyResourceToDirectory($tmpDir, $audio_name, "audio");
             $category->addChild('image',$image_name);
             $category->addChild('sound', $audio_name);
         }
-        header('Content-disposition: attachment; filename="structure.xml"');
-        header('Content-type: "text/xml"; charset="utf8"');
 
         $xmlTemplate->asXML($tmpDir.'/structure.xml');
 
-        // Enter the name to creating zipped directory
-
-        $zipName = basename($tmpDir).'.zip';
-        $zip = new ZipArchive;
-        if($zip -> open($zipName, ZipArchive::CREATE ) === TRUE) {
-            // Store the path into the variable
-            $dir = opendir($tmpDir);
-            while($file = readdir($dir)) {
-                if(is_file($tmpDir.'/'.$file)) {
-                    $zip -> addFile($tmpDir.'/'.$file, $file);
-                }
-            }
-            $zip ->close();
-        }
+        $zipName = basename($tmpDir).".zip";
+        $fileManager->getCreateZip($zipName, $tmpDir);
 
         //then send the headers to force download the zip file
         header("Content-type: application/zip");
