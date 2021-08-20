@@ -73,6 +73,7 @@ class SimilarityGameResourcesPackageManager extends ResourcesPackageManager
             $parentResources->push($package->parent);
         }
 
+
         return new DisplayPackageVM($parentResources);
 
     }

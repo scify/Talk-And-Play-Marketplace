@@ -197,5 +197,37 @@ class GameResourceController extends Controller
         }
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id
+     * @return Response
+     */
+
+    public function download_package(int $id): View
+    {
+        $package = $this->resourcesPackageManager->getResourcesPackage($id);
+        try {
+            switch ($package->type_id) {
+                case ResourceTypesLkp::SIMILAR_GAME:
+                    $gameType = "similarityGame";
+                    break;
+                case  ResourceTypesLkp::TIME_GAME:
+                    $gameType = "sequenceGame";
+                    break;
+                case ResourceTypesLkp::RESPONSE_GAME:
+                    $gameType = "stimulusGame";
+                    break;
+                case ResourceTypesLkp::COMMUNICATION:
+                    throw(new \ValueError('Tried to display communication package through the game package displaying page'));
+                default:
+                    throw(new ResourceNotFoundException('Game category not yet implemented'));
+            }
+            $this->resourcesPackageManager->downloadGamePackage($id, $package, $gameType);
+        } catch (ModelNotFoundException $e) {
+            abort(404);
+        }
+    }
+
 
 }

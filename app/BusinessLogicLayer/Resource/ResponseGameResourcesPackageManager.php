@@ -73,5 +73,4 @@ class ResponseGameResourcesPackageManager extends ResourcesPackageManager
     }
 
 
-
 }

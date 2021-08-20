@@ -45,7 +45,7 @@ class ResourceManager {
         $resource = $this->resourceRepository->create($storeArr);
 
 
-        $resourceFileManager = new CommunicationResourceFileManager();
+        $resourceFileManager = new ResourceFileManager();
         $img_path = $resourceFileManager->saveImage($resource->id, $request);
         try{
             $audio_path = $resourceFileManager->saveAudio($resource->id, $request);
@@ -80,7 +80,7 @@ class ResourceManager {
         $storeArr['img_path'] = $old_resource['img_path'];
         $storeArr['audio_path'] = $old_resource['audio_path'];
         $resource = $this->resourceRepository->update($storeArr, $id);
-        $resourceFileManager = new CommunicationResourceFileManager();
+        $resourceFileManager = new ResourceFileManager();
         if (isset($request['image'])) {
             $resourceFileManager->deleteResourceImage($old_resource);
             $img_path = $resourceFileManager->saveImage($resource->id, $request);
@@ -104,7 +104,7 @@ class ResourceManager {
     public function destroyResource($id)
     {
         $resource = $this->resourceRepository->find($id);
-        $resourceFileManager = new CommunicationResourceFileManager();
+        $resourceFileManager = new ResourceFileManager();
         $resourceFileManager->deleteResourceAudio($resource);
         $resourceFileManager->deleteResourceImage($resource);
         $this->resourceRepository->delete($id);

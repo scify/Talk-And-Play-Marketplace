@@ -72,6 +72,4 @@ class TimeGameResourcesPackageManager extends ResourcesPackageManager
 
     }
 
-
-
 }

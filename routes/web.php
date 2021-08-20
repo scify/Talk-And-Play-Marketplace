@@ -75,11 +75,13 @@ Route::middleware(['auth'])->group(function () {
             'edit' => 'game_resources.edit',
             'update' => 'game_resources.update',
             'show_packages' => 'game_resources.show_packages',
-            'show_package' => 'game_resources.show_package'
+            'show_package' => 'game_resources.show_package',
+            'download_package' => 'game_resources.download_package'
         ]);
 
     Route::get("/game-cards/show/packages/{type_id}", [GameResourceController::class, 'show_packages'])->name('game_resources.show_packages');
     Route::get("/game-cards/show/package/{id}", [GameResourceController::class, 'show_package'])->name('game_resources.show_package');
+    Route::get("/game-cards/download/package/{id}", [GameResourceController::class, 'download_package'])->name('game_resources.download_package');
 
 
 });

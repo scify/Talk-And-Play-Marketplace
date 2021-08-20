@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use ZipArchive;
 
-class CommunicationResourceFileManager
+class ResourceFileManager
 {
     private $IMG_FOLDER;
     private $AUDIO_FOLDER;

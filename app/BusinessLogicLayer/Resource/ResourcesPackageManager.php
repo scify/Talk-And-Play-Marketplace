@@ -88,4 +88,55 @@ class ResourcesPackageManager extends ResourceManager
         ], array('*'), 'id', 'asc', ['childrenResources', 'creator']);
     }
 
+
+    public function downloadGamePackage($id, $package, $gameType=""){
+        $fileManager = new ResourceFileManager();
+        $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($id);
+        $parentResource = $this->resourceRepository->find($id);
+
+        $tmpDir = sys_get_temp_dir().'/'.'package-'. $id;
+        if(is_dir($tmpDir) == false) {
+            mkdir($tmpDir, 0700);
+        }
+
+        $header =
+            <<<XML
+<?xml version='1.0'?>
+<game name="" enabled="true" gameType="$gameType" languages="">
+</game>
+XML;
+        $xmlTemplate = simplexml_load_string($header);
+        $xmlTemplate['name'] = $parentResource->name;
+
+        $lang = $this->contentLanguageLkpRepository->find($package->lang_id)->code;
+        $xmlTemplate['languages'] = $lang;
+
+        $image_name = basename($parentResource->img_path);
+        $fileManager->copyResourceToDirectory($tmpDir, $image_name, "image");
+        $xmlTemplate->addChild('image',$image_name);
+        $xmlTemplate->addChild('difficulty',0);#todo add difficulty
+        $xmlTemplate->addChild('gameImages');
+        $gameImages = $xmlTemplate->gameImages;
+
+        foreach($childrenResourceCards as $i=>$child){
+            $image_name = basename($child->img_path);
+            $fileManager->copyResourceToDirectory($tmpDir, $image_name, "image");
+            $gameImage = $gameImages->addChild('gameImage',$image_name);
+            $gameImage->addAttribute('enabled',"true");
+            $gameImage->addAttribute('order', strval($i+1));
+        }
+
+        $xmlTemplate->asXML($tmpDir.'/structure.xml');
+        $zipName = basename($tmpDir).".zip";
+        $fileManager->getCreateZip($zipName, $tmpDir);
+
+        //then send the headers to force download the zip file
+        header("Content-type: application/zip");
+        header("Content-Disposition: attachment; filename=$zipName");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+        readfile($zipName);
+        exit(0);
+    }
+
 }

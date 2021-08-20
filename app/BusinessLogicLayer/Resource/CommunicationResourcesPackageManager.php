@@ -8,7 +8,6 @@ use App\Models\Resource\Resource;
 use App\Models\Resource\ResourcesPackage;
 use App\Repository\ContentLanguageLkpRepository;
 use App\Repository\Resource\ResourceRepository;
-use App\Repository\Resource\ResourceStatusesLkp;
 use App\Repository\Resource\ResourceTypesLkp;
 use App\Repository\Resource\ResourcesPackageRepository;
 use App\ViewModels\CreateEditResourceVM;
@@ -79,7 +78,7 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager
 
     public function downloadPackage($id, $package)
     {
-        $fileManager = new CommunicationResourceFileManager();
+        $fileManager = new ResourceFileManager();
         $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($id);
         $parentResource = $this->resourceRepository->find($id);
 
@@ -87,6 +86,7 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager
         if(is_dir($tmpDir) == false) {
             mkdir($tmpDir, 0700);
         }
+
         $header =
 <<<XML
 <?xml version='1.0'?>
