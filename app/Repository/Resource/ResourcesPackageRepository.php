@@ -25,7 +25,7 @@ class ResourcesPackageRepository extends Repository {
         return  $this->allWhere(
             [
                 'card_id' => $id,
-            ], array('*'), 'id', 'asc', ['childrenResources', 'creator']);
+            ], array('*'), 'id', 'asc', ['coverResource', 'coverResource.childrenResources', 'creator']);
     }
 
     public function getApprovedPackagesOfType($type_id)
