@@ -94,6 +94,8 @@ class ResourcesPackageManager extends ResourceManager
         $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($id);
         $parentResource = $this->resourceRepository->find($id);
 
+        #TODO Storage::put
+        #TODO: create zips folder
         $tmpDir = sys_get_temp_dir().'/'.'package-'. $id;
         if(is_dir($tmpDir) == false) {
             mkdir($tmpDir, 0700);
@@ -135,6 +137,7 @@ XML;
         header("Content-Disposition: attachment; filename=$zipName");
         header("Pragma: no-cache");
         header("Expires: 0");
+        #return Storage::download("zips/zip_300.zip");
         readfile($zipName);
         exit(0);
     }
