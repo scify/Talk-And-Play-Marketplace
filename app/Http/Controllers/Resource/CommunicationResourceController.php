@@ -2,25 +2,22 @@
 
 namespace App\Http\Controllers\Resource;
 
-use App\BusinessLogicLayer\Resource\CommunicationResourceManager;
 use App\BusinessLogicLayer\Resource\CommunicationResourcesPackageManager;
 use App\BusinessLogicLayer\Resource\ResourceManager;
 use App\Http\Controllers\Controller;
-use App\Models\Resource\Resource;
-use App\ViewModels\CreateEditResourceVM;
+use App\Repository\Resource\ResourceStatusesLkp;
+use App\Repository\Resource\ResourceTypesLkp;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class CommunicationResourceController extends Controller
-{
+class CommunicationResourceController extends Controller {
 
     protected ResourceManager $resourceManager;
     protected CommunicationResourcesPackageManager $communicationResourcesPackageManager;
 
-    public function __construct(ResourceManager $resourceManager, CommunicationResourcesPackageManager $communicationResourcesPackageManager)
-    {
+    public function __construct(ResourceManager $resourceManager, CommunicationResourcesPackageManager $communicationResourcesPackageManager) {
         $this->resourceManager = $resourceManager;
         $this->communicationResourcesPackageManager = $communicationResourcesPackageManager;
     }
@@ -31,8 +28,7 @@ class CommunicationResourceController extends Controller
      *
      * @return View
      */
-    public function index(): View
-    {
+    public function index(): View {
         return view('communication_resources.index');
     }
 
@@ -41,8 +37,7 @@ class CommunicationResourceController extends Controller
      *
      * @return View
      */
-    public function create(): View
-    {
+    public function create(): View {
 
 //        $createResourceViewModel = $this->communicationResourceManager->getCreateResourceViewModel();
         $createResourcesPackageViewModel = $this->communicationResourcesPackageManager->getCreateResourcesPackageViewModel();
@@ -56,8 +51,7 @@ class CommunicationResourceController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
 
         $this->validate($request, [
             'name' => 'required|string|max:100',
@@ -99,8 +93,7 @@ class CommunicationResourceController extends Controller
         }
     }
 
-    public function show_packages()
-    {
+    public function show_packages() {
         try {
 //            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
             $displayPackageVM = $this->communicationResourcesPackageManager->getApprovedCommunicationPackagesParentResources();
@@ -118,8 +111,7 @@ class CommunicationResourceController extends Controller
      * @return Response
      */
 
-    public function show_package(int $id): View
-    {
+    public function show_package(int $id): View {
         try {
 //            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
             $package = $this->communicationResourcesPackageManager->getResourcesPackage($id);
@@ -130,8 +122,7 @@ class CommunicationResourceController extends Controller
         }
     }
 
-    public function download_package(int $id): View
-    {
+    public function download_package(int $id): View {
         try {
 //            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
             $package = $this->communicationResourcesPackageManager->getResourcesPackage($id);
@@ -143,4 +134,11 @@ class CommunicationResourceController extends Controller
     }
 
 
+    public function getCommunicationResourcePackages(Request $request) {
+        return $this->communicationResourcesPackageManager->getResourcePackages(
+            $request->lang_id,
+            ResourceTypesLkp::COMMUNICATION,
+            ResourceStatusesLkp::APPROVED
+        );
+    }
 }

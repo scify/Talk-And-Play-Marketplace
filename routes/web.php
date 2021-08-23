@@ -4,7 +4,6 @@ use App\Http\Controllers\Resource\CommunicationResourceController;
 use App\Http\Controllers\Resource\GameResourceController;
 use App\Http\Controllers\Resource\ResourceController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
@@ -89,8 +88,8 @@ Route::middleware(['auth'])->group(function () {
 
 
 Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
-    Route::get("/content-languages", [CommunicationResourceController::class, 'getContentLanguages'])->name('content_languages.get');
-    Route::get("/communication-resources", [CommunicationResourceController::class, 'getCommunicationResourcesForLanguage'])->name('communication_resources.for_language');
+    Route::get("/content-languages", [ResourceController::class, 'getContentLanguages'])->name('content_languages.get');
+    Route::get("/communication-resources/", [CommunicationResourceController::class, 'getCommunicationResourcePackages'])->name('communication_resources.for_language');
 
 });
 

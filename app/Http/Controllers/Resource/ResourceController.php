@@ -185,9 +185,4 @@ class ResourceController extends Controller
     {
         return $this->resourceManager->getContentLanguagesForResources();
     }
-
-    public function getResourcesForLanguage(Request $request)
-    {
-        return $this->resourceManager->getFirstLevelResourcesWithChildren($request->lang_id);
-    }
 }
