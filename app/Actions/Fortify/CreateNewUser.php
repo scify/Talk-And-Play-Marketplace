@@ -39,9 +39,9 @@ class CreateNewUser implements CreatesNewUsers
         ])->validate();
 
         return $this->userManager->create([
-            'name' => $input['name'],
-            'email' => $input['email'],
-            'password' => Hash::make($input['password']),
+            'name' => trim($input['name']),
+            'email' => trim($input['email']),
+            'password' => trim($input['password'])
         ]);
     }
 }

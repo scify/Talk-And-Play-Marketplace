@@ -31,9 +31,9 @@ class UserManager {
     public function create(array $requestData):User {
 
         $user = $this->userRepository->create([
-            'name' => trim($requestData["name"]),
-            'email' => trim($requestData["email"]),
-            'password' => trim($requestData["password"]),
+            'name' => $requestData["name"],
+            'email' => $requestData["email"],
+            'password' => $requestData["password"]#todo perform trim before hashing
         ]);
         $this->userRoleManager->assignRegisteredUserRoleTo($user);
         if (isset($requestData["admin"]) && $requestData["admin"])
