@@ -52,5 +52,6 @@ return [
     "find_time_tagline" => "Χρονικής Αλληλουχίας",
     "find_response_tagline" => "Ερέθισμα - Αντίδραση",
     "reached_card_limit"=>"Δεν μπορείτε να προσθέσετε άλλες κάρτες στο πακέτο! Έχετε φτάσει τον μέγιστο επιτρεπόμενο αριθμό καρτών",
-    "open" => "Άνοιγμα"
+    "open" => "Άνοιγμα",
+    "no_resource_packages_available" => "No resource packages available in this language."
 ];

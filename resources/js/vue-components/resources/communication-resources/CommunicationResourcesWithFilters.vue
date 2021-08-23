@@ -41,6 +41,9 @@
                 </communication-resource-with-children>
             </div>
         </div>
+        <div class="row mt-5" v-if="!resourcePackages.length && !loadingResources">
+            <h5>{{ trans('messages.no_resource_packages_available') }}</h5>
+        </div>
     </div>
 </template>
 
@@ -82,11 +85,9 @@ export default {
                 url: route('communication_resources.for_language') + '?lang_id=' + language.id,
                 urlRelative: false
             }).then(response => {
-                this.resourcePackages[0] = response.data[0];
-                this.resourcePackages[1] = response.data[0];
-                this.resourcePackages[2] = response.data[0];
-                this.resourcePackages[3] = response.data[0];
+                this.resourcePackages = response.data;
                 this.loadingResources = false;
+                console.log(this.resourcePackages.length);
             });
         },
         goToCreateNewCategoryPage() {

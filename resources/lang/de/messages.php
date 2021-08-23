@@ -50,5 +50,6 @@ return [
     "name" => "Όνομα",
     "find_similar_tagline" => "Βρές το όμοιο",
     "reached_card_limit"=>"You can not add more cards to this package! Maximum card limit has been reached.",
-    "open" => "Άνοιγμα"
+    "open" => "Άνοιγμα",
+    "no_resource_packages_available" => "No resource packages available in this language."
 ];
