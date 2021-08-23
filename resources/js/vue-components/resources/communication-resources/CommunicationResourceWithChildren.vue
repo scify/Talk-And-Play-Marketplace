@@ -1,25 +1,27 @@
 <template>
-    <div v-if="resource.id">
+    <div v-if="resourcesPackage.id">
         <div class="card w-100">
             <div class="dropdown-container">
                 <div class="dropdown">
                     <button class="btn btn-outline-secondary dropdown-toggle actions-btn" type="button"
-                            :id="'dropdownMenuButton_' + resource.id" data-bs-toggle="dropdown" aria-expanded="false">
+                            :id="'dropdownMenuButton_' + resourcesPackage.id" data-bs-toggle="dropdown"
+                            aria-expanded="false">
                         <i class="fas fa-ellipsis-v"></i>
                     </button>
-                    <ul class="dropdown-menu" :aria-labelledby="'dropdownMenuButton_' + resource.id">
+                    <ul class="dropdown-menu" :aria-labelledby="'dropdownMenuButton_' + resourcesPackage.id">
                         <li><a class="dropdown-item" href="#"><i class="fas fa-file-download me-2"></i>Download</a></li>
                         <li><a class="dropdown-item" href="#"><i class="far fa-edit me-2"></i>Edit</a></li>
                     </ul>
                 </div>
             </div>
-            <img :src="'/'+resource.img_path" class="card-img-top" :alt="resource.name">
+            <img :src="'/storage/'+resourcesPackage.cover_resource.img_path" class="card-img-top"
+                 :alt="resourcesPackage.cover_resource.name">
             <div class="card-body">
                 <p class="card-title">
-                    {{ resource.name }}
+                    {{ resourcesPackage.cover_resource.name }}
                 </p>
                 <p class="card-subtitle mb-2 text-muted">
-                    {{ trans('messages.made_by') }} {{ resource.creator.name }}
+                    {{ trans('messages.made_by') }} {{ resourcesPackage.creator.name }}
                 </p>
                 <div class="rating mb-1">
                     <i v-for="index in maxRating" class="fa-star"
@@ -56,7 +58,7 @@ export default {
     mounted() {
     },
     props: {
-        resource: {
+        resourcesPackage: {
             type: Object,
             default: function () {
                 return {}
@@ -65,10 +67,6 @@ export default {
     },
     data: function () {
         return {
-            contentLanguages: [],
-            selectedContentLanguage: {},
-            loadingResources: false,
-            resources: [],
             maxRating: 5,
             resourceChildrenModalOpen: false
         }

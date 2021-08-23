@@ -35,9 +35,9 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-5" v-if="resources.length">
-            <div class="col-md-2 col-sm-12" v-for="(resource, index) in resources" :key="index">
-                <communication-resource-with-children :resource="resource">
+        <div class="row mt-5" v-if="resourcePackages.length">
+            <div class="col-md-2 col-sm-12" v-for="(resourcesPackage, index) in resourcePackages" :key="index">
+                <communication-resource-with-children :resources-package="resourcesPackage">
                 </communication-resource-with-children>
             </div>
         </div>
@@ -56,7 +56,7 @@ export default {
             contentLanguages: [],
             selectedContentLanguage: {},
             loadingResources: false,
-            resources: [],
+            resourcePackages: [],
             maxRating: 5
         }
     },
@@ -77,15 +77,15 @@ export default {
         getContentForLanguage(language) {
             this.selectedContentLanguage = language;
             this.loadingResources = true;
-            this.resources = [];
+            this.resourcePackages = [];
             this.get({
                 url: route('communication_resources.for_language') + '?lang_id=' + language.id,
                 urlRelative: false
             }).then(response => {
-                this.resources[0] = response.data[0];
-                this.resources[1] = response.data[0];
-                this.resources[2] = response.data[0];
-                this.resources[3] = response.data[0];
+                this.resourcePackages[0] = response.data[0];
+                this.resourcePackages[1] = response.data[0];
+                this.resourcePackages[2] = response.data[0];
+                this.resourcePackages[3] = response.data[0];
                 this.loadingResources = false;
             });
         },
