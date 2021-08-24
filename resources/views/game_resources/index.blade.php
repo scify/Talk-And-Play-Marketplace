@@ -127,7 +127,17 @@
 
     <section id="resources-content" class="mt-5">
         <div class="container">
-            <div class="row">
+            <div class="row mt-4">
+                <div class="col">
+                    <button
+                        data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        class="btn btn-outline-primary">
+                        <i class="fas fa-plus"></i>
+                        {{ __('messages.create_new_communication_package') }}
+                    </button>
+                </div>
+            </div>
+            <div class="row mt-4">
                 <div class="col text-center">
                     <h5 class="hint mb-1">{{ __('messages.see_all_cards_title') }}</h5>
                     <i class="hint hint-arrow fas fa-arrow-down"></i>
@@ -135,13 +145,16 @@
             </div>
             <div class="row">
                 <div class="col-xs-6">
-                    <a href="{{route('game_resources.create',['type_id'=>$resourceTypesLkp::SIMILAR_GAME])}}" class="btn btn-primary">{{trans("messages.find_similar_tagline")}}</a>
+                    <a href="{{route('game_resources.create',['type_id'=>$resourceTypesLkp::SIMILAR_GAME])}}"
+                       class="btn btn-primary">{{trans("messages.find_similar_tagline")}}</a>
                 </div>
                 <div class="col-xs-6">
-                    <a href="{{route('game_resources.create',['type_id'=>$resourceTypesLkp::TIME_GAME])}}" class="btn btn-primary">{{trans("messages.find_time_tagline")}}</a>
+                    <a href="{{route('game_resources.create',['type_id'=>$resourceTypesLkp::TIME_GAME])}}"
+                       class="btn btn-primary">{{trans("messages.find_time_tagline")}}</a>
                 </div>
                 <div class="col-xs-6">
-                    <a href="{{route('game_resources.create',['type_id'=>$resourceTypesLkp::RESPONSE_GAME])}}" class="btn btn-primary">{{trans("messages.find_response_tagline")}}</a>
+                    <a href="{{route('game_resources.create',['type_id'=>$resourceTypesLkp::RESPONSE_GAME])}}"
+                       class="btn btn-primary">{{trans("messages.find_response_tagline")}}</a>
                 </div>
             </div>
         </div>

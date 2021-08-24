@@ -33,16 +33,6 @@
                 </p>
             </div>
         </div>
-        <div class="row mt-4">
-            <div class="col">
-                <button
-                    @click="goToCreateNewCategoryPage"
-                    class="btn btn-outline-primary">
-                    <i class="fas fa-plus"></i>
-                    {{ trans('messages.create_new_category') }}
-                </button>
-            </div>
-        </div>
         <div class="row mt-5" v-if="loadingResources">
             <div class="col justify-content-center">
                 <div class="d-flex justify-content-center">
@@ -119,9 +109,6 @@ export default {
                 this.filteredResourcePackages = this.resourcePackages;
                 this.loadingResources = false;
             });
-        },
-        goToCreateNewCategoryPage() {
-            location.href = route('communication_resources.create');
         },
         search(searchTerm) {
             if (this.timer) {

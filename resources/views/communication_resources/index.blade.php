@@ -127,7 +127,16 @@
     </section>
     <section id="resources-content" class="mt-5">
         <div class="container">
-            <div class="row">
+            <div class="row mt-4">
+                <div class="col">
+                    <a href="{{ route('communication_resources.create') }}"
+                        class="btn btn-outline-primary">
+                        <i class="fas fa-plus"></i>
+                        {{ __('messages.create_new_communication_package') }}
+                    </a>
+                </div>
+            </div>
+            <div class="row mt-4">
                 <div class="col text-center">
                     <h5 class="hint mb-1">{{ __('messages.see_all_cards_title') }}</h5>
                     <i class="hint hint-arrow fas fa-arrow-down"></i>
