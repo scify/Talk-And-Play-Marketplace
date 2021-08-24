@@ -57,5 +57,6 @@ return [
     "rate_package_modal_title" => "Rate:",
     "rate_package_modal_body_text_no_rating" => "You haven't rated this package yet. Give your rating:",
     "rate_package_modal_body_text_update_rating" => "Change your rating by clicking on the stars below:",
-    "search_resources_package" => "Search by name"
+    "search_resources_package" => "Search by name",
+    "see_all_cards_title" => "See all available packages"
 ];

@@ -57,5 +57,6 @@ return [
     "rate_package_modal_title" => "Βαθμολόγησε:",
     "rate_package_modal_body_text_no_rating" => "Δεν έχετε βαθμολογήσει αυτό το πακέτο ακόμη. Βαθμολόγήστε το:",
     "rate_package_modal_body_text_update_rating" => "Αλλάξτε τη βαθμολογία σας για αυτό το πακέτο πατώντας στα αστεράκια:",
-    "search_resources_package" => "Αναζήτηση με όνομα"
+    "search_resources_package" => "Αναζήτηση με όνομα",
+    "see_all_cards_title" => "Δείτε όλα τα διαθέσιμα πακέτα"
 ];

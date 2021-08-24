@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @push('css')
-    <link rel="stylesheet" href="{{ mix('dist/css/communication-cards.css') }}">
+    <link rel="stylesheet" href="{{ mix('dist/css/resources-packages-index.css') }}">
 @endpush
 @section('content')
-    <section id="communication-cards-intro" class="pt-5 mt-5">
+    <section id="intro" class="pt-5 mt-5">
         <div class="container">
             <div class="row mb-3">
                 <div class="col text-center">
@@ -18,7 +18,7 @@
             </div>
         </div>
     </section>
-    <section id="communication-cards-steps" class="pt-5">
+    <section id="resources-steps" class="pt-5">
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -125,8 +125,14 @@
         </div>
     </section>
 
-    <section id="game-cards-content" class="mt-5">
+    <section id="resources-content" class="mt-5">
         <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <h5 class="hint mb-1">{{ __('messages.see_all_cards_title') }}</h5>
+                    <i class="hint hint-arrow fas fa-arrow-down"></i>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-xs-6">
                     <a href="{{route('game_resources.create',['type_id'=>$resourceTypesLkp::SIMILAR_GAME])}}" class="btn btn-primary">{{trans("messages.find_similar_tagline")}}</a>
