@@ -12,6 +12,8 @@ use Illuminate\Support\Collection;
 
 class ResourcesPackageRepository extends Repository {
 
+    protected $defaultRelationships = ['coverResource', 'coverResource.childrenResources', 'creator', 'ratings'];
+
     /**
      * @inheritDoc
      */
@@ -23,7 +25,7 @@ class ResourcesPackageRepository extends Repository {
         return $this->allWhere(
             [
                 'card_id' => $id,
-            ], array('*'), 'id', 'asc', ['coverResource', 'coverResource.childrenResources', 'creator', 'ratings']);
+            ], array('*'), 'id', 'asc', $this->defaultRelationships);
     }
 
     public function getApprovedPackagesOfType($type_id) {
@@ -31,7 +33,7 @@ class ResourcesPackageRepository extends Repository {
             [
                 'type_id' => $type_id,
                 'status_id' => ResourceStatusesLkp::APPROVED
-            ], array('*'), 'id', 'asc', ['coverResource', 'coverResource.childrenResources', 'creator']);
+            ], array('*'), 'id', 'asc', $this->defaultRelationships);
     }
 
 }

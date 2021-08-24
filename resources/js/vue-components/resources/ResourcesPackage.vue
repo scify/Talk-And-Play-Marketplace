@@ -128,7 +128,8 @@
 import {mapActions} from "vuex";
 
 export default {
-    mounted() {
+    created() {
+        this.computeTotalRating();
     },
     props: {
         resourcesPackage: {
@@ -147,6 +148,7 @@ export default {
     data: function () {
         return {
             userRating: 0,
+            totalRating: 0,
             maxRating: 5,
             resourceChildrenModalOpen: false,
             rateModalOpen: false,
@@ -160,13 +162,18 @@ export default {
             'handleError'
         ]),
         resourceHasRating(rateIndex) {
-            return false;
+            return this.totalRating >= rateIndex;
         },
         resourceHasRatingFromUser(rateIndex) {
             return this.userRating >= rateIndex;
         },
         showChildrenResourcesModal() {
             this.resourceChildrenModalOpen = true;
+        },
+        computeTotalRating() {
+            const ratings = _.map(this.resourcesPackage.ratings, 'rating');
+            const sum = ratings.reduce((a, b) => a + b, 0);
+            this.totalRating = Math.round(sum / ratings.length) || 0;
         },
         showRateModal() {
             this.rateModalOpen = true;
@@ -183,7 +190,7 @@ export default {
             }
         },
         getRateTitleForUser() {
-            if(this.userRating)
+            if (this.userRating)
                 this.rateTitleKey = 'rate_package_modal_body_text_update_rating';
             return window.translate('messages.' + this.rateTitleKey);
         },
@@ -198,6 +205,15 @@ export default {
                 urlRelative: false
             }).then(response => {
                 this.userRating = response.data.rating;
+                let found = false;
+                for (let i = 0; i < this.resourcesPackage.ratings.length; i++) {
+                    if (this.resourcesPackage.ratings[i].voter_user_id === this.user.id) {
+                        this.resourcesPackage.ratings[i].rating = response.data.rating;
+                    }
+                }
+                if (!found)
+                    this.resourcesPackage.ratings.push(response.data);
+                this.computeTotalRating();
             });
         },
         userLoggedIn() {

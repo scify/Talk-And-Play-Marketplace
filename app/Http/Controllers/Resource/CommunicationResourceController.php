@@ -136,7 +136,7 @@ class CommunicationResourceController extends Controller {
 
 
     public function getCommunicationResourcePackages(Request $request) {
-        return $this->communicationResourcesPackageManager->getResourcePackages(
+        return $this->communicationResourcesPackageManager->getResourcesPackages(
             $request->lang_id,
             ResourceTypesLkp::COMMUNICATION,
             ResourceStatusesLkp::APPROVED

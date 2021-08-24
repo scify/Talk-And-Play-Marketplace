@@ -61,12 +61,12 @@ class ResourcesPackageManager extends ResourceManager {
     }
 
 
-    public function getResourcePackages(int $lang_id, int $type_id, int $status_id) {
+    public function getResourcesPackages(int $lang_id, int $type_id, int $status_id) {
         return $this->resourcesPackageRepository->allWhere([
             'type_id' => $type_id,
             'status_id' => $status_id,
             'lang_id' => $lang_id
-        ], array('*'), 'id', 'asc', ['coverResource', 'coverResource.childrenResources', 'creator']);
+        ], array('*'), 'id', 'asc', ['coverResource', 'coverResource.childrenResources', 'creator', 'ratings']);
     }
 
 
