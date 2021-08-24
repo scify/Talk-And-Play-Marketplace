@@ -3,21 +3,15 @@
 
 namespace App\BusinessLogicLayer\Resource;
 
-use App\Http\Controllers\Resource\CommunicationResourceController;
 use App\Models\Resource\Resource;
 use App\Models\Resource\ResourcesPackage;
 use App\Repository\ContentLanguageLkpRepository;
 use App\Repository\Resource\ResourceRepository;
-use App\Repository\Resource\ResourceTypesLkp;
 use App\Repository\Resource\ResourcesPackageRepository;
+use App\Repository\Resource\ResourceTypesLkp;
 use App\ViewModels\CreateEditResourceVM;
 use App\ViewModels\DisplayPackageVM;
-use App\ViewModels\ResourcePackagesVM;
-use Illuminate\Auth;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use ZipArchive;
-use function PHPUnit\Framework\directoryExists;
 
 class CommunicationResourcesPackageManager extends ResourcesPackageManager
 {

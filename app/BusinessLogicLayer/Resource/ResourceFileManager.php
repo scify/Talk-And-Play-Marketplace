@@ -4,14 +4,10 @@
 namespace App\BusinessLogicLayer\Resource;
 
 
-use App\BusinessLogicLayer\UserRole\UserRoleManager;
 use App\Models\Resource\Resource;
-use App\Repository\Resource\ResourceRepository;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use ZipArchive;
 
 class ResourceFileManager
