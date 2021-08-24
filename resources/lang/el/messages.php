@@ -51,10 +51,11 @@ return [
     "find_similar_tagline" => "Βρές το όμοιο",
     "reached_card_limit"=>"Δεν μπορείτε να προσθέσετε άλλες κάρτες στο πακέτο. Φτάσατε τον μέγιστο επιτρεπόμενο αριθμό καρτών",
     "open" => "Άνοιγμα",
-    "no_resource_packages_available" => "Δεν υπάρχουν διαθέσιμα πακέτα σε αυτήν τη γλώσσα.",
+    "no_resource_packages_available" => "Δεν βρέθηκαν διαθέσιμα πακέτα.",
     "see_cards_btn" => "Δες τις κάρτες",
     "package_cards_modal_title" => "Οι κάρτες για:",
     "rate_package_modal_title" => "Βαθμολόγησε:",
     "rate_package_modal_body_text_no_rating" => "Δεν έχετε βαθμολογήσει αυτό το πακέτο ακόμη. Βαθμολόγήστε το:",
-    "rate_package_modal_body_text_update_rating" => "Αλλάξτε τη βαθμολογία σας για αυτό το πακέτο πατώντας στα αστεράκια:"
+    "rate_package_modal_body_text_update_rating" => "Αλλάξτε τη βαθμολογία σας για αυτό το πακέτο πατώντας στα αστεράκια:",
+    "search_resources_package" => "Αναζήτηση με όνομα"
 ];

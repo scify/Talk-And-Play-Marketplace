@@ -49,12 +49,13 @@ return [
     "new_package" => "Νέο Πακέτο",
     "name" => "Όνομα",
     "find_similar_tagline" => "Βρές το όμοιο",
-    "reached_card_limit"=>"You can not add more cards to this package! Maximum card limit has been reached.",
+    "reached_card_limit" => "You can not add more cards to this package! Maximum card limit has been reached.",
     "open" => "Άνοιγμα",
-    "no_resource_packages_available" => "No resource packages available in this language.",
+    "no_resource_packages_available" => "No resource packages available for this criteria.",
     "see_cards_btn" => "Show cards",
     "package_cards_modal_title" => "Cards for:",
     "rate_package_modal_title" => "Rate:",
     "rate_package_modal_body_text_no_rating" => "You haven't rated this package yet. Give your rating:",
-    "rate_package_modal_body_text_update_rating" => "Change your rating by clicking on the stars below:"
+    "rate_package_modal_body_text_update_rating" => "Change your rating by clicking on the stars below:",
+    "search_resources_package" => "Search by name"
 ];
