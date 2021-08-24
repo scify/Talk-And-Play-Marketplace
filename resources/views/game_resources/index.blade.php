@@ -130,10 +130,10 @@
             <div class="row mt-4">
                 <div class="col">
                     <button
-                        data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        data-bs-toggle="modal" data-bs-target="#createGamePackageModal"
                         class="btn btn-outline-primary">
                         <i class="fas fa-plus"></i>
-                        {{ __('messages.create_new_communication_package') }}
+                        {{ __('messages.create_new_game_package') }}
                     </button>
                 </div>
             </div>
@@ -143,24 +143,43 @@
                     <i class="hint hint-arrow fas fa-arrow-down"></i>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-6">
-                    <a href="{{route('game_resources.create',['type_id'=>$resourceTypesLkp::SIMILAR_GAME])}}"
-                       class="btn btn-primary">{{trans("messages.find_similar_tagline")}}</a>
-                </div>
-                <div class="col-xs-6">
-                    <a href="{{route('game_resources.create',['type_id'=>$resourceTypesLkp::TIME_GAME])}}"
-                       class="btn btn-primary">{{trans("messages.find_time_tagline")}}</a>
-                </div>
-                <div class="col-xs-6">
-                    <a href="{{route('game_resources.create',['type_id'=>$resourceTypesLkp::RESPONSE_GAME])}}"
-                       class="btn btn-primary">{{trans("messages.find_response_tagline")}}</a>
-                </div>
-            </div>
         </div>
     </section>
 
-
+    <div class="modal fade" id="createGamePackageModal" tabindex="-1" aria-labelledby="createGamePackageModal"
+         aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createGamePackageModalLabel">
+                        {{ __('messages.create_new_game_package_modal_title') }}
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container pt-3 pb-5">
+                        <div class="row mb-4">
+                            <h5>{{ __('messages.create_new_game_package_modal_body_text') }}</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12">
+                                <a href="{{route('game_resources.create',['type_id'=>$resourceTypesLkp::SIMILAR_GAME])}}"
+                                   class="btn btn-primary w-100">{{trans("messages.find_similar_tagline")}}</a>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <a href="{{route('game_resources.create',['type_id'=>$resourceTypesLkp::TIME_GAME])}}"
+                                   class="btn btn-primary w-100">{{trans("messages.find_time_tagline")}}</a>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <a href="{{route('game_resources.create',['type_id'=>$resourceTypesLkp::RESPONSE_GAME])}}"
+                                   class="btn btn-primary w-100">{{trans("messages.find_response_tagline")}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @push('scripts')
 @endpush

@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">
+    <div class="container-fluid p-0">
         <div class="row justify-content-start mb-3">
             <div class="col-md-8 col-sm-12">
                 <div class="container-fluid p-0">

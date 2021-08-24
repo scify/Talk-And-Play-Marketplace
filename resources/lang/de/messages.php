@@ -59,5 +59,7 @@ return [
     "rate_package_modal_body_text_no_rating" => "You haven't rated this package yet. Give your rating:",
     "rate_package_modal_body_text_update_rating" => "Change your rating by clicking on the stars below:",
     "search_resources_package" => "Search by name",
-    "see_all_cards_title" => "See all available packages"
+    "see_all_cards_title" => "See all available packages",
+    "create_new_game_package_modal_title" => "Create new game package",
+    "create_new_game_package_modal_body_text" => "Select a game type:"
 ];
