@@ -3,7 +3,7 @@
         <div class="modal-mask">
             <div class="modal-wrapper">
                 <div class="modal-container">
-                    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable" :class="classes">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <slot name="header"></slot>
@@ -28,7 +28,8 @@
 export default {
     props: {
         allowClose: Boolean,
-        open: false
+        open: false,
+        classes: ''
     },
     data: function () {
         return {}

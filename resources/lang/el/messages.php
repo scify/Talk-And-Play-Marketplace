@@ -51,5 +51,7 @@ return [
     "find_similar_tagline" => "Βρές το όμοιο",
     "reached_card_limit"=>"Δεν μπορείτε να προσθέσετε άλλες κάρτες στο πακέτο. Φτάσατε τον μέγιστο επιτρεπόμενο αριθμό καρτών",
     "open" => "Άνοιγμα",
-    "no_resource_packages_available" => "Δεν υπάρχουν διαθέσιμα πακέτα σε αυτήν τη γλώσσα."
+    "no_resource_packages_available" => "Δεν υπάρχουν διαθέσιμα πακέτα σε αυτήν τη γλώσσα.",
+    "see_cards_btn" => "Δες τις κάρτες",
+    "package_cards_modal_title" => "Οι κάρτες για:"
 ];

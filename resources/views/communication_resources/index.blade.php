@@ -134,8 +134,8 @@
             </div>
             <div class="row mt-5">
                 <div class="col">
-                    <communication-resources-with-filters>
-                    </communication-resources-with-filters>
+                    <resources-packages-with-filters>
+                    </resources-packages-with-filters>
                 </div>
             </div>
         </div>

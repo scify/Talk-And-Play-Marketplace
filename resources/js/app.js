@@ -1,6 +1,7 @@
 import 'bootstrap';
 import $ from 'jquery';
 import Vue from 'vue';
+
 require('./bootstrap');
 window.$ = window.jQuery = $;
 window.route = require('./backend-route');
@@ -11,7 +12,7 @@ import eachRightLodash from "lodash/eachRight";
 import replaceLodash from "lodash/replace";
 
 
-window.translate = function(string, args){
+window.translate = function (string, args) {
     let value = getLodash(window.i18n, string);
 
     eachRightLodash(args, (paramVal, paramKey) => {
@@ -25,8 +26,8 @@ Vue.prototype.trans = (string, args) => {
 };
 
 Vue.component('modal', require('./vue-components/common/ModalComponent').default);
-Vue.component('communication-resources-with-filters', require('./vue-components/resources/communication-resources/CommunicationResourcesWithFilters.vue').default);
-Vue.component('communication-resource-with-children', require('./vue-components/resources/communication-resources/CommunicationResourceWithChildren.vue').default);
+Vue.component('resources-packages-with-filters', require('./vue-components/resources/ResourcesPackagesWithFilters').default);
+Vue.component('resource-package', require('./vue-components/resources/ResourcesPackage').default);
 
 const app = new Vue({
     el: '#app',

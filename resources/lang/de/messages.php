@@ -51,5 +51,7 @@ return [
     "find_similar_tagline" => "Βρές το όμοιο",
     "reached_card_limit"=>"You can not add more cards to this package! Maximum card limit has been reached.",
     "open" => "Άνοιγμα",
-    "no_resource_packages_available" => "No resource packages available in this language."
+    "no_resource_packages_available" => "No resource packages available in this language.",
+    "see_cards_btn" => "Show cards",
+    "package_cards_modal_title" => "Cards for:"
 ];

@@ -36,9 +36,9 @@
             </div>
         </div>
         <div class="row mt-5" v-if="resourcePackages.length">
-            <div class="col-md-2 col-sm-12" v-for="(resourcesPackage, index) in resourcePackages" :key="index">
-                <communication-resource-with-children :resources-package="resourcesPackage">
-                </communication-resource-with-children>
+            <div class="col-md-3 col-sm-12" v-for="(resourcesPackage, index) in resourcePackages" :key="index">
+                <resource-package :resources-package="resourcesPackage">
+                </resource-package>
             </div>
         </div>
         <div class="row mt-5" v-if="!resourcePackages.length && !loadingResources">
@@ -87,7 +87,6 @@ export default {
             }).then(response => {
                 this.resourcePackages = response.data;
                 this.loadingResources = false;
-                console.log(this.resourcePackages.length);
             });
         },
         goToCreateNewCategoryPage() {

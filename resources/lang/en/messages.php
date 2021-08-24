@@ -53,5 +53,7 @@ return [
     "find_response_tagline" => "Ερέθισμα - Αντίδραση",
     "reached_card_limit"=>"Δεν μπορείτε να προσθέσετε άλλες κάρτες στο πακέτο! Έχετε φτάσει τον μέγιστο επιτρεπόμενο αριθμό καρτών",
     "open" => "Άνοιγμα",
-    "no_resource_packages_available" => "No resource packages available in this language."
+    "no_resource_packages_available" => "No resource packages available in this language.",
+    "see_cards_btn" => "See the cards",
+    "package_cards_modal_title" => "Cards for:"
 ];
