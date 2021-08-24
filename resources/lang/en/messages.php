@@ -55,5 +55,8 @@ return [
     "open" => "Άνοιγμα",
     "no_resource_packages_available" => "No resource packages available in this language.",
     "see_cards_btn" => "See the cards",
-    "package_cards_modal_title" => "Cards for:"
+    "package_cards_modal_title" => "Cards for:",
+    "rate_package_modal_title" => "Rate:",
+    "rate_package_modal_body_text_no_rating" => "You haven't rated this package yet. Give your rating:",
+    "rate_package_modal_body_text_update_rating" => "Change your rating by clicking on the stars below:"
 ];

@@ -53,7 +53,8 @@
             :allow-close="true">
             <template v-slot:header>
                 <h5 class="modal-title pl-2">{{ trans('messages.package_cards_modal_title') }}
-                    <b>{{ resourcesPackage.cover_resource.name }}</b></h5>
+                    <b>{{ resourcesPackage.cover_resource.name }}</b>
+                </h5>
             </template>
             <template v-slot:body>
                 <div class="container py-5">
@@ -86,10 +87,38 @@
             :open="rateModalOpen"
             :allow-close="true">
             <template v-slot:header>
-                <h5 class="modal-title pl-2">Rate</h5>
+                <h5 class="modal-title pl-2">{{ trans('messages.rate_package_modal_title') }}
+                    <b>{{ resourcesPackage.cover_resource.name }}</b>
+                </h5>
             </template>
             <template v-slot:body>
-                rate here
+                <div class="container pt-3 pb-5">
+                    <div class="row mb-4">
+                        <div class="col">
+                            <h6 v-if="userLoggedIn()">{{ getRateTitleForUser() }}</h6>
+                            <h6 v-else>You need to sign in in order to rate this package.</h6>
+                        </div>
+                    </div>
+                    <div class="row" v-if="userLoggedIn()">
+                        <div v-for="index in maxRating"
+                             class="col-2"
+                             v-bind:class="{'offset-1': index === 1}">
+                            <button
+                                @click="ratePackage(index)"
+                                class="rate-btn btn btn btn-outline-light w-100 p-0">
+                                <i class="fa-star"
+                                   v-bind:class="{ fas: resourceHasRatingFromUser(index), far: !resourceHasRatingFromUser(index) }"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" v-else>
+                        <div class="col text-center">
+                            <a :href="getLoginRoute()" class="btn btn-primary">{{
+                                    trans('messages.sign_in_register')
+                                }}</a>
+                        </div>
+                    </div>
+                </div>
             </template>
         </modal>
     </div>
@@ -107,28 +136,75 @@ export default {
             default: function () {
                 return {}
             }
+        },
+        user: {
+            type: Object,
+            default: function () {
+                return {}
+            }
         }
     },
     data: function () {
         return {
+            userRating: 0,
             maxRating: 5,
             resourceChildrenModalOpen: false,
-            rateModalOpen: false
+            rateModalOpen: false,
+            rateTitleKey: 'rate_package_modal_body_text_no_rating'
         }
     },
     methods: {
         ...mapActions([
             'get',
+            'post',
             'handleError'
         ]),
         resourceHasRating(rateIndex) {
             return false;
+        },
+        resourceHasRatingFromUser(rateIndex) {
+            return this.userRating >= rateIndex;
         },
         showChildrenResourcesModal() {
             this.resourceChildrenModalOpen = true;
         },
         showRateModal() {
             this.rateModalOpen = true;
+            if (this.userRating)
+                return;
+            if (this.userLoggedIn()) {
+                this.get({
+                    url: route('resources-package.user-rating.get')
+                        + '?resources_package_id=' + this.resourcesPackage.id + '&user_id=' + this.user.id,
+                    urlRelative: false
+                }).then(response => {
+                    this.userRating = response.data.rating;
+                });
+            }
+        },
+        getRateTitleForUser() {
+            if(this.userRating)
+                this.rateTitleKey = 'rate_package_modal_body_text_update_rating';
+            return window.translate('messages.' + this.rateTitleKey);
+        },
+        ratePackage(rateIndex) {
+            this.post({
+                url: route('resources-package.user-rating.post'),
+                data: {
+                    user_id: this.user.id,
+                    resources_package_id: this.resourcesPackage.id,
+                    rating: rateIndex
+                },
+                urlRelative: false
+            }).then(response => {
+                this.userRating = response.data.rating;
+            });
+        },
+        userLoggedIn() {
+            return this.user.id;
+        },
+        getLoginRoute() {
+            return route('login');
         }
     }
 }

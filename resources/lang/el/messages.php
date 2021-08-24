@@ -53,5 +53,8 @@ return [
     "open" => "Άνοιγμα",
     "no_resource_packages_available" => "Δεν υπάρχουν διαθέσιμα πακέτα σε αυτήν τη γλώσσα.",
     "see_cards_btn" => "Δες τις κάρτες",
-    "package_cards_modal_title" => "Οι κάρτες για:"
+    "package_cards_modal_title" => "Οι κάρτες για:",
+    "rate_package_modal_title" => "Βαθμολόγησε:",
+    "rate_package_modal_body_text_no_rating" => "Δεν έχετε βαθμολογήσει αυτό το πακέτο ακόμη. Βαθμολόγήστε το:",
+    "rate_package_modal_body_text_update_rating" => "Αλλάξτε τη βαθμολογία σας για αυτό το πακέτο πατώντας στα αστεράκια:"
 ];

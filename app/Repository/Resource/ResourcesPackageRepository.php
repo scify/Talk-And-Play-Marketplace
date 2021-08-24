@@ -15,26 +15,23 @@ class ResourcesPackageRepository extends Repository {
     /**
      * @inheritDoc
      */
-    function getModelClassName(): string
-    {
+    function getModelClassName(): string {
         return ResourcesPackage::class;
     }
 
-    public function getResourcesPackage($id)
-    {
-        return  $this->allWhere(
+    public function getResourcesPackage($id) {
+        return $this->allWhere(
             [
                 'card_id' => $id,
-            ], array('*'), 'id', 'asc', ['coverResource', 'coverResource.childrenResources', 'creator']);
+            ], array('*'), 'id', 'asc', ['coverResource', 'coverResource.childrenResources', 'creator', 'ratings']);
     }
 
-    public function getApprovedPackagesOfType($type_id)
-    {
-        return  $this->allWhere(
+    public function getApprovedPackagesOfType($type_id) {
+        return $this->allWhere(
             [
                 'type_id' => $type_id,
-                'status_id'=> ResourceStatusesLkp::APPROVED
-            ], array('*'), 'id', 'asc', ['childrenResources', 'creator','parent']);
+                'status_id' => ResourceStatusesLkp::APPROVED
+            ], array('*'), 'id', 'asc', ['coverResource', 'coverResource.childrenResources', 'creator']);
     }
 
 }

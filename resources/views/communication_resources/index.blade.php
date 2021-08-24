@@ -86,7 +86,8 @@
                                  aria-labelledby="headingFour">
                                 <div class="accordion-body">
                                     <b>Πώς προσθέτω κατηγορία;</b><br>
-                                    Πάτα το κουμπί + (Δημιούργησε νέα κατηγορία επικοινωνίας) και συμπλήρωσε στη φόρμα που θα
+                                    Πάτα το κουμπί + (Δημιούργησε νέα κατηγορία επικοινωνίας) και συμπλήρωσε στη φόρμα
+                                    που θα
                                     εμφανιστεί το όνομα της κάρτας, ανέβασε μια αντιπροσωπευτική εικόνα και το αρχείο
                                     του ήχου που έχεις ηχογραφήσει για να περιγράψεις την εικόνα.
                                     <br><br>
@@ -134,7 +135,8 @@
             </div>
             <div class="row mt-5">
                 <div class="col">
-                    <resources-packages-with-filters>
+                    <resources-packages-with-filters
+                        :user="{{ $user }}">
                     </resources-packages-with-filters>
                 </div>
             </div>

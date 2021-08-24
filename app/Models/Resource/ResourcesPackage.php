@@ -4,6 +4,7 @@ namespace App\Models\Resource;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -34,5 +35,13 @@ class ResourcesPackage extends Model
 
     public function creator(): HasOne {
         return $this->hasOne(User::class, 'id', 'creator_user_id');
+    }
+
+    public function ratings(): HasMany {
+        return $this->hasMany(
+            ResourcesPackageRating::class,
+            'resources_package_id',
+            'id'
+        );
     }
 }

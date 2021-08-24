@@ -37,7 +37,9 @@
         </div>
         <div class="row mt-5" v-if="resourcePackages.length">
             <div class="col-md-3 col-sm-12" v-for="(resourcesPackage, index) in resourcePackages" :key="index">
-                <resource-package :resources-package="resourcesPackage">
+                <resource-package
+                    :user="user"
+                    :resources-package="resourcesPackage">
                 </resource-package>
             </div>
         </div>
@@ -53,6 +55,14 @@ import {mapActions} from "vuex";
 export default {
     mounted() {
         this.getContentLanguages();
+    },
+    props: {
+        user: {
+            type: Object,
+            default: function () {
+                return {}
+            }
+        }
     },
     data: function () {
         return {

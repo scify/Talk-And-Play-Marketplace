@@ -85,14 +85,6 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
-
-
-Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
-    Route::get("/content-languages", [ResourceController::class, 'getContentLanguages'])->name('content_languages.get');
-    Route::get("/communication-resources/", [CommunicationResourceController::class, 'getCommunicationResourcePackages'])->name('communication_resources.for_language');
-
-});
-
 Route::get('js/translations.js', function () {
     $lang = config('app.locale');
     Cache::flush();

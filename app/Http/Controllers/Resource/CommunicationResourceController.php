@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class CommunicationResourceController extends Controller {
 
@@ -29,7 +30,7 @@ class CommunicationResourceController extends Controller {
      * @return View
      */
     public function index(): View {
-        return view('communication_resources.index');
+        return view('communication_resources.index', ['user' => Auth::user()]);
     }
 
     /**
