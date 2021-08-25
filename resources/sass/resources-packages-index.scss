@@ -38,3 +38,10 @@
         font-size: toRem(32);
     }
 }
+
+#types-checkboxes {
+    .form-check-label {
+        font-size: large;
+        font-weight: bold;
+    }
+}

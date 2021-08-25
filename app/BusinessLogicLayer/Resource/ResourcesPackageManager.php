@@ -9,19 +9,17 @@ use App\Repository\Resource\ResourceRepository;
 use App\Repository\Resource\ResourcesPackageRepository;
 use App\Repository\Resource\ResourceStatusesLkp;
 use Illuminate\Support\Facades\Auth;
+use InvalidArgumentException;
 
 class ResourcesPackageManager extends ResourceManager {
     public ResourcesPackageRepository $resourcesPackageRepository;
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
-    protected ResourceRepository $resourceRepository;
     protected int $type_id;
 
     public function __construct(ResourceRepository           $resourceRepository,
                                 ContentLanguageLkpRepository $contentLanguageLkpRepository,
                                 ResourcesPackageRepository   $resourcesPackageRepository,
                                 int                          $type_id = -1) {
-        $this->resourceRepository = $resourceRepository;
-        $this->contentLanguageLkpRepository = $contentLanguageLkpRepository;
         $this->resourcesPackageRepository = $resourcesPackageRepository;
         $this->type_id = $type_id;
         parent::__construct($resourceRepository, $contentLanguageLkpRepository);
@@ -30,6 +28,8 @@ class ResourcesPackageManager extends ResourceManager {
 
     public function storeResourcePackage(Resource $resource, int $lang) {
 
+        if ($this->type_id === -1)
+            throw new InvalidArgumentException("Type id must be a positive integer.");
 
         $this->resourcesPackageRepository->create(
             [
@@ -61,14 +61,9 @@ class ResourcesPackageManager extends ResourceManager {
     }
 
 
-    public function getResourcesPackages(int $lang_id, int $type_id, int $status_id) {
-        return $this->resourcesPackageRepository->allWhere([
-            'type_id' => $type_id,
-            'status_id' => $status_id,
-            'lang_id' => $lang_id
-        ], array('*'), 'id', 'asc', ['coverResource', 'coverResource.childrenResources', 'creator', 'ratings']);
+    public function getResourcesPackages(int $lang_id, array $type_ids, array $status_ids) {
+        return $this->resourcesPackageRepository->getResourcesPackages($type_ids, $lang_id, $status_ids);
     }
-
 
     public function downloadGamePackage($id, $package, $gameType = "") {
         $fileManager = new ResourceFileManager();

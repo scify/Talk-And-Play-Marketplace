@@ -143,6 +143,15 @@
                     <i class="hint hint-arrow fas fa-arrow-down"></i>
                 </div>
             </div>
+            <div class="row mt-5">
+                <div class="col">
+                    <resources-packages-with-filters
+                        :resources-packages-types='@json($viewModel->resourceTypesLkp)'
+                        :resources-packages-route="'{{ route('game_resources.get') }}'"
+                        :user="{{ $user }}">
+                    </resources-packages-with-filters>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -162,18 +171,12 @@
                             <h5>{{ __('messages.create_new_game_package_modal_body_text') }}</h5>
                         </div>
                         <div class="row">
-                            <div class="col-md-4 col-sm-12">
-                                <a href="{{route('game_resources.create',['type_id'=>$resourceTypesLkp::SIMILAR_GAME])}}"
-                                   class="btn btn-primary w-100">{{trans("messages.find_similar_tagline")}}</a>
-                            </div>
-                            <div class="col-md-4 col-sm-12">
-                                <a href="{{route('game_resources.create',['type_id'=>$resourceTypesLkp::TIME_GAME])}}"
-                                   class="btn btn-primary w-100">{{trans("messages.find_time_tagline")}}</a>
-                            </div>
-                            <div class="col-md-4 col-sm-12">
-                                <a href="{{route('game_resources.create',['type_id'=>$resourceTypesLkp::RESPONSE_GAME])}}"
-                                   class="btn btn-primary w-100">{{trans("messages.find_response_tagline")}}</a>
-                            </div>
+                            @foreach($viewModel->resourceTypesLkp as $resourceTypeLkp)
+                                <div class="col-md-4 col-sm-12">
+                                    <a href="{{route('game_resources.create', ['type_id' => $resourceTypeLkp->id])}}"
+                                       class="btn btn-primary w-100">{{ $resourceTypeLkp->name }}</a>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

@@ -8,29 +8,30 @@ use App\Models\Resource\ResourcesPackage;
 use App\Repository\ContentLanguageLkpRepository;
 use App\Repository\Resource\ResourceRepository;
 use App\Repository\Resource\ResourcesPackageRepository;
+use App\Repository\Resource\ResourceTypeLkpRepository;
 use App\Repository\Resource\ResourceTypesLkp;
 use App\ViewModels\CreateEditResourceVM;
 use App\ViewModels\DisplayPackageVM;
 use Illuminate\Support\Collection;
 
-class ResponseGameResourcesPackageManager extends ResourcesPackageManager
-{
+class ResponseGameResourcesPackageManager extends GameResourcesPackageManager {
     public ResourcesPackageRepository $resourcesPackageRepository;
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
     protected ResourceRepository $resourceRepository;
     const maximumCardsThreshold = 4;
     const type_id = ResourceTypesLkp::RESPONSE_GAME;
 
-    public function __construct(ResourceRepository $resourceRepository, ContentLanguageLkpRepository $contentLanguageLkpRepository, ResourcesPackageRepository $resourcesPackageRepository)
-    {
+    public function __construct(ResourceTypeLkpRepository    $resourceTypeLkpRepository,
+                                ResourceRepository           $resourceRepository,
+                                ContentLanguageLkpRepository $contentLanguageLkpRepository,
+                                ResourcesPackageRepository   $resourcesPackageRepository) {
         $this->resourceRepository = $resourceRepository;
         $this->contentLanguageLkpRepository = $contentLanguageLkpRepository;
         $this->resourcesPackageRepository = $resourcesPackageRepository;
-        parent::__construct($resourceRepository, $contentLanguageLkpRepository,$resourcesPackageRepository, self::type_id);
+        parent::__construct($resourceTypeLkpRepository, $resourceRepository, $contentLanguageLkpRepository, $resourcesPackageRepository, self::type_id);
     }
 
-    public function getCreateResourcesPackageViewModel(): CreateEditResourceVM
-    {
+    public function getCreateResourcesPackageViewModel(): CreateEditResourceVM {
         $contentLanguages = $this->getContentLanguagesForResources();
         return new CreateEditResourceVM($contentLanguages,
             new  Resource(),
@@ -40,8 +41,7 @@ class ResponseGameResourcesPackageManager extends ResourcesPackageManager
             self::type_id);
     }
 
-    public function getEditResourceViewModel($id, $package): CreateEditResourceVM
-    {
+    public function getEditResourceViewModel($id, $package): CreateEditResourceVM {
         $contentLanguages = $this->getContentLanguagesForResources();
         $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($id);
         return new CreateEditResourceVM($contentLanguages,
@@ -52,10 +52,9 @@ class ResponseGameResourcesPackageManager extends ResourcesPackageManager
             self::type_id);
     }
 
-    public function getApprovedResponseGamePackagesParentResources(): DisplayPackageVM
-    {
+    public function getApprovedResponseGamePackagesParentResources(): DisplayPackageVM {
 
-        $approvedCommunicationPackages = $this->resourcesPackageRepository->getApprovedPackagesOfType(self::type_id);
+        $approvedCommunicationPackages = $this->resourcesPackageRepository->getResourcesPackages([self::type_id]);
         $parentResources = Collection::empty();
 
         foreach ($approvedCommunicationPackages as $package) {

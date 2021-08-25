@@ -1,11 +1,11 @@
 <template>
     <div class="container-fluid p-0">
-        <div class="row justify-content-start mb-3">
+        <div class="row justify-content-start mb-2">
             <div class="col-md-8 col-sm-12">
                 <div class="container-fluid p-0">
                     <div class="row">
                         <div v-for="language in contentLanguages" class="col-md-3 col-sm-12">
-                            <button @click="getContentForLanguage(language)"
+                            <button @click="setContentLanguage(language)"
                                     class="w-100 btn btn-secondary"
                                     v-bind:class="{ selected: language.id === selectedContentLanguage.id }">
                                 {{ language.name }}
@@ -23,6 +23,20 @@
                     <div v-if="searchLoading" class="spinner-border text-primary" role="status">
                         <span class="sr-only">Loading...</span>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-start mb-3" id="types-checkboxes">
+            <div class="col-md-8">
+                <div class="form-check form-check-inline"
+                     v-for="(resourcesPackageType, index) in resourcesPackagesTypes"
+                     :key="index">
+                    <input class="form-check-input" type="checkbox" :id="'checkbox_' + index"
+                           v-model="resourcesPackageType.checked"
+                           v-on:change="getResourcesPackages">
+                    <label class="form-check-label" :for="'checkbox_' + index">
+                        {{ resourcesPackageType.name }}
+                    </label>
                 </div>
             </div>
         </div>
@@ -69,7 +83,9 @@ export default {
             default: function () {
                 return {}
             }
-        }
+        },
+        resourcesPackagesTypes: Array,
+        resourcesPackagesRoute: ''
     },
     data: function () {
         return {
@@ -88,21 +104,29 @@ export default {
             'get',
             'handleError'
         ]),
+        setContentLanguage(language) {
+            this.selectedContentLanguage = language;
+            this.getResourcesPackages();
+        },
         getContentLanguages() {
             this.get({
                 url: route('content_languages.get'),
                 urlRelative: false
             }).then(response => {
                 this.contentLanguages = response.data;
-                this.getContentForLanguage(this.contentLanguages[0]);
+                this.selectedContentLanguage = this.contentLanguages[0];
+                this.getResourcesPackages();
             });
         },
-        getContentForLanguage(language) {
-            this.selectedContentLanguage = language;
+        getResourcesPackages() {
             this.loadingResources = true;
             this.resourcePackages = [];
+            let url = this.resourcesPackagesRoute + '?lang_id=' + this.selectedContentLanguage.id;
+            if (this.resourcesPackagesTypes.length) {
+                url += '&type_ids=' + _.map(_.filter(this.resourcesPackagesTypes, r => r.checked), 'id').join();
+            }
             this.get({
-                url: route('communication_resources.for_language') + '?lang_id=' + language.id,
+                url: url,
                 urlRelative: false
             }).then(response => {
                 this.resourcePackages = response.data;

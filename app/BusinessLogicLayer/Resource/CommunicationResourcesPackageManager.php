@@ -57,7 +57,7 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager
     public function getApprovedCommunicationPackagesParentResources(): DisplayPackageVM
     {
 
-        $approvedCommunicationPackages = $this->resourcesPackageRepository->getApprovedPackagesOfType(self::type_id);
+        $approvedCommunicationPackages = $this->resourcesPackageRepository->getResourcesPackages([self::type_id]);
         $parentResources = Collection::empty();
         foreach ($approvedCommunicationPackages as $package) {
             $parentId = $package->card_id;

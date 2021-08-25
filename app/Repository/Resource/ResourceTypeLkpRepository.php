@@ -15,4 +15,8 @@ class ResourceTypeLkpRepository extends Repository {
     function getModelClassName() {
         return ResourceTypeLkp::class;
     }
+
+    public function getResourceTypes(array $ids) {
+        return ResourceTypeLkp::whereIn('id', $ids)->get();
+    }
 }

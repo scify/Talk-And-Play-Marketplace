@@ -28,12 +28,18 @@ class ResourcesPackageRepository extends Repository {
             ], array('*'), 'id', 'asc', $this->defaultRelationships);
     }
 
-    public function getApprovedPackagesOfType($type_id) {
-        return $this->allWhere(
-            [
-                'type_id' => $type_id,
-                'status_id' => ResourceStatusesLkp::APPROVED
-            ], array('*'), 'id', 'asc', $this->defaultRelationships);
+    public function getResourcesPackages(array $type_ids,
+                                         int $lang_id = null,
+                                         array $status_ids = [ResourceStatusesLkp::APPROVED]) {
+        $whereArray = [];
+        if ($lang_id)
+            $whereArray['lang_id'] = $lang_id;
+        return ResourcesPackage
+            ::where($whereArray)
+            ->whereIn('type_id', $type_ids)
+            ->whereIn('status_id', $status_ids)
+            ->with($this->defaultRelationships)
+            ->get();
     }
 
 }

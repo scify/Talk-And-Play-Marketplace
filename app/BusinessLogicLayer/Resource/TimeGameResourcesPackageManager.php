@@ -8,12 +8,13 @@ use App\Models\Resource\ResourcesPackage;
 use App\Repository\ContentLanguageLkpRepository;
 use App\Repository\Resource\ResourceRepository;
 use App\Repository\Resource\ResourcesPackageRepository;
+use App\Repository\Resource\ResourceTypeLkpRepository;
 use App\Repository\Resource\ResourceTypesLkp;
 use App\ViewModels\CreateEditResourceVM;
 use App\ViewModels\DisplayPackageVM;
 use Illuminate\Support\Collection;
 
-class TimeGameResourcesPackageManager extends ResourcesPackageManager
+class TimeGameResourcesPackageManager extends GameResourcesPackageManager
 {
     public ResourcesPackageRepository $resourcesPackageRepository;
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
@@ -21,12 +22,15 @@ class TimeGameResourcesPackageManager extends ResourcesPackageManager
     const maximumCardsThreshold = 4;
     const type_id = ResourceTypesLkp::TIME_GAME;
 
-    public function __construct(ResourceRepository $resourceRepository, ContentLanguageLkpRepository $contentLanguageLkpRepository, ResourcesPackageRepository $resourcesPackageRepository)
+    public function __construct(ResourceTypeLkpRepository $resourceTypeLkpRepository,
+                                ResourceRepository $resourceRepository,
+                                ContentLanguageLkpRepository $contentLanguageLkpRepository,
+                                ResourcesPackageRepository $resourcesPackageRepository)
     {
         $this->resourceRepository = $resourceRepository;
         $this->contentLanguageLkpRepository = $contentLanguageLkpRepository;
         $this->resourcesPackageRepository = $resourcesPackageRepository;
-        parent::__construct($resourceRepository, $contentLanguageLkpRepository,$resourcesPackageRepository, self::type_id);
+        parent::__construct($resourceTypeLkpRepository, $resourceRepository, $contentLanguageLkpRepository,$resourcesPackageRepository, self::type_id);
     }
 
     public function getCreateResourcesPackageViewModel(): CreateEditResourceVM
@@ -55,7 +59,7 @@ class TimeGameResourcesPackageManager extends ResourcesPackageManager
     public function getApprovedTimeGamePackagesParentResources(): DisplayPackageVM
     {
 
-        $approvedCommunicationPackages = $this->resourcesPackageRepository->getApprovedPackagesOfType(self::type_id);
+        $approvedCommunicationPackages = $this->resourcesPackageRepository->getResourcesPackages([self::type_id]);
         $parentResources = Collection::empty();
 
         foreach ($approvedCommunicationPackages as $package) {

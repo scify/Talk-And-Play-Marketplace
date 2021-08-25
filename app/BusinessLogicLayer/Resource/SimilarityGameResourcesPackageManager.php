@@ -8,13 +8,13 @@ use App\Models\Resource\ResourcesPackage;
 use App\Repository\ContentLanguageLkpRepository;
 use App\Repository\Resource\ResourceRepository;
 use App\Repository\Resource\ResourcesPackageRepository;
+use App\Repository\Resource\ResourceTypeLkpRepository;
 use App\Repository\Resource\ResourceTypesLkp;
 use App\ViewModels\CreateEditResourceVM;
 use App\ViewModels\DisplayPackageVM;
 use Illuminate\Support\Collection;
 
-class SimilarityGameResourcesPackageManager extends ResourcesPackageManager
-{
+class SimilarityGameResourcesPackageManager extends GameResourcesPackageManager {
 
     public ResourcesPackageRepository $resourcesPackageRepository;
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
@@ -23,18 +23,17 @@ class SimilarityGameResourcesPackageManager extends ResourcesPackageManager
 
     const type_id = ResourceTypesLkp::SIMILAR_GAME;
 
-    public function __construct(ResourceRepository $resourceRepository,
+    public function __construct(ResourceTypeLkpRepository    $resourceTypeLkpRepository,
+                                ResourceRepository           $resourceRepository,
                                 ContentLanguageLkpRepository $contentLanguageLkpRepository,
-                                ResourcesPackageRepository $resourcesPackageRepository)
-    {
+                                ResourcesPackageRepository   $resourcesPackageRepository) {
         $this->resourceRepository = $resourceRepository;
         $this->contentLanguageLkpRepository = $contentLanguageLkpRepository;
         $this->resourcesPackageRepository = $resourcesPackageRepository;
-        parent::__construct($resourceRepository, $contentLanguageLkpRepository, $resourcesPackageRepository, self::type_id);
+        parent::__construct($resourceTypeLkpRepository, $resourceRepository, $contentLanguageLkpRepository, $resourcesPackageRepository, self::type_id);
     }
 
-    public function getCreateResourcesPackageViewModel(): CreateEditResourceVM
-    {
+    public function getCreateResourcesPackageViewModel(): CreateEditResourceVM {
         $contentLanguages = $this->getContentLanguagesForResources();
         return new CreateEditResourceVM($contentLanguages,
             new  Resource(),
@@ -44,8 +43,7 @@ class SimilarityGameResourcesPackageManager extends ResourcesPackageManager
             self::type_id);
     }
 
-    public function getEditResourceViewModel($id, $package): CreateEditResourceVM
-    {
+    public function getEditResourceViewModel($id, $package): CreateEditResourceVM {
         $contentLanguages = $this->getContentLanguagesForResources();
         $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($id);
         return new CreateEditResourceVM($contentLanguages,
@@ -56,10 +54,9 @@ class SimilarityGameResourcesPackageManager extends ResourcesPackageManager
             self::type_id);
     }
 
-    public function getApprovedSimilarityGamePackagesParentResources(): DisplayPackageVM
-    {
+    public function getApprovedSimilarityGamePackagesParentResources(): DisplayPackageVM {
 
-        $approvedCommunicationPackages = $this->resourcesPackageRepository->getApprovedPackagesOfType(self::type_id);
+        $approvedCommunicationPackages = $this->resourcesPackageRepository->getResourcesPackages([self::type_id]);
         $parentResources = Collection::empty();
 
 

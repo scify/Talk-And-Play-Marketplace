@@ -145,6 +145,7 @@
             <div class="row mt-5">
                 <div class="col">
                     <resources-packages-with-filters
+                        :resources-packages-route="'{{ route('communication_resources.get') }}'"
                         :user="{{ $user }}">
                     </resources-packages-with-filters>
                 </div>

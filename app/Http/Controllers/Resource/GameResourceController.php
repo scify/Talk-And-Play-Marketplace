@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Resource;
 
+use App\BusinessLogicLayer\Resource\GameResourcesPackageManager;
 use App\BusinessLogicLayer\Resource\ResourceManager;
 use App\BusinessLogicLayer\Resource\ResourcesPackageManager;
 use App\BusinessLogicLayer\Resource\SimilarityGameResourcesPackageManager;
@@ -9,33 +10,35 @@ use App\BusinessLogicLayer\Resource\TimeGameResourcesPackageManager;
 use App\BusinessLogicLayer\Resource\ResponseGameResourcesPackageManager;
 
 use App\Http\Controllers\Controller;
+use App\Repository\Resource\ResourceStatusesLkp;
 use App\Repository\Resource\ResourceTypesLkp;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
-class GameResourceController extends Controller
-{
+class GameResourceController extends Controller {
     protected ResourceTypesLkp $resourceTypesLkp;
     protected SimilarityGameResourcesPackageManager $similarityGameResourcesPackageManager;
     protected TimeGameResourcesPackageManager $timeGameResourcesPackageManager;
     protected ResponseGameResourcesPackageManager $responseGameResourcesPackageManager;
     protected ResourceManager $resourceManager;
     protected ResourcesPackageManager $resourcesPackageManager;
+    protected GameResourcesPackageManager $gameResourcesPackageManager;
 
     public function __construct(
-                                SimilarityGameResourcesPackageManager $similarityGameResourcesPackageManager,
-                                TimeGameResourcesPackageManager $timeGameResourcesPackageManager,
-                                ResponseGameResourcesPackageManager $responseGameResourcesPackageManager,
-                                ResourceManager $resourceManager,
-                                ResourcesPackageManager $resourcesPackageManager)
-    {
+        SimilarityGameResourcesPackageManager $similarityGameResourcesPackageManager,
+        TimeGameResourcesPackageManager       $timeGameResourcesPackageManager,
+        ResponseGameResourcesPackageManager   $responseGameResourcesPackageManager,
+        ResourceManager                       $resourceManager,
+        ResourcesPackageManager               $resourcesPackageManager,
+        GameResourcesPackageManager           $gameResourcesPackageManager) {
 
         $this->resourceManager = $resourceManager;
         $this->resourcesPackageManager = $resourcesPackageManager;
-
+        $this->gameResourcesPackageManager = $gameResourcesPackageManager;
         $this->similarityGameResourcesPackageManager = $similarityGameResourcesPackageManager;
         $this->responseGameResourcesPackageManager = $responseGameResourcesPackageManager;
         $this->timeGameResourcesPackageManager = $timeGameResourcesPackageManager;
@@ -47,17 +50,16 @@ class GameResourceController extends Controller
      *
      * @return View
      */
-    public function index(): View
-    {
-        return view('game_resources.index')->with(['resourceTypesLkp' =>ResourceTypesLkp::class]);
+    public function index(): View {
+        $viewModel = $this->gameResourcesPackageManager->getGameResourcesPackageIndexPageVM();
+        return view('game_resources.index')->with(['viewModel' => $viewModel, 'user' => Auth::user()]);
     }
 
 
     /**
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function create(Request $request): View
-    {
+    public function create(Request $request): View {
         $this->validate($request, [
             'type_id' => 'required'//TODO check if exists in DB tab
         ]);
@@ -108,7 +110,7 @@ class GameResourceController extends Controller
                 default:
                     throw(new ResourceNotFoundException('Game category not yet implemented'));
             }
-            return view('game_resources.create-edit-game')->with(['viewModel' => $editResourceViewModel, 'game'=>$game]);
+            return view('game_resources.create-edit-game')->with(['viewModel' => $editResourceViewModel, 'game' => $game]);
 
         } catch (ModelNotFoundException $e) {
             abort(404);
@@ -139,8 +141,7 @@ class GameResourceController extends Controller
         }
     }
 
-    public function show_packages(int $type_id)
-    {
+    public function show_packages(int $type_id) {
         try {
             switch ($type_id) {
                 case ResourceTypesLkp::SIMILAR_GAME:
@@ -171,8 +172,7 @@ class GameResourceController extends Controller
      * @return Response
      */
 
-    public function show_package(int $id): View
-    {
+    public function show_package(int $id): View {
         $package = $this->resourcesPackageManager->getResourcesPackage($id);
 
         try {
@@ -204,8 +204,7 @@ class GameResourceController extends Controller
      * @return Response
      */
 
-    public function download_package(int $id): View
-    {
+    public function download_package(int $id): View {
         $package = $this->resourcesPackageManager->getResourcesPackage($id);
         try {
             switch ($package->type_id) {
@@ -229,5 +228,13 @@ class GameResourceController extends Controller
         }
     }
 
+    public function getGameResourcePackages(Request $request) {
+        $type_ids = explode(',', $request->type_ids);
+        return $this->resourcesPackageManager->getResourcesPackages(
+            $request->lang_id,
+            $type_ids,
+            [ResourceStatusesLkp::APPROVED]
+        );
+    }
 
 }
