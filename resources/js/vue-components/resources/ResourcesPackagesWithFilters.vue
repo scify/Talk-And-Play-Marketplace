@@ -84,7 +84,12 @@ export default {
                 return {}
             }
         },
-        resourcesPackagesTypes: Array,
+        resourcesPackagesTypes: {
+            type: Array,
+            default: function () {
+                return []
+            }
+        },
         resourcesPackagesRoute: ''
     },
     data: function () {
