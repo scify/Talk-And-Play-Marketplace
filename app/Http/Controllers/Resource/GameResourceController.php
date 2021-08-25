@@ -202,7 +202,8 @@ class GameResourceController extends Controller {
      * @return Response
      */
 
-    public function download_package(int $id): View {
+    public function download_package(int $id)
+    {
         $package = $this->resourcesPackageManager->getResourcesPackage($id);
         try {
             switch ($package->type_id) {

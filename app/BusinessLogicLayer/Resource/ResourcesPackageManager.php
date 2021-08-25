@@ -10,6 +10,7 @@ use App\Repository\Resource\ResourcesPackageRepository;
 use App\Repository\Resource\ResourceStatusesLkp;
 use Illuminate\Support\Facades\Auth;
 use InvalidArgumentException;
+use Illuminate\Support\Facades\Storage;
 
 class ResourcesPackageManager extends ResourceManager {
     public ResourcesPackageRepository $resourcesPackageRepository;
@@ -69,52 +70,54 @@ class ResourcesPackageManager extends ResourceManager {
         $fileManager = new ResourceFileManager();
         $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($id);
         $parentResource = $this->resourceRepository->find($id);
-
-        #TODO Storage::put
-        #TODO: create zips folder
-        $tmpDir = sys_get_temp_dir() . '/' . 'package-' . $id;
-        if (is_dir($tmpDir) == false) {
-            mkdir($tmpDir, 0700);
+        $packageDir = 'resources_packages/zips/package-' . $id;
+        if (is_dir($packageDir) == false) {
+            Storage::makeDirectory($packageDir);
         }
-
         $header =
             <<<XML
 <?xml version='1.0'?>
-<game name="" enabled="true" gameType="$gameType" languages="">
+<game name="" enabled="true" gameType="$gameType">
 </game>
 XML;
         $xmlTemplate = simplexml_load_string($header);
-        $xmlTemplate['name'] = $parentResource->name;
+        $xmlTemplate['name'] = $parentResource->name;#todo cleanup
 
-        $lang = $this->contentLanguageLkpRepository->find($package->lang_id)->code;
-        $xmlTemplate['languages'] = $lang;
+//        $lang = $this->contentLanguageLkpRepository->find($package->lang_id)->code;
+//        $xmlTemplate['languages'] = $lang;
 
-        $image_name = basename($parentResource->img_path);
-        $fileManager->copyResourceToDirectory($tmpDir, $image_name, "image");
-        $xmlTemplate->addChild('image', $image_name);
-        $xmlTemplate->addChild('difficulty', 0);#todo add difficulty
+        $imageName = basename($parentResource->img_path);
+        $dirPath = Storage::path($packageDir);
+        $fileManager->copyResourceToDirectory($dirPath, $imageName, "image");
+        $xmlTemplate->addChild('image', $imageName);
+        $xmlTemplate->addChild('difficulty', 3);#todo add difficulty
         $xmlTemplate->addChild('gameImages');
         $gameImages = $xmlTemplate->gameImages;
 
         foreach ($childrenResourceCards as $i => $child) {
-            $image_name = basename($child->img_path);
-            $fileManager->copyResourceToDirectory($tmpDir, $image_name, "image");
-            $gameImage = $gameImages->addChild('gameImage', $image_name);
+            $imageName = basename($child->img_path);
+            $fileManager->copyResourceToDirectory($dirPath, $imageName, "image");
+            $gameImage = $gameImages->addChild('gameImage', $imageName);
             $gameImage->addAttribute('enabled', "true");
             $gameImage->addAttribute('order', strval($i + 1));
         }
 
-        $xmlTemplate->asXML($tmpDir . '/structure.xml');
-        $zipName = basename($tmpDir) . ".zip";
-        $fileManager->getCreateZip($zipName, $tmpDir);
-
-        //then send the headers to force download the zip file
-        header("Content-type: application/zip");
-        header("Content-Disposition: attachment; filename=$zipName");
-        header("Pragma: no-cache");
-        header("Expires: 0");
-        #return Storage::download("zips/zip_300.zip");
-        readfile($zipName);
+        $xmlTemplate->asXML($dirPath . '/structure.xml');
+        $zipName = basename($dirPath . ".zip");
+        $fileManager->getCreateZip( $dirPath);
+        Storage::makeDirectory("resources_packages/zips");
+        Storage::deleteDirectory($packageDir);
+        $headers = [
+            "Content-type: application/zip",
+            "Content-Disposition: attachment; filename=$zipName",
+            "Pragma: no-cache",
+            "Expires: 0"
+        ] ;
+//       return Storage::download("resources_packages/zips/".$zipName,$zipName,$headers);
+        foreach($headers as $header){
+            header($header);
+        }
+        readfile(Storage::path("resources_packages/zips")."/".basename($zipName));
         exit(0);
     }
 

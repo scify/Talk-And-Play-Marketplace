@@ -22,7 +22,6 @@ class ResourceFileManager
         $this->RESOURCE_PREFIX_FOLDER = getenv('RESOURCE_PREFIX_FOLDER') ?: "resources/" ;
     }
 
-    #todo
     public function deleteResourceImage(Resource $resource){
         Storage::disk('public')->delete($resource->img_path);
     }
@@ -113,16 +112,43 @@ class ResourceFileManager
         copy(storage_path('app/public').'/'.$this->getResourceFullPath($name,$type), $directory.'/'.$name);
     }
 
-    public function getCreateZip($zipName, $directory): ZipArchive
+    public function addDir($zip, $path) {
+        $zip->addEmptyDir(basename($path));
+        $nodes = glob($path . '/*');
+        foreach ($nodes as $node) {
+            print $node . '<br>';
+            if (is_dir($node)) {
+                $zip = $this->addDir($zip, $node);
+            } else if (is_file($node))  {
+                $zip->addFile($node, basename($path).'/'.basename($node));
+            }
+        }
+        return $zip;
+    }
+
+    public function getCreateZip($directory): ZipArchive
     {
+
         $zip = new ZipArchive;
-        if($zip -> open($zipName, ZipArchive::CREATE ) === TRUE) {
+        $zipPath = $directory.'.zip';
+        if($zip -> open($zipPath, ZipArchive::CREATE ) === TRUE) {
+            $zip = $this->addDir($zip, $directory);
+            $zip->close();
+        }
+        return $zip;
+
+        $zip = new ZipArchive;
+        if($zip -> open($zipPath, ZipArchive::CREATE ) === TRUE) {
             // Store the path into the variable
             $stream = opendir($directory);
             while($file = readdir($stream)) {
                 if(is_file($directory.'/'.$file)) {
                     $zip -> addFile($directory.'/'.$file, $file);
                 }
+                else{
+                    $zip = $this->addDir($zip, base_path($directory).'/'.$file);
+                }
+
             }
             $zip ->close();
         }
