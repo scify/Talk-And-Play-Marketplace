@@ -81,8 +81,7 @@ class ResourcesPackageManager extends ResourceManager {
 </game>
 XML;
         $xmlTemplate = simplexml_load_string($header);
-        $xmlTemplate['name'] = $parentResource->name;
-        $xmlTemplate['name']  = str_replace(array("?","!",",",";"), "",  $xmlTemplate['name'] );
+        $xmlTemplate['name']  = str_replace(array("?","!",",",";"), "",  $parentResource->name );
 
 
 
