@@ -186,8 +186,6 @@ class GameResourceController extends Controller {
                 case ResourceTypesLkp::RESPONSE_GAME:
                     $createResourceViewModel = $this->responseGameResourcesPackageManager->getEditResourceViewModel($id, $package);
                     break;
-                case ResourceTypesLkp::COMMUNICATION:
-                    throw(new \ValueError('Tried to display communication package through the game package displaying page'));
                 default:
                     throw(new ResourceNotFoundException('Game category not yet implemented'));
             }
@@ -217,8 +215,6 @@ class GameResourceController extends Controller {
                 case ResourceTypesLkp::RESPONSE_GAME:
                     $gameType = "stimulusGame";
                     break;
-                case ResourceTypesLkp::COMMUNICATION:
-                    throw(new \ValueError('Tried to display communication package through the game package displaying page'));
                 default:
                     throw(new ResourceNotFoundException('Game category not yet implemented'));
             }

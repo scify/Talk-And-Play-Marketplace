@@ -55,15 +55,8 @@ class ResponseGameResourcesPackageManager extends GameResourcesPackageManager {
     public function getApprovedResponseGamePackagesParentResources(): DisplayPackageVM {
 
         $approvedCommunicationPackages = $this->resourcesPackageRepository->getResourcesPackages([self::type_id]);
-        $parentResources = Collection::empty();
 
-        foreach ($approvedCommunicationPackages as $package) {
-            #$parentId = $package->card_id;
-            #$parent = $this->resourceRepository->find($parentId);
-            $parentResources->push($package->parent);
-        }
-
-        return new DisplayPackageVM($parentResources);
+        return new DisplayPackageVM($approvedCommunicationPackages);
 
     }
 

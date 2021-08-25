@@ -125,7 +125,6 @@ class CommunicationResourceController extends Controller {
 
     public function download_package(int $id): View {
         try {
-//            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
             $package = $this->communicationResourcesPackageManager->getResourcesPackage($id);
             $this->communicationResourcesPackageManager->downloadPackage($id, $package);
             return $this->show_packages();

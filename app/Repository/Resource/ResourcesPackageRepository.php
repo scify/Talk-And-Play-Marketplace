@@ -22,14 +22,13 @@ class ResourcesPackageRepository extends Repository {
     }
 
     public function getResourcesPackage($id) {
-        return $this->allWhere(
-            [
-                'card_id' => $id,
-            ], array('*'), 'id', 'asc', $this->defaultRelationships);
+        return $this->where([
+            'id' => $id,
+        ], array('*'), $this->defaultRelationships);
     }
 
     public function getResourcesPackages(array $type_ids,
-                                         int $lang_id = null,
+                                         int   $lang_id = null,
                                          array $status_ids = [ResourceStatusesLkp::APPROVED]) {
         $whereArray = [];
         if ($lang_id)

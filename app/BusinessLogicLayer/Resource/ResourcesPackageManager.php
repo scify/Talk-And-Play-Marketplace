@@ -46,7 +46,7 @@ class ResourcesPackageManager extends ResourceManager {
     }
 
     public function getResourcesPackage($id) {
-        return $this->resourcesPackageRepository->getResourcesPackage($id)->first();
+        return $this->resourcesPackageRepository->getResourcesPackage($id);
     }
 
     public function approveResourcesPackage($id) {

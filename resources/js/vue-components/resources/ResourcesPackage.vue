@@ -10,7 +10,8 @@
                     </button>
                     <ul class="dropdown-menu" :aria-labelledby="'dropdownMenuButton_' + resourcesPackage.id">
                         <li>
-                            <a class="dropdown-item" href="#"><i class="fas fa-file-download me-2"></i>Download</a>
+                            <a class="dropdown-item" :href="getDownloadPackageRoute()"><i
+                                class="fas fa-file-download me-2"></i>Download</a>
                         </li>
                         <li>
                             <a class="dropdown-item" @click="showRateModal"><i class="fas fa-star-half-alt me-2"></i>Rate</a>
@@ -161,6 +162,9 @@ export default {
             'post',
             'handleError'
         ]),
+        getDownloadPackageRoute() {
+            return route('game_resources.download_package', this.resourcesPackage.id);
+        },
         resourceHasRating(rateIndex) {
             return this.totalRating >= rateIndex;
         },

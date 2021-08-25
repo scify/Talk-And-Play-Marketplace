@@ -8,11 +8,11 @@ use Illuminate\Support\Collection;
 class DisplayPackageVM
 {
 
-    public Collection $parentResources;
+    public Collection $resourcesPackages;
 
-    public function __construct($parentResources)
+    public function __construct(Collection $resourcesPackages)
     {
-        $this->parentResources = $parentResources;
+        $this->resourcesPackages = $resourcesPackages;
     }
 
 }

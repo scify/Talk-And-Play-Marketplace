@@ -13,16 +13,14 @@ use App\ViewModels\CreateEditResourceVM;
 use App\ViewModels\DisplayPackageVM;
 use Illuminate\Support\Collection;
 
-class CommunicationResourcesPackageManager extends ResourcesPackageManager
-{
+class CommunicationResourcesPackageManager extends ResourcesPackageManager {
     public ResourcesPackageRepository $resourcesPackageRepository;
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
     protected ResourceRepository $resourceRepository;
     const maximumCardsThreshold = 10;
     const type_id = ResourceTypesLkp::COMMUNICATION;
 
-    public function __construct(ResourceRepository $resourceRepository, ContentLanguageLkpRepository $contentLanguageLkpRepository, ResourcesPackageRepository $resourcesPackageRepository)
-    {
+    public function __construct(ResourceRepository $resourceRepository, ContentLanguageLkpRepository $contentLanguageLkpRepository, ResourcesPackageRepository $resourcesPackageRepository) {
         $this->resourceRepository = $resourceRepository;
         $this->contentLanguageLkpRepository = $contentLanguageLkpRepository;
         $this->resourcesPackageRepository = $resourcesPackageRepository;
@@ -30,8 +28,7 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager
     }
 
 
-    public function getCreateResourcesPackageViewModel(): CreateEditResourceVM
-    {
+    public function getCreateResourcesPackageViewModel(): CreateEditResourceVM {
         $contentLanguages = $this->getContentLanguagesForResources();
         return new CreateEditResourceVM($contentLanguages,
             new  Resource(),
@@ -41,8 +38,7 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager
             self::type_id);
     }
 
-    public function getEditResourceViewModel($id, $package): CreateEditResourceVM
-    {
+    public function getEditResourceViewModel($id, $package): CreateEditResourceVM {
         $contentLanguages = $this->getContentLanguagesForResources();
         $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($id);
         return new CreateEditResourceVM($contentLanguages,
@@ -54,35 +50,24 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager
     }
 
 
-    public function getApprovedCommunicationPackagesParentResources(): DisplayPackageVM
-    {
-
+    public function getApprovedCommunicationPackagesParentResources(): DisplayPackageVM {
         $approvedCommunicationPackages = $this->resourcesPackageRepository->getResourcesPackages([self::type_id]);
-        $parentResources = Collection::empty();
-        foreach ($approvedCommunicationPackages as $package) {
-            $parentId = $package->card_id;
-            $parent = $this->resourceRepository->find($parentId);
-            $parentResources->push($parent);
-        }
-
-        return new DisplayPackageVM($parentResources);
-
+        return new DisplayPackageVM($approvedCommunicationPackages);
     }
 
 
-    public function downloadPackage($id, $package)
-    {
+    public function downloadPackage($id, $package) {
         $fileManager = new ResourceFileManager();
         $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($id);
         $parentResource = $this->resourceRepository->find($id);
 
-        $tmpDir = sys_get_temp_dir().'/'.'package-'. $id;
-        if(is_dir($tmpDir) == false) {
+        $tmpDir = sys_get_temp_dir() . '/' . 'package-' . $id;
+        if (is_dir($tmpDir) == false) {
             mkdir($tmpDir, 0700);
         }
 
         $header =
-<<<XML
+            <<<XML
 <?xml version='1.0'?>
 <category name="" enabled="true" languages="">
 </category>
@@ -95,29 +80,29 @@ XML;
 
 
         $image_name = basename($parentResource->img_path);
-        $audio_name =  basename($parentResource->audio_path);
+        $audio_name = basename($parentResource->audio_path);
         $fileManager->copyResourceToDirectory($tmpDir, $image_name, "image");
         $fileManager->copyResourceToDirectory($tmpDir, $audio_name, "audio");
 
 
-        $xmlTemplate->addChild('image',$image_name);
+        $xmlTemplate->addChild('image', $image_name);
         $xmlTemplate->addChild('sound', $audio_name);
         $xmlTemplate->addChild('categories');
         $categories = $xmlTemplate->categories;
-        foreach($childrenResourceCards as $child){
+        foreach ($childrenResourceCards as $child) {
 
             $category = $categories->addChild('category');
             $image_name = basename($child->img_path);
-            $audio_name =  basename($child->audio_path);
+            $audio_name = basename($child->audio_path);
             $fileManager->copyResourceToDirectory($tmpDir, $image_name, "image");
             $fileManager->copyResourceToDirectory($tmpDir, $audio_name, "audio");
-            $category->addChild('image',$image_name);
+            $category->addChild('image', $image_name);
             $category->addChild('sound', $audio_name);
         }
 
-        $xmlTemplate->asXML($tmpDir.'/structure.xml');
+        $xmlTemplate->asXML($tmpDir . '/structure.xml');
 
-        $zipName = basename($tmpDir).".zip";
+        $zipName = basename($tmpDir) . ".zip";
         $fileManager->getCreateZip($zipName, $tmpDir);
 
         //then send the headers to force download the zip file

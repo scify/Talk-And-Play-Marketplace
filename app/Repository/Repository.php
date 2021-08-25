@@ -40,20 +40,20 @@ abstract class Repository implements RepositoryInterface {
     public function all($columns = array('*'), $orderColumn = null, $order = null, $withRelationships = []) {
         $query = $this->modelInstance;
 
-        if($orderColumn)
+        if ($orderColumn)
             $query = $query->orderBy($orderColumn, $order ? $order : 'asc');
-        if(count($withRelationships) > 0)
+        if (count($withRelationships) > 0)
             $query = $query->with($withRelationships);
 
         return $query->get($columns);
     }
 
-    public function allWhere(array $whereArray, $columns = array('*'), $orderColumn = null, $order = null, $withRelationships=[]) {
+    public function allWhere(array $whereArray, $columns = array('*'), $orderColumn = null, $order = null, $withRelationships = []) {
         $query = $this->modelInstance->where($whereArray);
 
-        if($orderColumn)
+        if ($orderColumn)
             $query = $query->orderBy($orderColumn, $order ? $order : 'asc');
-        if(count($withRelationships) > 0)
+        if (count($withRelationships) > 0)
             $query = $query->with($withRelationships);
 
         return $query->get($columns);
@@ -82,18 +82,18 @@ abstract class Repository implements RepositoryInterface {
      * @param string $attribute
      * @return mixed
      */
-    public function update(array $data, $id, $attribute="id") {
+    public function update(array $data, $id, $attribute = "id") {
         $this->modelInstance->where($attribute, '=', $id)->update($this->onlyFillable($data));
         return $this->find($id);
     }
 
     protected function onlyFillable(array $items) {
-        if(sizeof($this->modelInstance->getFillable()) === 0)
+        if (sizeof($this->modelInstance->getFillable()) === 0)
             return $items;
 
         $qualified = array();
-        foreach($items as $key => $val) {
-            if(in_array($key, $this->modelInstance->getFillable()))
+        foreach ($items as $key => $val) {
+            if (in_array($key, $this->modelInstance->getFillable()))
                 $qualified[$key] = $val;
         }
         return $qualified;
@@ -124,13 +124,13 @@ abstract class Repository implements RepositoryInterface {
     }
 
     public function updateOrCreateCaseInsensitive($criteria, $data, $caseInsensitiveColumnName = null) {
-        if($caseInsensitiveColumnName && isset($criteria[$caseInsensitiveColumnName])) {
+        if ($caseInsensitiveColumnName && isset($criteria[$caseInsensitiveColumnName])) {
             // should look for case-insensitive
             $val = str_replace("'", "\'", $criteria[$caseInsensitiveColumnName]);
-            $model = $this->modelInstance->whereRaw("LOWER(`". $caseInsensitiveColumnName."`) LIKE '".
+            $model = $this->modelInstance->whereRaw("LOWER(`" . $caseInsensitiveColumnName . "`) LIKE '" .
                 strtolower($val) . "'")->first();
 
-            if($model)
+            if ($model)
                 return $this->update($data, $model->id);
             return $this->create($data);
         } else
@@ -148,24 +148,24 @@ abstract class Repository implements RepositoryInterface {
     }
 
     public function findBy($attribute, $value, $columns = array('*'), $caseInsensitive = false, $withRelationships = []) {
-        if($caseInsensitive)
-            $query = $this->modelInstance->whereRaw("LOWER(`". $attribute."`) LIKE '".
+        if ($caseInsensitive)
+            $query = $this->modelInstance->whereRaw("LOWER(`" . $attribute . "`) LIKE '" .
                 strtolower($value) . "'");
         else
             $query = $this->modelInstance->where($attribute, '=', $value);
 
-        if(count($withRelationships) > 0)
+        if (count($withRelationships) > 0)
             $query = $query->with($withRelationships);
 
         $model = $query->first();
 
-        if(!$model)
+        if (!$model)
             throw new ModelNotFoundException("Model with criteria: '" . $attribute . "' equal to '" . $value . "' was not found.");
         return $model;
     }
 
-    public function where(array $whereArray, array $columns = array('*')) {
-        return $this->modelInstance->where($whereArray)->first($columns);
+    public function where(array $whereArray, array $columns = array('*'), $withRelationships = []) {
+        return $this->modelInstance->where($whereArray)->with($withRelationships)->first($columns);
     }
 
     /**
