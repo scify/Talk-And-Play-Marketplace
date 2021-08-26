@@ -91,6 +91,7 @@ class GameResourceController extends Controller {
     public function edit(int $id)#returns view
     {
         try {
+
             $package = $this->resourcesPackageManager->getResourcesPackage($id);
             switch ($package->type_id) {
                 case ResourceTypesLkp::SIMILAR_GAME:

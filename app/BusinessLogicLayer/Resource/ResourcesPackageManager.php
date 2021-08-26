@@ -4,6 +4,7 @@
 namespace App\BusinessLogicLayer\Resource;
 
 use App\Models\Resource\Resource;
+use App\Models\Resource\ResourcesPackage;
 use App\Repository\ContentLanguageLkpRepository;
 use App\Repository\Resource\ResourceRepository;
 use App\Repository\Resource\ResourcesPackageRepository;
@@ -27,12 +28,12 @@ class ResourcesPackageManager extends ResourceManager {
     }
 
 
-    public function storeResourcePackage(Resource $resource, int $lang) {
+    public function storeResourcePackage(Resource $resource, int $lang) :ResourcesPackage {
 
         if ($this->type_id === -1)
             throw new InvalidArgumentException("Type id must be a positive integer.");
 
-        $this->resourcesPackageRepository->create(
+        return $this->resourcesPackageRepository->create(
             [
                 'type_id' => $this->type_id,
                 'status_id' => ResourceStatusesLkp::CREATED_PENDING_APPROVAL,
