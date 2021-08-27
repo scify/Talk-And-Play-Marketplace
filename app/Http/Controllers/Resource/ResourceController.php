@@ -89,13 +89,11 @@ class ResourceController extends Controller
         }
         try {
             $resource = $this->resourceManager->storeResource($request);
-//            $redirect_id =
-
             if ($resource->resource_parent_id == null) {
                 $resourcePackage = $manager->storeResourcePackage($resource, $request['lang']);
             }
             else{
-                $resourcePackage = $manager->getResourcesPackage ($resource->resource_parent_id);
+                $resourcePackage = $manager->getResourcesPackageWithCoverCard($resource->resource_parent_id);
             }
             $redirect_id = $resourcePackage->id;
 
@@ -142,8 +140,10 @@ class ResourceController extends Controller
         }
         try {
             $ret = $this->resourceManager->updateResource($request, $id);
-            $redirect_id = $ret['resource_parent_id'] ?: $ret->id;
-            return redirect()->route($ret_route, $redirect_id)->with('flash_message_success', 'The resource package has been successfully updated');
+            #$redirect_id = $ret['resource_parent_id'] ?: $ret->id;
+            #$resourcePackage = $this->resourcesPackageManager->getResourcesPackage ();
+            #return redirect()->route($ret_route, $resourcePackage->id)->with('flash_message_success', 'The resource package has been successfully updated');
+            return redirect()->back()->with('flash_message_success', 'The resource package has been successfully updated');
         } catch (\Exception $e) {
             return redirect()->back()->with('flash_message_failure', 'The resource package has not been updated');
         }

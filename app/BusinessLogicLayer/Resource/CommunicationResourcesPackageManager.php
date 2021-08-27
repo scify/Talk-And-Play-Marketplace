@@ -93,7 +93,7 @@ XML;
 
         foreach ($childrenResourceCards as $child) {
             $imageName = basename($child->img_path);
-            $audioName = basename($parentResource->audio_path);
+            $audioName = basename($child->audio_path);
             $fileManager->copyResourceToDirectory($dirPath, $imageName, "image");
             $fileManager->copyResourceToDirectory($dirPath, $audioName, "audio");
             $category = $categories->addChild('category');

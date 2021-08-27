@@ -56,19 +56,21 @@ class CommunicationResourceController extends Controller {
 
         $this->validate($request, [
             'name' => 'required|string|max:100',
-            'sound' => 'required|file|between:10,1000|nullable',
-            'image' => 'required|file|between:10,500|nullable'
+            'sound' => 'required|file|between:5,2000|nullable',
+            'image' => 'required|file|between:5,2000|nullable'
         ]);
 
         try {
 
             $resource = $this->resourceManager->storeResource($request);
-            if ($resource->resource_parent_id == null) {
-                $this->communicationResourcesPackageManager->storeResourcePackage($resource, $request['lang']);
-                return redirect()->route('communication_resources.edit', $resource->id)->with('flash_message_success', 'The resource package has been successfully created');
+            if ($resource->resource_parent_id === null) {
+                $resourcePackage = $this->communicationResourcesPackageManager->storeResourcePackage($resource, $request['lang']);
+            } else {
+                #$resourcePackage = $this->communicationResourcesPackageManager->getResourcesPackage($resource->resource_parent_id);
+                $resourcePackage = $this->communicationResourcesPackageManager->getResourcesPackageWithCoverCard($resource->resource_parent_id);
             }
-            return redirect()->route('communication_resources.edit', $resource->resource_parent_id)->with('flash_message_success', 'A new resource card has been successfully added to the package');
-
+            $redirect_id = $resourcePackage->id;
+            return redirect()->route('communication_resources.edit', $redirect_id)->with('flash_message_success', 'The resource package has been successfully created');
         } catch (Exception $e) {
             return redirect()->with('flash_message_failure', 'Failure - resource card has not been added');
         }
@@ -87,7 +89,7 @@ class CommunicationResourceController extends Controller {
         try {
 //            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
             $package = $this->communicationResourcesPackageManager->getResourcesPackage($id);
-            $createResourceViewModel = $this->communicationResourcesPackageManager->getEditResourceViewModel($id, $package);
+            $createResourceViewModel = $this->communicationResourcesPackageManager->getEditResourceViewModel($package->card_id, $package);
             return view('communication_resources.create-edit')->with(['viewModel' => $createResourceViewModel]);
         } catch (ModelNotFoundException $e) {
             abort(404);

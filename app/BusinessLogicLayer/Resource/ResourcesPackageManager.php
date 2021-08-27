@@ -51,6 +51,12 @@ class ResourcesPackageManager extends ResourceManager {
         return $this->resourcesPackageRepository->getResourcesPackage($id);
     }
 
+
+    public function getResourcesPackageWithCoverCard($id) {
+        return $this->resourcesPackageRepository->getResourcesPackageWithCoverCard($id);
+    }
+
+
     public function approveResourcesPackage($id) {
         return $this->resourcesPackageRepository->update(
             ['status_id' => ResourceStatusesLkp::APPROVED]

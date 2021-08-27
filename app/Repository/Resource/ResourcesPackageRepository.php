@@ -24,6 +24,12 @@ class ResourcesPackageRepository extends Repository {
         ], array('*'), $this->defaultRelationships);
     }
 
+    public function getResourcesPackageWithCoverCard($id) {
+        return $this->where([
+            'card_id' => $id,
+        ], array('*'), $this->defaultRelationships);
+    }
+
     public function getResourcesPackages(array $type_ids,
                                          int   $lang_id = null,
                                          array $status_ids = [ResourceStatusesLkp::APPROVED]) {
