@@ -12,6 +12,7 @@ use App\Repository\Resource\ResourceTypesLkp;
 use App\ViewModels\CreateEditResourceVM;
 use App\ViewModels\DisplayPackageVM;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
 
 class CommunicationResourcesPackageManager extends ResourcesPackageManager {
     public ResourcesPackageRepository $resourcesPackageRepository;
@@ -54,18 +55,17 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager {
         $approvedCommunicationPackages = $this->resourcesPackageRepository->getResourcesPackages([self::type_id]);
         return new DisplayPackageVM($approvedCommunicationPackages);
     }
+//
 
 
-    public function downloadPackage($id, $package) {
+    public function downloadPackage($package) {
         $fileManager = new ResourceFileManager();
-        $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($id);
-        $parentResource = $this->resourceRepository->find($id);
-
-        $tmpDir = sys_get_temp_dir() . '/' . 'package-' . $id;
-        if (is_dir($tmpDir) == false) {
-            mkdir($tmpDir, 0700);
+        $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($package->card_id);
+        $parentResource = $this->resourceRepository->find($package->card_id);
+        $packageDir = 'resources_packages/zips/package-' . $package->id;
+        if (is_dir($packageDir) == false) {
+            Storage::makeDirectory($packageDir);
         }
-
         $header =
             <<<XML
 <?xml version='1.0'?>
@@ -73,44 +73,54 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager {
 </category>
 XML;
         $xmlTemplate = simplexml_load_string($header);
-        $xmlTemplate['name'] = $parentResource->name;
-
+        $xmlTemplate['name']  = str_replace(array("?","!",",",";"), "",  $parentResource->name );
         $lang = $this->contentLanguageLkpRepository->find($package->lang_id)->code;
         $xmlTemplate['languages'] = $lang;
 
 
-        $image_name = basename($parentResource->img_path);
-        $audio_name = basename($parentResource->audio_path);
-        $fileManager->copyResourceToDirectory($tmpDir, $image_name, "image");
-        $fileManager->copyResourceToDirectory($tmpDir, $audio_name, "audio");
+//        $lang = $this->contentLanguageLkpRepository->find($package->lang_id)->code;
+//        $xmlTemplate['languages'] = $lang;
 
-
-        $xmlTemplate->addChild('image', $image_name);
-        $xmlTemplate->addChild('sound', $audio_name);
+        $imageName = basename($parentResource->img_path);
+        $audioName = basename($parentResource->audio_path);
+        $dirPath = Storage::path($packageDir);
+        $fileManager->copyResourceToDirectory($dirPath, $imageName, "image");
+        $fileManager->copyResourceToDirectory($dirPath, $audioName, "audio");
+        $xmlTemplate->addChild('image', $imageName);
+        $xmlTemplate->addChild('sound', $audioName);
         $xmlTemplate->addChild('categories');
         $categories = $xmlTemplate->categories;
-        foreach ($childrenResourceCards as $child) {
 
+        foreach ($childrenResourceCards as $child) {
+            $imageName = basename($child->img_path);
+            $audioName = basename($parentResource->audio_path);
+            $fileManager->copyResourceToDirectory($dirPath, $imageName, "image");
+            $fileManager->copyResourceToDirectory($dirPath, $audioName, "audio");
             $category = $categories->addChild('category');
-            $image_name = basename($child->img_path);
-            $audio_name = basename($child->audio_path);
-            $fileManager->copyResourceToDirectory($tmpDir, $image_name, "image");
-            $fileManager->copyResourceToDirectory($tmpDir, $audio_name, "audio");
-            $category->addChild('image', $image_name);
-            $category->addChild('sound', $audio_name);
+            $category->addAttribute('enabled', "true");
+            $category->addAttribute('name', $child->name);
+            $category->addChild("image",$imageName);
+            $category->addChild("sound",$audioName);
+
+
         }
 
-        $xmlTemplate->asXML($tmpDir . '/structure.xml');
-
-        $zipName = basename($tmpDir) . ".zip";
-        $fileManager->getCreateZip($zipName, $tmpDir);
-
-        //then send the headers to force download the zip file
-        header("Content-type: application/zip");
-        header("Content-Disposition: attachment; filename=$zipName");
-        header("Pragma: no-cache");
-        header("Expires: 0");
-        readfile($zipName);
+        $xmlTemplate->asXML($dirPath . '/structure.xml');
+        $zipName = basename($dirPath . ".zip");
+        $fileManager->getCreateZip( $dirPath);
+        Storage::makeDirectory("resources_packages/zips");
+        Storage::deleteDirectory($packageDir);
+        $headers = [
+            "Content-type: application/zip",
+            "Content-Disposition: attachment; filename=$zipName",
+            "Pragma: no-cache",
+            "Expires: 0"
+        ] ;
+//       return Storage::download("resources_packages/zips/".$zipName,$zipName,$headers);
+        foreach($headers as $header){
+            header($header);
+        }
+        readfile(Storage::path("resources_packages/zips")."/".basename($zipName));
         exit(0);
     }
 

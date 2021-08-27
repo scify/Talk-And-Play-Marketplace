@@ -89,11 +89,17 @@ class ResourceController extends Controller
         }
         try {
             $resource = $this->resourceManager->storeResource($request);
-            $redirect_id = $resource->resource_parent_id;
-            if ($redirect_id == null) {
-                $manager->storeResourcePackage($resource, $request['lang']);
-                $redirect_id = $resource->id;
+//            $redirect_id =
+
+            if ($resource->resource_parent_id == null) {
+                $resourcePackage = $manager->storeResourcePackage($resource, $request['lang']);
             }
+            else{
+                $resourcePackage = $manager->getResourcesPackage ($resource->resource_parent_id);
+            }
+            $redirect_id = $resourcePackage->id;
+
+
             return redirect()->route($ret_route, $redirect_id)
                 ->with('flash_message_success', 'The resource has been successfully created');
         } catch (Exception $e) {

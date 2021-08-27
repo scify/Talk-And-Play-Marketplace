@@ -67,11 +67,11 @@ class ResourcesPackageManager extends ResourceManager {
         return $this->resourcesPackageRepository->getResourcesPackages($type_ids, $lang_id, $status_ids);
     }
 
-    public function downloadGamePackage($id, $package, $gameType = "") {
+    public function downloadGamePackage($package, $gameType = "") {
         $fileManager = new ResourceFileManager();
-        $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($id);
-        $parentResource = $this->resourceRepository->find($id);
-        $packageDir = 'resources_packages/zips/package-' . $id;
+        $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($package->card_id);
+        $parentResource = $this->resourceRepository->find($package->card_id);
+        $packageDir = 'resources_packages/zips/package-' . $package->id;
         if (is_dir($packageDir) == false) {
             Storage::makeDirectory($packageDir);
         }

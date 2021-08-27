@@ -116,7 +116,7 @@ class CommunicationResourceController extends Controller {
         try {
 //            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
             $package = $this->communicationResourcesPackageManager->getResourcesPackage($id);
-            $createResourceViewModel = $this->communicationResourcesPackageManager->getEditResourceViewModel($id, $package);
+            $createResourceViewModel = $this->communicationResourcesPackageManager->getEditResourceViewModel($package->card_id, $package);
             return view('communication_resources.show-package')->with(['viewModel' => $createResourceViewModel]);
         } catch (ModelNotFoundException $e) {
             abort(404);
@@ -126,7 +126,7 @@ class CommunicationResourceController extends Controller {
     public function download_package(int $id): View {
         try {
             $package = $this->communicationResourcesPackageManager->getResourcesPackage($id);
-            $this->communicationResourcesPackageManager->downloadPackage($id, $package);
+            $this->communicationResourcesPackageManager->downloadPackage($package);
             return $this->show_packages();
         } catch (ModelNotFoundException $e) {
             abort(404);

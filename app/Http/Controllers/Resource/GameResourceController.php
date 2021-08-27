@@ -179,13 +179,13 @@ class GameResourceController extends Controller {
         try {
             switch ($package->type_id) {
                 case ResourceTypesLkp::SIMILAR_GAME:
-                    $createResourceViewModel = $this->similarityGameResourcesPackageManager->getEditResourceViewModel($id, $package);
+                    $createResourceViewModel = $this->similarityGameResourcesPackageManager->getEditResourceViewModel($package);
                     break;
                 case  ResourceTypesLkp::TIME_GAME:
-                    $createResourceViewModel = $this->timeGameResourcesPackageManager->getEditResourceViewModel($id, $package);
+                    $createResourceViewModel = $this->timeGameResourcesPackageManager->getEditResourceViewModel( $package);
                     break;
                 case ResourceTypesLkp::RESPONSE_GAME:
-                    $createResourceViewModel = $this->responseGameResourcesPackageManager->getEditResourceViewModel($id, $package);
+                    $createResourceViewModel = $this->responseGameResourcesPackageManager->getEditResourceViewModel( $package);
                     break;
                 default:
                     throw(new ResourceNotFoundException('Game category not yet implemented'));
@@ -220,7 +220,7 @@ class GameResourceController extends Controller {
                 default:
                     throw(new ResourceNotFoundException('Game category not yet implemented'));
             }
-            $this->resourcesPackageManager->downloadGamePackage($id, $package, $gameType);
+            $this->resourcesPackageManager->downloadGamePackage($package, $gameType);
         } catch (ModelNotFoundException $e) {
             abort(404);
         }

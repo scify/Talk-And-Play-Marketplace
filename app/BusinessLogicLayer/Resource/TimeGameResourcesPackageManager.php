@@ -44,12 +44,15 @@ class TimeGameResourcesPackageManager extends GameResourcesPackageManager
             self::type_id);
     }
 
-    public function getEditResourceViewModel($id, $package): CreateEditResourceVM
+    public function getEditResourceViewModel($package): CreateEditResourceVM
     {
         $contentLanguages = $this->getContentLanguagesForResources();
-        $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($id);
+
+        $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($package->card_id);
+//        return new CreateParentVM(self::maximumCardsThreshold, self::type_id)
+
         return new CreateEditResourceVM($contentLanguages,
-            $this->resourceRepository->find($id),
+            $this->resourceRepository->find($package->card_id),
             $childrenResourceCards,
             $package,
             self::maximumCardsThreshold,
