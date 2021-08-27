@@ -61,7 +61,7 @@ class ResourceController extends Controller
 
         $this->validate($request, [
             'name' => 'required|string|max:100',
-            'image' => 'required|file|between:10,500|nullable',
+            'image' => 'mimes:jpg,png,jpeg|required|file|between:10,500|nullable',
             'type_id' => 'required'
         ]);
 
@@ -91,8 +91,7 @@ class ResourceController extends Controller
             $resource = $this->resourceManager->storeResource($request);
             if ($resource->resource_parent_id == null) {
                 $resourcePackage = $manager->storeResourcePackage($resource, $request['lang']);
-            }
-            else{
+            } else {
                 $resourcePackage = $manager->getResourcesPackageWithCoverCard($resource->resource_parent_id);
             }
             $redirect_id = $resourcePackage->id;
@@ -119,15 +118,16 @@ class ResourceController extends Controller
     public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse#after submit, (action-route submit button directs here)
     {
         $this->validate($request, [
-            'name' => 'required|string|max:100',
-            'image' => 'file|between:10,500|nullable',
+            'name' => 'string|max:100',
+            'image' => 'mimes:jpg,png|file|between:10,500|nullable',
             'type_id' => 'required'
         ]);
+
 
 //        $id = intval($request->id);
         $type_id = intval($request->type_id);
         if ($type_id === ResourceTypesLkp::COMMUNICATION) {
-            $this->validate($request, ['sound' => 'file|between:10,1000|nullable']);
+            $this->validate($request, ['sound' => 'mimes:mp3|file|between:10,2000|nullable']);
             $ret_route = "communication_resources.edit";
         } else if (in_array($type_id, [
             ResourceTypesLkp::SIMILAR_GAME,
@@ -183,8 +183,6 @@ class ResourceController extends Controller
         #Manager get id of card
         #Manager calls repository
     }
-
-
 
 
     public function getContentLanguages()

@@ -56,9 +56,11 @@ class CommunicationResourceController extends Controller {
 
         $this->validate($request, [
             'name' => 'required|string|max:100',
-            'sound' => 'required|file|between:5,2000|nullable',
-            'image' => 'required|file|between:5,2000|nullable'
+            'sound' => 'mimes:mp3|required|file|between:5,2000|nullable',
+            'image' => 'mimes:jpg,png,jpeg|required|file|between:5,2000|nullable'
         ]);
+
+
 
         try {
 

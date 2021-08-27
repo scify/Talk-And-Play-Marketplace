@@ -116,7 +116,7 @@ class ResourceFileManager
         $zip->addEmptyDir(basename($path));
         $nodes = glob($path . '/*');
         foreach ($nodes as $node) {
-            print $node . '<br>';
+            #print $node . '<br>';
             if (is_dir($node)) {
                 $zip = $this->addDir($zip, $node);
             } else if (is_file($node))  {
@@ -131,7 +131,7 @@ class ResourceFileManager
 
         $zip = new ZipArchive;
         $zipPath = $directory.'.zip';
-        if($zip -> open($zipPath, ZipArchive::CREATE ) === TRUE) {
+        if($zip -> open($zipPath, ZipArchive::OVERWRITE ) === TRUE) {
             $zip = $this->addDir($zip, $directory);
             $zip->close();
         }
@@ -143,7 +143,7 @@ class ResourceFileManager
             $stream = opendir($directory);
             while($file = readdir($stream)) {
                 if(is_file($directory.'/'.$file)) {
-                    $zip -> addFile($directory.'/'.$file, $file);
+                    $zip -> addFile($directory.'/'.$file, $file,$flags= ZipArchive::FL_OVERWRITE);
                 }
                 else{
                     $zip = $this->addDir($zip, base_path($directory).'/'.$file);
