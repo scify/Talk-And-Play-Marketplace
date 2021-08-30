@@ -63,5 +63,6 @@ return [
     "search_resources_package" => "Search by name",
     "see_all_cards_title" => "See all available packages",
     "create_new_game_package_modal_title" => "Create new game package",
-    "create_new_game_package_modal_body_text" => "Select a game type:"
+    "create_new_game_package_modal_body_text" => "Select a game type:",
+    "my_packages" => "My packages"
 ];
