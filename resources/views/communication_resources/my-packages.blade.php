@@ -8,7 +8,7 @@
         <div class="col">
             <resources-packages-with-filters
                 :resources-packages-route="'{{ route('communication_resources.get') }}'"
-                :user-id="{{ $user_id }}">
+                :user-id-to-get-content="{{ $user_id }}">
             </resources-packages-with-filters>
         </div>
     </div>

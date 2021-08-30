@@ -107,7 +107,7 @@ class CommunicationResourceController extends Controller
         try {
 //            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
 //            $displayPackageVM = $this->communicationResourcesPackageManager->getApprovedCommunicationPackagesParentResources();
-            return view('communication_resources.approved-packages')->with(['user_id' => Auth::user()->getAuthIdentifier()]);
+            return view('communication_resources.my-packages')->with(['user_id' => Auth::user()->getAuthIdentifier()]);
         } catch (ModelNotFoundException $e) {
             abort(404);
         }

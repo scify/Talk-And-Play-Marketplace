@@ -154,7 +154,7 @@ export default {
                 return {}
             }
         },
-        userId: Number
+        userIdToGetContent: Number
     },
     data: function () {
         return {
@@ -232,7 +232,7 @@ export default {
         },
 
         loggedInUserIsDifferentFromContentUser() {
-            return this.userId != null && (this.user.id !== this.userId); //TODO rename userId
+            return this.userIdToGetContent != null && (this.user.id !== this.userIdToGetContent);
         },
 
         userLoggedIn() {

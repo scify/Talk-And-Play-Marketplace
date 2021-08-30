@@ -51,7 +51,7 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="{{route('communication_resources.show_packages')}}">{{__('messages.my_packages')}}</a></li>
+                            <li><a class="dropdown-item" href="{{route('communication_resources.my_packages')}}">{{__('messages.my_packages')}}</a></li>
                             <li><a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

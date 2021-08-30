@@ -61,7 +61,7 @@
 
                 <resource-package
                     :user="user"
-                    :user-id="userId"
+                    :user-id-to-get-content="userIdToGetContent"
                     :resources-package="resourcesPackage">
                 </resource-package>
 
@@ -100,7 +100,7 @@ export default {
             }
         },
         resourcesPackagesRoute: '',
-        userId: Number
+        userIdToGetContent: Number
     },
     data: function () {
         return {
@@ -137,8 +137,8 @@ export default {
             this.loadingResources = true;
             this.resourcePackages = [];
             let url = this.resourcesPackagesRoute + '?lang_id=' + this.selectedContentLanguage.id;
-            if (this.userId) {
-                url += ('&user_id=' + this.userId);
+            if (this.userIdToGetContent) {
+                url += ('&user_id_to_get_content=' + this.userIdToGetContent);
             }
             if (this.resourcesPackagesTypes.length) {
                 url += '&type_ids=' + _.map(_.filter(this.resourcesPackagesTypes, r => r.checked), 'id').join();
