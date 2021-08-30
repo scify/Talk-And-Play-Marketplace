@@ -13,7 +13,7 @@
                             <a class="dropdown-item" :href="getDownloadPackageRoute()"><i
                                 class="fas fa-file-download me-2"></i>Download</a>
                         </li>
-                        <li v-if="loggedInUserIsDifferentFromContentUser()">
+                        <li v-if="!loggedInUserIsDifferentFromContentUser()">
                             <a class="dropdown-item" href="#"><i
                                 class="fas fa-edit me-2"></i>Edit</a>
                             <a class="dropdown-item" href="#"><i
@@ -46,7 +46,7 @@
                        v-bind:class="{ fas: resourceHasRating(index), far: !resourceHasRating(index) }"></i>
                 </div>
 
-                <p v-if="!loggedInUserIsDifferentFromContentUser()" class="rate-text">
+                <p v-if="loggedInUserIsDifferentFromContentUser()" class="rate-text">
                     {{ trans('messages.give_rating') }} <a class="rate-link"
                                                            @click="showRateModal">
                     {{ trans('messages.rating') }}
@@ -232,7 +232,7 @@ export default {
         },
 
         loggedInUserIsDifferentFromContentUser() {
-            return this.userIdToGetContent != null && (this.user.id !== this.userIdToGetContent);
+            return this.userIdToGetContent == null && (this.user.id !== this.userIdToGetContent);
         },
 
         userLoggedIn() {

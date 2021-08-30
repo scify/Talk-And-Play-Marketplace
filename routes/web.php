@@ -42,11 +42,11 @@ Route::middleware(['auth'])->group(function () {
             'create' => 'communication_resources.create',
             'store' => 'communication_resources.store',
             'edit' => 'communication_resources.edit',
-            'show_packages' => 'communication_resources.show_packages',
+            'my_packages' => 'resources.my_packages',
             'show_package' => 'communication_resources.show_package',
             'download_package' => 'communication_resources.download_package'
         ]);
-    Route::get("/my-packages/communication-packages/", [CommunicationResourceController::class, 'show_packages'])->name('communication_resources.my_packages');
+    Route::get("/my-packages", [ResourceController::class, 'show_packages'])->name('resources.my_packages');
     Route::get("/communication-cards/show/package/{id}", [CommunicationResourceController::class, 'show_package'])->name('communication_resources.show_package');
     Route::get("/communication-cards/download/package/{id}", [CommunicationResourceController::class, 'download_package'])->name('communication_resources.download_package');
 
@@ -73,12 +73,12 @@ Route::middleware(['auth'])->group(function () {
             'store' => 'game_resources.store',
             'edit' => 'game_resources.edit',
             'update' => 'game_resources.update',
-            'show_packages' => 'game_resources.show_packages',
+//            'show_packages' => 'game_resources.show_packages',
             'show_package' => 'game_resources.show_package',
             'download_package' => 'game_resources.download_package'
         ]);
 
-    Route::get("/game-cards/show/packages/{type_id}", [GameResourceController::class, 'show_packages'])->name('game_resources.my_packages');
+//    Route::get("/game-cards/show/packages/{type_id}", [GameResourceController::class, 'show_packages'])->name('game_resources.my_packages');
     Route::get("/game-cards/show/package/{id}", [GameResourceController::class, 'show_package'])->name('game_resources.show_package');
     Route::get("/game-cards/download/package/{id}", [GameResourceController::class, 'download_package'])->name('game_resources.download_package');
 

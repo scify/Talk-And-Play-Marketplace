@@ -4,12 +4,30 @@
 @endpush
 
 @section('content')
-    <div class="row mt-5">
-        <div class="col">
+    <div class="container rounded py-4" align="center" style="border:1px solid grey;margin:auto;width:60%">
+        <div class="mx-3">
+            <b>{{trans("messages.communication_cards")}}</b>
+        </div>
+        <div class="row mt-5">
             <resources-packages-with-filters
                 :resources-packages-route="'{{ route('communication_resources.get') }}'"
-                :user-id-to-get-content="{{ $user_id }}">
+                :user="{{ $user }}"
+                :user-id-to-get-content="{{$viewModel->user_id_to_get_content  }}">
             </resources-packages-with-filters>
+        </div>
+        <hr>
+        <div class="mx-3">
+            <b>{{trans("messages.game_cards")}}</b>
+        </div>
+        <div class="row mt-5">
+            <div class="col">
+                <resources-packages-with-filters
+                    :resources-packages-types='@json($viewModel->resourceTypesLkp)'
+                    :resources-packages-route="'{{ route('game_resources.get') }}'"
+                    :user="{{ $user }}"
+                    :user-id-to-get-content="{{$viewModel->user_id_to_get_content  }}">
+                </resources-packages-with-filters>
+            </div>
         </div>
     </div>
 @endsection

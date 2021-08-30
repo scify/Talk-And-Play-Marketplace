@@ -7,11 +7,15 @@ use App\BusinessLogicLayer\Resource\ResourcesPackageManager;
 use App\BusinessLogicLayer\Resource\CommunicationResourcesPackageManager;
 use App\BusinessLogicLayer\Resource\SimilarityGameResourcesPackageManager;
 use App\BusinessLogicLayer\Resource\TimeGameResourcesPackageManager;
+use App\BusinessLogicLayer\Resource\GameResourcesPackageManager;
 use App\BusinessLogicLayer\Resource\ResponseGameResourcesPackageManager;
+use App\Repository\Resource\ResourceTypeLkpRepository;
 use App\Repository\Resource\ResourceTypesLkp;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ResourceController extends Controller
 {
@@ -22,12 +26,14 @@ class ResourceController extends Controller
     protected TimeGameResourcesPackageManager $timeGameResourcesPackageManager;
     protected ResponseGameResourcesPackageManager $responseGameResourcesPackageManager;
     protected CommunicationResourcesPackageManager $communicationResourcesPackageManager;
+    protected GameResourcesPackageManager $gameResourcesPackageManager;
 
     public function __construct(ResourceManager $resourceManager, ResourcesPackageManager $resourcesPackageManager,
                                 CommunicationResourcesPackageManager $communicationResourcesPackageManager,
                                 SimilarityGameResourcesPackageManager $similarityGameResourcesPackageManager,
                                 TimeGameResourcesPackageManager $timeGameResourcesPackageManager,
-                                ResponseGameResourcesPackageManager $responseGameResourcesPackageManager)
+                                ResponseGameResourcesPackageManager $responseGameResourcesPackageManager,
+                                GameResourcesPackageManager $gameResourcesPackageManager)
     {
         $this->resourceManager = $resourceManager;
         $this->resourcesPackageManager = $resourcesPackageManager;
@@ -35,6 +41,7 @@ class ResourceController extends Controller
         $this->communicationResourcesPackageManager = $communicationResourcesPackageManager;
         $this->responseGameResourcesPackageManager = $responseGameResourcesPackageManager;
         $this->timeGameResourcesPackageManager = $timeGameResourcesPackageManager;
+        $this->gameResourcesPackageManager = $gameResourcesPackageManager;
     }
 
 
@@ -188,5 +195,18 @@ class ResourceController extends Controller
     public function getContentLanguages()
     {
         return $this->resourceManager->getContentLanguagesForResources();
+    }
+
+
+    public function show_packages()
+    {
+        try {
+            $viewModel = $this->gameResourcesPackageManager->getGameResourcesPackageIndexPageVM();
+            $viewModel->user_id_to_get_content = Auth::id();
+            return view('communication_resources.my-packages')->with(
+                ['viewModel' => $viewModel, 'user' => Auth::user()]);
+        } catch (ModelNotFoundException $e) {
+            abort(404);
+        }
     }
 }

@@ -144,6 +144,8 @@ class GameResourceController extends Controller {
 
     public function show_packages(int $type_id) {
         try {
+            $displayPackageVM = null;
+            $user_id = Auth::id();
             switch ($type_id) {
                 case ResourceTypesLkp::SIMILAR_GAME:
                     $displayPackageVM = $this->similarityGameResourcesPackageManager->getApprovedSimilarityGamePackagesParentResources();
@@ -155,11 +157,11 @@ class GameResourceController extends Controller {
                     $displayPackageVM = $this->responseGameResourcesPackageManager->getApprovedResponseGamePackagesParentResources();
                     break;
                 case ResourceTypesLkp::COMMUNICATION:
-                    throw(new \ValueError('Tried to display communication packages through the game packages displaying page'));
+                    break;
                 default:
-                    throw(new ResourceNotFoundException('Game category not yet implemented'));
+                    throw(new ResourceNotFoundException('category not yet implemented'));
             }
-            return view('game_resources.approved-packages')->with(['viewModel' => $displayPackageVM]);
+            return view('game_resources.my-packages')->with(['viewModel' => $displayPackageVM, 'user_id'=>$user_id]);
         } catch (ModelNotFoundException $e) {
             abort(404);
         }
@@ -226,10 +228,16 @@ class GameResourceController extends Controller {
         }
     }
 
-    public function getGameResourcePackages(Request $request) {
+    public function getGameResourcePackages(Request $request)
+    {
+        $user_id = null;
+        if ($request->user_id_to_get_content) {
+            $user_id = intval($request->user_id_to_get_content);
+        }
         $type_ids = explode(',', $request->type_ids);
         return $this->resourcesPackageManager->getResourcesPackages(
             $request->lang_id,
+            $user_id,
             $type_ids,
             [ResourceStatusesLkp::APPROVED]
         );

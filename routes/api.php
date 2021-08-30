@@ -24,4 +24,5 @@ Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
     Route::post("/resources-package/user-rating", [ResourcePackageRatingController::class, 'storeOrUpdateRating'])->name('resources-package.user-rating.post');
     Route::get("/game-resources-packages/", [GameResourceController::class, 'getGameResourcePackages'])->name('game_resources.get');
 
+
 });
