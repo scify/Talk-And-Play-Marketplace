@@ -13,12 +13,14 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-class CommunicationResourceController extends Controller {
+class CommunicationResourceController extends Controller
+{
 
     protected ResourceManager $resourceManager;
     protected CommunicationResourcesPackageManager $communicationResourcesPackageManager;
 
-    public function __construct(ResourceManager $resourceManager, CommunicationResourcesPackageManager $communicationResourcesPackageManager) {
+    public function __construct(ResourceManager $resourceManager, CommunicationResourcesPackageManager $communicationResourcesPackageManager)
+    {
         $this->resourceManager = $resourceManager;
         $this->communicationResourcesPackageManager = $communicationResourcesPackageManager;
     }
@@ -29,7 +31,8 @@ class CommunicationResourceController extends Controller {
      *
      * @return View
      */
-    public function index(): View {
+    public function index(): View
+    {
         return view('communication_resources.index', ['user' => Auth::user()]);
     }
 
@@ -38,7 +41,8 @@ class CommunicationResourceController extends Controller {
      *
      * @return View
      */
-    public function create(): View {
+    public function create(): View
+    {
 
 //        $createResourceViewModel = $this->communicationResourceManager->getCreateResourceViewModel();
         $createResourcesPackageViewModel = $this->communicationResourcesPackageManager->getCreateResourcesPackageViewModel();
@@ -52,14 +56,14 @@ class CommunicationResourceController extends Controller {
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
 
         $this->validate($request, [
             'name' => 'required|string|max:100',
             'sound' => 'mimes:mp3|required|file|between:5,2000|nullable',
             'image' => 'mimes:jpg,png,jpeg|required|file|between:5,2000|nullable'
         ]);
-
 
 
         try {
@@ -98,11 +102,12 @@ class CommunicationResourceController extends Controller {
         }
     }
 
-    public function show_packages() {
+    public function show_packages()
+    {
         try {
 //            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
-            $displayPackageVM = $this->communicationResourcesPackageManager->getApprovedCommunicationPackagesParentResources();
-            return view('communication_resources.approved-packages')->with(['viewModel' => $displayPackageVM, 'user_id' => Auth::user()->getAuthIdentifier()]);
+//            $displayPackageVM = $this->communicationResourcesPackageManager->getApprovedCommunicationPackagesParentResources();
+            return view('communication_resources.approved-packages')->with(['user_id' => Auth::user()->getAuthIdentifier()]);
         } catch (ModelNotFoundException $e) {
             abort(404);
         }
@@ -116,7 +121,8 @@ class CommunicationResourceController extends Controller {
      * @return Response
      */
 
-    public function show_package(int $id): View {
+    public function show_package(int $id): View
+    {
         try {
 
 //            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
@@ -128,7 +134,8 @@ class CommunicationResourceController extends Controller {
         }
     }
 
-    public function download_package(int $id): View {
+    public function download_package(int $id): View
+    {
         try {
             $package = $this->communicationResourcesPackageManager->getResourcesPackage($id);
             $this->communicationResourcesPackageManager->downloadPackage($package);
@@ -139,8 +146,10 @@ class CommunicationResourceController extends Controller {
     }
 
 
-    public function getCommunicationResourcePackages(Request $request, int $user_id=null) {
-        if( $request->user_id){
+    public function getCommunicationResourcePackages(Request $request)
+    {
+        $user_id = null;
+        if ($request->user_id) {
             $user_id = intval($request->user_id);
         }
         return $this->communicationResourcesPackageManager->getResourcesPackages(

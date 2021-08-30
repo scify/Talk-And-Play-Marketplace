@@ -58,20 +58,13 @@
         </div>
         <div class="row mt-5" v-if="filteredResourcePackages.length">
             <div class="col-md-3 col-sm-12" v-for="(resourcesPackage, index) in filteredResourcePackages" :key="index">
-                <div v-if="userId !=null">
-                    <resource-package
-                        :user="user"
-                        :user-id="userId"
-                        :resources-package="resourcesPackage">
 
-                    </resource-package>
-                </div>
-                <div v-else>
-                    <resource-package
-                        :user="user"
-                        :resources-package="resourcesPackage">
-                    </resource-package>
-                </div>
+                <resource-package
+                    :user="user"
+                    :user-id="userId"
+                    :resources-package="resourcesPackage">
+                </resource-package>
+
                 <!--                <resource-package-->
                 <!--                    :user="user"-->
                 <!--                    :resources-package="resourcesPackage">-->

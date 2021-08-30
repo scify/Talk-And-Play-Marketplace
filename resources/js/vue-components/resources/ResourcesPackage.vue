@@ -13,13 +13,13 @@
                             <a class="dropdown-item" :href="getDownloadPackageRoute()"><i
                                 class="fas fa-file-download me-2"></i>Download</a>
                         </li>
-                        <li v-if="userId != null">
+                        <li v-if="loggedInUserIsDifferentFromContentUser()">
                             <a class="dropdown-item" href="#"><i
                                 class="fas fa-edit me-2"></i>Edit</a>
                             <a class="dropdown-item" href="#"><i
                                 class="fas fa-trash-alt me-2"></i>Delete</a>
                         </li>
-                        <li>
+                        <li v-else>
                             <a class="dropdown-item" @click="showRateModal"><i class="fas fa-star-half-alt me-2"></i>Rate</a>
                         </li>
                     </ul>
@@ -39,11 +39,14 @@
                     class="btn btn-outline-primary my-2 w-100">
                     {{ trans('messages.see_cards_btn') }}
                 </button>
+
+
                 <div class="rating mb-1">
                     <i v-for="index in maxRating" class="fa-star"
                        v-bind:class="{ fas: resourceHasRating(index), far: !resourceHasRating(index) }"></i>
                 </div>
-                <p class="rate-text">
+
+                <p v-if="!loggedInUserIsDifferentFromContentUser()" class="rate-text">
                     {{ trans('messages.give_rating') }} <a class="rate-link"
                                                            @click="showRateModal">
                     {{ trans('messages.rating') }}
@@ -89,7 +92,7 @@
         </modal>
         <modal
             @canceled="rateModalOpen = false"
-            id="children-resources-modal"
+            id="rate-package-modal"
             class="modal"
             :open="rateModalOpen"
             :allow-close="true">
@@ -227,6 +230,11 @@ export default {
                 this.computeTotalRating();
             });
         },
+
+        loggedInUserIsDifferentFromContentUser() {
+            return this.userId != null && (this.user.id !== this.userId); //TODO rename userId
+        },
+
         userLoggedIn() {
             return this.user.id;
         },

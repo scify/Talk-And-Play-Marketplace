@@ -52,10 +52,10 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager {
     }
 
 
-    public function getApprovedCommunicationPackagesParentResources(): DisplayPackageVM {
-        $approvedCommunicationPackages = $this->resourcesPackageRepository->getResourcesPackages([self::type_id],  Auth::user()->getAuthIdentifier());
-        return new DisplayPackageVM($approvedCommunicationPackages);
-    }
+//    public function getApprovedCommunicationPackagesParentResources(): DisplayPackageVM {
+//        $approvedCommunicationPackages = $this->resourcesPackageRepository->getResourcesPackages([self::type_id],  Auth::id());
+//        return new DisplayPackageVM($approvedCommunicationPackages);
+//    }
 //
 
 
