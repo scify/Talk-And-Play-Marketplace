@@ -102,7 +102,7 @@ class CommunicationResourceController extends Controller {
         try {
 //            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
             $displayPackageVM = $this->communicationResourcesPackageManager->getApprovedCommunicationPackagesParentResources();
-            return view('communication_resources.approved-packages')->with(['viewModel' => $displayPackageVM]);
+            return view('communication_resources.approved-packages')->with(['viewModel' => $displayPackageVM, 'user_id' => Auth::user()->getAuthIdentifier()]);
         } catch (ModelNotFoundException $e) {
             abort(404);
         }
@@ -118,6 +118,7 @@ class CommunicationResourceController extends Controller {
 
     public function show_package(int $id): View {
         try {
+
 //            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
             $package = $this->communicationResourcesPackageManager->getResourcesPackage($id);
             $createResourceViewModel = $this->communicationResourcesPackageManager->getEditResourceViewModel($package->card_id, $package);
@@ -138,9 +139,13 @@ class CommunicationResourceController extends Controller {
     }
 
 
-    public function getCommunicationResourcePackages(Request $request) {
+    public function getCommunicationResourcePackages(Request $request, int $user_id=null) {
+        if( $request->user_id){
+            $user_id = intval($request->user_id);
+        }
         return $this->communicationResourcesPackageManager->getResourcesPackages(
             $request->lang_id,
+            $user_id,
             [ResourceTypesLkp::COMMUNICATION],
             [ResourceStatusesLkp::APPROVED]
         );

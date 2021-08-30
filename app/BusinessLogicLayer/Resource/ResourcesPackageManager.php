@@ -69,8 +69,8 @@ class ResourcesPackageManager extends ResourceManager {
     }
 
 
-    public function getResourcesPackages(int $lang_id, array $type_ids, array $status_ids) {
-        return $this->resourcesPackageRepository->getResourcesPackages($type_ids, $lang_id, $status_ids);
+    public function getResourcesPackages(int $lang_id, $user_id = null, array $type_ids, array $status_ids ) {
+        return $this->resourcesPackageRepository->getResourcesPackages($type_ids, $user_id, $lang_id, $status_ids);
     }
 
     public function downloadGamePackage($package, $gameType = "") {

@@ -13,6 +13,10 @@
                             <a class="dropdown-item" :href="getDownloadPackageRoute()"><i
                                 class="fas fa-file-download me-2"></i>Download</a>
                         </li>
+                        <li v-if="userId != null">
+                            <a class="dropdown-item" :href="getDownloadPackageRoute()"><i
+                                class="fas fa-file-download me-2"></i>Edit</a>
+                        </li>
                         <li>
                             <a class="dropdown-item" @click="showRateModal"><i class="fas fa-star-half-alt me-2"></i>Rate</a>
                         </li>
@@ -144,7 +148,8 @@ export default {
             default: function () {
                 return {}
             }
-        }
+        },
+        userId: Number
     },
     data: function () {
         return {
@@ -226,6 +231,8 @@ export default {
         getLoginRoute() {
             return route('login');
         }
+
+
     }
 }
 </script>

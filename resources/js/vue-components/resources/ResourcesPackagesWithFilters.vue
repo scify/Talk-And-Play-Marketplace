@@ -58,10 +58,26 @@
         </div>
         <div class="row mt-5" v-if="filteredResourcePackages.length">
             <div class="col-md-3 col-sm-12" v-for="(resourcesPackage, index) in filteredResourcePackages" :key="index">
-                <resource-package
-                    :user="user"
-                    :resources-package="resourcesPackage">
-                </resource-package>
+                <div v-if="userId !=null">
+                    <resource-package
+                        :user="user"
+                        :user-id="userId"
+                        :resources-package="resourcesPackage">
+
+                    </resource-package>
+                </div>
+                <div v-else>
+                    <resource-package
+                        :user="user"
+                        :resources-package="resourcesPackage">
+                    </resource-package>
+                </div>
+                <!--                <resource-package-->
+                <!--                    :user="user"-->
+                <!--                    :resources-package="resourcesPackage">-->
+                <!--                </resource-package>-->
+
+
             </div>
         </div>
         <div class="row mt-5" v-if="!filteredResourcePackages.length && !loadingResources">
@@ -90,7 +106,8 @@ export default {
                 return []
             }
         },
-        resourcesPackagesRoute: ''
+        resourcesPackagesRoute: '',
+        userId: Number
     },
     data: function () {
         return {
@@ -127,6 +144,9 @@ export default {
             this.loadingResources = true;
             this.resourcePackages = [];
             let url = this.resourcesPackagesRoute + '?lang_id=' + this.selectedContentLanguage.id;
+            if (this.userId) {
+                url += ('&user_id=' + this.userId);
+            }
             if (this.resourcesPackagesTypes.length) {
                 url += '&type_ids=' + _.map(_.filter(this.resourcesPackagesTypes, r => r.checked), 'id').join();
             }

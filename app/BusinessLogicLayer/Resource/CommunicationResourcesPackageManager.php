@@ -12,6 +12,7 @@ use App\Repository\Resource\ResourceTypesLkp;
 use App\ViewModels\CreateEditResourceVM;
 use App\ViewModels\DisplayPackageVM;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class CommunicationResourcesPackageManager extends ResourcesPackageManager {
@@ -52,7 +53,7 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager {
 
 
     public function getApprovedCommunicationPackagesParentResources(): DisplayPackageVM {
-        $approvedCommunicationPackages = $this->resourcesPackageRepository->getResourcesPackages([self::type_id]);
+        $approvedCommunicationPackages = $this->resourcesPackageRepository->getResourcesPackages([self::type_id],  Auth::user()->getAuthIdentifier());
         return new DisplayPackageVM($approvedCommunicationPackages);
     }
 //

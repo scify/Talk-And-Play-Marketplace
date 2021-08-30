@@ -4,8 +4,13 @@
 @endpush
 
 @section('content')
-    <div class="container">
-        @include('resources_packages.resources-packages-list', ['routePrefix' => 'communication_resources'])
+    <div class="row mt-5">
+        <div class="col">
+            <resources-packages-with-filters
+                :resources-packages-route="'{{ route('communication_resources.get') }}'"
+                :user-id="{{ $user_id }}">
+            </resources-packages-with-filters>
+        </div>
     </div>
 @endsection
 @push('scripts')
