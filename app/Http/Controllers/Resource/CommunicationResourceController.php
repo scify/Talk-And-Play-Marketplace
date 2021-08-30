@@ -149,8 +149,8 @@ class CommunicationResourceController extends Controller
     public function getCommunicationResourcePackages(Request $request)
     {
         $user_id = null;
-        if ($request->user_id) {
-            $user_id = intval($request->user_id);
+        if ($request->user_id_to_get_content) {
+            $user_id = intval($request->user_id_to_get_content);
         }
         return $this->communicationResourcesPackageManager->getResourcesPackages(
             $request->lang_id,
