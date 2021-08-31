@@ -58,11 +58,11 @@
         </div>
         <div class="row mt-5" v-if="filteredResourcePackages.length">
             <div class="col-md-3 col-sm-12" v-for="(resourcesPackage, index) in filteredResourcePackages" :key="index">
-
                 <resource-package
                     :user="user"
                     :user-id-to-get-content="userIdToGetContent"
-                    :resources-package="resourcesPackage">
+                    :resources-package="resourcesPackage"
+                    :packages-type="packagesType">
                 </resource-package>
 
                 <!--                <resource-package-->
@@ -100,7 +100,8 @@ export default {
             }
         },
         resourcesPackagesRoute: '',
-        userIdToGetContent: Number
+        userIdToGetContent: Number,
+        packagesType: String
     },
     data: function () {
         return {

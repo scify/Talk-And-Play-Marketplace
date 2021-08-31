@@ -9,8 +9,11 @@
                         <i class="fas fa-ellipsis-v"></i>
                     </button>
                     <ul class="dropdown-menu" :aria-labelledby="'dropdownMenuButton_' + resourcesPackage.id">
+
                         <li>
-                            <a class="dropdown-item" :href="getDownloadGamePackageRoute()"><i
+                            <a  v-if="isCommunicationPackage()" class="dropdown-item" :href="getDownloadCommunicationPackageRoute()"><i
+                                class="fas fa-file-download me-2"></i>Download</a>
+                            <a  v-else-if="isGamePackage()" class="dropdown-item" :href="getDownloadGamePackageRoute()"><i
                                 class="fas fa-file-download me-2"></i>Download</a>
                         </li>
                         <li v-if="!loggedInUserIsDifferentFromContentUser()">
@@ -154,7 +157,8 @@ export default {
                 return {}
             }
         },
-        userIdToGetContent: Number
+        userIdToGetContent: Number,
+        packagesType: String
     },
     data: function () {
         return {
@@ -243,8 +247,13 @@ export default {
         },
         getLoginRoute() {
             return route('login');
+        },
+        isCommunicationPackage(){
+            return this.packagesType === "COMMUNICATION";
+        },
+        isGamePackage(){
+            return this.packagesType === "GAME";
         }
-
 
     }
 }

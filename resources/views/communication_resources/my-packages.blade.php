@@ -12,7 +12,8 @@
             <resources-packages-with-filters
                 :resources-packages-route="'{{ route('communication_resources.get') }}'"
                 :user="{{ $user }}"
-                :user-id-to-get-content="{{$viewModel->user_id_to_get_content  }}">
+                :user-id-to-get-content="{{$viewModel->user_id_to_get_content  }}"
+                :packages-type="'COMMUNICATION'">
             </resources-packages-with-filters>
         </div>
         <hr>
@@ -25,7 +26,8 @@
                     :resources-packages-types='@json($viewModel->resourceTypesLkp)'
                     :resources-packages-route="'{{ route('game_resources.get') }}'"
                     :user="{{ $user }}"
-                    :user-id-to-get-content="{{$viewModel->user_id_to_get_content  }}">
+                    :user-id-to-get-content="{{$viewModel->user_id_to_get_content  }}"
+                    :packages-type="'GAME'">
                 </resources-packages-with-filters>
             </div>
         </div>
