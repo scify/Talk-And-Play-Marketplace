@@ -88,22 +88,21 @@ class GameResourceController extends Controller {
     }
 
 
-    public function edit(int $id)#returns view
+    public function edit(int $package_id)#returns view
     {
         try {
-
-            $package = $this->resourcesPackageManager->getResourcesPackage($id);
+            $package = $this->resourcesPackageManager->getResourcesPackage($package_id);
             switch ($package->type_id) {
                 case ResourceTypesLkp::SIMILAR_GAME:
-                    $editResourceViewModel = $this->similarityGameResourcesPackageManager->getEditResourceViewModel($id, $package);
+                    $editResourceViewModel = $this->similarityGameResourcesPackageManager->getEditResourceViewModel($package);
                     $game = 'SIMILAR';
                     break;
                 case  ResourceTypesLkp::TIME_GAME:
-                    $editResourceViewModel = $this->timeGameResourcesPackageManager->getEditResourceViewModel($id, $package);
+                    $editResourceViewModel = $this->timeGameResourcesPackageManager->getEditResourceViewModel($package);;
                     $game = 'TIME';
                     break;
                 case ResourceTypesLkp::RESPONSE_GAME:
-                    $editResourceViewModel = $this->responseGameResourcesPackageManager->getEditResourceViewModel($id, $package);
+                    $editResourceViewModel = $this->responseGameResourcesPackageManager->getEditResourceViewModel($package);;
                     $game = 'RESPONSE';
                     break;
                 case ResourceTypesLkp::COMMUNICATION:
