@@ -131,26 +131,9 @@ class ResourceFileManager
 
         $zip = new ZipArchive;
         $zipPath = $directory.'.zip';
-        if($zip -> open($zipPath, ZipArchive::OVERWRITE ) === TRUE) {
+        if($zip -> open($zipPath, ZipArchive::CREATE ) === TRUE) {
             $zip = $this->addDir($zip, $directory);
             $zip->close();
-        }
-        return $zip;
-
-        $zip = new ZipArchive;
-        if($zip -> open($zipPath, ZipArchive::CREATE ) === TRUE) {
-            // Store the path into the variable
-            $stream = opendir($directory);
-            while($file = readdir($stream)) {
-                if(is_file($directory.'/'.$file)) {
-                    $zip -> addFile($directory.'/'.$file, $file,$flags= ZipArchive::FL_OVERWRITE);
-                }
-                else{
-                    $zip = $this->addDir($zip, base_path($directory).'/'.$file);
-                }
-
-            }
-            $zip ->close();
         }
         return $zip;
     }

@@ -123,8 +123,8 @@ XML;
             "Expires: 0"
         ] ;
 //       return Storage::download("resources_packages/zips/".$zipName,$zipName,$headers);
-        foreach($headers as $header){
-            header($header);
+        foreach($headers as $h){
+            header($h);
         }
         readfile(Storage::path("resources_packages/zips")."/".basename($zipName));
         exit(0);

@@ -10,7 +10,7 @@
                     </button>
                     <ul class="dropdown-menu" :aria-labelledby="'dropdownMenuButton_' + resourcesPackage.id">
                         <li>
-                            <a class="dropdown-item" :href="getDownloadPackageRoute()"><i
+                            <a class="dropdown-item" :href="getDownloadGamePackageRoute()"><i
                                 class="fas fa-file-download me-2"></i>Download</a>
                         </li>
                         <li v-if="!loggedInUserIsDifferentFromContentUser()">
@@ -172,8 +172,11 @@ export default {
             'post',
             'handleError'
         ]),
-        getDownloadPackageRoute() {
+        getDownloadGamePackageRoute() {
             return route('game_resources.download_package', this.resourcesPackage.id);
+        },
+        getDownloadCommunicationPackageRoute() {
+            return route('communication_resources.download_package', this.resourcesPackage.id);
         },
         resourceHasRating(rateIndex) {
             return this.totalRating >= rateIndex;
