@@ -86,7 +86,7 @@ class ResourcesPackageManager extends ResourceManager {
         }
         $header =
             <<<XML
-<?xml version='1.0'?>
+<?xml version='1.0' encoding="UTF-8"?>
 <game name="" enabled="true" gameType="$gameType">
 </game>
 XML;
@@ -94,11 +94,11 @@ XML;
         $xmlTemplate['name']  = str_replace(array("?","!",",",";"), "",  $parentResource->name );
 
 
-
 //        $lang = $this->contentLanguageLkpRepository->find($package->lang_id)->code;
 //        $xmlTemplate['languages'] = $lang;
 
         $imageName = basename($parentResource->img_path);
+        $imageName = utf8_encode($imageName);
         $dirPath = Storage::path($packageDir);
         $fileManager->copyResourceToDirectory($dirPath, $imageName, "image");
         $xmlTemplate->addChild('image', $imageName);
