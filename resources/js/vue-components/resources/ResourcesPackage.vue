@@ -11,13 +11,16 @@
                     <ul class="dropdown-menu" :aria-labelledby="'dropdownMenuButton_' + resourcesPackage.id">
 
                         <li>
-                            <a  v-if="isCommunicationPackage()" class="dropdown-item" :href="getDownloadCommunicationPackageRoute()"><i
+                            <a v-if="isCommunicationPackage()" class="dropdown-item"
+                               :href="getDownloadCommunicationPackageRoute()"><i
                                 class="fas fa-file-download me-2"></i>Download</a>
-                            <a  v-else-if="isGamePackage()" class="dropdown-item" :href="getDownloadGamePackageRoute()"><i
+                            <a v-else-if="isGamePackage()" class="dropdown-item"
+                               :href="getDownloadGamePackageRoute()"><i
                                 class="fas fa-file-download me-2"></i>Download</a>
                         </li>
                         <li v-if="!loggedInUserIsDifferentFromContentUser()">
-                            <a v-if="isCommunicationPackage()" class="dropdown-item" :href="getEditCommunicationPackageRoute()"><i
+                            <a v-if="isCommunicationPackage()" class="dropdown-item"
+                               :href="getEditCommunicationPackageRoute()"><i
                                 class="fas fa-edit me-2"></i>Edit</a>
                             <a v-else-if="isGamePackage()" class="dropdown-item" :href="getEditGamePackageRoute()"><i
                                 class="fas fa-edit me-2"></i>Edit</a>
@@ -151,9 +154,13 @@
                 <div class="container pt-3 pb-5">
                     <div class="row">
                         <div class="col text-center">
-                            <a :href="getDeletePackageRoute()" class="btn btn-primary">{{
-                                    trans('messages.warning_deletion')
-                                }}</a>
+                            <div>
+                                <h4>{{trans('messages.warning_deletion')}}</h4>
+                            </div>
+
+                            <a :href="getDeletePackageRoute()" class="btn btn-danger">
+                                {{trans('messages.delete')}}
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -287,10 +294,10 @@ export default {
         getLoginRoute() {
             return route('login');
         },
-        isCommunicationPackage(){
+        isCommunicationPackage() {
             return this.packagesType === "COMMUNICATION";
         },
-        isGamePackage(){
+        isGamePackage() {
             return this.packagesType === "GAME";
         }
 
