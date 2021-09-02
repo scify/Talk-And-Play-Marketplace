@@ -58,7 +58,7 @@
             <div class="row mt-3 mb-5">
                 <div class="col text-center">
                     <p class="m-0"><b>{!! __('messages.see_the') !!} <a
-                                href="#">{!! __('messages.card_categories') !!}</a></b></p>
+                                href="#communication-cards">{!! __('messages.card_categories') !!}</a></b></p>
                 </div>
             </div>
         </div>
