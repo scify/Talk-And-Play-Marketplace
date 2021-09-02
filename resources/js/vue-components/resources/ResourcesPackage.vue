@@ -283,13 +283,11 @@ export default {
                 this.computeTotalRating();
             });
         },
-
         loggedInUserIsDifferentFromContentUser() {
             return this.resourcesPackage.creator.id !== this.user.id;
         },
-
         userLoggedIn() {
-            return this.user.id;
+            return this.user && this.user.id;
         },
         getLoginRoute() {
             return route('login');

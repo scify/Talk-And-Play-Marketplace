@@ -146,7 +146,7 @@
                 <div class="col">
                     <resources-packages-with-filters
                         :resources-packages-route="'{{ route('communication_resources.get') }}'"
-                        :user="{{ $user }}"
+                        :user='@json($user)'
                         :packages-type="'COMMUNICATION'">
                     </resources-packages-with-filters>
                 </div>

@@ -148,7 +148,7 @@
                     <resources-packages-with-filters
                         :resources-packages-types='@json($viewModel->resourceTypesLkp)'
                         :resources-packages-route="'{{ route('game_resources.get') }}'"
-                        :user="{{ $user }}"
+                        :user='@json($user)'
                         :packages-type="'GAME'">
                     </resources-packages-with-filters>
                 </div>
