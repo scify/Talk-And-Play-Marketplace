@@ -130,6 +130,7 @@ export default {
         getResourcesPackages() {
             this.loadingResources = true;
             this.resourcePackages = [];
+            this.filteredResourcePackages = [];
             let url = this.resourcesPackagesRoute + '?lang_id=' + this.selectedContentLanguage.id;
             if (this.userIdToGetContent) {
                 url += ('&user_id_to_get_content=' + this.userIdToGetContent);

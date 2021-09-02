@@ -4,36 +4,61 @@
 @endpush
 
 @section('content')
-    <div class="container rounded py-4" align="left" style="border:1px solid grey;margin:auto;width:60%">
-        <div class="mx-3" align="center">
-            <h2>{{trans("messages.communication_cards")}}</h2>
-        </div>
-        <div class="mx-5 mt-5 mb-5">
-            <resources-packages-with-filters
-                :resources-packages-route="'{{ route('communication_resources.get') }}'"
-                :user='@json($user)'
-                :user-id-to-get-content="{{$viewModel->user_id_to_get_content  }}"
-                :packages-type="'COMMUNICATION'">
-            </resources-packages-with-filters>
-        </div>
-        <hr style="height:12px;border-width:0;color:gray;background-color:red">
-        <div class="mx-5 mt-5 mb-5">
-            <div class="mx-3" align="center">
-                <h2>{{trans("messages.game_cards")}}</h2>
-            </div>
+    <div class="container rounded py-5" style="border:1px solid grey;margin:auto;width:60%">
+        <div class="row my-4">
             <div class="col">
-                <resources-packages-with-filters
-                    :resources-packages-types='@json($viewModel->resourceTypesLkp)'
-                    :resources-packages-route="'{{ route('game_resources.get') }}'"
-                    :user='@json($user)'
-                    :user-id-to-get-content="{{$viewModel->user_id_to_get_content  }}"
-                    :packages-type="'GAME'">
-                </resources-packages-with-filters>
+                <div class="container-fluid">
+                    <div class="row mb-4">
+                        <div class="col text-center">
+                            <h2>{{trans("messages.communication_cards")}}</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div>
+                                <resources-packages-with-filters
+                                    :resources-packages-route="'{{ route('communication_resources.get') }}'"
+                                    :user='@json($user)'
+                                    :user-id-to-get-content="{{$viewModel->user_id_to_get_content  }}"
+                                    :packages-type="'COMMUNICATION'">
+                                </resources-packages-with-filters>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row my-5">
+            <div class="col">
+                <hr style="height:12px;border-width:0;color:gray;background-color:red">
+            </div>
+        </div>
+        <div class="row my-4">
+            <div class="col">
+                <div class="container-fluid">
+                    <div class="row mb-4">
+                        <div class="col text-center">
+                            <h2>{{trans("messages.game_cards")}}</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <resources-packages-with-filters
+                                :resources-packages-types='@json($viewModel->resourceTypesLkp)'
+                                :resources-packages-route="'{{ route('game_resources.get') }}'"
+                                :user='@json($user)'
+                                :user-id-to-get-content="{{$viewModel->user_id_to_get_content  }}"
+                                :packages-type="'GAME'">
+                            </resources-packages-with-filters>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModal">
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog"
+         aria-labelledby="deleteConfirmationModal">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header text-center" id='deleteModalHeader'>

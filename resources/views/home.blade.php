@@ -75,7 +75,7 @@
                                     {!! __('messages.communication_cards_description') !!}
                                 </p>
                                 <a class="mt-4 btn btn-secondary"
-                                   href="#">{!! __('messages.see_the_communication_cards') !!}</a>
+                                   href="{{route('communication_resources.index')}}">{!! __('messages.see_the_communication_cards') !!}</a>
                             </div>
                             <div class="col-6 text-end">
                                 <img
@@ -106,7 +106,7 @@
                                 <p class="description mt-4">
                                     {!! __('messages.game_cards_description') !!}
                                 </p>
-                                <a class="mt-4 btn btn-third" href="#">{!! __('messages.see_the_game_cards') !!}</a>
+                                <a class="mt-4 btn btn-third" href="{{route('game_resources.index')}}">{!! __('messages.see_the_game_cards') !!}</a>
                             </div>
                         </div>
                     </div>
