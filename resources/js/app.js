@@ -42,9 +42,7 @@ const app = new Vue({
     let closeDismissableAlerts = function () {
         setTimeout(function () {
             /*Close any flash message after some time*/
-            $(".alert-dismissible").fadeTo(4000, 500).slideUp(500, function () {
-                $(".alert-dismissible").alert('close');
-            });
+            $(".alert-dismissible").fadeTo(4000, 500).slideUp(500);
         }, 3000);
     };
 
