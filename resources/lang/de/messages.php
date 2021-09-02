@@ -62,5 +62,6 @@ return [
     "see_all_cards_title" => "Δείτε όλα τα διαθέσιμα πακέτα",
     "create_new_game_package_modal_title" => "Δημιουργία νέου παιχνιδιού",
     "create_new_game_package_modal_body_text" => "Επιλέξτε τύπο παιχνιδιού:",
-    "my_packages" => "Τα πακέτα μου"
+    "my_packages" => "Τα πακέτα μου",
+    "delete_package" => "Διαγραφή Πακέτου"
 ];

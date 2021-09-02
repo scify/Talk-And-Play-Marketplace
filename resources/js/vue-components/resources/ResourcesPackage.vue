@@ -17,9 +17,11 @@
                                 class="fas fa-file-download me-2"></i>Download</a>
                         </li>
                         <li v-if="!loggedInUserIsDifferentFromContentUser()">
-                            <a class="dropdown-item" href="#"><i
+                            <a v-if="isCommunicationPackage()" class="dropdown-item" :href="getEditCommunicationPackageRoute()"><i
                                 class="fas fa-edit me-2"></i>Edit</a>
-                            <a class="dropdown-item" href="#"><i
+                            <a v-else-if="isGamePackage()" class="dropdown-item" :href="getEditGamePackageRoute()"><i
+                                class="fas fa-edit me-2"></i>Edit</a>
+                            <a class="dropdown-item" @click="showDeleteModal"><i
                                 class="fas fa-trash-alt me-2"></i>Delete</a>
                         </li>
                         <li v-else>
@@ -134,6 +136,29 @@
                 </div>
             </template>
         </modal>
+        <modal
+            @canceled="deleteModalOpen = false"
+            id="delete-package-modal"
+            class="modal"
+            :open="deleteModalOpen"
+            :allow-close="true">
+            <template v-slot:header>
+                <h5 class="modal-title pl-2">{{ trans('messages.delete_package') }}
+                    <b>{{ resourcesPackage.cover_resource.name }}</b>
+                </h5>
+            </template>
+            <template v-slot:body>
+                <div class="container pt-3 pb-5">
+                    <div class="row">
+                        <div class="col text-center">
+                            <a :href="getDeletePackageRoute()" class="btn btn-primary">{{
+                                    trans('messages.warning_deletion')
+                                }}</a>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </modal>
     </div>
 </template>
 
@@ -167,6 +192,7 @@ export default {
             maxRating: 5,
             resourceChildrenModalOpen: false,
             rateModalOpen: false,
+            deleteModalOpen: false,
             rateTitleKey: 'rate_package_modal_body_text_no_rating'
         }
     },
@@ -181,6 +207,15 @@ export default {
         },
         getDownloadCommunicationPackageRoute() {
             return route('communication_resources.download_package', this.resourcesPackage.id);
+        },
+        getEditCommunicationPackageRoute() {
+            return route('communication_resources.edit', this.resourcesPackage.id);
+        },
+        getEditGamePackageRoute() {
+            return route('game_resources.edit', this.resourcesPackage.id);
+        },
+        getDeletePackageRoute() {
+            return route('resources_packages.destroy_package', this.resourcesPackage.id);
         },
         resourceHasRating(rateIndex) {
             return this.totalRating >= rateIndex;
@@ -209,6 +244,10 @@ export default {
                     this.userRating = response.data.rating;
                 });
             }
+        },
+        showDeleteModal() {
+            console.log('delete')
+            this.deleteModalOpen = true;
         },
         getRateTitleForUser() {
             if (this.userRating)

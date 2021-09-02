@@ -42,14 +42,14 @@ Route::middleware(['auth'])->group(function () {
             'create' => 'communication_resources.create',
             'store' => 'communication_resources.store',
             'edit' => 'communication_resources.edit',
-            'show_package' => 'communication_resources.show_package',
             'download_package' => 'communication_resources.download_package'
         ]);
 
 
 
     Route::get("/my-packages", [ResourceController::class, 'my_packages'])->name('resources_packages.my_packages');
-    Route::get("/communication-cards/show/package/{id}", [CommunicationResourceController::class, 'show_package'])->name('communication_resources.show_package');
+    Route::get("/resources/delete/package/{id}", [ResourceController::class, 'delete_package'])->name('resources_packages.destroy_package');
+
     Route::get("/communication-cards/download/package/{id}", [CommunicationResourceController::class, 'download_package'])->name('communication_resources.download_package');
 
 

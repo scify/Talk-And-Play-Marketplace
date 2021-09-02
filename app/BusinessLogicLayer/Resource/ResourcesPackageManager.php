@@ -73,6 +73,9 @@ class ResourcesPackageManager extends ResourceManager {
         return $this->resourcesPackageRepository->getResourcesPackages($type_ids, $user_id, $lang_id, $status_ids);
     }
 
+
+
+
     public function downloadGamePackage($package, $gameType = "") {
         $fileManager = new ResourceFileManager();
         $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($package->card_id);
@@ -129,5 +132,21 @@ XML;
         readfile(Storage::path("resources_packages/zips")."/".basename($zipName));
         exit(0);
     }
+
+
+
+    public function destroyResourcesPackage($id) {
+        $package = $this->resourcesPackageRepository->getResourcesPackage($id);
+        $coverCardId = $package->card_id;
+        $this->destroyResource($coverCardId);
+        $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($coverCardId);
+        foreach ($childrenResourceCards as $child){
+            $this->destroyResource($child->id);
+        }
+    }
+
+
+
+
 
 }

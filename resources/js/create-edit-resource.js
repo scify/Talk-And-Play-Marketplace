@@ -215,6 +215,8 @@ import {Modal} from 'bootstrap';
         });
     }
 
+
+
     let init = function () {
         listenForImageChanges();
         listenForSoundChanges();

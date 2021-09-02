@@ -38,6 +38,7 @@ return [
     "submit_package" => "  Οριστικοποίηση Πακέτου",
     "save_card" => "Αποθήκευση Κάρτας",
     "delete_card" => "Διαγραφή Κάρτας",
+
     "warning_deletion" => "Προσοχή! Αυτή η ενέργεια είναι μη αναστρέψιμη",
     "cancel" => "Ακύρωση",
     "delete" => "Διαγραφή",
@@ -64,5 +65,6 @@ return [
     "see_all_cards_title" => "See all available packages",
     "create_new_game_package_modal_title" => "Create new game package",
     "create_new_game_package_modal_body_text" => "Select a game type:",
-    "my_packages" => "My packages"
+    "my_packages" => "My packages",
+    "delete_package" => "Διαγραφή Πακέτου"
 ];

@@ -209,4 +209,18 @@ class ResourceController extends Controller
             abort(404);
         }
     }
+
+    public function delete_package($package_id)
+    {
+        try {
+            $this->resourcesPackageManager->destroyResourcesPackage($package_id);
+        }
+        catch (ModelNotFoundException $e) {
+            abort(404);
+        }
+        catch (\Exception $e) {
+            return redirect()->back()->with('flash_message_failure', 'Warning! The resource package has not been deleted');
+        }
+        return redirect()->back()->with('flash_message_success',  'Success! The resource package has been deleted');
+    }
 }

@@ -32,6 +32,38 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModal">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center" id='deleteModalHeader'>
+                    <h5 class="modal-title w-100" id="deleteModalLabel">{{trans("messages.delete_card")}} </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <span style="color:#ff0000">{{trans("messages.warning_deletion")}}</span>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <!--<input class="btn btn-outline-primary" type="reset" value="Ακύρωση">-->
+                    <form id="md-delete-form" enctype="multipart/form-data" role="form" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input class="btn btn-primary ms-4" type="submit" id="deletionConfirmed"
+                               value="{{trans('messages.delete_card')}}">
+                        &nbsp;
+                        &nbsp;
+                        <a class="btn btn-outline-primary" data-bs-dismiss="modal">
+                            {{trans('messages.delete')}}
+                        </a>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 @push('scripts')
     <script src="{{ mix('dist/js/create-edit-resource.js') }}"></script>
