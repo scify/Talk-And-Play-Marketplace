@@ -141,61 +141,6 @@ class GameResourceController extends Controller {
         }
     }
 
-    public function show_packages(int $type_id) {
-        try {
-            $displayPackageVM = null;
-            $user_id = Auth::id();
-            switch ($type_id) {
-                case ResourceTypesLkp::SIMILAR_GAME:
-                    $displayPackageVM = $this->similarityGameResourcesPackageManager->getApprovedSimilarityGamePackagesParentResources();
-                    break;
-                case  ResourceTypesLkp::TIME_GAME:
-                    $displayPackageVM = $this->timeGameResourcesPackageManager->getApprovedTimeGamePackagesParentResources();
-                    break;
-                case ResourceTypesLkp::RESPONSE_GAME:
-                    $displayPackageVM = $this->responseGameResourcesPackageManager->getApprovedResponseGamePackagesParentResources();
-                    break;
-                case ResourceTypesLkp::COMMUNICATION:
-                    break;
-                default:
-                    throw(new ResourceNotFoundException('category not yet implemented'));
-            }
-            return view('game_resources.my-packages')->with(['viewModel' => $displayPackageVM, 'user_id'=>$user_id]);
-        } catch (ModelNotFoundException $e) {
-            abort(404);
-        }
-    }
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return Response
-     */
-
-    public function show_package(int $id): View {
-        $package = $this->resourcesPackageManager->getResourcesPackage($id);
-
-        try {
-            switch ($package->type_id) {
-                case ResourceTypesLkp::SIMILAR_GAME:
-                    $createResourceViewModel = $this->similarityGameResourcesPackageManager->getEditResourceViewModel($package);
-                    break;
-                case  ResourceTypesLkp::TIME_GAME:
-                    $createResourceViewModel = $this->timeGameResourcesPackageManager->getEditResourceViewModel( $package);
-                    break;
-                case ResourceTypesLkp::RESPONSE_GAME:
-                    $createResourceViewModel = $this->responseGameResourcesPackageManager->getEditResourceViewModel( $package);
-                    break;
-                default:
-                    throw(new ResourceNotFoundException('Game category not yet implemented'));
-            }
-            return view('game_resources.show-package')->with(['viewModel' => $createResourceViewModel]);
-        } catch (ModelNotFoundException $e) {
-            abort(404);
-        }
-    }
 
     /**
      * Show the form for editing the specified resource.

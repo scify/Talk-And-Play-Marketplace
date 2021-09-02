@@ -102,37 +102,6 @@ class CommunicationResourceController extends Controller
         }
     }
 
-    public function show_packages()
-    {
-        try {
-//            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
-//            $displayPackageVM = $this->communicationResourcesPackageManager->getApprovedCommunicationPackagesParentResources();
-            return view('resources_packages.my-packages')->with(['user_id' => Auth::id()]);
-        } catch (ModelNotFoundException $e) {
-            abort(404);
-        }
-    }
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return Response
-     */
-
-    public function show_package(int $id): View
-    {
-        try {
-
-//            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
-            $package = $this->communicationResourcesPackageManager->getResourcesPackage($id);
-            $createResourceViewModel = $this->communicationResourcesPackageManager->getEditResourceViewModel($package->card_id, $package);
-            return view('communication_resources.show-package')->with(['viewModel' => $createResourceViewModel]);
-        } catch (ModelNotFoundException $e) {
-            abort(404);
-        }
-    }
 
     public function download_package(int $id): View
     {

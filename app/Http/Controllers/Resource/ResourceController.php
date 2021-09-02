@@ -198,7 +198,7 @@ class ResourceController extends Controller
     }
 
 
-    public function show_packages()
+    public function my_packages()
     {
         try {
             $viewModel = $this->gameResourcesPackageManager->getGameResourcesPackageIndexPageVM();

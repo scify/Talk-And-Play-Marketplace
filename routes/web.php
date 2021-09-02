@@ -48,7 +48,7 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-    Route::get("/my-packages", [ResourceController::class, 'show_packages'])->name('resources_packages.my_packages');
+    Route::get("/my-packages", [ResourceController::class, 'my_packages'])->name('resources_packages.my_packages');
     Route::get("/communication-cards/show/package/{id}", [CommunicationResourceController::class, 'show_package'])->name('communication_resources.show_package');
     Route::get("/communication-cards/download/package/{id}", [CommunicationResourceController::class, 'download_package'])->name('communication_resources.download_package');
 
