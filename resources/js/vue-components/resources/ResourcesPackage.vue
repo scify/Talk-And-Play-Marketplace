@@ -278,7 +278,7 @@ export default {
         },
 
         loggedInUserIsDifferentFromContentUser() {
-            return this.userIdToGetContent == null && (this.user.id !== this.userIdToGetContent);
+            return this.resourcesPackage.creator.id !== this.user.id;
         },
 
         userLoggedIn() {
