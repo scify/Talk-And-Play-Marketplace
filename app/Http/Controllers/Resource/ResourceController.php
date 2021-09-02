@@ -203,7 +203,7 @@ class ResourceController extends Controller
         try {
             $viewModel = $this->gameResourcesPackageManager->getGameResourcesPackageIndexPageVM();
             $viewModel->user_id_to_get_content = Auth::id();
-            return view('communication_resources.my-packages')->with(
+            return view('resources_packages.my-packages')->with(
                 ['viewModel' => $viewModel, 'user' => Auth::user()]);
         } catch (ModelNotFoundException $e) {
             abort(404);
