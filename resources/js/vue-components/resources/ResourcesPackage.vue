@@ -82,7 +82,7 @@
                                     <p class="card-title">
                                         {{ resource.name }}
                                     </p>
-                                    <audio controls class="mt-3 w-100">
+                                    <audio v-if="isCommunicationPackage()" controls class="mt-3 w-100">
                                         <source :src="'/storage/' + resource.audio_path"
                                                 type="audio/mpeg">
                                     </audio>
