@@ -1,6 +1,6 @@
 <template>
     <div v-if="resourcesPackage.id">
-        <div class="card w-100">
+        <div class="card w-100" >
             <div class="dropdown-container">
                 <div class="dropdown">
                     <button class="btn btn-outline-secondary dropdown-toggle actions-btn" type="button"
@@ -80,19 +80,20 @@
                         <div
                             v-for="(resource, index) in resourcesPackage.cover_resource.children_resources" :key="index"
                             class="col-md-4 col-sm-12">
-                            <div class="card w-100">
-                                <img :src="'/storage/' + resource.img_path" class="card-img-top"
-                                     :alt="resource.name">
-                                <div class="card-body">
-                                    <p class="card-title">
-                                        {{ resource.name }}
-                                    </p>
-                                    <audio v-if="isCommunicationPackage()" controls class="mt-3 w-100">
-                                        <source :src="'/storage/' + resource.audio_path"
-                                                type="audio/mpeg">
-                                    </audio>
+                                <div class="card w-100">
+                                    <img :src="'/storage/' + resource.img_path" class="card-img-top"
+                                         :alt="resource.name">
+                                    <div class="card-body">
+                                        <p class="card-title">
+                                            {{ resource.name }}
+                                        </p>
+                                        <audio v-if="isCommunicationPackage()" controls class="mt-3 w-100">
+                                            <source :src="'/storage/' + resource.audio_path"
+                                                    type="audio/mpeg">
+                                        </audio>
+                                    </div>
                                 </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>

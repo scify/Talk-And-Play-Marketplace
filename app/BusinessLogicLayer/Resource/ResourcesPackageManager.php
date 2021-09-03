@@ -143,6 +143,7 @@ XML;
         foreach ($childrenResourceCards as $child){
             $this->destroyResource($child->id);
         }
+       $this->resourcesPackageRepository->delete($id);
     }
 
 

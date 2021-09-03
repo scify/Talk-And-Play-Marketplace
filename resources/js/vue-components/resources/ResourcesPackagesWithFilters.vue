@@ -143,7 +143,10 @@ export default {
                 urlRelative: false
             }).then(response => {
                 this.resourcePackages = response.data;
+
                 this.filteredResourcePackages = this.resourcePackages;
+                let names = _.map(this.filteredResourcePackages, 'id')
+                console.log(names);
                 this.loadingResources = false;
             });
         },
