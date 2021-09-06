@@ -161,7 +161,7 @@ class GameResourceController extends Controller {
                     $gameType = "sequenceGame";
                     break;
                 case ResourceTypesLkp::RESPONSE_GAME:
-                    $gameType = "stimulusGame";
+                    $gameType = "stimulusReactionGame";
                     break;
                 default:
                     throw(new ResourceNotFoundException('Game category not yet implemented'));

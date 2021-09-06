@@ -76,8 +76,8 @@ XML;
         $xmlTemplate = simplexml_load_string($header);
         $xmlTemplate['name']  = str_replace(array("?","!",",",";"), "",  $parentResource->name );
         $lang = $this->contentLanguageLkpRepository->find($package->lang_id)->code;
-        $xmlTemplate['languages'] = $lang;
 
+        $xmlTemplate['languages'] = $lang === 'el' ? 'gr' : $lang;
 
 //        $lang = $this->contentLanguageLkpRepository->find($package->lang_id)->code;
 //        $xmlTemplate['languages'] = $lang;

@@ -344,7 +344,7 @@
                             </a>
                             <input type="hidden" name="packageId" id="packageId" value='{{$viewModel->package['id']}}'/>
                             <input class="btn btn-primary ms-4" type="submit" id="saveBundleConfirmed"
-                                   value="{{trans('messages.submit')}}">
+                                   value="{{trans('messages.submit')}}";"/>
 
                         </form>
 
