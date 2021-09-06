@@ -24,6 +24,9 @@ class ResourceRepository extends Repository {
         ], array('*'), 'id', 'asc', ['childrenResources', 'creator']);
     }
 
+    function getLastId(){
+        return $this->getModelClassName()::latest()->first()->id;
+    }
 }
 
 

@@ -218,4 +218,8 @@ class ResourceController extends Controller
         }
         return redirect()->back()->with('flash_message_success',  'Success! The resource package has been deleted');
     }
+
+    public function clone_package($package_id){
+        $this->resourcesPackageManager->clonePackage($package_id);
+    }
 }

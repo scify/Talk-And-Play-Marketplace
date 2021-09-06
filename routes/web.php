@@ -47,6 +47,7 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+    Route::get("resources/clone_package/{id}", [ResourceController::class, 'clone_package'])->name('resources_packages.clone_package');
     Route::get("/my-packages", [ResourceController::class, 'my_packages'])->name('resources_packages.my_packages');
     Route::get("/resources/delete/package/{id}", [ResourceController::class, 'delete_package'])->name('resources_packages.destroy_package');
 

@@ -147,6 +147,7 @@ abstract class Repository implements RepositoryInterface {
         );
     }
 
+
     public function findBy($attribute, $value, $columns = array('*'), $caseInsensitive = false, $withRelationships = []) {
         if ($caseInsensitive)
             $query = $this->modelInstance->whereRaw("LOWER(`" . $attribute . "`) LIKE '" .

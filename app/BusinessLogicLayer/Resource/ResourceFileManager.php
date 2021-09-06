@@ -5,10 +5,12 @@ namespace App\BusinessLogicLayer\Resource;
 
 
 use App\Models\Resource\Resource;
+use App\Repository\Resource\ResourceRepository;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use ZipArchive;
+
 
 class ResourceFileManager
 {
@@ -16,6 +18,7 @@ class ResourceFileManager
     private $AUDIO_FOLDER;
     private $RESOURCE_PREFIX_FOLDER;
     private array $SUPPORTED_FILE_TYPES = ["audio","image"];
+    protected ResourceRepository $resourceRepository;
     public function __construct() {
         $this->IMG_FOLDER = getenv('IMG_FOLDER ') ?: "img/" ;
         $this->AUDIO_FOLDER = getenv('AUDIO_FOLDER ') ?: "audio/" ;
@@ -112,6 +115,38 @@ class ResourceFileManager
         copy(storage_path('app/public').'/'.$this->getResourceFullPath($name,$type), $directory.'/'.$name);
     }
 
+    public function getExtension($path){
+        return pathinfo($path)['extension'];
+    }
+    public function getCloneUniqueName($name, $newId) : string{
+        $extension = $this->getExtension($name);
+        $nameNoExtension = $this->getResourceFileWithoutExtension($name);
+        $pieces = explode("_", $nameNoExtension);
+
+        $lastPiece = end($pieces);
+        $copyMark = "copy";
+        if(substr($lastPiece, 0,strlen($copyMark)) === $copyMark){
+            array_splice($pieces,-1, 1);
+            $newName = join('_',$pieces).'_copy';
+        }
+        else{
+            $newName = $nameNoExtension.'_copy';
+        }
+        $newName = $newName . $newId.'.'.$extension;
+        return $newName;
+    }
+
+
+    public function cloneResourceToDirectory($name, $type, $lastId){
+
+        $dir = $this->getResourceFileFolder($type);
+        $source = storage_path('app/public').'/'.$this->getResourceFullPath($name,$type);
+        $target = storage_path('app/public').'/'.$dir.$this->getCloneUniqueName($name, $lastId);
+        $x=1;
+    }
+
+
+
     public function addDir($zip, $path) {
         $zip->addEmptyDir(basename($path));
         $nodes = glob($path . '/*');
@@ -135,6 +170,7 @@ class ResourceFileManager
             $zip = $this->addDir($zip, $directory);
             $zip->close();
         }
+
         return $zip;
     }
 

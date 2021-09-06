@@ -18,6 +18,11 @@
                                :href="getDownloadGamePackageRoute()"><i
                                 class="fas fa-file-download me-2"></i>Download</a>
                         </li>
+                        <li>
+                            <a class="dropdown-item"
+                               :href="getClonePackageRoute()"><i
+                                class="fas fa-clone me-2"></i>Clone</a>
+                        </li>
                         <li v-if="!loggedInUserIsDifferentFromContentUser()">
                             <a v-if="isCommunicationPackage()" class="dropdown-item"
                                :href="getEditCommunicationPackageRoute()"><i
@@ -27,6 +32,7 @@
                             <a class="dropdown-item" @click="showDeleteModal"><i
                                 class="fas fa-trash-alt me-2"></i>Delete</a>
                         </li>
+
                         <li v-else>
                             <a class="dropdown-item" @click="showRateModal"><i class="fas fa-star-half-alt me-2"></i>Rate</a>
                         </li>
@@ -223,6 +229,9 @@ export default {
         },
         getEditCommunicationPackageRoute() {
             return route('communication_resources.edit', this.resourcesPackage.id);
+        },
+        getClonePackageRoute() {
+            return route('resources_packages.clone_package', this.resourcesPackage.id);
         },
         getEditGamePackageRoute() {
             return route('game_resources.edit', this.resourcesPackage.id);

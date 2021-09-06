@@ -149,5 +149,13 @@ XML;
 
 
 
+    public function clonePackage($package_id){
 
+        $package = $this->getResourcesPackage($package_id);
+        $coverResource = $this->resourceRepository->find($package->card_id);
+        $lastId = $this->resourceRepository->getLastId()+1;
+        $fileManager = new ResourceFileManager();
+        $fileManager->cloneResourceToDirectory(basename($coverResource->img_path), "image", $lastId);
+
+    }
 }
