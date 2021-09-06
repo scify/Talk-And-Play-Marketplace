@@ -25,6 +25,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
         <div class="row justify-content-start mb-3" id="types-checkboxes">
             <div class="col-md-8">
@@ -64,6 +65,7 @@
                     :resources-package="resourcesPackage"
                     :packages-type="packagesType">
                 </resource-package>
+
             </div>
         </div>
         <div class="row mt-5" v-if="!filteredResourcePackages.length && !loadingResources">
@@ -162,9 +164,20 @@ export default {
                 });
                 this.searchLoading = false;
             }, 500);
+        },
+
+        isCommunicationPackage() {
+            return this.packagesType === "COMMUNICATION";
+        },
+        isGamePackage() {
+            return this.packagesType === "GAME";
         }
     }
+
+
 }
+
+
 </script>
 
 <style scoped lang="scss">

@@ -36,9 +36,14 @@
             <img :src="'/storage/'+resourcesPackage.cover_resource.img_path" class="card-img-top"
                  :alt="resourcesPackage.cover_resource.name">
             <div class="card-body">
-                <p class="card-title">
+                <p class="card-title"  style="margin-bottom: 0;">
                     {{ resourcesPackage.cover_resource.name }}
                 </p>
+                <audio v-if="isCommunicationPackage()" controls class="mt-1" controls="controls" style="width: 100%;">
+                    <source v-bind:src="'storage/' + resourcesPackage.cover_resource.audio_path" type="audio/mpeg" />
+                    Your browser does not support the audio element.
+                </audio>
+
                 <p class="card-subtitle mb-2 text-muted">
                     {{ trans('messages.made_by') }} {{ resourcesPackage.creator.name }}
                 </p>

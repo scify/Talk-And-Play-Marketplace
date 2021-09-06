@@ -26,7 +26,7 @@
 
                 <!-- Content here -->
                 <div class="mb-3">
-                    <label for="category_name" class="form-label">Όνομα <span style="color:#ff0000">*</span></label>
+                    <label for="category_name" class="form-label">{{__('messages.name')}} <span style="color:#ff0000">*</span></label>
                     <input type="text" class="form-control" id="category_name"
                            name="name"
                            required
@@ -150,7 +150,7 @@
                         <div class="col-md-4 col-sm-12">
                             <div class="card w-100 mb-5">
                                 <input type="hidden" value={{$child->id}}>
-                                <img src="{{asset("storage/".$child->img_path)}}" class="card-img-top" style="width:auto;height:200px;">
+                                <img src="{{asset("storage/".$child->img_path)}}" class="card-img-top" style="width:auto;height:270px;margin: 0 auto;">
                                 <div class="dropdown-container rounder" style="background-color: white;" >
                                     <div class="dropdown">
                                         <button class="btn btn-outline-secondary dropdown-toggle actions-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -163,11 +163,11 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="card-title">
+                                <div class="card-title" style="margin-bottom: 0;">
                                     <p> {{ $child->name }} </p>
                                 </div>
                                 <div class="card-body">
-                                    <audio controls class="mt-5">
+                                    <audio controls class="mt-1" controls="controls" style="width: 100%;">
                                         <source src={{asset("storage/".$child->audio_path)}} type="audio/mpeg">
                                     </audio>
                                 </div>
@@ -216,7 +216,7 @@
                                        required>
                             </div>
                             <div class="mb-3">
-                                <label for="category_lang" class="form-label">Γλώσσα</label>
+                                <label for="category_lang" class="form-label">{{__('messages.language')}}</label>
                                 <select class="form-select" disabled aria-label="category_lang" name="lang">
                                     @foreach ($viewModel->languages as $lang){
                                     @if($viewModel->package->lang_id === $lang->id)
