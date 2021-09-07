@@ -65,6 +65,7 @@ class ResourceFileManager
 
     public  function saveImage($id, Request $request){
         $contentImage = $request->file('image');
+
         $imageFolder = $this->getResourceFileFolder("image");
         $normalizedImageName =$this->getNormalizedResourceName($contentImage,$id);
         $contentImage->storeAs($imageFolder, $normalizedImageName, ['disk' => 'public']);
@@ -118,31 +119,25 @@ class ResourceFileManager
     public function getExtension($path){
         return pathinfo($path)['extension'];
     }
-    public function getCloneUniqueName($name, $newId) : string{
+    public function getCloneUniqueName($name) : string{
         $extension = $this->getExtension($name);
         $nameNoExtension = $this->getResourceFileWithoutExtension($name);
         $pieces = explode("_", $nameNoExtension);
-
-        $lastPiece = end($pieces);
-        $copyMark = "copy";
-        if(substr($lastPiece, 0,strlen($copyMark)) === $copyMark){
-            array_splice($pieces,-1, 1);
-            $newName = join('_',$pieces).'_copy';
-        }
-        else{
-            $newName = $nameNoExtension.'_copy';
-        }
-        $newName = $newName . $newId.'.'.$extension;
+        array_splice($pieces,2, count($pieces));
+        $newName= join('_',$pieces);
+        $newName = $newName. '_' . date("Y-m-d_h_i_s", time()) . '.' . $extension;
         return $newName;
     }
 
 
-    public function cloneResourceToDirectory($name, $type, $lastId){
+    public function cloneResourceToDirectory($name, $type){
 
         $dir = $this->getResourceFileFolder($type);
         $source = storage_path('app/public').'/'.$this->getResourceFullPath($name,$type);
-        $target = storage_path('app/public').'/'.$dir.$this->getCloneUniqueName($name, $lastId);
-        $x=1;
+        $newResourcePath = $dir.$this->getCloneUniqueName($name);
+        $target = storage_path('app/public').'/'.$newResourcePath;
+//        copy($source, $target);
+        return $newResourcePath;
     }
 
 

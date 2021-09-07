@@ -219,7 +219,16 @@ class ResourceController extends Controller
         return redirect()->back()->with('flash_message_success',  'Success! The resource package has been deleted');
     }
 
+
     public function clone_package($package_id){
-        $this->resourcesPackageManager->clonePackage($package_id);
+        $package = $this->resourcesPackageManager->getResourcesPackage($package_id);
+        $coverResource = $this->resourceManager->cloneResource($package->card_id, null);
+        $newPackage = $this->communicationResourcesPackageManager->storeResourcePackage($coverResource, $package->lang_id);
+        $childrenWithParent = $this->communicationResourcesPackageManager->getChildrenCardsWithParent($package->card_id);
+        foreach($childrenWithParent as $child){
+            $this->resourceManager->cloneResource($child->id, $coverResource->id);
+        }
+        return redirect()->route('communication_resources.edit',$newPackage->id)->with('flash_message_success',  'Success! The resource package has been copied');
+
     }
 }

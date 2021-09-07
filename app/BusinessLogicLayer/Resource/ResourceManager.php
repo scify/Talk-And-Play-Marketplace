@@ -4,9 +4,12 @@
 namespace App\BusinessLogicLayer\Resource;
 
 
+use App\Models\Resource\Resource;
 use App\Repository\ContentLanguageLkpRepository;
 use App\Repository\Resource\ResourceRepository;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ResourceManager {
 
@@ -38,7 +41,7 @@ class ResourceManager {
 //            'type_id' => ResourceTypesLkp::COMMUNICATION,
 //            'status_id' => null,
             'resource_parent_id' => $request['parentId'] ?: null,
-            'creator_user_id' => \Illuminate\Support\Facades\Auth::id(),
+            'creator_user_id' => Auth::id(),
             'admin_user_id' => null
         ];
 
@@ -73,7 +76,7 @@ class ResourceManager {
 //            'type_id' => ResourceTypesLkp::COMMUNICATION,
 //            'status_id' => ResourceStatusesLkp::CREATED_PENDING_APPROVAL,
 //            'resource_parent_id' => $request->parentId ? intval($request->parentId) : null,
-            'creator_user_id' => \Illuminate\Support\Facades\Auth::id(),
+            'creator_user_id' => Auth::id(),
             'admin_user_id' => null
         ];
         $old_resource = $this->resourceRepository->find($id);
@@ -101,6 +104,7 @@ class ResourceManager {
 
     }
 
+
     public function destroyResource($id)
     {
         $resource = $this->resourceRepository->find($id);
@@ -108,6 +112,20 @@ class ResourceManager {
         $resourceFileManager->deleteResourceAudio($resource);
         $resourceFileManager->deleteResourceImage($resource);
         $this->resourceRepository->delete($id);
+    }
+
+    public function cloneResource($id, $newParentId){
+        $resource = $this->resourceRepository->find($id);
+        $fileManager = new ResourceFileManager();
+        $storeArr = [
+            "name" =>  $resource->name.(' Copy'),
+            "img_path" => $fileManager->cloneResourceToDirectory(basename($resource->img_path), "image"),
+            "audio_path" =>$fileManager->cloneResourceToDirectory(basename($resource->audio_path), "audio"),
+            'resource_parent_id' => $newParentId ?: null,
+            'creator_user_id' => Auth::id(),
+            'admin_user_id' => null,
+        ];
+        return $this->resourceRepository->create($storeArr);
     }
 
 }

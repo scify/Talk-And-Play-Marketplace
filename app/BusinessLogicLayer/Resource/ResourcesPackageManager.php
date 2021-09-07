@@ -9,12 +9,14 @@ use App\Repository\ContentLanguageLkpRepository;
 use App\Repository\Resource\ResourceRepository;
 use App\Repository\Resource\ResourcesPackageRepository;
 use App\Repository\Resource\ResourceStatusesLkp;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use InvalidArgumentException;
 use Illuminate\Support\Facades\Storage;
 
 class ResourcesPackageManager extends ResourceManager {
     public ResourcesPackageRepository $resourcesPackageRepository;
+    protected ResourceManager $resourceManager;
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
     protected int $type_id;
 
@@ -74,7 +76,9 @@ class ResourcesPackageManager extends ResourceManager {
     }
 
 
-
+    public function getChildrenCardsWithParent($id){
+        return $this->resourceRepository->getChildrenCardsWithParent($id);
+    }
 
     public function downloadGamePackage($package, $gameType = "") {
         $fileManager = new ResourceFileManager();
@@ -147,15 +151,4 @@ XML;
     }
 
 
-
-
-    public function clonePackage($package_id){
-
-        $package = $this->getResourcesPackage($package_id);
-        $coverResource = $this->resourceRepository->find($package->card_id);
-        $lastId = $this->resourceRepository->getLastId()+1;
-        $fileManager = new ResourceFileManager();
-        $fileManager->cloneResourceToDirectory(basename($coverResource->img_path), "image", $lastId);
-
-    }
 }
