@@ -136,7 +136,7 @@ class ResourceFileManager
         $source = storage_path('app/public').'/'.$this->getResourceFullPath($name,$type);
         $newResourcePath = $dir.$this->getCloneUniqueName($name);
         $target = storage_path('app/public').'/'.$newResourcePath;
-//        copy($source, $target);
+        copy($source, $target);
         return $newResourcePath;
     }
 
