@@ -119,6 +119,7 @@ class ResourceFileManager
     public function getExtension($path){
         return pathinfo($path)['extension'];
     }
+
     public function getCloneUniqueName($name) : string{
         $extension = $this->getExtension($name);
         $nameNoExtension = $this->getResourceFileWithoutExtension($name);

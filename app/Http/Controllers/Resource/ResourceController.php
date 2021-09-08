@@ -221,14 +221,30 @@ class ResourceController extends Controller
 
 
     public function clone_package($package_id){
+
         $package = $this->resourcesPackageManager->getResourcesPackage($package_id);
         $coverResource = $this->resourceManager->cloneResource($package->card_id, null);
-        $newPackage = $this->communicationResourcesPackageManager->storeResourcePackage($coverResource, $package->lang_id);
-        $childrenWithParent = $this->communicationResourcesPackageManager->getChildrenCardsWithParent($package->card_id);
+        if ($package->type_id === ResourceTypesLkp::COMMUNICATION) {
+            $manager = $this->communicationResourcesPackageManager;
+            $ret_route = "communication_resources.edit";
+        } else if ($package->type_id  === ResourceTypesLkp::SIMILAR_GAME) {
+            $manager = $this->similarityGameResourcesPackageManager;
+            $ret_route = "game_resources.edit";
+        } else if ($package->type_id  === ResourceTypesLkp::TIME_GAME) {
+            $manager = $this->timeGameResourcesPackageManager;
+            $ret_route = "game_resources.edit";
+        } else if ($package->type_id  === ResourceTypesLkp::RESPONSE_GAME) {
+            $manager = $this->responseGameResourcesPackageManager;
+            $ret_route = "game_resources.edit";
+        } else {
+            throw(new \ValueError("Type not supported"));
+        }
+
+        $newPackage = $manager->storeResourcePackage($coverResource, $package->lang_id);
+        $childrenWithParent = $manager->getChildrenCardsWithParent($package->card_id);
         foreach($childrenWithParent as $child){
             $this->resourceManager->cloneResource($child->id, $coverResource->id);
         }
-        return redirect()->route('communication_resources.edit',$newPackage->id)->with('flash_message_success',  'Success! The resource package has been copied');
-
+        return redirect()->route($ret_route,$newPackage->id)->with('flash_message_success',  'Success! The resource package has been copied');
     }
 }

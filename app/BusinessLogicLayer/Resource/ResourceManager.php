@@ -118,9 +118,9 @@ class ResourceManager {
         $resource = $this->resourceRepository->find($id);
         $fileManager = new ResourceFileManager();
         $storeArr = [
-            "name" =>  $resource->name.(' Copy'),
+            "name" =>  $resource->name,
             "img_path" => $fileManager->cloneResourceToDirectory(basename($resource->img_path), "image"),
-            "audio_path" =>$fileManager->cloneResourceToDirectory(basename($resource->audio_path), "audio"),
+            "audio_path" => $resource->audio_path ? $fileManager->cloneResourceToDirectory(basename($resource->audio_path), "audio") : null,
             'resource_parent_id' => $newParentId ?: null,
             'creator_user_id' => Auth::id(),
             'admin_user_id' => null,
