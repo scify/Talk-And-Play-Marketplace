@@ -10,15 +10,13 @@
     box-shadow: 2px 4px 8px 4px rgba(0, 0, 0, 0.1);
 
     .title-number {
-        padding: 10px;
         border: 1px solid $blue;
         margin-right: 15px;
         border-radius: 100%;
         width: 40px;
-        height: 35px;
+        height: 40px;
         text-align: center;
-        padding-top: -3px;
-        padding-bottom: 29px;
+        padding-top: 10px;
         font-weight: bold;
     }
 }
