@@ -65,7 +65,7 @@
                         <img src={{asset("storage/".$viewModel->resource->img_path)}} id="url" class="mt-3"
                              height="200px"/>
                     @else
-                        <img src={{asset('storage/resources/img/happiness.png')}} style="display:none" id="url"
+                        <img src={{asset('/img/happiness.png')}} style="display:none" id="url"
                              class="mt-3"
                              height="200px"/>
                     @endif
@@ -94,7 +94,7 @@
                         </audio>
                     @else
                         <audio id="player" controls style="display:none" class="mt-3">
-                            <source src={{asset('storage/resources/audio/happiness.mp3')}} id="mp3_src"
+                            <source src={{asset('/img/happiness.mp3')}} id="mp3_src"
                                     type="audio/mpeg">
                         </audio>
                     @endif
@@ -146,11 +146,12 @@
         @if(sizeof($viewModel->childrenCards)>0)
             <div class="container">
                 <div class="row">
-                    @foreach($viewModel->childrenCards as $child)
+                    @foreach($viewModel->childrenCards as $i=>$child)
                         <div class="col-md-4 col-sm-12">
                             <div class="card w-100 mb-5">
                                 <input type="hidden" value={{$child->id}}>
-                                <img src="{{asset("storage/".$child->img_path)}}" class="card-img-top" style="width:auto;height:270px;margin: 0 auto;">
+                                <img src="{{asset("storage/".$child->img_path)}}" class="card-img-top"
+                                     style="width:auto;height:270px;margin: 0 auto;">
                                 <div class="dropdown-container rounder" style="background-color: white;" >
                                     <div class="dropdown">
                                         <button class="btn btn-outline-secondary dropdown-toggle actions-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -266,7 +267,7 @@
                                 </div>
                                 <audio id="modal_player" controls style="display:none" class="mt-3">
                                     <source
-                                        src={{asset('storage/resources/audio/happiness.mp3')}} id="modal_mp3_src"
+                                        src={{asset('/img/happiness.mp3')}} id="modal_mp3_src"
                                         type="audio/mpeg">
                                 </audio>
                             </div>
@@ -344,7 +345,7 @@
                             </a>
                             <input type="hidden" name="packageId" id="packageId" value='{{$viewModel->package['id']}}'/>
                             <input class="btn btn-primary ms-4" type="submit" id="saveBundleConfirmed"
-                                   value="{{trans('messages.submit')}}";"/>
+                                   value="{{trans('messages.submit')}}"/>
 
                         </form>
 

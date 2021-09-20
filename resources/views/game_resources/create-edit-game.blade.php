@@ -74,7 +74,7 @@
                         <img src={{asset("storage/".$viewModel->resource->img_path)}} id="url" class="mt-3"
                              height="200px"/>
                     @else
-                        <img src={{asset('storage/resources/img/happiness.png')}} style="display:none" id="url"
+                        <img src={{asset('/img/happiness.png')}} style="display:none" id="url"
                              class="mt-3"
                              height="200px"/>
                     @endif
@@ -131,12 +131,12 @@
         @if(sizeof($viewModel->childrenCards)>0)
             <div class="container">
                 <div class="row">
-                    @foreach($viewModel->childrenCards as $child)
+                    @foreach($viewModel->childrenCards as $i=>$child)
                         <div class="col-md-4 col-sm-12">
                             <div class="card w-100 mb-5">
                                 <input type="hidden" value={{$child->id}}>
                                 <img src="{{asset("storage/".$child->img_path)}}" class="card-img-top"
-                                     style="width:auto;height:200px;">
+                                     style="width:auto;height:270px;margin: 0 auto;">
                                 <div class="dropdown-container rounder" style="background-color: white;">
                                     <div class="dropdown">
                                         <button class="btn btn-outline-secondary dropdown-toggle actions-btn"
@@ -153,8 +153,9 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="card-title">
+                                <div class="card-title" style="margin-bottom: 0;">
                                     <p> {{ $child->name }} </p>
+                                    <button type="button" class="btn btn-success">{{$i+1}}</button>
                                 </div>
                             </div>
                         </div>

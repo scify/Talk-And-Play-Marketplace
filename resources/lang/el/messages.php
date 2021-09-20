@@ -50,6 +50,8 @@ return [
     "new_package" => "Νέο Πακέτο",
     "name" => "Όνομα",
     "find_similar_tagline" => "Βρές το όμοιο",
+    "find_time_tagline" => "Χρονική Αλληλουχία",
+    "find_response_tagline" => "Ερεθισμα - Αντιδραση",
     "reached_card_limit"=>"Δεν μπορείτε να προσθέσετε άλλες κάρτες στο πακέτο. Φτάσατε τον μέγιστο επιτρεπόμενο αριθμό καρτών",
     "open" => "Άνοιγμα",
     "no_resource_packages_available" => "Δεν βρέθηκαν διαθέσιμα πακέτα.",
