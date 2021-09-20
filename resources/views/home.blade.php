@@ -39,7 +39,7 @@
                                         <p class="description mt-4">
                                             {!! __('messages.home_app_intro_description') !!}
                                         </p>
-                                        <div class="container-fluid mt-4 p-0">
+                                        <div class="container-fluid mt-4 p-0 download-app-container">
                                             <div class="row">
                                                 <div class="col">
                                                     <a href="https://go.scify.gr/talkandplaydownloadw"
