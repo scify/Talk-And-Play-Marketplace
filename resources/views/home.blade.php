@@ -44,13 +44,13 @@
                                                 <div class="col">
                                                     <a href="https://go.scify.gr/talkandplaydownloadw"
                                                        target="_blank" class="btn btn-primary w-100">
-                                                        {!! __('messages.download_the_app') !!} <i class="ml-1 fab fa-windows"></i>
+                                                        {!! __('messages.download_the_app_windows') !!} <i class="ml-1 fab fa-windows"></i>
                                                     </a>
                                                 </div>
                                                 <div class="col">
                                                     <a href="https://go.scify.gr/talkandplaydownloadl"
                                                        target="_blank" class="btn btn-primary w-100">
-                                                        {!! __('messages.download_the_app') !!} <i class="ml-1 fab fa-linux"></i>
+                                                        {!! __('messages.download_the_app_linux') !!} <i class="ml-1 fab fa-linux"></i>
                                                     </a>
                                                 </div>
                                             </div>
