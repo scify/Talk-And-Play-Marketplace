@@ -1,13 +1,14 @@
 import Flickity from 'flickity';
 
-(function() {
-    $(document).ready(function() {
+(function () {
+    let carousel;
+    $(document).ready(function () {
         init();
     });
 
     // data attr in $this
-    let initCarousel = function() {
-        const carousel = new Flickity( '#landing-page-intro-carousel', {
+    let initCarousel = function () {
+        carousel = new Flickity('#landing-page-intro-carousel', {
             // options
             cellAlign: 'left',
             contain: true,
@@ -17,9 +18,14 @@ import Flickity from 'flickity';
             wrapAround: true,
             setGallerySize: false
         });
+
+        $('body').on('click', '#tnp-app-btn', function (e) {
+            carousel.next();
+            e.stopPropagation();
+        });
     };
 
-    let init = function() {
+    let init = function () {
         initCarousel();
     };
 })();

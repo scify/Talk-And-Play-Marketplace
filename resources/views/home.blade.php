@@ -19,7 +19,7 @@
                                             {!! __('messages.home_intro_title') !!}
                                         </p>
                                         <p class="mt-4 see-more fw-bold">
-                                            {!! __('messages.home_intro_read_more') !!} <a href="#">Talk & Play app</a>
+                                            {!! __('messages.home_intro_read_more') !!} <a href="#" id="tnp-app-btn">Talk & Play app</a>
                                         </p>
                                     </div>
                                     <div class="col-6 text-end">
