@@ -19,7 +19,7 @@
                                             {!! __('messages.home_intro_title') !!}
                                         </p>
                                         <p class="mt-4 see-more fw-bold">
-                                            {!! __('messages.home_intro_read_more') !!} <a href="#">Talk & Play app</a>
+                                            {!! __('messages.home_intro_read_more') !!} <a href="#" id="tnp-app-btn">Talk & Play app</a>
                                         </p>
                                     </div>
                                     <div class="col-6 text-end">
@@ -39,9 +39,23 @@
                                         <p class="description mt-4">
                                             {!! __('messages.home_app_intro_description') !!}
                                         </p>
-                                        <a href="#" class="mt-4 btn btn-primary">
-                                            {!! __('messages.download_the_app') !!}
-                                        </a>
+                                        <div class="container-fluid mt-4 p-0 download-app-container">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <a href="https://go.scify.gr/talkandplaydownloadw"
+                                                       target="_blank" class="btn btn-primary w-100">
+                                                        {!! __('messages.download_the_app') !!} <i class="ml-1 fab fa-windows"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="https://go.scify.gr/talkandplaydownloadl"
+                                                       target="_blank" class="btn btn-primary w-100">
+                                                        {!! __('messages.download_the_app') !!} <i class="ml-1 fab fa-linux"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                     <div class="col-6 text-end">
                                         <img
