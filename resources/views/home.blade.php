@@ -39,9 +39,23 @@
                                         <p class="description mt-4">
                                             {!! __('messages.home_app_intro_description') !!}
                                         </p>
-                                        <a href="#" class="mt-4 btn btn-primary">
-                                            {!! __('messages.download_the_app') !!}
-                                        </a>
+                                        <div class="container-fluid mt-4">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <a href="https://go.scify.gr/talkandplaydownloadw"
+                                                       target="_blank" class="btn btn-primary w-100">
+                                                        {!! __('messages.download_the_app') !!} <i class="fab fa-windows"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="col">
+                                                    <a href="https://go.scify.gr/talkandplaydownloadl"
+                                                       target="_blank" class="btn btn-primary w-100">
+                                                        {!! __('messages.download_the_app') !!} <i class="fab fa-linux"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                     <div class="col-6 text-end">
                                         <img
