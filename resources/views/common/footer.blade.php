@@ -27,7 +27,7 @@
             </div>
             <div class="copyright">
                 <h3 class="m-0">Created by <a href="https://www.scify.gr/site/en/">SciFY</a> @ {{ now()->year }}</h3>
-                <h5>version {{ config('app.version') }}</h5>
+                <h3>version <b>{{ config('app.version') }}</b></h3>
             </div>
         </div>
     </footer>
