@@ -43,14 +43,15 @@ return [
     "cancel" => "Ακύρωση",
     "delete" => "Διαγραφή",
     "warning_submission" => "Είστε σίγουρος? Αν πατήσετε Οριστικοποιηση δεν θα μπορειτε να προσθεσετε άλλες κάρτες",
-    "info_submission" => " Το πακέτο με τις κάρτες θα αποστελεί για έλεγχο από έναν διαχειριστή της πλατφόρμας. Αν το περιεχόμενο είναι σύμφωνο με τους κανόνες, τότε θα είναι διαθέσιμο για κατέβασμα μόλις ειδοποιηθείτε με email
-",
+    "info_submission" => "Το πακέτο με τις κάρτες θα αποστελεί για έλεγχο από έναν διαχειριστή της πλατφόρμας. Αν το περιεχόμενο είναι σύμφωνο με τους κανόνες, τότε θα είναι διαθέσιμο για κατέβασμα μόλις ειδοποιηθείτε με email",
     "submit" => "Οριστικοποίηση",
     "add_new_card" => "Προσθήκη Νέας Κάρτας",
     "edit" => "Επεξεργασία",
     "new_package" => "Νέο Πακέτο",
     "name" => "Όνομα",
     "find_similar_tagline" => "Βρές το όμοιο",
+    "find_time_tagline" => "Time Sequence",
+    "find_response_tagline" => "Stimulus - Reaction",
     "reached_card_limit"=>"Δεν μπορείτε να προσθέσετε άλλες κάρτες στο πακέτο. Φτάσατε τον μέγιστο επιτρεπόμενο αριθμό καρτών",
     "open" => "Άνοιγμα",
     "no_resource_packages_available" => "Δεν βρέθηκαν διαθέσιμα πακέτα.",
@@ -64,5 +65,6 @@ return [
     "create_new_game_package_modal_title" => "Δημιουργία νέου παιχνιδιού",
     "create_new_game_package_modal_body_text" => "Επιλέξτε τύπο παιχνιδιού:",
     "my_packages" => "Τα πακέτα μου",
-    "delete_package" => "Διαγραφή Πακέτου"
+    "delete_package" => "Διαγραφή Πακέτου",
+    "meta_tags_description" => "Talk and Play is a system that allows people with disabilities to communicate, be more independent, and receive training for rehabilitation."
 ];
