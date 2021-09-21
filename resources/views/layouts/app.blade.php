@@ -9,13 +9,13 @@
     <meta name="og:title" property="og:title" content="{{ config('app.name') }}">
     <meta name="og:type" property="og:type" content="website">
     <meta name="og:url" property="og:url" content="{{ url()->current() }}">
-    <meta name="og:image" property="og:image" content="{{ asset('img/tp_logo_small.png') }}">
+    <meta name="og:image" property="og:image" content="{{ asset('img/advertisement-poster.png') }}">
     <meta name="og:description" property="og:description" content="{{ __('messages.meta_tags_description') }}">
     <meta name="og:site_name" property="og:site_name" content="Talk & Play - Marketplace">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Talk & Play - Marketplace"/>
     <meta name="twitter:description" content="{{ __('messages.meta_tags_description') }}"/>
-    <meta name="twitter:image" content="{{ asset('img/tp_logo_small.png') }}"/>
+    <meta name="twitter:image" content="{{ asset('img/advertisement-poster.png') }}"/>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
         @include('common.favicons')
