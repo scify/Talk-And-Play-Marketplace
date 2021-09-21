@@ -13,8 +13,10 @@ return [
     "my_profile" => "My profile",
     "user_management" => "User Management",
     "home_intro_title" => "Talk & Play marketplace was created to aid specialists and family members help patients with brain paralysis. From here, you can manage Communication Cards and Game Cards that exist at the <b>Talk & Play app</b>.",
-    "home_intro_read_more" => "Learn more about", "home_app_intro_description" => "Talk & Play marketplace was created to aid patients with brain paralysis who can not easily communicate, doctors and their carers, so that they can communicate their <b>feelings and basic needs</b> such as the desire to eat a certain food. They are also given the ability to enjoy their time with <b>3 game categories</b> that are offered (<b>Response-Time</b>, <b>Time Sequence</b>, <b>Find the similar</b>).",
-    "download_the_app" => "Download the app",
+    "home_intro_read_more" => "Learn more about",
+    "home_app_intro_description" => "Talk & Play marketplace was created to aid patients with brain paralysis who can not easily communicate, doctors and their carers, so that they can communicate their <b>feelings and basic needs</b> such as the desire to eat a certain food. They are also given the ability to enjoy their time with <b>3 game categories</b> that are offered (<b>Response-Time</b>, <b>Time Sequence</b>, <b>Find the similar</b>).",
+    "download_the_app_windows" => "Download for Windows",
+    "download_the_app_linux" => "Download for Linux",
     "see_the" => "See the",
     "card_categories" => "Card categories.",
     "communication_cards_title" => "Communication Cards",
@@ -37,13 +39,11 @@ return [
     "submit_package" => "Finalize Package",
     "save_card" => "Save Card",
     "delete_card" => "Delete Card",
-
     "warning_deletion" => "Warning! This action is irreversible!",
     "cancel" => "Cancel",
     "delete" => "Delete",
     "warning_submission" => "Are you sure? If you select \"Finalization\" you will not be able to add any more cards to the package",
-    "info_submission" => "The card package will be submitted for administrator approval. If the content complies with the rules, then it will be available to download after email notification.
-",
+    "info_submission" => "The card package will be submitted for administrator approval. If the content complies with the rules, then it will be available to download after email notification.",
     "submit" => "Finalization",
     "add_new_card" => "Add a new card",
     "edit" => "Edit",
@@ -65,5 +65,6 @@ return [
     "create_new_game_package_modal_title" => "Create new game package",
     "create_new_game_package_modal_body_text" => "Select a game type:",
     "my_packages" => "My packages",
-    "delete_package" => "Delete package"
+    "delete_package" => "Διαγραφή Πακέτου",
+    "meta_tags_description" => "Talk and Play is a system that allows people with disabilities to communicate, be more independent, and receive training for rehabilitation."
 ];

@@ -16,6 +16,21 @@
     .nav-link {
         font-weight: bold;
     }
+
+    .navbar-item-dropdown {
+        background-color: $green;
+        border-color: $green;
+        border-radius: 5px;
+
+        a.dropdown-toggle {
+            color: $white !important;
+        }
+
+        &:hover {
+            background-color: #71C6AC;
+            border-color: #71C6AC;
+        }
+    }
 }
 
 .alert {
