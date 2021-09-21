@@ -11,6 +11,23 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown navbar-item-dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Talk & Play app <i class="ml-1 fas fa-download"></i>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item"
+                               href="https://go.scify.gr/talkandplaydownloadw">{!! __('messages.download_the_app_windows') !!} <i class="ml-1 fab fa-windows"></i></a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item"
+                               href="https://go.scify.gr/talkandplaydownloadl">{!! __('messages.download_the_app_linux') !!} <i class="ml-1 fab fa-linux"></i></a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link {{ UrlMatchesMenuItem("communication_resources.index") }}"
                        href="{{route('communication_resources.index')}}">
@@ -19,7 +36,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ UrlMatchesMenuItem("game_resources.index") }}"
-                        href="{{route('game_resources.index')}}">
+                       href="{{route('game_resources.index')}}">
                         {!! __('messages.game_cards') !!}
                     </a>
                 </li>
@@ -51,7 +68,9 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="{{route('resources_packages.my_packages')}}">{{__('messages.my_packages')}}</a></li>
+                            <li><a class="dropdown-item"
+                                   href="{{route('resources_packages.my_packages')}}">{{__('messages.my_packages')}}</a>
+                            </li>
                             <li><a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
