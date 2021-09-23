@@ -6,6 +6,8 @@ return [
     "about" => "About",
     "team" => "The team",
     "download" => "Download",
+    "download_noun" => "Download",
+    "clone" => "Clone",
     "contact_us" => "Contact us",
     "communication_cards" => "Communication Cards",
     "game_cards" => "Game Cards",

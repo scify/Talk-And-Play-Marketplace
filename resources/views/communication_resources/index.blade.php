@@ -47,18 +47,19 @@
                             <h2 class="accordion-header">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    <span class="title-number">1</span> Διάλεξε πακέτο
+                                    <span class="title-number">1</span> Εξερεύνησε τα διαθέσιμα πακέτα επικοινωνίας
 {{--                                    <span class="title-number">2</span> {{__('messages.select_package')}}--}}
                                 </button>
                             </h2>
                             <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo">
                                 <div class="accordion-body">
-                                    Βρές έτοιμα πακέτα λέξεων και διάλεξε αυτά που σε εξυπηρετούν.
+
+                                    Επίλεξε τη γλώσσα που επιθυμείς, και δες τα διαθέσιμα πακέτα επικοινωνίας. Κάθε πακέτο
+                                    επικοινωνίας, συνοδεύεται με ένα όνομα, μία αντιπροσωπευτική εικόνα, και ένα αρχείο ήχου.
+                                    Μπορείς να δεις τις κάρτες που περιλαμβάνει πατώντας το κουμπί "Δες τις κάρτες".
+
 {{--                                   {{__('messages.select_package_instruction_text')}}--}}
-                                    <p class="note mt-3">Σημείωση: Όταν δημιουργείς ένα καινούργιο πακέτο ή κάρτα θα
-                                        πρέπει
-                                        πρώτα να εγκριθεί απο ένα διαχειριστή για να εμφανιστεί στη συλλογή.</p>
-{{--                                    {{__('messages.admin_approval_instruction_text')}}--}}
+
                                 </div>
                             </div>
                         </div>
@@ -67,7 +68,7 @@
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseThree" aria-expanded="false"
                                         aria-controls="collapseThree">
-                                    <span class="title-number">2</span> Κατέβασε τα αρχεία που διάλεξες
+                                    <span class="title-number">2</span> Κατέβασε τα πακέτα που σου αρέσουν
 {{--                                    {{__('messages.download_selected_packages')}}--}}
                                 </button>
                             </h2>
@@ -75,7 +76,7 @@
                                  aria-labelledby="headingThree">
                                 <div class="accordion-body">
 
-                                    Κάθε κάρτα ή πακέτο έχει ένα ειδικό εικονίδιο <i class="fas fa-file-download"></i>
+                                    Κάθε πακέτο έχει ένα ειδικό εικονίδιο <i class="fas fa-file-download"></i>
                                     στη λίστα ενεργειών της (<i class='fa fa-ellipsis-v'></i>).
                                     <br></br>
                                     Πάτα το εικονίδιο για να κατέβουν τα
@@ -103,17 +104,22 @@
                                     Πάτα το κουμπί "Δημιούργησε νέο πακέτο επικοινωνίας", συμπλήρωσε
                                     στη φόρμα που θα εμφανιστεί το όνομα της κάρτας, ανέβασε μια αντιπροσωπευτική εικόνα
                                     και το αρχείο του ήχου που έχεις ηχογραφήσει για να περιγράψεις την εικόνα.
+                                    <p class="note mt-3">Σημείωση: Όταν δημιουργείς ένα καινούργιο πακέτο ή κάρτα θα
+                                        πρέπει
+                                        πρώτα να εγκριθεί απο ένα διαχειριστή για να εμφανιστεί στη συλλογή.</p>
+                                    {{--                                    {{__('messages.admin_approval_instruction_text')}}--}}
                                     <br><br>
                                     Αν επιθυμείς μπορείς να αντιγράψεις ένα υπάρχον πακέτο, πατώντας το σήμα <i class='fa fa-ellipsis-v'></i>
-                                    και στη συνέχεια επιλέγοντας "Κλωνοποιήση". Στη συνέχεια, θα μπορείς να προσθέσεις, να αφαιρέσεις ή να τροποποιήσεις
+                                    και στη συνέχεια επιλέγοντας "clone". Στη συνέχεια, θα μπορείς να προσθέσεις, να αφαιρέσεις ή να τροποποιήσεις
                                     το περιεχόμενο του πακέτου και να το οριστικοποιήσεις ως δικό σου.
                                     <br><br>
                                     <b class="mt-4">Πώς προσθέτω μια κάρτα;</b><br>
                                     {{--{{__('messages.add_card_instruction_text')}}--}}
-                                    Στο πακέτο που θέλεις, επιλέγεις το κουμπί "πρόσθεσε μια καινούργια κάρτα" και
+                                    Στο πακέτο που θέλεις, επιλέγεις το κουμπί "Προσθήκη Νέας Κάρτας" και
                                     συμπλήρωσε στη φόρμα που θα εμφανιστεί το όνομα της κάρτας, ανέβασε μια
                                     αντιπροσωπευτική εικόνα και το αρχείο του ήχου που έχεις ηχογραφήσει για να
                                     περιγράψεις την εικόνα.
+
                                 </div>
                             </div>
                         </div>

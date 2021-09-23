@@ -6,6 +6,8 @@ return [
     "about" => "Σχετικά",
     "team" => "Η ομάδα",
     "download" => "Κατέβασε",
+    "download_noun" => "Κατέβασμα",
+    "clone" => "Κλωνοποίηση",
     "contact_us" => "Επικοινωνήστε μαζί μας",
     "communication_cards" => "Κάρτες Επικοινωνίας",
     "game_cards" => "Κάρτες Παιχνιδιού",
