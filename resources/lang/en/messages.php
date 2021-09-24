@@ -8,7 +8,11 @@ return [
     "download" => "Download",
     "download_noun" => "Download",
     "clone" => "Clone",
+    "how_it_works" => "How it works",
     "contact_us" => "Contact us",
+    "watch_tutorials" => "Watch the following tutorials to learn more about Talk & Play Marketplace, and how to use the created packages in the Desktop App",
+    "talk_and_play_description" => "Talk & Play is an app offered for free by SciFY, with the goal of supporting people with disabilities (movement/speech) to communicate more efficiently with their beloved ones, have fun,but also do recovery exercises. <br> Through the Talk n Play Marketplace support web page you can find, create, share, and download more card packs that suit you, and use them in the app.",
+
     "communication_cards" => "Communication Cards",
     "game_cards" => "Game Cards",
     "sign_in_register" => "Sign in/Register",

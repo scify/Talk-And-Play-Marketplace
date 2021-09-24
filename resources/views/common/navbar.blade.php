@@ -29,6 +29,12 @@
                     </ul>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link {{ UrlMatchesMenuItem("how_it_works") }}"
+                       href="{{route('how_it_works')}}">
+                        {!! __('messages.how_it_works') !!}
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link {{ UrlMatchesMenuItem("communication_resources.index") }}"
                        href="{{route('communication_resources.index')}}">
                         {!! __('messages.communication_cards') !!}

@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'home')->name('home');
+Route::view('/how_it_works', 'how_it_works')->name('how_it_works');
 Route::get('/lang/{lang}', [UserController::class, 'setLangLocaleCookie'])->name('set-lang-locale');
 Route::get('/communication-cards', [CommunicationResourceController::class, 'index'])->name('communication_resources.index');
 Route::get('/game-cards', [GameResourceController::class, 'index'])->name('game_resources.index');
