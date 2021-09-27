@@ -14,7 +14,6 @@
     @if($viewModel->isEditMode())
         @method('PUT')
     @endif
-
     <!--form class="md-form" action="{{route('resources.store',['type_id'=>$viewModel->type_id])}}" method="POST" enctype="multipart/form-data"-->
         {{ csrf_field() }}
         <div class="container rounded py-4" style="border:1px solid grey">
