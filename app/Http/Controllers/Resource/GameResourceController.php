@@ -84,9 +84,8 @@ class GameResourceController extends Controller {
             default:
                 throw(new ResourceNotFoundException('Game type under development'));
         }
-//        return view('game_resources.create-edit-game')->with(['viewModel' => $createResourcesPackageViewModel, 'game' => $game]);
-        $viewModel = $this->gameResourcesPackageManager->getGameResourcesPackageIndexPageVM();
-        return view('game_resources.index')->with(['viewModel' => $viewModel, 'user' => Auth::user()]);
+        return view('game_resources.create-edit-game')->with(['viewModel' => $createResourcesPackageViewModel, 'game' => $game]);
+
     }
 
 
