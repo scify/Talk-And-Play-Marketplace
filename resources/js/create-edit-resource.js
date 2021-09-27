@@ -209,7 +209,7 @@ import {Modal} from 'bootstrap';
 
     let downloadBundleXML = function(){
         $('.downloadPackagedBtn').on("click", function () {
-            let xml = "<rss version='2.0'><channel><title>RSS Title</title></channel></rss>"
+            let xml = "<rss version='2.0'><channel><title>RSS Title</title></channel></rss>";
             let element = document.createElement('a');
             element.setAttribute('href', 'data:text/xml;charset=utf-8,' + encodeURIComponent(xml));
             element.setAttribute('download', 'structure.xml');
