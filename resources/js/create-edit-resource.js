@@ -83,7 +83,7 @@ import {Modal} from 'bootstrap';
 
     let listenForPackageSubmitClick = function () {
         $('#packageSubmitBtn').on("click", function () {
-            console.log('clicked')
+            console.log('clicked  package submit')
             let parent_id = $("#parentId").attr('value');
             let type_id = $("#type_id").attr('value');
             // const route = window.route('resources.update_resource,[\'id\' => '.concat(card_id).concat(', \'type_id\' => ').concat(type_id).concat(']'));
@@ -95,6 +95,7 @@ import {Modal} from 'bootstrap';
 
     let listenForSaveBundleClick = function () {
         $('#saveBundleBtn').on("click", function () {
+            console.log('clicked  save bundle')
             let id = $("#packageId").attr('value');
             let modal = document.getElementById('saveBundleModal');
             const route = window.route('resources.approve', id);
@@ -105,7 +106,7 @@ import {Modal} from 'bootstrap';
 
     let listenForEditCardClick = function () {
         $('.editCardBtn').on("click", function () {
-
+            console.log('clicked  edit card')
 
             document.getElementById("ModalLabel").remove();
             $("#modalHeader").prepend('<h5 class="modal-title w-100" id="ModalLabel">Επεξεργασία Κάρτας</h5>');
