@@ -60,7 +60,7 @@ class GameResourceController extends Controller {
      * @throws \Illuminate\Validation\ValidationException
      */
     public function create(Request $request): View {
-        dd($request);
+
         $this->validate($request, [
             'type_id' => 'required'//TODO check if exists in DB tab
         ]);
@@ -84,6 +84,7 @@ class GameResourceController extends Controller {
             default:
                 throw(new ResourceNotFoundException('Game type under development'));
         }
+        dd($createResourcesPackageViewModel);
         return view('game_resources.create-edit-game')->with(['viewModel' => $createResourcesPackageViewModel, 'game' => $game]);
 
     }
