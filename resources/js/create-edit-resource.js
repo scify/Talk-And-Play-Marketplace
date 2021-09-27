@@ -83,20 +83,24 @@ import {Modal} from 'bootstrap';
 
     let listenForPackageSubmitClick = function () {
         $('#packageSubmitBtn').on("click", function () {
-            console.log('clicked  package submit')
+            console.log('clicked  package submit');
             let parent_id = $("#parentId").attr('value');
-            parent_id =  parent_id.replace(/\/$/, "");
             let type_id = $("#type_id").attr('value');
             // const route = window.route('resources.update_resource,[\'id\' => '.concat(card_id).concat(', \'type_id\' => ').concat(type_id).concat(']'));
-            const route = window.route('resources.update', parent_id.concat("?type_id=").concat(type_id));
-            console.log(route)
+            let route = window.route('resources.update',parent_id);
+            console.log(route);
+            route = route.slice(0,-1);
+            console.log(route);
+            route = route.concat("?type_id=").concat(type_id);
+
+            console.log(route);
             $('#md-form').attr('action', route);
         });
     }
 
     let listenForSaveBundleClick = function () {
         $('#saveBundleBtn').on("click", function () {
-            console.log('clicked  save bundle')
+            console.log('clicked  save bundle');
             let id = $("#packageId").attr('value');
             let modal = document.getElementById('saveBundleModal');
             const route = window.route('resources.approve', id);
@@ -107,7 +111,7 @@ import {Modal} from 'bootstrap';
 
     let listenForEditCardClick = function () {
         $('.editCardBtn').on("click", function () {
-            console.log('clicked  edit card')
+            console.log('clicked  edit card');
 
             document.getElementById("ModalLabel").remove();
             $("#modalHeader").prepend('<h5 class="modal-title w-100" id="ModalLabel">Επεξεργασία Κάρτας</h5>');
