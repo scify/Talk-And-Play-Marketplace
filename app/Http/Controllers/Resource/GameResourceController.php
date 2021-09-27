@@ -60,6 +60,7 @@ class GameResourceController extends Controller {
      * @throws \Illuminate\Validation\ValidationException
      */
     public function create(Request $request): View {
+        dd($request);
         $this->validate($request, [
             'type_id' => 'required'//TODO check if exists in DB tab
         ]);
