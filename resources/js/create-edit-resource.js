@@ -83,6 +83,7 @@ import {Modal} from 'bootstrap';
 
     let listenForPackageSubmitClick = function () {
         $('#packageSubmitBtn').on("click", function () {
+            console.log('clicked')
             let parent_id = $("#parentId").attr('value');
             let type_id = $("#type_id").attr('value');
             // const route = window.route('resources.update_resource,[\'id\' => '.concat(card_id).concat(', \'type_id\' => ').concat(type_id).concat(']'));
