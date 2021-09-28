@@ -65,7 +65,7 @@
                         <img src={{asset("storage/".$viewModel->resource->img_path)}} id="url" class="mt-3"
                              height="200px"/>
                     @else
-                        <img  style="display:none" id="url"
+                        <img src={{asset('/img/happiness.png')}} style="display:none" id="url"
                              class="mt-3"
                              height="200px"/>
                     @endif
@@ -94,7 +94,7 @@
                         </audio>
                     @else
                         <audio id="player" controls style="display:none" class="mt-3">
-                            <source  id="mp3_src"
+                            <source src={{asset('/img/happiness.mp3')}} id="mp3_src"
                                     type="audio/mpeg">
                         </audio>
                     @endif
@@ -126,21 +126,21 @@
             <button type="button" id="newCardBtn" class="btn btn-primary mt-5 btn-block
             @if($viewModel->ReachedMaximumCardLimit()) disabled
             @endif
-{{--                    data-bs-toggle="modal"--}}
-{{--                    data-bs-target="#newCardModal"--}}
-            ">
+            {{--                    data-bs-toggle="modal"--}}
+            {{--                    data-bs-target="#newCardModal"--}}
+                ">
                 {{trans("messages.add_new_card")}}
             </button>
             @if($viewModel->ReachedMaximumCardLimit())
                 <div class="alert alert-danger">{{trans("messages.reached_card_limit")}}</div>
             @endif
             @if(sizeof($viewModel->childrenCards)>0)
-            <button type="button" id="saveBundleBtn" class="btn btn-primary mt-5 btn-block"
-                {{--                    data-bs-toggle="modal"--}}
-                {{--                    data-bs-target="#newCardModal"--}}
-            >
-                {{trans("messages.submit_package")}}
-            </button>
+                <button type="button" id="saveBundleBtn" class="btn btn-primary mt-5 btn-block"
+                    {{--                    data-bs-toggle="modal"--}}
+                    {{--                    data-bs-target="#newCardModal"--}}
+                >
+                    {{trans("messages.submit_package")}}
+                </button>
             @endif
         </div>
         @if(sizeof($viewModel->childrenCards)>0)
@@ -160,7 +160,7 @@
                                         <ul class="dropdown-menu" id="dropdown-menu" >
                                             <li><a class="dropdown-item editCardBtn"  href="#"><i class="far fa-edit me-2"></i>{{trans("messages.edit")}}</a></li>
                                             <li><a class="dropdown-item deleteCardBtn"  href="#"><i class="fas fa-file-download me-2"></i>{{trans("messages.delete")}}</a></li>
-{{--                                            TODO prevent scrolling cancel (event propagation?) --}}
+                                            {{--                                            TODO prevent scrolling cancel (event propagation?) --}}
                                         </ul>
                                     </div>
                                 </div>
@@ -267,6 +267,7 @@
                                 </div>
                                 <audio id="modal_player" controls style="display:none" class="mt-3">
                                     <source
+                                        src={{asset('/img/happiness.mp3')}} id="modal_mp3_src"
                                         type="audio/mpeg">
                                 </audio>
                             </div>

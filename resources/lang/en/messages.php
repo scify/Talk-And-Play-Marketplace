@@ -29,7 +29,7 @@ return [
     "communication_cards_description" => "Help the <b>person you are taking take of</b> better communicate their needs!<br> Add new cards and organize them however you want in order to allow them to express themselves more accurately.",
     "see_the_communication_cards" => "See the communication cards",
     "game_cards_title" => "Game Cards",
-    "game_cards_description" => "Educational game cards include <b>3 categories</b> (Stimulus-Reaction / Time Sequence / Find the similar)<br><br>. Help the person you are taking care of pass their time pleasantly and practice, improving their abilities.",
+    "game_cards_description" => "Educational game cards include <b>3 categories</b> (Stimulus-Reaction / Time Sequence / Find the similar).<br><br>Help the person you are taking care of pass their time pleasantly and practice, improving their abilities.",
     "see_the_game_cards" => "See the game cards",
     "communication_cards_page_intro" => "How can I <b>edit</b> the communication cards in order to use them in the Talk & Play application?",
     "communication_cards_page_intro_link" => "See the following numbered steps:",
