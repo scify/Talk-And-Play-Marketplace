@@ -30,7 +30,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ UrlMatchesMenuItem("how_it_works") }}"
-                       href="{{route('how_it_works')}}">
+                       href="{{route('how-it-works')}}">
                         {!! __('messages.how_it_works') !!}
                     </a>
                 </li>
