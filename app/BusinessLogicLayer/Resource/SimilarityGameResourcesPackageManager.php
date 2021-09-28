@@ -19,7 +19,7 @@ class SimilarityGameResourcesPackageManager extends GameResourcesPackageManager 
     public ResourcesPackageRepository $resourcesPackageRepository;
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
     protected ResourceRepository $resourceRepository;
-    const maximumCardsThreshold = 4;
+    const maximumCardsThreshold = 10;
 
     const type_id = ResourceTypesLkp::SIMILAR_GAME;
 
