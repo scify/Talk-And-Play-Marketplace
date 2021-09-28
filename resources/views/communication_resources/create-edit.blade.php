@@ -65,7 +65,7 @@
                         <img src={{asset("storage/".$viewModel->resource->img_path)}} id="url" class="mt-3"
                              height="200px"/>
                     @else
-                        <img src={{asset('/img/happiness.png')}} style="display:none" id="url"
+                        <img src={{asset('/audio/happiness.png')}} style="display:none" id="url"
                              class="mt-3"
                              height="200px"/>
                     @endif
@@ -94,7 +94,7 @@
                         </audio>
                     @else
                         <audio id="player" controls style="display:none" class="mt-3">
-                            <source src={{asset('/img/happiness.mp3')}} id="mp3_src"
+                            <source src={{asset('/audio/happiness.mp3')}} id="mp3_src"
                                     type="audio/mpeg">
                         </audio>
                     @endif
@@ -267,7 +267,7 @@
                                 </div>
                                 <audio id="modal_player" controls style="display:none" class="mt-3">
                                     <source
-                                        src={{asset('/img/happiness.mp3')}} id="modal_mp3_src"
+                                        src={{asset('/audio/happiness.mp3')}} id="modal_mp3_src"
                                         type="audio/mpeg">
                                 </audio>
                             </div>

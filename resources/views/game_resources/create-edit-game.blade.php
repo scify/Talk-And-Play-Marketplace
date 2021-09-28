@@ -73,7 +73,7 @@
                         <img src={{asset("storage/".$viewModel->resource->img_path)}} id="url" class="mt-3"
                              height="200px"/>
                     @else
-                        <img src={{asset('/img/happiness.png')}} style="display:none" id="url"
+                        <img src={{asset('/audio/happiness.png')}} style="display:none" id="url"
                              class="mt-3"
                              height="200px"/>
                     @endif
