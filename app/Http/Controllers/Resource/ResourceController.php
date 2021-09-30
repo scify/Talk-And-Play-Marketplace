@@ -9,6 +9,9 @@ use App\BusinessLogicLayer\Resource\SimilarityGameResourcesPackageManager;
 use App\BusinessLogicLayer\Resource\TimeGameResourcesPackageManager;
 use App\BusinessLogicLayer\Resource\GameResourcesPackageManager;
 use App\BusinessLogicLayer\Resource\ResponseGameResourcesPackageManager;
+use App\BusinessLogicLayer\User\UserManager;
+use App\Models\User;
+use App\Notifications\AdminNotice;
 use App\Repository\Resource\ResourceTypeLkpRepository;
 use App\Repository\Resource\ResourceTypesLkp;
 use App\Http\Controllers\Controller;
@@ -16,6 +19,8 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Repository\User\UserRepository;
+use Illuminate\Support\Facades\Notification;
 
 class ResourceController extends Controller
 {
@@ -27,13 +32,15 @@ class ResourceController extends Controller
     protected ResponseGameResourcesPackageManager $responseGameResourcesPackageManager;
     protected CommunicationResourcesPackageManager $communicationResourcesPackageManager;
     protected GameResourcesPackageManager $gameResourcesPackageManager;
+    protected UserManager $userManager;
 
     public function __construct(ResourceManager $resourceManager, ResourcesPackageManager $resourcesPackageManager,
                                 CommunicationResourcesPackageManager $communicationResourcesPackageManager,
                                 SimilarityGameResourcesPackageManager $similarityGameResourcesPackageManager,
                                 TimeGameResourcesPackageManager $timeGameResourcesPackageManager,
                                 ResponseGameResourcesPackageManager $responseGameResourcesPackageManager,
-                                GameResourcesPackageManager $gameResourcesPackageManager)
+                                GameResourcesPackageManager $gameResourcesPackageManager,
+                                UserManager  $userManager)
     {
         $this->resourceManager = $resourceManager;
         $this->resourcesPackageManager = $resourcesPackageManager;
@@ -42,6 +49,7 @@ class ResourceController extends Controller
         $this->responseGameResourcesPackageManager = $responseGameResourcesPackageManager;
         $this->timeGameResourcesPackageManager = $timeGameResourcesPackageManager;
         $this->gameResourcesPackageManager = $gameResourcesPackageManager;
+        $this->userManager = $userManager;
     }
 
 
@@ -173,6 +181,12 @@ class ResourceController extends Controller
     {
         $package = $this->resourcesPackageManager->getResourcesPackage($id);
         $redirect_route = $package->type_id===ResourceTypesLkp::COMMUNICATION ? 'communication_resources.index' : 'game_resources.index';
+//        TODO: send confirmation email to admin
+
+
+        $admins = $this->userManager->get_admin_users();
+        Notification::send($admins, new AdminNotice($package));
+
         try {
             $this->resourcesPackageManager->approveResourcesPackage($id);
             return redirect()->route($redirect_route)->with('flash_message_success', 'Success! The resource package has been approved');

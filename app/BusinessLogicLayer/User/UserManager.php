@@ -66,4 +66,8 @@ class UserManager {
     public function delete($id) {
         return $this->userRepository->delete($id);
     }
+
+    function get_admin_users(){
+        return $this->userRepository->getUsersWithAdminRoleStatus(-1);
+    }
 }
