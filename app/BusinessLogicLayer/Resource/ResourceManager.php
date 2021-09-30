@@ -28,7 +28,9 @@ class ResourceManager {
 
 
 
-
+    public function getResource($id){
+        return $this->resourceRepository->find($id);
+    }
 
 
     public function storeResource($request)

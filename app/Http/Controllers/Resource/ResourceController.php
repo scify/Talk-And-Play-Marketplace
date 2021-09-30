@@ -185,7 +185,8 @@ class ResourceController extends Controller
 
 
         $admins = $this->userManager->get_admin_users();
-        Notification::send($admins, new AdminNotice($package));
+        $coverResourceCardName = $this->resourceManager->getResource($package->card_id)->name;
+        Notification::send($admins, new AdminNotice($package, $coverResourceCardName));
 
         try {
             $this->resourcesPackageManager->approveResourcesPackage($id);
