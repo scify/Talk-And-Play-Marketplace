@@ -61,7 +61,6 @@
             <div class="col-md-3 col-sm-12" v-for="(resourcesPackage, index) in filteredResourcePackages" :key="index">
                 <resource-package
                     :user="user ? user : {}"
-                    :user-id-to-get-content="userIdToGetContent"
                     :resources-package="resourcesPackage"
                     :packages-type="packagesType">
                 </resource-package>
@@ -101,7 +100,6 @@ export default {
             }
         },
         resourcesPackagesRoute: '',
-        userIdToGetContent: Number,
         packagesType: String
     },
     data: function () {
@@ -140,15 +138,12 @@ export default {
             this.resourcePackages = [];
             this.filteredResourcePackages = [];
             let url = this.resourcesPackagesRoute + '?lang_id=' + this.selectedContentLanguage.id;
-            if (this.userIdToGetContent) {
-                url += ('&user_id_to_get_content=' + this.userIdToGetContent);
-            }
+
             if (this.resourcesPackagesTypes.length) {
                 url += '&type_ids=' + _.map(_.filter(this.resourcesPackagesTypes, r => r.checked), 'id').join();
             }
-            url += ('&status_ids=[' + this.pendingStatusId);
-            url += (']')
-
+            url += '&status_ids=' + _.map(this.resourcesPackagesStatuses).join();
+            console.log(url)
             this.get({
                 url: url,
                 urlRelative: false

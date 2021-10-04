@@ -180,11 +180,12 @@ class GameResourceController extends Controller {
             $user_id = intval($request->user_id_to_get_content);
         }
         $type_ids = explode(',', $request->type_ids);
+        $status_ids = explode(',', $request->status_ids);
         return $this->resourcesPackageManager->getResourcesPackages(
             $request->lang_id,
             $user_id,
             $type_ids,
-            [ResourceStatusesLkp::APPROVED]
+            $status_ids
         );
     }
 

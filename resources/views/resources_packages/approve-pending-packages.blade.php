@@ -16,13 +16,12 @@
                     <div class="row">
                         <div class="col">
                             <div>
-                                <resources-packages-with-filters
+                                <pending-resources-packages-with-filters
                                     :resources-packages-route="'{{ route('communication_resources.get') }}'"
                                     :user='@json($user)'
-                                    :user-id-to-get-content="{{$viewModel->user_id_to_get_content  }}"
                                     :resources-packages-statuses='@json($viewModel->resourcesPackagesStatuses)'
                                     :packages-type="'COMMUNICATION'">
-                                </resources-packages-with-filters>
+                                </pending-resources-packages-with-filters>
                             </div>
                         </div>
                     </div>
@@ -44,14 +43,13 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <resources-packages-with-filters
+                            <pending-resources-packages-with-filters
                                 :resources-packages-types='@json($viewModel->resourceTypesLkp)'
                                 :resources-packages-route="'{{ route('game_resources.get') }}'"
                                 :user='@json($user)'
-                                :user-id-to-get-content="{{$viewModel->user_id_to_get_content  }}"
                                 :resources-packages-statuses='@json($viewModel->resourcesPackagesStatuses)'
                                 :packages-type="'GAME'">
-                            </resources-packages-with-filters>
+                            </pending-resources-packages-with-filters>
                         </div>
                     </div>
                 </div>
