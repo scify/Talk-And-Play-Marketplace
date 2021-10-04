@@ -12,6 +12,7 @@ use App\BusinessLogicLayer\Resource\ResponseGameResourcesPackageManager;
 use App\BusinessLogicLayer\User\UserManager;
 use App\Models\User;
 use App\Notifications\AdminNotice;
+use App\Repository\Resource\ResourceStatusesLkp;
 use App\Repository\Resource\ResourceTypeLkpRepository;
 use App\Repository\Resource\ResourceTypesLkp;
 use App\Http\Controllers\Controller;
@@ -202,6 +203,7 @@ class ResourceController extends Controller
     }
 
 
+
     public function getContentLanguages()
     {
         return $this->resourceManager->getContentLanguagesForResources();
@@ -213,12 +215,40 @@ class ResourceController extends Controller
         try {
             $viewModel = $this->gameResourcesPackageManager->getGameResourcesPackageIndexPageVM();
             $viewModel->user_id_to_get_content = Auth::id();
+            $viewModel->resourcesPackagesStatuses = [ResourceStatusesLkp::APPROVED];
             return view('resources_packages.my-packages')->with(
                 ['viewModel' => $viewModel, 'user' => Auth::user()]);
         } catch (ModelNotFoundException $e) {
             abort(404);
         }
     }
+
+    public function approve_pending_packages()
+    {
+        try {
+            $userId = Auth::id();
+            $adminIds = $this->userManager->get_admin_users()->map(
+                function($admin){
+                    return $admin->id;
+                }
+            );
+
+            if(!$adminIds->contains($userId)){
+                return response('Unauthorized.', 401);
+            }
+
+
+            $viewModel = $this->gameResourcesPackageManager->getGameResourcesPackageIndexPageVM();
+
+            $viewModel->resourcesPackagesStatuses = [ResourceStatusesLkp::CREATED_PENDING_APPROVAL];
+            $viewModel->user_id_to_get_content = null;
+            return view('resources_packages.approve-pending-packages')->with(
+                ['viewModel' => $viewModel, 'user' => Auth::user()]);
+        } catch (ModelNotFoundException $e) {
+            abort(404);
+        }
+    }
+
 
     public function delete_package($package_id)
     {

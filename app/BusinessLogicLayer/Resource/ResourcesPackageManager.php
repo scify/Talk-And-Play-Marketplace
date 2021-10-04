@@ -151,4 +151,8 @@ XML;
     }
 
 
+    public function getPendingResourcePackages(){
+        return  $this->resourcesPackageRepository->getPendingResourcePackages();
+    }
+
 }

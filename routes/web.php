@@ -31,8 +31,11 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('users', UserController::class)->except([
             'create', 'edit', 'show'
         ]);
+
+
     });
 
+    Route::get('resources/approve_pending_packages', [ResourceController::class, 'approve_pending_packages'])->name('resources_packages.approve_pending_packages');
 
 
     Route::resource('communication-resources', CommunicationResourceController::class)
