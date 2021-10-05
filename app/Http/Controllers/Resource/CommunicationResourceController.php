@@ -124,11 +124,12 @@ class CommunicationResourceController extends Controller
         if ($request->user_id_to_get_content) {
             $user_id = intval($request->user_id_to_get_content);
         }
+        $status_ids = explode(',', $request->status_ids);
         return $this->communicationResourcesPackageManager->getResourcesPackages(
             $request->lang_id,
             $user_id,
             [ResourceTypesLkp::COMMUNICATION],
-            [ResourceStatusesLkp::APPROVED]
+            $status_ids
         );
     }
 }
