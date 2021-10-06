@@ -16,13 +16,14 @@
                     <div class="row">
                         <div class="col">
                             <div>
-                                <pending-resources-packages-with-filters
+                                <resources-packages-with-filters
                                     :resources-packages-route="'{{ route('communication_resources.get') }}'"
                                     :user='@json($user)'
                                     :resources-packages-statuses='@json($viewModel->resourcesPackagesStatuses)'
                                     :packages-type="'COMMUNICATION'"
-                                    :is-admin="'{{$viewModel->isAdmin}}'">
-                                </pending-resources-packages-with-filters>
+                                    :is-admin="'{{$viewModel->isAdmin}}'"
+                                    :approve-packages="{{true}}">
+                                </resources-packages-with-filters>
                             </div>
                         </div>
                     </div>
@@ -44,14 +45,15 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <pending-resources-packages-with-filters
+                            <resources-packages-with-filters
                                 :resources-packages-types='@json($viewModel->resourceTypesLkp)'
                                 :resources-packages-route="'{{ route('game_resources.get') }}'"
                                 :user='@json($user)'
                                 :resources-packages-statuses='@json($viewModel->resourcesPackagesStatuses)'
                                 :packages-type="'GAME'"
-                                :is-admin="'{{$viewModel->isAdmin}}'">
-                            </pending-resources-packages-with-filters>
+                                :is-admin="'{{$viewModel->isAdmin}}'"
+                                :approve-packages="{{true}}">
+                            </resources-packages-with-filters>
                         </div>
                     </div>
                 </div>

@@ -52,7 +52,8 @@
                                 :user-id-to-get-content="{{$viewModel->user_id_to_get_content  }}"
                                 :resources-packages-statuses='@json($viewModel->resourcesPackagesStatuses)'
                                 :packages-type="'GAME'"
-                                :is-admin="'{{$viewModel->isAdmin}}'">
+                                :is-admin="'{{$viewModel->isAdmin}}'"
+                            >
                             </resources-packages-with-filters>
                         </div>
                     </div>

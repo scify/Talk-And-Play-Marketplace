@@ -63,7 +63,10 @@
                     :user="user ? user : {}"
                     :user-id-to-get-content="userIdToGetContent"
                     :resources-package="resourcesPackage"
-                    :packages-type="packagesType">
+                    :packages-type="packagesType"
+                    :is-admin="isAdmin"
+                    :approve-packages="approvePackages"
+                >
                 </resource-package>
 
             </div>
@@ -103,7 +106,8 @@ export default {
             }
         },
         isAdmin: String,
-        packagesType: String
+        packagesType: String,
+        approvePackages: Number
     },
     data: function () {
         return {
@@ -148,7 +152,7 @@ export default {
                 url += '&type_ids=' + _.map(_.filter(this.resourcesPackagesTypes, r => r.checked), 'id').join();
             }
             url += '&status_ids=' + _.map(this.resourcesPackagesStatuses).join();
-            url += '&is_admin=' + _.map(this.isAdmin).join();
+            url += '&is_admin=' + this.isAdmin;
             this.get({
                 url: url,
                 urlRelative: false

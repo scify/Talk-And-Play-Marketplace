@@ -10,7 +10,8 @@
                     </button>
                     <ul class="dropdown-menu" :aria-labelledby="'dropdownMenuButton_' + resourcesPackage.id">
 
-                        <li>
+
+                        <li v-if="!isAdminPageForPackageApproval()">
                             <a v-if="isCommunicationPackage()" class="dropdown-item"
                                :href="getDownloadCommunicationPackageRoute()"><i
                                 class="fas fa-file-download me-2"></i>Download</a>
@@ -18,7 +19,7 @@
                                :href="getDownloadGamePackageRoute()"><i
                                 class="fas fa-file-download me-2"></i>Download</a>
                         </li>
-                        <li>
+                        <li v-if="!isAdminPageForPackageApproval()">
                             <a class="dropdown-item"
                                :href="getClonePackageRoute()"><i
                                 class="fas fa-clone me-2"></i>Clone</a>
@@ -32,6 +33,12 @@
                                 class="fas fa-edit me-2"></i>Edit</a>
                             <a class="dropdown-item" @click="showDeleteModal"><i
                                 class="fas fa-trash-alt me-2"></i>Delete</a>
+                        </li>
+                        <li v-if="loggedInUserIsAdmin()">
+                            <a class="dropdown-item" :href="getEditGamePackageRoute()"><i
+                                class="fas fa-check-circle me-2"></i>Approve</a>
+                            <a class="dropdown-item" :href="getEditGamePackageRoute()"><i
+                                class="fas fa-angry me-2"></i>Reject</a>
                         </li>
 
                         <li v-else>
@@ -204,7 +211,8 @@ export default {
         },
         userIdToGetContent: Number,
         packagesType: String,
-        isAdmin: String
+        isAdmin: String,
+        approvePackages: Number
     },
     data: function () {
         return {
@@ -317,6 +325,10 @@ export default {
         },
         isGamePackage() {
             return this.packagesType === "GAME";
+        },
+        isAdminPageForPackageApproval(){
+            console.log(this.approvePackages);
+            return this.approvePackages === 1;
         }
 
     }
