@@ -96,6 +96,13 @@ export default {
         },
         resourcesPackagesRoute: '',
         userIdToGetContent: Number,
+        resourcesPackagesStatuses: {
+            type: Array,
+            default: function () {
+                return []
+            }
+        },
+        isAdmin: String,
         packagesType: String
     },
     data: function () {
@@ -140,6 +147,8 @@ export default {
             if (this.resourcesPackagesTypes.length) {
                 url += '&type_ids=' + _.map(_.filter(this.resourcesPackagesTypes, r => r.checked), 'id').join();
             }
+            url += '&status_ids=' + _.map(this.resourcesPackagesStatuses).join();
+            url += '&is_admin=' + _.map(this.isAdmin).join();
             this.get({
                 url: url,
                 urlRelative: false

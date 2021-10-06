@@ -23,7 +23,8 @@
                                :href="getClonePackageRoute()"><i
                                 class="fas fa-clone me-2"></i>Clone</a>
                         </li>
-                        <li v-if="!loggedInUserIsDifferentFromContentUser()">
+
+                        <li v-if="!loggedInUserIsDifferentFromContentUser() || loggedInUserIsAdmin()">
                             <a v-if="isCommunicationPackage()" class="dropdown-item"
                                :href="getEditCommunicationPackageRoute()"><i
                                 class="fas fa-edit me-2"></i>Edit</a>
@@ -202,7 +203,8 @@ export default {
             }
         },
         userIdToGetContent: Number,
-        packagesType: String
+        packagesType: String,
+        isAdmin: String
     },
     data: function () {
         return {
@@ -300,6 +302,9 @@ export default {
         },
         loggedInUserIsDifferentFromContentUser() {
             return this.resourcesPackage.creator.id !== this.user.id;
+        },
+        loggedInUserIsAdmin() {
+            return this.isAdmin === '1';
         },
         userLoggedIn() {
             return this.user && this.user.id;

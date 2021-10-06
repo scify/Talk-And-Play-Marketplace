@@ -21,7 +21,8 @@
                                     :user='@json($user)'
                                     :user-id-to-get-content="{{$viewModel->user_id_to_get_content  }}"
                                     :resources-packages-statuses='@json($viewModel->resourcesPackagesStatuses)'
-                                    :packages-type="'COMMUNICATION'">
+                                    :packages-type="'COMMUNICATION'"
+                                    :is-admin="'{{$viewModel->isAdmin}}'">
                                 </resources-packages-with-filters>
                             </div>
                         </div>
@@ -50,7 +51,8 @@
                                 :user='@json($user)'
                                 :user-id-to-get-content="{{$viewModel->user_id_to_get_content  }}"
                                 :resources-packages-statuses='@json($viewModel->resourcesPackagesStatuses)'
-                                :packages-type="'GAME'">
+                                :packages-type="'GAME'"
+                                :is-admin="'{{$viewModel->isAdmin}}'">
                             </resources-packages-with-filters>
                         </div>
                     </div>

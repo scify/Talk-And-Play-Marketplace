@@ -72,5 +72,8 @@ return [
     "create_new_game_package_modal_body_text" => "Select a game type:",
     "my_packages" => "My packages",
     "delete_package" => "Διαγραφή Πακέτου",
-    "meta_tags_description" => "Talk and Play is a system that allows people with disabilities to communicate, be more independent, and receive training for rehabilitation."
+    "meta_tags_description" => "Talk and Play is a system that allows people with disabilities to communicate, be more independent, and receive training for rehabilitation.",
+    "approve_packages" => "Approve Packages"
+
+
 ];

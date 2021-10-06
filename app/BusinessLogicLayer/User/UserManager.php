@@ -42,6 +42,10 @@ class UserManager {
         return $user;
     }
 
+    public function isAdmin($user){
+        return $this->userRoleManager->userHasAdminRole($user);
+    }
+
     /**
      * Updates a User in the DB.
      * Also checks the existence of the administrator field

@@ -190,11 +190,11 @@ class ResourceController extends Controller
         Notification::send($admins, new AdminNotice($package, $coverResourceCardName));
 
         try {
-            $this->resourcesPackageManager->approveResourcesPackage($id);
-            return redirect()->route($redirect_route)->with('flash_message_success', 'Success! The resource package has been approved');
+            $this->resourcesPackageManager->submitResourcesPackage($id);
+            return redirect()->route($redirect_route)->with('flash_message_success', 'Success! The resource package has been submitted');
 
         } catch (\Exception $e) {
-            return redirect()->back()->with('flash_message_failure', 'Warning! The resource package has not been approved');
+            return redirect()->back()->with('flash_message_failure', 'Warning! The resource package has not been submitted');
         }
 
         //
@@ -203,11 +203,20 @@ class ResourceController extends Controller
     }
 
 
+    public function approve_package(int $id):\Illuminate\Http\RedirectResponse{
+        $package = $this->resourcesPackageManager->getResourcesPackage($id);
 
-    public function getContentLanguages()
-    {
-        return $this->resourceManager->getContentLanguagesForResources();
+        $redirect_route = $package->type_id===ResourceTypesLkp::COMMUNICATION ? 'communication_resources.index' : 'game_resources.index';
+        try {
+            $this->resourcesPackageManager->approveResourcesPackage($id);
+            return redirect()->route($redirect_route)->with('flash_message_success', 'Success! The resource package has been approved');
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('flash_message_failure', 'Warning! The resource package has not been approved');
+        }
     }
+
+
 
 
     public function my_packages()
@@ -216,6 +225,7 @@ class ResourceController extends Controller
             $viewModel = $this->gameResourcesPackageManager->getGameResourcesPackageIndexPageVM();
             $viewModel->user_id_to_get_content = Auth::id();
             $viewModel->resourcesPackagesStatuses = [ResourceStatusesLkp::APPROVED];
+            $viewModel->isAdmin = $this->userManager->isAdmin(Auth::user());
             return view('resources_packages.my-packages')->with(
                 ['viewModel' => $viewModel, 'user' => Auth::user()]);
         } catch (ModelNotFoundException $e) {
@@ -242,6 +252,8 @@ class ResourceController extends Controller
 
             $viewModel->resourcesPackagesStatuses = [ResourceStatusesLkp::CREATED_PENDING_APPROVAL];
             $viewModel->user_id_to_get_content = null;
+
+            $viewModel->isAdmin = $this->userManager->isAdmin(Auth::user());
             return view('resources_packages.approve-pending-packages')->with(
                 ['viewModel' => $viewModel, 'user' => Auth::user()]);
         } catch (ModelNotFoundException $e) {
@@ -292,4 +304,12 @@ class ResourceController extends Controller
         }
         return redirect()->route($ret_route,$newPackage->id)->with('flash_message_success',  'Success! The resource package has been copied');
     }
+
+
+
+    public function getContentLanguages()
+    {
+        return $this->resourceManager->getContentLanguagesForResources();
+    }
+
 }

@@ -70,6 +70,12 @@
                                         {!! __('messages.user_management') !!}
                                     </a>
                                 </li>
+                                <li>
+                                    <a class="dropdown-item {{ UrlMatchesMenuItem("administration.users.index")}}"
+                                       href="{{ route('resources_packages.approve_pending_packages') }}">
+                                        {!! __('messages.approve_packages') !!}
+                                    </a>
+                                </li>
                             @endcan
                             <li>
                                 <hr class="dropdown-divider">

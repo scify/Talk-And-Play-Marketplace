@@ -70,6 +70,7 @@ return [
     "create_new_game_package_modal_title" => "Δημιουργία νέου παιχνιδιού",
     "create_new_game_package_modal_body_text" => "Επιλέξτε τύπο παιχνιδιού:",
     "my_packages" => "Τα πακέτα μου",
-    "delete_package" => "Delete package",
-    "meta_tags_description" => "Το Talk and Play είναι ένα σύστημα που επιτρέπει σε άτομα με αναπηρίες να επικοινωνούν, να είναι πιο ανεξάρτητα, και να ασκούνται για αποκατάσταση και στο σπίτι."
+    "delete_package" => "Διαγραφή Πακέτου",
+    "meta_tags_description" => "Το Talk and Play είναι ένα σύστημα που επιτρέπει σε άτομα με αναπηρίες να επικοινωνούν, να είναι πιο ανεξάρτητα, και να ασκούνται για αποκατάσταση και στο σπίτι.",
+    "approve_packages" => "Έγκριση Πακέτων"
 ];

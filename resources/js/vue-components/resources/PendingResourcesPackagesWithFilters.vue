@@ -62,7 +62,8 @@
                 <resource-package
                     :user="user ? user : {}"
                     :resources-package="resourcesPackage"
-                    :packages-type="packagesType">
+                    :packages-type="packagesType"
+                    :is-admin="isAdmin">
                 </resource-package>
 
             </div>
@@ -100,7 +101,8 @@ export default {
             }
         },
         resourcesPackagesRoute: '',
-        packagesType: String
+        packagesType: String,
+        isAdmin : String
     },
     data: function () {
         return {
@@ -143,7 +145,6 @@ export default {
                 url += '&type_ids=' + _.map(_.filter(this.resourcesPackagesTypes, r => r.checked), 'id').join();
             }
             url += '&status_ids=' + _.map(this.resourcesPackagesStatuses).join();
-            console.log(url)
             this.get({
                 url: url,
                 urlRelative: false

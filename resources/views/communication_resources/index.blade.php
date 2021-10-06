@@ -168,7 +168,8 @@
                     <resources-packages-with-filters
                         :resources-packages-route="'{{ route('communication_resources.get') }}'"
                         :user='@json($user)'
-                        :packages-type="'COMMUNICATION'">
+                        :packages-type="'COMMUNICATION'"
+                        :resources-packages-statuses='@json($viewModel->resourcesPackagesStatuses)'>
                     </resources-packages-with-filters>
                 </div>
             </div>

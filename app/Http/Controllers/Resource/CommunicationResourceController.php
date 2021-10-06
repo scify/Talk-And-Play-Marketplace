@@ -35,8 +35,10 @@ class CommunicationResourceController extends Controller
      */
     public function index(): View
     {
+        $viewModel = Collection::empty();
+        $viewModel->resourcesPackagesStatuses = [ResourceStatusesLkp::APPROVED];
         return view('communication_resources.index')->with(
-            ['user' => Auth::user()]);
+            ['viewModel' =>$viewModel, 'user' => Auth::user()]);
     }
 
     /**

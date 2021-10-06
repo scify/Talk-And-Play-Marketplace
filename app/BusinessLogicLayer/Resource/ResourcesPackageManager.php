@@ -66,6 +66,13 @@ class ResourcesPackageManager extends ResourceManager {
     }
 
 
+    public function submitResourcesPackage($id) {
+        return $this->resourcesPackageRepository->update(
+            ['status_id' => ResourceStatusesLkp::CREATED_PENDING_APPROVAL]
+            , $id);
+    }
+
+
     public function getContentLanguagesForResources() {
         return $this->contentLanguageLkpRepository->all();
     }

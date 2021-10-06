@@ -52,6 +52,7 @@ class GameResourceController extends Controller {
      */
     public function index(): View {
         $viewModel = $this->gameResourcesPackageManager->getGameResourcesPackageIndexPageVM();
+        $viewModel->resourcesPackagesStatuses = [ResourceStatusesLkp::APPROVED];
         return view('game_resources.index')->with(['viewModel' => $viewModel, 'user' => Auth::user()]);
     }
 

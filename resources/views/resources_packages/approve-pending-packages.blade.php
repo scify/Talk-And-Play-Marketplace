@@ -20,7 +20,8 @@
                                     :resources-packages-route="'{{ route('communication_resources.get') }}'"
                                     :user='@json($user)'
                                     :resources-packages-statuses='@json($viewModel->resourcesPackagesStatuses)'
-                                    :packages-type="'COMMUNICATION'">
+                                    :packages-type="'COMMUNICATION'"
+                                    :is-admin="'{{$viewModel->isAdmin}}'">
                                 </pending-resources-packages-with-filters>
                             </div>
                         </div>
@@ -48,7 +49,8 @@
                                 :resources-packages-route="'{{ route('game_resources.get') }}'"
                                 :user='@json($user)'
                                 :resources-packages-statuses='@json($viewModel->resourcesPackagesStatuses)'
-                                :packages-type="'GAME'">
+                                :packages-type="'GAME'"
+                                :is-admin="'{{$viewModel->isAdmin}}'">
                             </pending-resources-packages-with-filters>
                         </div>
                     </div>
@@ -74,7 +76,7 @@
                         {{ csrf_field() }}
                         <input type="hidden" name="_method" value="DELETE">
                         <input class="btn btn-primary ms-4" type="submit" id="deletionConfirmed"
-                               value="{{trans('messages.delete_card')}}">
+                               value="{{trans('messages.reject_card')}}">
                         &nbsp;
                         &nbsp;
                         <a class="btn btn-outline-primary" data-bs-dismiss="modal">
