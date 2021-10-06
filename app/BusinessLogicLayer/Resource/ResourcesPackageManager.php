@@ -65,6 +65,12 @@ class ResourcesPackageManager extends ResourceManager {
             , $id);
     }
 
+    public function rejectResourcesPackage($id) {
+
+        return $this->resourcesPackageRepository->update(
+            ['status_id' => ResourceStatusesLkp::REJECTED]
+            , $id);
+    }
 
     public function submitResourcesPackage($id) {
         return $this->resourcesPackageRepository->update(

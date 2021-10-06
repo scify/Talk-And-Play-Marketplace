@@ -106,7 +106,7 @@ import {Modal} from 'bootstrap';
             console.log('clicked  save bundle');
             let id = $("#packageId").attr('value');
             let modal = document.getElementById('saveBundleModal');
-            const route = window.route('resources.approve', id);
+            const route = window.route('resources.submit', id);
             $("#md-save-bundle-form").attr('action', route)
             new Modal(modal).show();
         });

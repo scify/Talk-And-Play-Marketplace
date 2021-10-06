@@ -25,7 +25,7 @@
                                 class="fas fa-clone me-2"></i>Clone</a>
                         </li>
 
-                        <li v-if="!loggedInUserIsDifferentFromContentUser() || loggedInUserIsAdmin()">
+                        <li v-if="(!loggedInUserIsDifferentFromContentUser() || loggedInUserIsAdmin()) && !isAdminPageForPackageApproval()">
                             <a v-if="isCommunicationPackage()" class="dropdown-item"
                                :href="getEditCommunicationPackageRoute()"><i
                                 class="fas fa-edit me-2"></i>Edit</a>
@@ -35,12 +35,11 @@
                                 class="fas fa-trash-alt me-2"></i>Delete</a>
                         </li>
                         <li v-if="loggedInUserIsAdmin()">
-                            <a class="dropdown-item" :href="getEditGamePackageRoute()"><i
+                            <a class="dropdown-item" @click="approvePackage"><i
                                 class="fas fa-check-circle me-2"></i>Approve</a>
-                            <a class="dropdown-item" :href="getEditGamePackageRoute()"><i
+                            <a class="dropdown-item" @click="showPackageRejectionModal"><i
                                 class="fas fa-angry me-2"></i>Reject</a>
                         </li>
-
                         <li v-else>
                             <a class="dropdown-item" @click="showRateModal"><i class="fas fa-star-half-alt me-2"></i>Rate</a>
                         </li>
@@ -186,6 +185,37 @@
                 </div>
             </template>
         </modal>
+        <modal
+            @canceled="packageRejectionModalOpen = false"
+            id="package-rejection-modal"
+            class="modal"
+            :open="packageRejectionModalOpen"
+            :allow-close="true">
+
+            <template v-slot:header>
+                <h5 class="modal-title pl-2">{{ trans('messages.reject_package') }}
+                    <b>{{ resourcesPackage.cover_resource.name }}</b>
+                </h5>
+            </template>
+            <template v-slot:body>
+                <div class="container pt-3 pb-5">
+                    <div class="row">
+                        <span>Write rejection message</span>
+                        <p style="white-space: pre-line;">{{ message }}</p>
+                        <br>
+                        <textarea v-model="message" placeholder="add multiple lines"></textarea>
+                        <div class="col text-center">
+                            <div>
+                                <h4>{{trans('messages.warning_rejection')}}</h4>
+                            </div>
+                            <a @click="getRejectPackageRoute" class="btn btn-danger">
+                                {{trans('messages.reject_package')}}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </modal>
     </div>
 </template>
 
@@ -218,10 +248,12 @@ export default {
         return {
             userRating: 0,
             totalRating: 0,
+            packageReject: 0,
             maxRating: 5,
             resourceChildrenModalOpen: false,
             rateModalOpen: false,
             deleteModalOpen: false,
+            packageRejectionModalOpen: false,
             rateTitleKey: 'rate_package_modal_body_text_no_rating'
         }
     },
@@ -239,6 +271,9 @@ export default {
         },
         getEditCommunicationPackageRoute() {
             return route('communication_resources.edit', this.resourcesPackage.id);
+        },
+        getRejectPackageRoute(){
+          return route('resources.reject', this.resourcesPackage.id);
         },
         getClonePackageRoute() {
             return route('resources_packages.clone_package', this.resourcesPackage.id);
@@ -277,6 +312,40 @@ export default {
                 });
             }
         },
+        showPackageRejectionModal() {
+            this.packageRejectionModalOpen = true;
+            if(this.message)
+                return;
+            console.log(this.message)
+            this.post({
+                url: this.getRejectPackageRoute(),
+                data: {
+                    id: this.resourcesPackage.id,
+                    rejectionMessage: this.message
+                },
+                urlRelative: false
+            }).then(response => {
+                console.log(response);
+            });
+            window.location.reload()
+        },
+        getApprovePackageRoute(){
+            return route('resources.approve', this.resourcesPackage.id);
+        },
+
+        approvePackage(){
+            this.post({
+                url: this.getApprovePackageRoute(),
+                data: {
+                    id: this.resourcesPackage.id
+                },
+                urlRelative: false
+             }).then(response => {
+                console.log(response);
+            });
+            window.location.reload()
+        },
+
         showDeleteModal() {
             console.log('delete')
             this.deleteModalOpen = true;
@@ -327,9 +396,10 @@ export default {
             return this.packagesType === "GAME";
         },
         isAdminPageForPackageApproval(){
-            console.log(this.approvePackages);
+            console.log(this.approvePackages )
             return this.approvePackages === 1;
-        }
+        },
+
 
     }
 }

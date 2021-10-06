@@ -169,7 +169,9 @@
                         :resources-packages-route="'{{ route('communication_resources.get') }}'"
                         :user='@json($user)'
                         :packages-type="'COMMUNICATION'"
-                        :resources-packages-statuses='@json($viewModel->resourcesPackagesStatuses)'>
+                        :resources-packages-statuses='@json($viewModel->resourcesPackagesStatuses)'
+                        :is-admin="'{{$viewModel->isAdmin}}'"
+                        :approve-packages="{{0}}">
                     </resources-packages-with-filters>
                 </div>
             </div>

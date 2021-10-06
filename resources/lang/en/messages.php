@@ -73,7 +73,7 @@ return [
     "my_packages" => "My packages",
     "delete_package" => "Διαγραφή Πακέτου",
     "meta_tags_description" => "Talk and Play is a system that allows people with disabilities to communicate, be more independent, and receive training for rehabilitation.",
-    "approve_packages" => "Approve Packages"
-
-
+    "approve_packages" => "Approve Packages",
+    "warning_rejection" => "Be careful: a rejection email will be sent to the user who submitted the package",
+    "reject_package" => "Reject Package"
 ];

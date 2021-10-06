@@ -72,5 +72,7 @@ return [
     "my_packages" => "Τα πακέτα μου",
     "delete_package" => "Διαγραφή Πακέτου",
     "meta_tags_description" => "Talk and Play is a system that allows people with disabilities to communicate, be more independent, and receive training for rehabilitation.",
-    "approve_packages" => "Έγκριση Πακέτων"
+    "approve_packages" => "Έγκριση Πακέτων",
+    "warning_rejection" => "Προσοχή! Ένα μήνυμα απόρριψης θα σταλεί στον δημιουργό του πακέτου",
+    "reject_package" => "Απόρριψη Πακέτου"
 ];

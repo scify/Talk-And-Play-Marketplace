@@ -203,9 +203,8 @@ class ResourceController extends Controller
     }
 
 
-    public function approve_package(int $id):\Illuminate\Http\RedirectResponse{
+    public function approve(int $id):\Illuminate\Http\RedirectResponse{
         $package = $this->resourcesPackageManager->getResourcesPackage($id);
-
         $redirect_route = $package->type_id===ResourceTypesLkp::COMMUNICATION ? 'communication_resources.index' : 'game_resources.index';
         try {
             $this->resourcesPackageManager->approveResourcesPackage($id);
@@ -216,6 +215,17 @@ class ResourceController extends Controller
         }
     }
 
+    public function reject(int $id):\Illuminate\Http\RedirectResponse{
+        $package = $this->resourcesPackageManager->getResourcesPackage($id);
+        $redirect_route = $package->type_id===ResourceTypesLkp::COMMUNICATION ? 'communication_resources.index' : 'game_resources.index';
+        try {
+            $this->resourcesPackageManager->rejectResourcesPackage($id);
+            return redirect()->route($redirect_route)->with('flash_message_success', 'Success! The resource package has been approved');
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('flash_message_failure', 'Warning! The resource package has not been approved');
+        }
+    }
 
 
 

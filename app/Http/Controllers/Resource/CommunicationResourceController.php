@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Resource;
 
 use App\BusinessLogicLayer\Resource\CommunicationResourcesPackageManager;
 use App\BusinessLogicLayer\Resource\ResourceManager;
+use App\BusinessLogicLayer\User\UserManager;
 use App\Http\Controllers\Controller;
 use App\Repository\Resource\ResourceStatusesLkp;
 use App\Repository\Resource\ResourceTypesLkp;
@@ -13,18 +14,19 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
-use PhpParser\Node\Expr\Cast\Object_;
+
 
 class CommunicationResourceController extends Controller
 {
 
     protected ResourceManager $resourceManager;
     protected CommunicationResourcesPackageManager $communicationResourcesPackageManager;
-
-    public function __construct(ResourceManager $resourceManager, CommunicationResourcesPackageManager $communicationResourcesPackageManager)
+    protected UserManager  $userManager;
+    public function __construct(ResourceManager $resourceManager, CommunicationResourcesPackageManager $communicationResourcesPackageManager, UserManager  $userManager)
     {
         $this->resourceManager = $resourceManager;
         $this->communicationResourcesPackageManager = $communicationResourcesPackageManager;
+        $this->userManager = $userManager;
     }
 
 
@@ -37,6 +39,8 @@ class CommunicationResourceController extends Controller
     {
         $viewModel = Collection::empty();
         $viewModel->resourcesPackagesStatuses = [ResourceStatusesLkp::APPROVED];
+        $viewModel->isAdmin = Auth::check() && $this->userManager->isAdmin(Auth::user());
+
         return view('communication_resources.index')->with(
             ['viewModel' =>$viewModel, 'user' => Auth::user()]);
     }

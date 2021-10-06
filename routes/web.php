@@ -58,7 +58,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get("/communication-cards/download/package/{id}", [CommunicationResourceController::class, 'download_package'])->name('communication_resources.download_package');
 
 
-    Route::put("/resources/approve/{id}", [ResourceController::class, 'submit'])->name('resources.approve');
+    Route::post("/resources/approve/{id}", [ResourceController::class, 'approve'])->name('resources.approve');
+    Route::post("/resources/reject/{id}", [ResourceController::class, 'reject'])->name('resources.reject');
+    Route::put("/resources/submit/{id}", [ResourceController::class, 'submit'])->name('resources.submit');
     Route::resource('resources', ResourceController::class)
         ->except([
             'index', 'show', 'create', 'edit'

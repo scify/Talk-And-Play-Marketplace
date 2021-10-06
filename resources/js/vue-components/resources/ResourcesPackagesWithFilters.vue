@@ -65,8 +65,7 @@
                     :resources-package="resourcesPackage"
                     :packages-type="packagesType"
                     :is-admin="isAdmin"
-                    :approve-packages="approvePackages"
-                >
+                    :approve-packages="approvePackages">
                 </resource-package>
 
             </div>

@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use App\BusinessLogicLayer\User\UserManager;
 
 class GameResourceController extends Controller {
     protected ResourceTypesLkp $resourceTypesLkp;
@@ -27,6 +28,7 @@ class GameResourceController extends Controller {
     protected ResourceManager $resourceManager;
     protected ResourcesPackageManager $resourcesPackageManager;
     protected GameResourcesPackageManager $gameResourcesPackageManager;
+    protected UserManager  $userManager;
 
     public function __construct(
         SimilarityGameResourcesPackageManager $similarityGameResourcesPackageManager,
@@ -34,7 +36,8 @@ class GameResourceController extends Controller {
         ResponseGameResourcesPackageManager   $responseGameResourcesPackageManager,
         ResourceManager                       $resourceManager,
         ResourcesPackageManager               $resourcesPackageManager,
-        GameResourcesPackageManager           $gameResourcesPackageManager) {
+        GameResourcesPackageManager           $gameResourcesPackageManager,
+        UserManager  $userManager) {
 
         $this->resourceManager = $resourceManager;
         $this->resourcesPackageManager = $resourcesPackageManager;
@@ -42,6 +45,7 @@ class GameResourceController extends Controller {
         $this->similarityGameResourcesPackageManager = $similarityGameResourcesPackageManager;
         $this->responseGameResourcesPackageManager = $responseGameResourcesPackageManager;
         $this->timeGameResourcesPackageManager = $timeGameResourcesPackageManager;
+        $this->userManager = $userManager;
     }
 
 
@@ -53,6 +57,7 @@ class GameResourceController extends Controller {
     public function index(): View {
         $viewModel = $this->gameResourcesPackageManager->getGameResourcesPackageIndexPageVM();
         $viewModel->resourcesPackagesStatuses = [ResourceStatusesLkp::APPROVED];
+        $viewModel->isAdmin = Auth::check() && $this->userManager->isAdmin(Auth::user());
         return view('game_resources.index')->with(['viewModel' => $viewModel, 'user' => Auth::user()]);
     }
 
