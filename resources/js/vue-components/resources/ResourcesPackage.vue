@@ -203,7 +203,17 @@
                         <span>Write rejection message</span>
                         <p style="white-space: pre-line;">{{ message }}</p>
                         <br>
-                        <textarea v-model="message" placeholder="add multiple lines"></textarea>
+                        <div id="rejectForm">
+                            <form>
+                                <input type="text" ref="message">
+                                <button @click.prevent="getFormValues()">Get values</button>
+                            </form>
+                        </div>
+<!--                        <form @submit.prevent="getFormValues">-->
+<!--&lt;!&ndash;                            <textarea v-model="message" placeholder="add multiple lines"></textarea>&ndash;&gt;-->
+<!--                            <input type="text" name="name">-->
+<!--                        </form>-->
+
                         <div class="col text-center">
                             <div>
                                 <h4>{{trans('messages.warning_rejection')}}</h4>
@@ -221,7 +231,6 @@
 
 <script>
 import {mapActions} from "vuex";
-
 export default {
     created() {
         this.computeTotalRating();
@@ -250,6 +259,7 @@ export default {
             totalRating: 0,
             packageReject: 0,
             maxRating: 5,
+            output: false,
             resourceChildrenModalOpen: false,
             rateModalOpen: false,
             deleteModalOpen: false,
@@ -263,6 +273,9 @@ export default {
             'post',
             'handleError'
         ]),
+        getFormValues () {
+            this.output = this.$refs.message.value
+        },
         getDownloadGamePackageRoute() {
             return route('game_resources.download_package', this.resourcesPackage.id);
         },
@@ -314,20 +327,16 @@ export default {
         },
         showPackageRejectionModal() {
             this.packageRejectionModalOpen = true;
-            if(this.message)
+            if(this.output===false)
                 return;
-            console.log(this.message)
             this.post({
-                url: this.getRejectPackageRoute(),
-                data: {
-                    id: this.resourcesPackage.id,
-                    rejectionMessage: this.message
-                },
+                url: this.getRejectPackageRoute()+'?rejection_message='+this.output,
                 urlRelative: false
             }).then(response => {
-                console.log(response);
+                this.output = response.data.output;
             });
-            window.location.reload()
+            // window.location.reload()
+
         },
         getApprovePackageRoute(){
             return route('resources.approve', this.resourcesPackage.id);
@@ -336,9 +345,6 @@ export default {
         approvePackage(){
             this.post({
                 url: this.getApprovePackageRoute(),
-                data: {
-                    id: this.resourcesPackage.id
-                },
                 urlRelative: false
              }).then(response => {
                 console.log(response);

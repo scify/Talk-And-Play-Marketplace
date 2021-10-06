@@ -81,7 +81,7 @@
                         <input type="hidden" name="_method" value="DELETE">
                         <input class="btn btn-primary ms-4" type="submit" id="deletionConfirmed"
                                value="{{trans('messages.delete_card')}}">
-                        &nbsp;
+                        &nbsp
                         &nbsp;
                         <a class="btn btn-outline-primary" data-bs-dismiss="modal">
                             {{trans('messages.delete')}}
