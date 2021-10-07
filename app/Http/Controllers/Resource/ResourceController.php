@@ -215,12 +215,14 @@ class ResourceController extends Controller
         }
     }
 
-    public function reject(Request $request, int $id):\Illuminate\Http\RedirectResponse{
-        $package = $this->resourcesPackageManager->getResourcesPackage($id);
-        $rejectionMessage = $request->rejection_message;
+    public function reject(Request $request):\Illuminate\Http\RedirectResponse{
+        $data = $request->all();
+        $package = $this->resourcesPackageManager->getResourcesPackage($data['id']);
+        $rejectionMessage = $data['rejection_message'];
         $redirect_route = $package->type_id===ResourceTypesLkp::COMMUNICATION ? 'communication_resources.index' : 'game_resources.index';
+
         try {
-            $this->resourcesPackageManager->rejectResourcesPackage($id);
+            $this->resourcesPackageManager->rejectResourcesPackage($data['id']);
             return redirect()->route($redirect_route)->with('flash_message_success', 'Success! The resource package has been rejected');
 
         } catch (\Exception $e) {

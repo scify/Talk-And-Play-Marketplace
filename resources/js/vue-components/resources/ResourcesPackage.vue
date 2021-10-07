@@ -201,26 +201,14 @@
                 <div class="container pt-3 pb-5">
                     <div class="row">
                         <span>Write rejection message</span>
-                        <p style="white-space: pre-line;">{{ message }}</p>
+                        <p style="white-space: pre-line;">{{  }}</p>
                         <br>
                         <div id="rejectForm">
-                            <form>
-                                <input type="text" ref="message">
-                                <button @click.prevent="getFormValues()">Get values</button>
-                            </form>
-                        </div>
-<!--                        <form @submit.prevent="getFormValues">-->
-<!--&lt;!&ndash;                            <textarea v-model="message" placeholder="add multiple lines"></textarea>&ndash;&gt;-->
-<!--                            <input type="text" name="name">-->
-<!--                        </form>-->
-
-                        <div class="col text-center">
-                            <div>
-                                <h4>{{trans('messages.warning_rejection')}}</h4>
-                            </div>
-                            <a @click="getRejectPackageRoute" class="btn btn-danger">
+                            <textarea rows="4" cols="50" v-model="rejectionMessage"></textarea>
+                            <p>{{trans('messages.warning_rejection')}}</p>
+                            <button @click="rejectPackage" class="btn btn-danger">
                                 {{trans('messages.reject_package')}}
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -257,9 +245,8 @@ export default {
         return {
             userRating: 0,
             totalRating: 0,
-            packageReject: 0,
             maxRating: 5,
-            output: false,
+            rejectionMessage: "this package violates the platform rules of conduct",
             resourceChildrenModalOpen: false,
             rateModalOpen: false,
             deleteModalOpen: false,
@@ -325,17 +312,21 @@ export default {
                 });
             }
         },
+        rejectPackage(){
+            this.post({
+                url: this.getRejectPackageRoute(),
+                data:{
+                    id: this.resourcesPackage.id,
+                    rejection_message: this.rejectionMessage
+                },
+                urlRelative: false
+            }).then(_ => {
+                window.location.reload()
+            });
+        },
+
         showPackageRejectionModal() {
             this.packageRejectionModalOpen = true;
-            if(this.output===false)
-                return;
-            this.post({
-                url: this.getRejectPackageRoute()+'?rejection_message='+this.output,
-                urlRelative: false
-            }).then(response => {
-                this.output = response.data.output;
-            });
-            // window.location.reload()
 
         },
         getApprovePackageRoute(){
