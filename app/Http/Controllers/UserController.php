@@ -99,6 +99,6 @@ class UserController extends Controller {
             return back();
         }
         Cookie::queue( Cookie::forever('lang', $request->lang) );
-        return redirect('/');
+        return redirect()->back();
     }
 }
