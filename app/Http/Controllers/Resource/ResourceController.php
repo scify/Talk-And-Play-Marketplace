@@ -180,11 +180,9 @@ class ResourceController extends Controller
 
     public function submit(int $id): \Illuminate\Http\RedirectResponse
     {
+        return $this->approve($id); //TODO: uncomment to enable pending package approval by admin
         $package = $this->resourcesPackageManager->getResourcesPackage($id);
         $redirect_route = $package->type_id===ResourceTypesLkp::COMMUNICATION ? 'communication_resources.index' : 'game_resources.index';
-//        TODO: send confirmation email to admin
-
-
         $admins = $this->userManager->get_admin_users();
         $coverResourceCardName = $this->resourceManager->getResource($package->card_id)->name;
         Notification::send($admins, new AdminNotice($package, $coverResourceCardName));
