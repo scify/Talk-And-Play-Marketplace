@@ -79,7 +79,7 @@
         <div class="container">
             <div class="row">
                 @foreach($viewModel->childrenCards as $child)
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-md-4 col-sm-12 mb-3">
                         <div class="card w-100 mb-5">
                             <input type="hidden" value={{$child->id}}>
                             <img src="{{asset("storage/".$child->img_path)}}" class="card-img-top"

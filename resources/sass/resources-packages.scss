@@ -55,7 +55,15 @@
 
 .modal {
     .modal-wrapper {
-        padding-top: 5%;
+        padding-top: 2%;
+    }
+    .modal-dialog {
+        overflow-y: initial !important
+    }
+
+    .modal-body {
+        max-height: 70vh;
+        overflow-y: auto;
     }
 }
 

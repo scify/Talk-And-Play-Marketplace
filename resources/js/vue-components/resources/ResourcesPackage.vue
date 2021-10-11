@@ -93,11 +93,11 @@
                 </h5>
             </template>
             <template v-slot:body>
-                <div class="container py-5">
+                <div class="container py-3">
                     <div class="row">
                         <div
                             v-for="(resource, index) in resourcesPackage.cover_resource.children_resources" :key="index"
-                            class="col-md-4 col-sm-12">
+                            class="col-md-4 col-sm-12 mb-3">
                                 <div class="card w-100">
                                     <img :src="'/storage/' + resource.img_path" class="card-img-top"
                                          :alt="resource.name">
