@@ -21,7 +21,7 @@ return [
     "game_cards_tutorial_step_2_title" => "Download the packages that you like",
     "game_cards_tutorial_step_3_title" => "Nothing suits you? Create your own game cards and packages",
     "game_cards_tutorial_step_4_title" => "Download the app to help patients",
-    "game_cards_tutorial_step_1_description" => "Select a language, and view the available game packages. Every game package, is accompanied by a name and cover image. You can see the cards it contains by pressing the button \"See the cards\".",
+    "game_cards_tutorial_step_1_description" => "Select a language, and view the available game packages. Every game package is accompanied by a name and cover image. You can see the cards it contains by pressing the button \"See the cards\".",
     "game_cards_tutorial_step_2_description" => "Every package has a special icon <i class=\"fas fa-file-download\"></i> in its menu list (<i class='fa fa-ellipsis-v'></i>). <br></br>  Press the icon to download the files to your device. Then upload the files to the application.",
     "game_cards_tutorial_step_3_description" => "<b class=\"mt-4\">How can I create a package;</b><br>
                                     Press the button \"Create a new game package\", and fill in the form that will appear with a package name, a cover image and a sound file representing the package.
