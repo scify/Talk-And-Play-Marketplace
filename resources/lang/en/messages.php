@@ -30,7 +30,7 @@ return [
                                         <li> Time Sequence</li>
                                         <li> Find the similar</li>
                                     </ul>
-                                    Next, fill-in the form that will appear with a package name, a cover image and a sound file representing the package.
+                                    Next, fill-in the form that will appear with a package name and a cover image representing the package.
                                     <p class=\"note mt-3\">Note: When creating a new package, it will need to get an administrator's approval in order to become visible in the collection</p>
                                     <br><br>If you desire, you may clone an existing package, pressing the sign <i class='fa fa-ellipsis-v'></i> and then selecting the \"clone\" option. Then, you will be able to add, remove, or modify the package's contents and finalize it as your own.
                                     <br><br>
