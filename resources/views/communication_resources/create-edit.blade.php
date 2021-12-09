@@ -310,7 +310,7 @@
                                value="{{trans('messages.delete_card')}}">
                         &nbsp;
                         &nbsp;
-                        <a class="btn btn-outline-primary" style="margin-right: 10px" data-bs-dismiss="modal">
+                        <a class="btn btn-outline-primary" style="margin-right: 20px" data-bs-dismiss="modal">
                             {{trans('messages.cancel')}}
                         </a>
                     </form>
