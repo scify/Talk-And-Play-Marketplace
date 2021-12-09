@@ -311,7 +311,7 @@
                         &nbsp;
                         &nbsp;
                         <a class="btn btn-outline-primary" data-bs-dismiss="modal">
-                            {{trans('messages.delete')}}
+                            {{trans('messages.cancel')}}
                         </a>
                     </form>
 
