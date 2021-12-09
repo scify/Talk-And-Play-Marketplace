@@ -14,7 +14,7 @@ return [
                                     <br><br>If you desire, you may clone an existing package, pressing the sign <i class='fa fa-ellipsis-v'></i> and then selecting the \"clone\" option. Then, you will be able to add, remove, or modify the package's contents and finalize it as your own.
                                     <br><br>
                                     <b class=\"mt-4\">How can I add a card?</b><br>
-                                    On your package of interest, select the button  \"Add New Card\" and fill in the form that will appear with a card name, an image and a sound file representing the card",
+                                    On your package of interest, select the button  \"Add a new card\" and fill in the form that will appear with a card name, an image and a sound file representing the card",
     "communication_cards_tutorial_step_4_description" => "Download the app for <a href=\"https://go.scify.gr/talkandplaydownloadl\">Linux</a> and for <a href=\"https://go.scify.gr/talkandplaydownloadw\">Windows</a>.",
 
     "game_cards_tutorial_step_1_title"  => "Explore available game packages",
@@ -35,7 +35,7 @@ return [
                                     <br><br>If you desire, you may clone an existing package, pressing the sign <i class='fa fa-ellipsis-v'></i> and then selecting the \"clone\" option. Then, you will be able to add, remove, or modify the package's contents and finalize it as your own.
                                     <br><br>
                                     <b class=\"mt-4\">How can I add a card?</b><br>
-                                    On your package of interest, select the button  \"Add New Card\" and fill in the form that will appear with a card name and a representative image",
+                                    On your package of interest, select the button  \"Add a new card\" and fill in the form that will appear with a card name and a representative image",
     "game_cards_tutorial_step_4_description" => "Download the app for <a href=\"https://go.scify.gr/talkandplaydownloadl\">Linux</a> and for <a href=\"https://go.scify.gr/talkandplaydownloadw\">Windows</a>.",
 
 
