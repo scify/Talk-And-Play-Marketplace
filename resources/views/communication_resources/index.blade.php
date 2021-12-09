@@ -27,7 +27,7 @@
                             <h2 class="accordion-header">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    <span class="title-number">1</span>     {{__('messages.communication_cards_tutorial_step_1_header')}}
+                                    <span class="title-number">1</span>     {{__('messages.communication_cards_tutorial_step_1_title')}}
                                 </button>
                             </h2>
                             <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo">
