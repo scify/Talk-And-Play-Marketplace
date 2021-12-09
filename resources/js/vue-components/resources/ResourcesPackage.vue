@@ -14,34 +14,34 @@
                         <li v-if="!isAdminPageForPackageApproval()">
                             <a v-if="isCommunicationPackage()" class="dropdown-item"
                                :href="getDownloadCommunicationPackageRoute()"><i
-                                class="fas fa-file-download me-2"></i>Download</a>
+                                class="fas fa-file-download me-2"></i>{{   trans('messages.download') }}</a>
                             <a v-else-if="isGamePackage()" class="dropdown-item"
                                :href="getDownloadGamePackageRoute()"><i
-                                class="fas fa-file-download me-2"></i>Download</a>
+                                class="fas fa-file-download me-2"></i>{{   trans('messages.download') }}</a>
                         </li>
                         <li v-if="!isAdminPageForPackageApproval()">
                             <a class="dropdown-item"
                                :href="getClonePackageRoute()"><i
-                                class="fas fa-clone me-2"></i>Clone</a>
+                                class="fas fa-clone me-2"></i>{{   trans('messages.clone') }}</a>
                         </li>
 
                         <li v-if="(!loggedInUserIsDifferentFromContentUser() || loggedInUserIsAdmin()) && !isAdminPageForPackageApproval()">
                             <a v-if="isCommunicationPackage()" class="dropdown-item"
                                :href="getEditCommunicationPackageRoute()"><i
-                                class="fas fa-edit me-2"></i>Edit</a>
+                                class="fas fa-edit me-2"></i>{{   trans('messages.edit') }}</a>
                             <a v-else-if="isGamePackage()" class="dropdown-item" :href="getEditGamePackageRoute()"><i
-                                class="fas fa-edit me-2"></i>Edit</a>
+                                class="fas fa-edit me-2"></i>{{   trans('messages.edit') }}</a>
                             <a class="dropdown-item" @click="showDeleteModal"><i
-                                class="fas fa-trash-alt me-2"></i>Delete</a>
+                                class="fas fa-trash-alt me-2"></i>{{   trans('messages.delete') }}</a>
                         </li>
                         <li v-if="loggedInUserIsAdmin()">
                             <a class="dropdown-item" @click="approvePackage"><i
-                                class="fas fa-check-circle me-2"></i>Approve</a>
+                                class="fas fa-check-circle me-2"></i>{{   trans('messages.approve') }}</a>
                             <a class="dropdown-item" @click="showPackageRejectionModal"><i
-                                class="fas fa-angry me-2"></i>Reject</a>
+                                class="fas fa-angry me-2"></i>{{   trans('messages.reject') }}</a>
                         </li>
                         <li v-else>
-                            <a class="dropdown-item" @click="showRateModal"><i class="fas fa-star-half-alt me-2"></i>Rate</a>
+                            <a class="dropdown-item" @click="showRateModal"><i class="fas fa-star-half-alt me-2"></i>{{   trans('messages.rate') }}</a>
                         </li>
                     </ul>
                 </div>

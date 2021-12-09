@@ -46,6 +46,8 @@ return [
     "download" => "Download",
     "download_noun" => "Download",
     "clone" => "Clone",
+    "reject" => "Reject",
+    "approve" => "Approve",
     "how_it_works" => "How it works",
     "contact_us" => "Contact us",
     "watch_tutorials" => "Watch the following tutorials to learn more about Talk & Play Marketplace, and how to use the created packages in the Desktop App",
