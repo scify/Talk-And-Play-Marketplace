@@ -1,6 +1,37 @@
 <?php
 
 return [
+    "communication_cards_tutorial_step_1_title" => "Explore available communication packages",
+    "communication_cards_tutorial_step_2_title" => "Download the packages that you like",
+    "communication_cards_tutorial_step_3_title" => "Nothing suits you? Create your own communication cards and packages",
+    "communication_cards_tutorial_step_4_title" => "Download the app to help patients",
+    "communication_cards_tutorial_step_1_description" => "Select a language, and view the available commmunication packages. Every communication package, is accompanied by a name, a cover image, and a sound file. You can see the cards it contains by presing the button \"See the cards\".",
+    "communication_cards_tutorial_step_2_description" => "Every package has a special icon <i class=\"fas fa-file-download\"></i> in its menu list (<i class='fa fa-ellipsis-v'></i>). <br></br>  Press the icon to download the files to your device. Then upload the files to the application.",
+    "communication_cards_tutorial_step_3_description" => "<b class=\"mt-4\">How can I create a package;</b><br>
+                                    Press the button \"Create a new communication package\", and fill in the form that will appear with a package name, a cover image and a sound file representing the package.
+                                    <p class=\"note mt-3\">Note: When creating a new package, it will need to get an administrator's approval in order to become visible in the collection</p>
+                                    <br><br>If you desire, you may clone an existing package, pressing the sign <i class='fa fa-ellipsis-v'></i> and then selecting the \"clone\" option. Then, you will be able to add, remove, or modify the package's contents and finalize it as your own.
+                                    <br><br>
+                                    <b class=\"mt-4\">How can I add a card?</b><br>
+                                    On your package of interest, select the button  \"Add New Card\" and fill in the form that will appear with a card name, an image and a sound file representing the card",
+    "communication_cards_tutorial_step_4_description" => "Download the app for <a href=\"https://go.scify.gr/talkandplaydownloadl\">Linux</a> and for <a href=\"https://go.scify.gr/talkandplaydownloadw\">Windows</a>.",
+
+    "game_cards_tutorial_step_1_title" => "Explore available game packages",
+    "game_cards_tutorial_step_2_title" => "Download the packages that you like",
+    "game_cards_tutorial_step_3_title" => "Nothing suits you? Create your own game cards and packages",
+    "game_cards_tutorial_step_4_title" => "Download the app to help patients",
+    "game_cards_tutorial_step_1_description" => "Select a language, and view the available game packages. Every game package, is accompanied by a name and cover image. You can see the cards it contains by pressing the button \"See the cards\".",
+    "game_cards_tutorial_step_2_description" => "Every package has a special icon <i class=\"fas fa-file-download\"></i> in its menu list (<i class='fa fa-ellipsis-v'></i>). <br></br>  Press the icon to download the files to your device. Then upload the files to the application.",
+    "game_cards_tutorial_step_3_description" => "<b class=\"mt-4\">How can I create a package;</b><br>
+                                    Press the button \"Create a new game package\", and fill in the form that will appear with a package name, a cover image and a sound file representing the package.
+                                    <p class=\"note mt-3\">Note: When creating a new package, it will need to get an administrator's approval in order to become visible in the collection</p>
+                                    <br><br>If you desire, you may clone an existing package, pressing the sign <i class='fa fa-ellipsis-v'></i> and then selecting the \"clone\" option. Then, you will be able to add, remove, or modify the package's contents and finalize it as your own.
+                                    <br><br>
+                                    <b class=\"mt-4\">How can I add a card?</b><br>
+                                    On your package of interest, select the button  \"Add New Card\" and fill in the form that will appear with a card name and a representative image",
+    "game_cards_tutorial_step_4_description" => "Download the app for <a href=\"https://go.scify.gr/talkandplaydownloadl\">Linux</a> and for <a href=\"https://go.scify.gr/talkandplaydownloadw\">Windows</a>.",
+
+
     "services" => "Services",
     "content_guidelines" => "Content guidelines",
     "about" => "About",
@@ -12,7 +43,6 @@ return [
     "contact_us" => "Contact us",
     "watch_tutorials" => "Watch the following tutorials to learn more about Talk & Play Marketplace, and how to use the created packages in the Desktop App",
     "talk_and_play_description" => "Talk & Play is an app offered for free by SciFY, with the goal of supporting people with disabilities (movement/speech) to communicate more efficiently with their beloved ones, have fun,but also do recovery exercises. <br> Through the Talk n Play Marketplace support web page you can find, create, share, and download more card packs that suit you, and use them in the app.",
-
     "communication_cards" => "Communication Cards",
     "game_cards" => "Game Cards",
     "sign_in_register" => "Sign in/Register",

@@ -38,7 +38,7 @@ class ResourcesPackageManager extends ResourceManager {
         return $this->resourcesPackageRepository->create(
             [
                 'type_id' => $this->type_id,
-                'status_id' => ResourceStatusesLkp::CREATED_PENDING_APPROVAL,
+                'status_id' => strval(ResourceStatusesLkp::CREATED_PENDING_APPROVAL),
                 'lang_id' => $lang,
                 'creator_user_id' => Auth::id(),
                 'admin_user_id' => null,
