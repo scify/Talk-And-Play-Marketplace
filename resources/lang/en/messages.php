@@ -48,6 +48,7 @@ return [
     "clone" => "Clone",
     "reject" => "Reject",
     "approve" => "Approve",
+    "rate" => "Rate",
     "how_it_works" => "How it works",
     "contact_us" => "Contact us",
     "watch_tutorials" => "Watch the following tutorials to learn more about Talk & Play Marketplace, and how to use the created packages in the Desktop App",
