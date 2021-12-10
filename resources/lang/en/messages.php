@@ -1,7 +1,24 @@
 <?php
 
 return [
-
+    'package-create-success' => 'Success! The resource package has been created',
+    'package-create-failure' => 'Warning! The resource package has not been created',
+    'card-create-success' => 'Success! The resource has been created',
+    'card-create-failure' => 'Warning! The resource has not been created',
+    'update-success' => 'Success! The resource package has been updated',
+    'update-failure' => 'Warning! The resource package has not been updated',
+    'package-delete-success' => 'Success! The resource package has been deleted',
+    'package-delete-failure' => 'Warning! The resource package has not been deleted',
+    'card-delete-success' => 'Success! The resource has been deleted',
+    'card-delete-failure' => 'Προσοχή! The resource has not been deleted',
+    'package-clone-success' => 'Success! The resource package has been cloned',
+    'package-clone-failure' => 'Warning! The resource package has not been cloned',
+    'package-submit-success' => 'Success! The resource package has been submitted for approval by the platform\'s administrators',
+    'package-submit-failure' => 'Warning! The resource package has not been submitted',
+    'package-reject-success' => 'Success! The resource package has been rejected',
+    'package-reject-failure' => 'Warning! The resource package has not been rejected',
+    'package-approve-success' => 'Success! The resource package has been approved',
+    'package-approve-failure' => 'Warning! The resource package has not been approved',
     "communication_cards_tutorial_step_1_title"  => "Explore available communication packages",
     "communication_cards_tutorial_step_2_title" => "Download the packages that you like",
     "communication_cards_tutorial_step_3_title" => "Nothing suits you? Create your own communication cards and packages",
