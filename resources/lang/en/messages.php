@@ -128,7 +128,7 @@ return [
     "create_new_game_package_modal_title" => "Create new game package",
     "create_new_game_package_modal_body_text" => "Select a game type:",
     "my_packages" => "My packages",
-    "delete_package" => "Διαγραφή Πακέτου",
+    "delete_package" => "Delete Package",
     "meta_tags_description" => "Talk and Play is a system that allows people with disabilities to communicate, be more independent, and receive training for rehabilitation.",
     "approve_packages" => "Approve Packages",
     "warning_rejection" => "Be careful: a rejection email will be sent to the user who submitted the package",
