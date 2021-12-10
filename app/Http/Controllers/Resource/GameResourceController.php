@@ -85,8 +85,6 @@ class GameResourceController extends Controller {
                 $createResourcesPackageViewModel = $this->responseGameResourcesPackageManager->getCreateResourcesPackageViewModel();
                 $game = 'RESPONSE';
                 break;
-            case ResourceTypesLkp::COMMUNICATION:
-                throw(new \ValueError('Tried to create communication cards through the game creation page'));
             default:
                 throw(new ResourceNotFoundException('Game type under development'));
         }
@@ -142,9 +140,9 @@ class GameResourceController extends Controller {
         try {
             $ret = $this->resourceManager->updateResource($request, $id);
             $redirect_id = $ret['resource_parent_id'] ?: $ret->id;
-            return redirect()->route('game_resources.edit', $redirect_id)->with('flash_message_success', 'The resource package has been successfully updated');
+            return redirect()->route('game_resources.edit', $redirect_id)->with('flash_message_success', __('messages.update-success'));
         } catch (\Exception $e) {
-            return redirect()->back()->with('flash_message_failure', 'The resource package has not been updated');
+            return redirect()->back()->with('flash_message_failure', __('messages.update-failure'));
         }
     }
 

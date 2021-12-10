@@ -80,14 +80,17 @@ class CommunicationResourceController extends Controller
             $resource = $this->resourceManager->storeResource($request);
             if ($resource->resource_parent_id === null) {
                 $resourcePackage = $this->communicationResourcesPackageManager->storeResourcePackage($resource, $request['lang']);
+                return redirect()->route('communication_resources.edit',  $resourcePackage->id)->with('flash_message_success',__('messages.package-create-success'));
             } else {
-                #$resourcePackage = $this->communicationResourcesPackageManager->getResourcesPackage($resource->resource_parent_id);
                 $resourcePackage = $this->communicationResourcesPackageManager->getResourcesPackageWithCoverCard($resource->resource_parent_id);
+                return redirect()->route('communication_resources.edit',  $resourcePackage->id)->with('flash_message_success',__('messages.card-create-success'));
+
             }
-            $redirect_id = $resourcePackage->id;
-            return redirect()->route('communication_resources.edit', $redirect_id)->with('flash_message_success',__('messages.creation-success'));
         } catch (Exception $e) {
-            return redirect()->with('flash_message_failure', 'Failure - resource card has not been added');
+            if ($resource && $resource->resource_parent_id === null) {
+                return redirect()->with('flash_message_failure', __('messages.package-create-failure'));
+            }
+            return redirect()->with('flash_message_failure', __('messages.card-create-failure'));
         }
 
     }

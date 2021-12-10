@@ -99,16 +99,18 @@ class ResourceController extends Controller
             $resource = $this->resourceManager->storeResource($request);
             if ($resource->resource_parent_id == null) {
                 $resourcePackage = $manager->storeResourcePackage($resource, $request['lang']);
+
+                return redirect()->route($ret_route, $resourcePackage->id)
+                    ->with('flash_message_success', __('messages.package-create-success'));
             } else {
                 $resourcePackage = $manager->getResourcesPackageWithCoverCard($resource->resource_parent_id);
+                return redirect()->route($ret_route, $resourcePackage->id)
+                    ->with('flash_message_success', __('messages.card-create-success'));
             }
-            $redirect_id = $resourcePackage->id;
-
-
-            return redirect()->route($ret_route, $redirect_id)
-                ->with('flash_message_success', 'The resource has been successfully created');
         } catch (Exception $e) {
-            return redirect()->with('flash_message_failure', 'Failure - resource card has not been added');
+            if ($resource && $resource->resource_parent_id == null)
+                return redirect()->with('flash_message_failure', __('messages.package-create-failure'));
+            return redirect()->with('flash_message_failure', __('messages.card-create-failure'));
         }
 
 
@@ -148,12 +150,9 @@ class ResourceController extends Controller
         }
         try {
             $ret = $this->resourceManager->updateResource($request, $id);
-            #$redirect_id = $ret['resource_parent_id'] ?: $ret->id;
-            #$resourcePackage = $this->resourcesPackageManager->getResourcesPackage ();
-            #return redirect()->route($ret_route, $resourcePackage->id)->with('flash_message_success', 'The resource package has been successfully updated');
-            return redirect()->back()->with('flash_message_success', 'The resource package has been successfully updated');
+            return redirect()->back()->with('flash_message_success',  __('messages.update-success'));
         } catch (\Exception $e) {
-            return redirect()->back()->with('flash_message_failure', 'The resource package has not been updated');
+            return redirect()->back()->with('flash_message_failure', __('messages.update-failure'));
         }
     }
 
@@ -167,9 +166,9 @@ class ResourceController extends Controller
     {
         try {
             $this->resourceManager->destroyResource($id);
-            return redirect()->back()->with('flash_message_success', 'Success! The resource has been deleted');
+            return redirect()->back()->with('flash_message_success',  __('messages.card-delete-success'));
         } catch (\Exception $e) {
-            return redirect()->back()->with('flash_message_failure', 'Warning! The resource has not been deleted');
+            return redirect()->back()->with('flash_message_failure', __('messages.card-delete-failure'));
         }
 
         //
@@ -189,10 +188,10 @@ class ResourceController extends Controller
 
         try {
             $this->resourcesPackageManager->submitResourcesPackage($id);
-            return redirect()->route($redirect_route)->with('flash_message_success', 'Success! The resource package has been submitted');
+            return redirect()->route($redirect_route)->with('flash_message_success', __('messages.package-submit-success'));
 
         } catch (\Exception $e) {
-            return redirect()->back()->with('flash_message_failure', 'Warning! The resource package has not been submitted');
+            return redirect()->back()->with('flash_message_failure',  __('messages.package-submit-failure'));
         }
 
         //
@@ -206,10 +205,10 @@ class ResourceController extends Controller
         $redirect_route = $package->type_id===ResourceTypesLkp::COMMUNICATION ? 'communication_resources.index' : 'game_resources.index';
         try {
             $this->resourcesPackageManager->approveResourcesPackage($id);
-            return redirect()->route($redirect_route)->with('flash_message_success', 'Success! The resource package has been approved');
+            return redirect()->route($redirect_route)->with('flash_message_success', __('messages.package-approve-success'));
 
         } catch (\Exception $e) {
-            return redirect()->back()->with('flash_message_failure', 'Warning! The resource package has not been approved');
+            return redirect()->back()->with('flash_message_failure', __('messages.package-approve-failure'));
         }
     }
 
@@ -221,10 +220,10 @@ class ResourceController extends Controller
 
         try {
             $this->resourcesPackageManager->rejectResourcesPackage($data['id']);
-            return redirect()->route($redirect_route)->with('flash_message_success', 'Success! The resource package has been rejected');
+            return redirect()->route($redirect_route)->with('flash_message_success', __('messages.package-reject-success'));
 
         } catch (\Exception $e) {
-            return redirect()->back()->with('flash_message_failure', 'Warning! The resource package has not been rejected');
+            return redirect()->back()->with('flash_message_failure',  __('messages.package-reject-failure'));
         }
     }
 
@@ -282,9 +281,9 @@ class ResourceController extends Controller
             abort(404);
         }
         catch (\Exception $e) {
-            return redirect()->back()->with('flash_message_failure', 'Warning! The resource package has not been deleted');
+            return redirect()->back()->with('flash_message_failure', __('messages.package-delete-success'));
         }
-        return redirect()->back()->with('flash_message_success',  'Success! The resource package has been deleted');
+        return redirect()->back()->with('flash_message_success',   __('messages.package-delete-failure'));
     }
 
 
@@ -308,12 +307,17 @@ class ResourceController extends Controller
             throw(new \ValueError("Type not supported"));
         }
 
-        $newPackage = $manager->storeResourcePackage($coverResource, $package->lang_id);
-        $childrenWithParent = $manager->getChildrenCardsWithParent($package->card_id);
-        foreach($childrenWithParent as $child){
-            $this->resourceManager->cloneResource($child->id, $coverResource->id);
+        try {
+            $newPackage = $manager->storeResourcePackage($coverResource, $package->lang_id);
+            $childrenWithParent = $manager->getChildrenCardsWithParent($package->card_id);
+            foreach ($childrenWithParent as $child) {
+                $this->resourceManager->cloneResource($child->id, $coverResource->id);
+            }
+            return redirect()->route($ret_route,$newPackage->id)->with('flash_message_success',  __('messages.package-clone-success'));
         }
-        return redirect()->route($ret_route,$newPackage->id)->with('flash_message_success',  'Success! The resource package has been copied');
+        catch (\Exception $e){
+            return redirect()->route($ret_route,$newPackage->id)->with('flash_message_success',  __('messages.package-clone-failure'));
+        }
     }
 
 
