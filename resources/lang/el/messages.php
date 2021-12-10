@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'creation-success' => 'The resource package has been successfully created',
     "communication_cards_tutorial_step_1_title"  => "Εξερεύνησε τα διαθέσιμα πακέτα επικοινωνίας",
     "communication_cards_tutorial_step_2_title" => "Κατέβασε τα πακέτα που σου αρέσουν",
     "communication_cards_tutorial_step_3_title" => "Κάτι δεν σε καλύπτει; Φτιάξε δικές σου κάρτες και πακέτα",

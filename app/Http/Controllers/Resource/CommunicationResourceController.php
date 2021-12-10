@@ -85,7 +85,7 @@ class CommunicationResourceController extends Controller
                 $resourcePackage = $this->communicationResourcesPackageManager->getResourcesPackageWithCoverCard($resource->resource_parent_id);
             }
             $redirect_id = $resourcePackage->id;
-            return redirect()->route('communication_resources.edit', $redirect_id)->with('flash_message_success', 'The resource package has been successfully created');
+            return redirect()->route('communication_resources.edit', $redirect_id)->with('flash_message_success',__('messages.creation-success'));
         } catch (Exception $e) {
             return redirect()->with('flash_message_failure', 'Failure - resource card has not been added');
         }
