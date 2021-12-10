@@ -316,7 +316,7 @@ class ResourceController extends Controller
             return redirect()->route($ret_route,$newPackage->id)->with('flash_message_success',  __('messages.package-clone-success'));
         }
         catch (\Exception $e){
-            return redirect()->route($ret_route,$newPackage->id)->with('flash_message_success',  __('messages.package-clone-failure'));
+            return redirect()->route($ret_route,$newPackage->id)->with('flash_message_failure',  __('messages.package-clone-failure'));
         }
     }
 
