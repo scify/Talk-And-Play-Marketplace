@@ -281,9 +281,9 @@ class ResourceController extends Controller
             abort(404);
         }
         catch (\Exception $e) {
-            return redirect()->back()->with('flash_message_failure', __('messages.package-delete-success'));
+            return redirect()->back()->with('flash_message_failure', __('messages.package-delete-failure'));
         }
-        return redirect()->back()->with('flash_message_success',   __('messages.package-delete-failure'));
+        return redirect()->back()->with('flash_message_success',   __('messages.package-delete-success'));
     }
 
 
