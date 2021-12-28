@@ -12,19 +12,19 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'email_label' => 'E-Mail Address',
-    'password_label' => 'Password',
-    'confirm_password_label' => 'Confirm Password',
-    'remember_me_label' => 'Remember Me',
-    'login_btn' => 'Login',
-    'forgot_password_link' => 'Forgot Your Password?',
-    'register_btn' => 'Register',
+    'email_label' => 'E-Mail Adresse',
+    'password_label' => 'Passwort',
+    'confirm_password_label' => 'Bestätigen Sie Ihr Passwort',
+    'remember_me_label' => 'Erinnern Sie sich',
+    'login_btn' => 'Anmelden',
+    'forgot_password_link' => 'Haben Sie Ihr Passwort vergessen?',
+    'register_btn' => 'Registrieren',
     'name_label' => 'Name',
-    'reset_password' => 'Reset Password',
-    'reset_password_btn' => 'Reset Password',
-    'send_password_reset_link' => 'Send Password Reset Link',
-    'failed' => 'These credentials do not match our records.',
-    'password' => 'The provided password is incorrect.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-    'logout' => 'Logout'
+    'reset_password' => 'Passwort zurücksetzen',
+    'reset_password_btn' => 'Passwort zurücksetzen',
+    'send_password_reset_link' => 'Link zum Zurücksetzen des Passworts senden',
+    'failed' => 'Diese Anmeldedaten stimmen nicht mit unseren Aufzeichnungen überein.',
+    'password' => 'Das angegebene Passwort ist falsch.',
+    'throttle' => 'Zu viele Anmeldeversuche. Bitte versuchen Sie es in :Sekunden erneut.',
+    'logout' => 'Abmelden'
 ];
