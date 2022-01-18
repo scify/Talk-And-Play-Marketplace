@@ -30,7 +30,6 @@
             </div>
             <hr/>
             <div class="container-sm px-5">
-mai
                 <!-- Content here -->
                 <div class="mb-3">
                     <label for="category_name" class="form-label">Όνομα <span style="color:#ff0000">*</span></label>
