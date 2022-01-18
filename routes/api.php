@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
+Route::middleware(['throttle:api'])->group(function () {
     Route::get("/content-languages", [ResourceController::class, 'getContentLanguages'])->name('content_languages.get');
     Route::get("/communication-resources-packages", [CommunicationResourceController::class, 'getCommunicationResourcePackages'])->name('communication_resources.get');
     Route::get("/resources-package/user-rating", [ResourcePackageRatingController::class, 'getUserRatingForResourcesPackage'])->name('resources-package.user-rating.get');

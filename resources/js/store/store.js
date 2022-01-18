@@ -77,8 +77,7 @@ export default new Vuex.Store({
                 axios.post(url, data,
                     {
                         headers: {
-                            'Accept': 'application/json',
-                            'Authorization': 'Bearer ' + process.env.MIX_API_AUTH_TOKEN
+                            'Accept': 'application/json'
                         }
                     })
                     .then(function (response) {
@@ -106,8 +105,7 @@ export default new Vuex.Store({
                 axios.get(url,
                     {
                         headers: {
-                            'Accept': 'application/json',
-                            'Authorization': 'Bearer ' + process.env.MIX_API_AUTH_TOKEN
+                            'Accept': 'application/json'
                         }
                     })
                     .then(function (response) {
