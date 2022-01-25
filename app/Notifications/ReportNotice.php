@@ -12,7 +12,7 @@ use App\Models\User;
 class ReportNotice extends Notification implements ShouldQueue
 {
     use Queueable;
-    protected Resource $coverResourceCardName;
+    protected String $coverResourceCardName;
     protected ResourcesPackage $package;
     protected String $reportComment;
     protected String $reportReason;

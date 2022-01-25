@@ -14,6 +14,7 @@ class ReportResponseNotice extends Notification implements ShouldQueue
     protected String $resource_name;
     protected String $response;
     protected String $reporter_name;
+    protected String $coverResourceCardName;
     /**
      * Create a new notification instance.
      *

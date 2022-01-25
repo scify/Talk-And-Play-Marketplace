@@ -12,7 +12,7 @@ use Illuminate\Notifications\Notification;
 class AcceptanceNotice extends Notification implements ShouldQueue
 {
     use Queueable;
-    protected Resource $coverResourceCardName;
+    protected String $coverResourceCardName;
     protected String $username;
     /**
      * Create a new notification instance.

@@ -11,7 +11,7 @@ use App\Models\Resource\Resource;
 class RejectionNotice extends Notification implements ShouldQueue
 {
     use Queueable;
-    protected Resource $coverResourceCardName;
+    protected String $coverResourceCardName;
     protected String $rejectionMessage;
     protected String $rejectionReason;
     protected String $username;
