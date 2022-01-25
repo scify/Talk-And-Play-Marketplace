@@ -11,6 +11,7 @@ use App\BusinessLogicLayer\Resource\GameResourcesPackageManager;
 use App\BusinessLogicLayer\Resource\ResponseGameResourcesPackageManager;
 use App\BusinessLogicLayer\User\UserManager;
 use App\Models\User;
+use App\Notifications\AcceptanceNotice;
 use App\Notifications\AdminNotice;
 use App\Repository\Resource\ResourceStatusesLkp;
 use App\Repository\Resource\ResourceTypeLkpRepository;
@@ -179,7 +180,7 @@ class ResourceController extends Controller
 
     public function submit(int $id): \Illuminate\Http\RedirectResponse
     {
-        return $this->approve($id); //TODO: uncomment to enable pending package approval by admin
+
         $package = $this->resourcesPackageManager->getResourcesPackage($id);
         $redirect_route = $package->type_id===ResourceTypesLkp::COMMUNICATION ? 'communication_resources.index' : 'game_resources.index';
         $admins = $this->userManager->get_admin_users();
@@ -200,11 +201,15 @@ class ResourceController extends Controller
     }
 
 
-    public function approve(int $id):\Illuminate\Http\RedirectResponse{
-        $package = $this->resourcesPackageManager->getResourcesPackage($id);
+    public function approve(Request $request):\Illuminate\Http\RedirectResponse{
+        $data = $request->all();
+        $package = $this->resourcesPackageManager->getResourcesPackage($data['id']);
         $redirect_route = $package->type_id===ResourceTypesLkp::COMMUNICATION ? 'communication_resources.index' : 'game_resources.index';
         try {
-            $this->resourcesPackageManager->approveResourcesPackage($id);
+            $this->resourcesPackageManager->approveResourcesPackage($data['id']);
+            $coverResourceCardName = $this->resourceManager->getResource($package->card_id)->name;
+            $creator = $this->userManager->getUser($package['creator_user_id']);
+            Notification::send( $creator, new AcceptanceNotice($coverResourceCardName,$creator->name));
             return redirect()->route($redirect_route)->with('flash_message_success', __('messages.package-approve-success'));
 
         } catch (\Exception $e) {
