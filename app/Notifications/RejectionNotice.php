@@ -6,26 +6,27 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\Models\Resource\ResourcesPackage;
 use App\Models\Resource\Resource;
 
-
-class AdminNotice extends Notification implements ShouldQueue
+class RejectionNotice extends Notification implements ShouldQueue
 {
     use Queueable;
-    protected ResourcesPackage $package;
     protected Resource $coverResourceCardName;
+    protected String $rejectionMessage;
+    protected String $rejectionReason;
+    protected String $username;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($package, $coverResourceCardName)
+    public function __construct($coverResourceCardName, $rejectionMessage, $rejectionReason, $username)
     {
         $this->afterCommit = true;
-        $this->package = $package;
         $this->coverResourceCardName = $coverResourceCardName;
-
+        $this->rejectionReason= $rejectionReason;
+        $this->rejectionMessage = $rejectionMessage;
+        $this->username = $username;
     }
 
     /**
@@ -45,18 +46,18 @@ class AdminNotice extends Notification implements ShouldQueue
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
-    {
+    public function toMail($notifiable){
 
-        $url = Route('resources_packages.my_packages');
+        $url = Route('resources.my_profile');
         return (new MailMessage)
-            ->greeting('Submitted Package Details')
-            ->subject('TnP: Confirm New Package Submission / '.$this->coverResourceCardName)
-            ->line("Package ID:\t".$this->package->id)
-            ->line("Package Name:\t".$this->coverResourceCardName)
+            ->greeting('Greetings '.$this->username.'! Thank you for using our platform to support people fighting with brain paralysis.')
+            ->subject('Talk and Play Marketplace: Your submitted package was rejected')
+            ->line('We regret to inform you that your submitted package titled "'.$this->coverResourceCardName.'" was rejected by a moderator')
+            ->line('Reason for rejection: "'.$this->rejectionReason.'"')
+            ->line('Moderator comments: "'.$this->rejectionMessage.'"')
+            ->line("Exercise Name:\t".$this->coverResourceCardName)
             ->line("User Name:\t".$notifiable->name)
             ->line("User Email:\t".$notifiable->email)
-            ->line("User ID:\t".$this->package->creator_user_id)
             ->action('View Submitted Packages', $url);
     }
 
