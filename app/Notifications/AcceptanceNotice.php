@@ -45,7 +45,7 @@ class AcceptanceNotice extends Notification implements ShouldQueue
      */
     public function toMail($notifiable){
 
-        $url = Route('resources.my_profile').'#approved';
+        $url = Route('resources_packages.my_packages').'#approved';
         return (new MailMessage)
             ->greeting('Greetings '.$this->username.'! Thank you for using our platform to support people fighting with brain paralysis.')
             ->subject('Talk and Play Marketplace: Your submitted package titled "'. $this->coverResourceCardName.'" was approved!')

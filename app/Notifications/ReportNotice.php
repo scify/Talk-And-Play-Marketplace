@@ -54,7 +54,7 @@ class ReportNotice extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
 
-        $url = Route('administration.exercises_management') . '#pending';
+        $url = Route('administration.packages_management') . '#pending';
         return (new MailMessage)
             ->greeting('Greetings Admin! Please review the reported package')
             ->subject('Talk and Play Administration: Package REPORTED /  ' . $this->coverResourceCardName)

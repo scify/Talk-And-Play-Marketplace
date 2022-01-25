@@ -47,7 +47,7 @@ class ReportResponseNotice extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $url = Route('resources.my_profile');
+        $url = Route('resources_packages.my_packages');
         return (new MailMessage)
             ->greeting('Greetings '.$this->reporter_name.'! Thank you for using our platform to support people fighting with brain paralysis.')
             ->subject('Talk and Play Marketplace: Package Report: '.$this->coverResourceCardName)
