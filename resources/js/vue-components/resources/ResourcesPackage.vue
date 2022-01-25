@@ -328,7 +328,8 @@ export default {
                 url: this.getRejectPackageRoute(),
                 data:{
                     id: this.resourcesPackage.id,
-                    rejection_message: this.rejectionMessage
+                    rejection_reason: this.rejectionReason,
+                    rejection_comment: this.rejectionComment
                 },
                 urlRelative: false
             }).then(_ => {
