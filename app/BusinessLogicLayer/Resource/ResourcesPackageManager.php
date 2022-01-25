@@ -6,6 +6,7 @@ namespace App\BusinessLogicLayer\Resource;
 use App\Models\Resource\Resource;
 use App\Models\Resource\ResourcesPackage;
 use App\Repository\ContentLanguageLkpRepository;
+use App\Repository\ReportsRepository;
 use App\Repository\Resource\ResourceRepository;
 use App\Repository\Resource\ResourcesPackageRepository;
 use App\Repository\Resource\ResourceStatusesLkp;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ResourcesPackageManager extends ResourceManager {
     public ResourcesPackageRepository $resourcesPackageRepository;
+    protected ReportsRepository $reportsRepository;
     protected ResourceManager $resourceManager;
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
     protected int $type_id;
@@ -23,6 +25,7 @@ class ResourcesPackageManager extends ResourceManager {
     public function __construct(ResourceRepository           $resourceRepository,
                                 ContentLanguageLkpRepository $contentLanguageLkpRepository,
                                 ResourcesPackageRepository   $resourcesPackageRepository,
+                                ReportsRepository $reportsRepository,
                                 int                          $type_id = -1) {
         $this->resourcesPackageRepository = $resourcesPackageRepository;
         $this->type_id = $type_id;
@@ -166,5 +169,17 @@ XML;
     public function getPendingResourcePackages(){
         return  $this->resourcesPackageRepository->getPendingResourcePackages();
     }
+
+
+    public function reportResourcesPackage($id, $reporting_user_id, $reportReason, $reportComment){
+        $storeArr = [
+            'package_id' => $id,
+            'reporting_user_id' => $reporting_user_id,
+            'reason' =>  $reportReason,
+            'comment' => $reportComment,
+        ];
+        $reports = $this->reportsRepository->create($storeArr);
+    }
+
 
 }

@@ -15,6 +15,8 @@ use App\Models\User;
 use App\Notifications\AcceptanceNotice;
 use App\Notifications\AdminNotice;
 use App\Notifications\RejectionNotice;
+use App\Notifications\ReportNotice;
+use App\Notifications\ReportResponseNotice;
 use App\Repository\Resource\ResourceStatusesLkp;
 use App\Repository\Resource\ResourceTypeLkpRepository;
 use App\Repository\Resource\ResourceTypesLkp;
@@ -239,6 +241,43 @@ class ResourceController extends Controller
             return redirect()->back()->with('flash_message_failure',  __('messages.package-reject-failure'));
         }
     }
+
+    public function report(Request $request):\Illuminate\Http\RedirectResponse{
+        $data = $request->all();
+        $reportComment = $data['report_comment'];
+        $reportReason= $data['report_reason'];
+        $package = $this->resourcesPackageManager->getResourcesPackage($data['id']);
+        $coverResourceCardName = $this->resourceManager->getResource($package->card_id)->name;
+
+        try {
+            $creator = $this->userManager->getUser($package->creator_user_id);
+            $reporter = Auth::user();
+            $admins = $this->userManager->get_admin_users();
+            $this->resourcesPackageManager->reportResourcesPackage($data['id'], $reporter['id'], $reportReason, $reportComment);
+            Notification::send( $admins, new ReportNotice($package,$coverResourceCardName, $reportComment, $reportReason, $creator, $reporter));
+            return redirect()->back()->with('flash_message_success','Reported successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('flash_message_failure', __('Failed to report'));
+        }
+
+    }
+
+    public function respond(Request $request):\Illuminate\Http\RedirectResponse{
+        $data = $request->all();
+        $response = $data['response'];
+        $package = $this->resourcesPackageManager->getResourcesPackage($data['id']);
+        $coverResourceCardName = $this->resourceManager->getResource($package->card_id)->name;
+        $reporting_user_id = $data['reporting_user_id'];
+        try {
+            $reporter = $this->userManager->getUser($reporting_user_id);
+            Notification::send( $reporter, new ReportResponseNotice($coverResourceCardName, $response, $reporter->name));
+            return redirect()->back()->with('flash_message_success','Responded successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('flash_message_failure', __('Failed to report'));
+        }
+
+    }
+
 
 
 

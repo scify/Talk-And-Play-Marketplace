@@ -3,6 +3,7 @@
 namespace App\BusinessLogicLayer\Resource;
 
 use App\Repository\ContentLanguageLkpRepository;
+use App\Repository\ReportsRepository;
 use App\Repository\Resource\ResourceRepository;
 use App\Repository\Resource\ResourcesPackageRepository;
 use App\Repository\Resource\ResourceTypeLkpRepository;
@@ -12,15 +13,18 @@ use Illuminate\Support\Collection;
 
 class GameResourcesPackageManager extends ResourcesPackageManager {
 
-    protected $resourceTypeLkpRepository;
+    protected ResourceTypeLkpRepository $resourceTypeLkpRepository;
+    protected ReportsRepository $reportsRepository;
 
     public function __construct(ResourceTypeLkpRepository    $resourceTypeLkpRepository,
                                 ResourceRepository           $resourceRepository,
                                 ContentLanguageLkpRepository $contentLanguageLkpRepository,
                                 ResourcesPackageRepository   $resourcesPackageRepository,
+                                ReportsRepository $reportsRepository,
                                 int                          $type_id = -1) {
         $this->resourceTypeLkpRepository = $resourceTypeLkpRepository;
-        parent::__construct($resourceRepository, $contentLanguageLkpRepository, $resourcesPackageRepository, $type_id);
+        $this->reportsRepository = $reportsRepository;
+        parent::__construct($resourceRepository, $contentLanguageLkpRepository, $resourcesPackageRepository, $reportsRepository, $type_id);
     }
 
     public function getGameResourcesPackageIndexPageVM(): GameResourcePackagesIndexPage {

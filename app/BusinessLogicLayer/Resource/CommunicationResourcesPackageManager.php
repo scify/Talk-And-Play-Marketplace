@@ -6,11 +6,13 @@ namespace App\BusinessLogicLayer\Resource;
 use App\Models\Resource\Resource;
 use App\Models\Resource\ResourcesPackage;
 use App\Repository\ContentLanguageLkpRepository;
+use App\Repository\ReportsRepository;
 use App\Repository\Resource\ResourceRepository;
 use App\Repository\Resource\ResourcesPackageRepository;
 use App\Repository\Resource\ResourceTypesLkp;
 use App\ViewModels\CreateEditResourceVM;
 use App\ViewModels\DisplayPackageVM;
+use Facade\FlareClient\Report;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -19,14 +21,16 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager {
     public ResourcesPackageRepository $resourcesPackageRepository;
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
     protected ResourceRepository $resourceRepository;
+    protected ReportsRepository $reportsRepository;
     const maximumCardsThreshold = 10;
     const type_id = ResourceTypesLkp::COMMUNICATION;
 
-    public function __construct(ResourceRepository $resourceRepository, ContentLanguageLkpRepository $contentLanguageLkpRepository, ResourcesPackageRepository $resourcesPackageRepository) {
+    public function __construct(ResourceRepository $resourceRepository, ContentLanguageLkpRepository $contentLanguageLkpRepository, ResourcesPackageRepository $resourcesPackageRepository, ReportsRepository $reportsRepository) {
         $this->resourceRepository = $resourceRepository;
+        $this->reportsRepository = $reportsRepository;
         $this->contentLanguageLkpRepository = $contentLanguageLkpRepository;
         $this->resourcesPackageRepository = $resourcesPackageRepository;
-        parent::__construct($resourceRepository, $contentLanguageLkpRepository, $resourcesPackageRepository, self::type_id);
+        parent::__construct($resourceRepository, $contentLanguageLkpRepository, $resourcesPackageRepository, $reportsRepository , self::type_id);
     }
 
 
