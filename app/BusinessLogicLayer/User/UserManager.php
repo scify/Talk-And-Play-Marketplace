@@ -82,4 +82,9 @@ class UserManager {
                 return $this->userRepository->find($obj->id);
             });
     }
+
+    public function getUser($id)
+    {
+        return $this->userRepository->find($id);
+    }
 }
