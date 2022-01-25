@@ -61,6 +61,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post("/resources/approve/{id}", [ResourceController::class, 'approve'])->name('resources.approve');
     Route::post("/resources/reject/{id}", [ResourceController::class, 'reject'])->name('resources.reject');
     Route::put("/resources/submit/{id}", [ResourceController::class, 'submit'])->name('resources.submit');
+    Route::post("/resources/report/{id}", [ResourceController::class, 'report'])->name('resources.report');
+
     Route::resource('resources', ResourceController::class)
         ->except([
             'index', 'show', 'create', 'edit'

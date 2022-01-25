@@ -11,6 +11,7 @@ use App\Repository\Resource\ResourceRepository;
 use App\Repository\Resource\ResourcesPackageRepository;
 use App\Repository\Resource\ResourceStatusesLkp;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use InvalidArgumentException;
 use Illuminate\Support\Facades\Storage;
@@ -179,6 +180,20 @@ XML;
             'comment' => $reportComment,
         ];
         $reports = $this->reportsRepository->create($storeArr);
+    }
+
+    public function getReportedPackages(){
+
+        $reports =  $this->reportsRepository->all();
+        $packagesWithReportInfo = Collection::empty();
+        foreach($reports as $report){
+            $package = $this->resourcesPackageRepository->find($report->package_id);
+            $package->reportData = $report;
+            $package->creator = $report->creator;
+            $packagesWithReportInfo->push($package);
+
+        }
+        return $packagesWithReportInfo;
     }
 
 

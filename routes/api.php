@@ -23,6 +23,8 @@ Route::middleware(['throttle:api'])->group(function () {
     Route::get("/resources-package/user-rating", [ResourcePackageRatingController::class, 'getUserRatingForResourcesPackage'])->name('resources-package.user-rating.get');
     Route::post("/resources-package/user-rating", [ResourcePackageRatingController::class, 'storeOrUpdateRating'])->name('resources-package.user-rating.post');
     Route::get("/game-resources-packages/", [GameResourceController::class, 'getGameResourcePackages'])->name('game_resources.get');
+    Route::get("/resources/user-reports", [ResourceController::class, 'getReports'])->name('resources.user-reports.get');
+    Route::post("/resources/respond", [ResourceController::class, 'respond'])->name('resources.respond.post');
 
 
 });

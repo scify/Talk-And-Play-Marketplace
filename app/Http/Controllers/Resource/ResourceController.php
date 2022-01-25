@@ -156,6 +156,7 @@ class ResourceController extends Controller
         try {
             $request['status_id'] = ResourceStatusesLkp::CREATED_PENDING_APPROVAL;
             $ret = $this->resourceManager->updateResource($request, $id);
+
             return redirect()->back()->with('flash_message_success',  __('messages.update-success'));
         } catch (\Exception $e) {
             return redirect()->back()->with('flash_message_failure', __('messages.update-failure'));
@@ -372,11 +373,16 @@ class ResourceController extends Controller
         }
     }
 
-
-
     public function getContentLanguages()
     {
         return $this->resourceManager->getContentLanguagesForResources();
+    }
+
+    public function getReports(Request $request)
+    {
+        $reportedPackagesWithMetadata = $this->resourcesPackageManager->getReportedPackages();
+        return $reportedPackagesWithMetadata;
+
     }
 
 }

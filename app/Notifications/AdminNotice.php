@@ -14,7 +14,7 @@ class AdminNotice extends Notification implements ShouldQueue
 {
     use Queueable;
     protected ResourcesPackage $package;
-    protected Resource $coverResourceCardName;
+    protected String $coverResourceCardName;
     /**
      * Create a new notification instance.
      *

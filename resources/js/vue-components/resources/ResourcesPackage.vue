@@ -200,11 +200,21 @@
             <template v-slot:body>
                 <div class="container pt-3 pb-5">
                     <div class="row">
-                        <span>Write rejection message</span>
+                        <select v-model="rejectionReason">
+                            <option disabled value="">Select rejection reason</option>
+                            <option> Αυτή η άσκηση παραβιάζει τους όρους χρήσης της πλατφορμας</option>
+                            <option> Αυτή η άσκηση περιέχει ακατάλληλο περιεχόμενο</option>
+                            <option> Aυτή η άσκηση παραβιάζει τους κανονισμούς περί πνευματικής ιδιοκτησίας</option>
+                            <option> Το περιεχόμενο της άσκησης δεν είναι ευκρινές / ευανάγνωστο</option>
+                            <option> Άλλο </option>
+                        </select>
+                        <p style="white-space: pre-line;">{{  }}</p>
+                        <br>
+
                         <p style="white-space: pre-line;">{{  }}</p>
                         <br>
                         <div id="rejectForm">
-                            <textarea rows="4" cols="50" v-model="rejectionMessage"></textarea>
+                            <textarea rows="4" cols="50" v-model="rejectionComment"></textarea>
                             <p>{{trans('messages.warning_rejection')}}</p>
                             <button @click="rejectPackage" class="btn btn-danger">
                                 {{trans('messages.reject_package')}}
@@ -246,7 +256,8 @@ export default {
             userRating: 0,
             totalRating: 0,
             maxRating: 5,
-            rejectionMessage: "this package violates the platform rules of conduct",
+            rejectionComment: "this package violates the platform rules of conduct",
+            rejectionReason: "this package violates the platform rules of conduct",
             resourceChildrenModalOpen: false,
             rateModalOpen: false,
             deleteModalOpen: false,
@@ -329,6 +340,14 @@ export default {
             this.packageRejectionModalOpen = true;
 
         },
+        showResponseModal() {
+            this.responseModalOpen = true;
+        },
+
+        showPackagesReportModal() {
+            this.packagesReportModalOpen = true;
+        },
+
         getApprovePackageRoute(){
             return route('resources.approve', this.resourcesPackage.id);
         },
@@ -336,10 +355,26 @@ export default {
         approvePackage(){
             this.post({
                 url: this.getApprovePackageRoute(),
+                data: {
+                    id: this.resourcesPackage.id
+                },
                 urlRelative: false
              }).then(response => {
                 console.log(response);
             });
+            window.location.reload()
+        },
+
+        respond(){
+            this.post({
+                url: this.getResponseRoute(),
+                data:{
+                    response: this.response,
+                    resource_name: this.resource.name,
+                    reporting_user_id: this.resource.reportData.reporting_user_id
+                },
+                urlRelative: false
+            }).then(_ => {});
             window.location.reload()
         },
 
@@ -391,6 +426,9 @@ export default {
         },
         isGamePackage() {
             return this.packagesType === "GAME";
+        },
+        getResponseRoute(){
+            return route('resources.respond.post');
         },
         isAdminPageForPackageApproval(){
             console.log(this.approvePackages )
