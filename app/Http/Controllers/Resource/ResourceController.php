@@ -10,6 +10,7 @@ use App\BusinessLogicLayer\Resource\TimeGameResourcesPackageManager;
 use App\BusinessLogicLayer\Resource\GameResourcesPackageManager;
 use App\BusinessLogicLayer\Resource\ResponseGameResourcesPackageManager;
 use App\BusinessLogicLayer\User\UserManager;
+use App\Models\Resource\Resource;
 use App\Models\User;
 use App\Notifications\AcceptanceNotice;
 use App\Notifications\AdminNotice;
@@ -150,6 +151,7 @@ class ResourceController extends Controller
             throw(new \ValueError("Type not supported"));
         }
         try {
+            $request['status_id'] = ResourceStatusesLkp::CREATED_PENDING_APPROVAL;
             $ret = $this->resourceManager->updateResource($request, $id);
             return redirect()->back()->with('flash_message_success',  __('messages.update-success'));
         } catch (\Exception $e) {
