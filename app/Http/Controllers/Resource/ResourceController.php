@@ -14,6 +14,7 @@ use App\Models\Resource\Resource;
 use App\Models\User;
 use App\Notifications\AcceptanceNotice;
 use App\Notifications\AdminNotice;
+use App\Notifications\RejectionNotice;
 use App\Repository\Resource\ResourceStatusesLkp;
 use App\Repository\Resource\ResourceTypeLkpRepository;
 use App\Repository\Resource\ResourceTypesLkp;
@@ -221,12 +222,17 @@ class ResourceController extends Controller
 
     public function reject(Request $request):\Illuminate\Http\RedirectResponse{
         $data = $request->all();
+        $rejectionMessage = $data['rejection_comment'];
+        $rejectionReason = $data['rejection_reason'];
         $package = $this->resourcesPackageManager->getResourcesPackage($data['id']);
-        $rejectionMessage = $data['rejection_message'];
         $redirect_route = $package->type_id===ResourceTypesLkp::COMMUNICATION ? 'communication_resources.index' : 'game_resources.index';
 
         try {
+            $creator = $this->userManager->getUser($package['creator_user_id']);
             $this->resourcesPackageManager->rejectResourcesPackage($data['id']);
+            $coverResourceCardName = $this->resourceManager->getResource($package->card_id)->name;
+            Notification::send( $creator, new RejectionNotice($coverResourceCardName, $rejectionMessage, $rejectionReason, $creator->name));
+
             return redirect()->route($redirect_route)->with('flash_message_success', __('messages.package-reject-success'));
 
         } catch (\Exception $e) {
