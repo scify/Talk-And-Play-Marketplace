@@ -61,7 +61,120 @@
 */
 
 
+.form-new {
+    border: 2px solid grey;
+    max-width: 830px;
+    margin: 0 auto;
 
+    &__title {
+        font-size: 2rem;
+        font-weight: 600;
+    }
+
+    &__fields {
+        span,
+        .required-text {
+            color: rgb(255, 0, 0);
+            font-size: 1.4rem;
+            font-weight: 400;
+        }
+    }
+
+    &__prototype-file,
+    a {
+        color: $gray-600;
+        &:link {
+            color: #ffffff !important;
+        }
+        &:hover {
+            color: #ffffff !important;
+        }
+
+    }
+
+    .example{
+        a {
+            color: $blue-dark !important;
+            &:hover {
+                color:  $blue-light  !important;
+            }
+            &:link {
+                color: $green;
+            }
+        }
+
+    }
+
+    .form-new__submmit-btn{
+        a{
+            color: $blue-light;
+            outline: 3px solid $blue-light;
+        }
+    }
+
+    &__prototype-file {
+        background-color:  $blue-light;
+        font-size: small;
+        padding: 0.5rem;
+        &:hover{
+            color: black !important;
+        }
+    }
+
+    &__submit-exercise-file {
+        .pdf-file {
+            .btn {
+                min-width: 5rem;
+
+                &.circle {
+                    background: white;
+                    border: 2px solid black;
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                }
+            }
+
+            .file {
+                position: relative;
+                overflow: hidden;
+
+                input {
+                    position: absolute;
+                    font-size: 50px;
+                    opacity: 0;
+                    right: 0;
+                    top: 0;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .uploaded-file {
+            border: 1px solid grey;
+            display: inline-block;
+            color: var(--color-green);
+
+            button {
+                min-width: 5rem;
+            }
+        }
+        .copyright-rules {
+            border-top: 1px solid grey;
+            border-bottom: 1px solid grey;
+        }
+
+
+        .admin-message-options {
+            background-color: orange;
+            color: #ffffff;
+        }
+    }
+
+    &__submmit-btn {
+        flex-wrap: wrap;
+    }
+}
 
 
 .all-cards {

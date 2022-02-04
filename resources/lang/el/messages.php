@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'content-guideline-terms' => 'The packages/cards you upload to the platform must have content that is consistent with the structure of the original file  <a target="_blank" href="/storage/resources/content-guidelines/Talk%20&%20Play%20Marketplace%20-%20Content%20Guidelines%20-%20GR.pdf"> here </a>.',
     'package-create-success' => 'Επιτυχία! Το πακέτο δημιουργήθηκε',
     'package-create-failure' => 'Προσοχή! Το πακέτο δεν έχει δημιουργηθεί',
     'card-create-success' => 'Επιτυχία! Η κάρτα δημιουργήθηκε',
