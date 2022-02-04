@@ -43,7 +43,7 @@ class ShapesIntegrationManager {
             'first_name' => 'Tester',
             'last_name' => 'Test',
         ]);
-       $this->storeShapesUserLocally($request);
+        return $this->storeShapesUserLocally($request);
     }
 
     public function storeShapesUserLocally(Request $request){
