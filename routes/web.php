@@ -6,6 +6,7 @@ use App\Http\Controllers\Resource\ResourceController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ShapesIntegrationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,10 @@ Route::get('/lang/{lang}', [UserController::class, 'setLangLocaleCookie'])->name
 Route::get('/communication-cards', [CommunicationResourceController::class, 'index'])->name('communication_resources.index');
 Route::get('/game-cards', [GameResourceController::class, 'index'])->name('game_resources.index');
 //TODO new route for resources with only methods ->only([]) without aliases
+Route::get("/login-shapes/", [ShapesIntegrationController::class, 'login'])->name('shapes.login');
+Route::get("/register-shapes/", [ShapesIntegrationController::class, 'register'])->name('shapes.register-shapes');
+Route::post("/request-shapes-user-creation/", [ShapesIntegrationController::class, 'request_create_user'])->name('shapes.request-create-user');
+Route::post("/request-shapes-user-login_token/", [ShapesIntegrationController::class, 'request_login_token'])->name('shapes.request-login-token');
 
 #Auth::routes(['verify' => true]);
 Route::middleware(['auth'])->group(function () {

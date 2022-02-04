@@ -4,6 +4,7 @@
 namespace App\BusinessLogicLayer\User;
 
 
+use App\Actions\Fortify\PasswordValidationRules;
 use App\BusinessLogicLayer\UserRole\UserRoleManager;
 use App\Models\User;
 use App\Repository\User\UserRepository;
@@ -14,7 +15,7 @@ class UserManager {
 
     protected $userRepository;
     protected $userRoleManager;
-
+    use PasswordValidationRules;
     public function __construct(UserRoleManager $userRoleManager, UserRepository $userRepository) {
         $this->userRoleManager = $userRoleManager;
         $this->userRepository = $userRepository;
@@ -33,12 +34,15 @@ class UserManager {
         $user = $this->userRepository->create([
             'name' => $requestData["name"],
             'email' => $requestData["email"],
-            'password' => $requestData["password"]#todo perform trim before hashing
+            'password' => $requestData["password"]
         ]);
-        $this->userRoleManager->assignRegisteredUserRoleTo($user);
+        if(key_exists("shapes",$requestData)){
+            $this->userRoleManager->assignShapesUserRoleTo($user);
+        }else{
+            $this->userRoleManager->assignRegisteredUserRoleTo($user);
+        }
         if (isset($requestData["admin"]) && $requestData["admin"])
             $this->userRoleManager->assignAdminUserRoleTo($user);
-
         return $user;
     }
 

@@ -5,7 +5,9 @@ namespace App\Providers;
 use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
+use App\BusinessLogicLayer\UserRole\UserRoleManager;
 use App\Models\User;
+use App\ViewModels\RegistrationFormVM;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -30,9 +32,14 @@ class FortifyServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public UserRoleManager $userRoleManager;
+
+    public function boot(UserRoleManager $userRoleManager)
     {
+        $this->userRoleManager = $userRoleManager;
+
         Fortify::registerView(function () {
+            $registrationFormVM = new RegistrationFormVM($this->userRoleManager);
             return view('auth.register');
         });
 

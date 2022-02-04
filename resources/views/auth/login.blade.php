@@ -76,9 +76,10 @@
                 </div>
             </div>
             <div class="row justify-content-center mt-3">
-                <a class="btn btn-link" style="color: darkred;}" href="{{ route('register') }} ">
-                    {{ __('auth.register_btn') }}
-                </a>
+                    <a class="btn btn-link" href="{{ route('shapes.login') }}">Login/Register with a SHAPES account</a>
+                    <p style="font-size: xx-small; text-align:center; font-style: italic">Create an account shared across all SHAPES - powered platforms</p>
+                    <img alt="Shapes Logo" title="" src="img/shapes_logo.png" style="width:70px">
+
             </div>
         </div>
     </div>

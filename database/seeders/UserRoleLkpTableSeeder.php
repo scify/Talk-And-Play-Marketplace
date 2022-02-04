@@ -18,8 +18,9 @@ class UserRoleLkpTableSeeder extends Seeder
         echo "\nRunning User Role lkp Seeder...\n";
 
         $data = [
-            ['id'=> 1, 'name'=>'Platform Administrator'],
-            ['id'=> 2, 'name'=>'Transcriber']
+            ['id'=> 1,  'name'=>'Platform Administrator'],
+            ['id'=> 2,  'name'=>'Transcriber'],
+            ['id'=> 3,  'name'=>'Shapes User']
         ];
 
         foreach ($data as $userRoleLkp) {

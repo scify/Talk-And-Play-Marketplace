@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Gate;
 
 class UserRoleManager {
 
-    private $userRoleRepository;
+    private UserRoleRepository $userRoleRepository;
 
     public function __construct(UserRoleRepository $userRoleRepository) {
         $this->userRoleRepository = $userRoleRepository;
@@ -28,6 +28,11 @@ class UserRoleManager {
     public function assignRegisteredUserRoleTo(User $user) {
         return $this->assignRoleTo($user, UserRolesLkp::CONTENT_CREATOR);
     }
+
+    public function assignShapesUserRoleTo(User $user) {
+        return $this->assignRoleTo($user, UserRolesLkp::SHAPES_USER);
+    }
+
 
     public function assignAdminUserRoleTo(User $user) {
         return $this->assignRoleTo($user, UserRolesLkp::ADMIN);
@@ -115,5 +120,8 @@ class UserRoleManager {
 
     private function getRoleCacheKey(int $userId, int $roleId) {
         return 'user_' . $userId . '_role_' . $roleId;
+    }
+    public function getAllUserRoles() {
+        return $this->userRoleRepository->all()->where('id', '<>', 1);
     }
 }
