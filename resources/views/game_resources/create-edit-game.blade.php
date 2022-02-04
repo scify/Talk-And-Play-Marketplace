@@ -214,7 +214,9 @@
                                 </select>
                                 <!--<input type="radio" class="form-control" id="category_lang"> -->
                             </div>
-
+                            <div class="text-center form-new__prototype-file" style="font-style: italic;">
+                                <em> {!!__('messages.content-guideline-terms')!!}</em>
+                            </div>
                             <div class="mb-3">
                                 <label for="modal_upload_img" class="form-label">{{trans("messages.upload_img")}} <span
                                         style="color:#ff0000">*</span></label>
