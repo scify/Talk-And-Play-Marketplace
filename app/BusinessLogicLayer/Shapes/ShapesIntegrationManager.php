@@ -48,9 +48,9 @@ class ShapesIntegrationManager {
 
     public function storeShapesUserLocally(Request $request){
         $requestData = $request->all();
-        $requestData['name'] = 'Dianoia_user';
+        $requestData['name'] = 'Talk_and_play_user';
         $user = $this->userRepository->create($requestData);
-        $this->userRepository->update(['name' => 'Dianoia_user_' . $user->id], $user->id);
+        $this->userRepository->update(['name' => 'Talk_and_play_user_' . $user->id], $user->id);
         $this->userRoleManager->assignRegisteredUserRoleTo($user, UserRolesLkp::SHAPES_USER);
         return $this->userRepository->find($user->id);
     }
