@@ -296,6 +296,21 @@ class ResourceController extends Controller
         }
     }
 
+
+    public function reported_packages()
+    {
+        try {
+            $viewModel = $this->gameResourcesPackageManager->getGameResourcesPackageIndexPageVM();
+            $viewModel->user_id_to_get_content = Auth::id();
+            $viewModel->resourcesPackagesStatuses = [ResourceStatusesLkp::APPROVED];
+            $viewModel->isAdmin = $this->userManager->isAdmin(Auth::user());
+            return view('resources_packages.reported-packages')->with(
+                ['viewModel' => $viewModel, 'user' => Auth::user()]);
+        } catch (ModelNotFoundException $e) {
+            abort(404);
+        }
+    }
+
     public function approve_pending_packages()
     {
         try {
@@ -380,7 +395,15 @@ class ResourceController extends Controller
 
     public function getReports(Request $request)
     {
-        $reportedPackagesWithMetadata = $this->resourcesPackageManager->getReportedPackages();
+
+        $data = $request->all();
+        if($data['type_ids']) {
+            $type_ids = explode(",",$data['type_ids']);
+        }
+        else{
+            $type_ids = [ResourceTypesLkp::COMMUNICATION];
+        }
+        $reportedPackagesWithMetadata = $this->resourcesPackageManager->getReportedPackages($type_ids,$data['lang_id']);
         return $reportedPackagesWithMetadata;
 
     }

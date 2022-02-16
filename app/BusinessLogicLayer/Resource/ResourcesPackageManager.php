@@ -28,6 +28,7 @@ class ResourcesPackageManager extends ResourceManager {
                                 ResourcesPackageRepository   $resourcesPackageRepository,
                                 ReportsRepository $reportsRepository,
                                 int                          $type_id = -1) {
+        $this->reportsRepository = $reportsRepository;
         $this->resourcesPackageRepository = $resourcesPackageRepository;
         $this->type_id = $type_id;
         parent::__construct($resourceRepository, $contentLanguageLkpRepository);
@@ -182,17 +183,22 @@ XML;
         $reports = $this->reportsRepository->create($storeArr);
     }
 
-    public function getReportedPackages(){
-
+    public function getReportedPackages(array $type_ids, int $lang_id = null){
         $reports =  $this->reportsRepository->all();
         $packagesWithReportInfo = Collection::empty();
         foreach($reports as $report){
-            $package = $this->resourcesPackageRepository->find($report->package_id);
+            $package = $this->resourcesPackageRepository->getResourcesPackage($report->package_id);
             $package->reportData = $report;
             $package->creator = $report->creator;
             $packagesWithReportInfo->push($package);
-
         }
+        $packagesWithReportInfo= $packagesWithReportInfo->filter(
+            function($x) use ($type_ids, $lang_id){
+                return
+                    in_array($x->type_id, $type_ids) && $x->lang_id==$lang_id;
+            }
+        );
+        $packagesWithReportInfo = array_values($packagesWithReportInfo->toArray());
         return $packagesWithReportInfo;
     }
 

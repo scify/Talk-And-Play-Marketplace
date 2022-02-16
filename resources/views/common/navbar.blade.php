@@ -76,6 +76,12 @@
                                         {!! __('messages.approve_packages') !!}
                                     </a>
                                 </li>
+                                <li>
+                                    <a class="dropdown-item {{ UrlMatchesMenuItem("resources.user-reports.get")}}"
+                                       href="{{route('resources_packages.reported-packages')}}">
+                                        Reported Packages
+                                    </a>
+                                </li>
                             @endcan
                             <li>
                                 <hr class="dropdown-divider">

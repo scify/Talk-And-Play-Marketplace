@@ -96,6 +96,7 @@ export default {
                 return []
             }
         },
+        reportsRoute: String,
         resourcesPackagesRoute: '',
         userIdToGetContent: Number,
         resourcesPackagesStatuses: {
@@ -143,7 +144,15 @@ export default {
             this.loadingResources = true;
             this.resourcePackages = [];
             this.filteredResourcePackages = [];
-            let url = this.resourcesPackagesRoute + '?lang_id=' + this.selectedContentLanguage.id;
+            let url = "";
+            if(this.showReports()){
+                url = this.reportsRoute;
+            }
+            else {
+                url = this.resourcesPackagesRoute;
+            }
+
+            url += ('?lang_id=' + this.selectedContentLanguage.id);
             if (this.userIdToGetContent) {
                 url += ('&user_id_to_get_content=' + this.userIdToGetContent);
             }
@@ -183,6 +192,11 @@ export default {
         },
         isGamePackage() {
             return this.packagesType === "GAME";
+        },
+        showReports(){
+            console.log('reports route');
+            console.log(this.reportsRoute);
+            return this.reportsRoute && this.reportsRoute.length > 0;
         }
     }
 

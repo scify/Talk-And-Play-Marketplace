@@ -43,6 +43,7 @@
                         <li v-else>
                             <a class="dropdown-item" @click="showRateModal"><i class="fas fa-star-half-alt me-2"></i>{{   trans('messages.rate') }}</a>
                         </li>
+
                     </ul>
                 </div>
             </div>
@@ -70,6 +71,8 @@
                 <div class="rating mb-1">
                     <i v-for="index in maxRating" class="fa-star"
                        v-bind:class="{ fas: resourceHasRating(index), far: !resourceHasRating(index) }"></i>
+                    <button style="float:right" type="submit" class="btn btn--report" @click="showPackageReportModal"><i class="fas fa-exclamation-triangle hover-red "  title="Report" style="font-size:15px;color:rgba(255,0,0,0.1);padding-right:15px;">Report</i></button>
+
                 </div>
 
                 <p v-if="loggedInUserIsDifferentFromContentUser()" class="rate-text">
@@ -224,6 +227,50 @@
                 </div>
             </template>
         </modal>
+        <modal
+            @canceled="packageReportModalOpen = false"
+            id="package-report-modal"
+            class="modal"
+            :open="packageReportModalOpen"
+            :allow-close="true">
+
+            <template v-slot:header>
+                <h5 class="modal-title pl-2"> Report package
+                    <b>{{ resourcesPackage.cover_resource.name}}</b>
+                </h5>
+            </template>
+            <template v-slot:body>
+                <div class="container pt-3 pb-5">
+                    <div v-if="userLoggedIn()" class="row">
+                        <select v-model="reportReason">
+                            <option disabled value="">Choose your reason for reporting</option>
+                            <option> Αυτή η άσκηση παραβιάζει τους όρους χρήσης της πλατφορμας</option>
+                            <option> Αυτή η άσκηση περιέχει ακατάλληλο περιεχόμενο</option>
+                            <option> Aυτή η άσκηση παραβιάζει τους κανονισμούς περί πνευματικής ιδιοκτησίας</option>
+                            <option> Το περιεχόμενο της άσκησης δεν είναι ευκρινές / ευανάγνωστο</option>
+                            <option> Άλλο </option>
+                        </select>
+                        <p style="white-space: pre-line;">{{  }}</p>
+                        <br>
+                        <div id="reportForm">
+                            <p>Optionally include some comments below</p>
+                            <textarea rows="4" cols="50" v-model="reportComment"></textarea>
+                            <p>Report Package</p>
+                            <button @click="reportPackage" class="btn btn-danger">
+                                Report
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" v-else>
+                        <div class="col text-center">
+                            <a :href="getLoginRoute()" class="btn btn-primary">
+                                {{trans('messages.sign-in')}}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </modal>
     </div>
 </template>
 
@@ -258,10 +305,14 @@ export default {
             maxRating: 5,
             rejectionComment: "this package violates the platform rules of conduct",
             rejectionReason: "this package violates the platform rules of conduct",
+            reportComment: "this exercise violates the platform rules of conduct",
+            reportReason: "",
+            response: "",
             resourceChildrenModalOpen: false,
             rateModalOpen: false,
             deleteModalOpen: false,
             packageRejectionModalOpen: false,
+            packageReportModalOpen: false,
             rateTitleKey: 'rate_package_modal_body_text_no_rating'
         }
     },
@@ -434,6 +485,26 @@ export default {
         isAdminPageForPackageApproval(){
             console.log(this.approvePackages )
             return this.approvePackages === 1;
+        },
+        showPackageReportModal() {
+            this.packageReportModalOpen = true;
+        },
+        getReportPackageRoute(){
+            return route('resources.report', this.resourcesPackage.id);
+        },
+        reportPackage(){
+            console.log('report package');
+            this.post({
+                url: this.getReportPackageRoute(),
+                data:{
+                    id: this.resourcesPackage.id,
+                    report_reason: this.reportReason,
+                    report_comment: this.reportComment
+                },
+                urlRelative: false
+            }).then(_ => {
+                window.location.reload()
+            });
         },
 
 

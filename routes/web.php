@@ -62,6 +62,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get("/communication-cards/download/package/{id}", [CommunicationResourceController::class, 'download_package'])->name('communication_resources.download_package');
 
+    Route::get("/resources/reported-packages", [ResourceController::class, 'reported_packages'])->name('resources_packages.reported-packages');
 
     Route::post("/resources/approve/{id}", [ResourceController::class, 'approve'])->name('resources.approve');
     Route::post("/resources/reject/{id}", [ResourceController::class, 'reject'])->name('resources.reject');
