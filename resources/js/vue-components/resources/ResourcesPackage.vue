@@ -54,7 +54,7 @@
                     {{ resourcesPackage.cover_resource.name }}
                 </p>
                 <audio v-if="isCommunicationPackage()" controls class="mt-1" controls="controls" style="width: 100%;">
-                    <source v-bind:src="'storage/' + resourcesPackage.cover_resource.audio_path" type="audio/mpeg" />
+                    <source v-bind:src="'/storage/' + resourcesPackage.cover_resource.audio_path" type="audio/mpeg" />
                     Your browser does not support the audio element.
                 </audio>
 
@@ -474,6 +474,8 @@ export default {
             return route('login');
         },
         isCommunicationPackage() {
+            console.log(this.resourcesPackage.cover_resource.name);
+            console.log(this.resourcesPackage.cover_resource.audio_path);
             return this.packagesType === "COMMUNICATION";
         },
         isGamePackage() {

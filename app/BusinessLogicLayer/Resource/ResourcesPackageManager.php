@@ -190,6 +190,8 @@ XML;
             $package = $this->resourcesPackageRepository->getResourcesPackage($report->package_id);
             $package->reportData = $report;
             $package->creator = $report->creator;
+            $coverCardId = $package->card_id;
+            $package->cover_resource = $this->resourceRepository->find($coverCardId);
             $packagesWithReportInfo->push($package);
         }
         $packagesWithReportInfo= $packagesWithReportInfo->filter(
