@@ -1,0 +1,79 @@
+@import 'variables';
+
+/* Colors: */
+:root {
+--content-blue: #3987FA;
+--content-dark-blue: #003280;
+--content-grey: #C7D1C4;
+--content-light-green: #75FBAC;
+--content-red: #F61C41;
+--content-dark-grey: #8A8A8A;
+--content-light-blue: #76B7D6;
+--content-pink: #D58E8E;
+--content-teal: #71C6AC;
+--content-somon: #C7C7C7;
+--content-orange: #E87620;
+--content-white-1: #E6F6F1;
+--content-white-2: #F2F3F5;
+--content-light-pink-1: #FCE2E2;
+--content-light-pink-2: #FEE8D0;
+--content-light-greyish-blue: #D0EFFE;
+--content-green: #39BA6E;
+}
+
+.title-number {
+    border: 1px solid $blue;
+    margin-right: 15px;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    padding-top: 10px;
+    font-weight: bold;
+}
+
+
+.title-number {
+    border: 1px solid $blue;
+    margin-right: 15px;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    padding-top: 10px;
+    font-weight: bold;
+}
+
+.title-number {
+    border: 1px solid $blue;
+    margin-right: 15px;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    padding-top: 10px;
+    font-weight: bold;
+}
+
+.title-number {
+    border: 1px solid $blue;
+    margin-right: 15px;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    padding-top: 10px;
+    font-weight: bold;
+}
+.list-number {
+    background-color: var(--content-light-greyish-blue);
+    margin-right: 15px;
+    border-radius: 100%;
+    width: 28px;
+    height: 24px;
+    color:black;
+    text-align: center;
+    display: inline-block;
+}
+
+

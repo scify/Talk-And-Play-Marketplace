@@ -47,7 +47,7 @@
                     <!--<input type="radio" class="form-control" id="category_lang"> -->
                 </div>
                 <div class="text-center form-new__prototype-file" style="font-style: italic;">
-                    <em> {!!__('messages.content-guideline-terms')!!}</em>
+                    <em> {!!__('messages.content-guideline-terms')!!}  <a target="_blank" href="{{route('content-guidelines')}}"> here. </a></em>
                 </div>
                 <div class="mb-3">
                     <label for="upload_img" class="form-label"> {{trans("messages.upload_img")}} <span

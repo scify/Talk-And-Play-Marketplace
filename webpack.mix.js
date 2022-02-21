@@ -37,6 +37,7 @@ mix.sass('resources/sass/app.scss', 'public/dist/css')
     .sass('resources/sass/resources-packages-index.scss', 'public/dist/css')
     .sass('resources/sass/communication-cards-create-edit.scss', 'public/dist/css')
     .sass('resources/sass/login-page-shapes.scss', 'public/dist/css')
+    .sass('resources/sass/content-guidelines.scss', 'public/dist/css')
     .sourceMaps()
     .webpackConfig({
         devtool: 'source-map'

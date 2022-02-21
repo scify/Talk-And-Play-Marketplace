@@ -7,7 +7,7 @@
                     <ul>
                         <li><a href="{{ route('communication_resources.index') }}">{!! __('messages.communication_cards') !!}</a></li>
                         <li><a href="{{ route('game_resources.index') }}">{!! __('messages.game_cards') !!}</a></li>
-                        <li><a href="#">{!! __('messages.content_guidelines') !!}</a></li>
+                        <li><a href="{{ route('content-guidelines')}}">{!! __('messages.content_guidelines') !!}</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-6 col-md-3 item">
