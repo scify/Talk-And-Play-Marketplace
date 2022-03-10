@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShapesIntegrationController;
+use App\Http\Controllers\TermsPrivacyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,24 @@ use App\Http\Controllers\ShapesIntegrationController;
 Route::view('/', 'home')->name('home');
 Route::view('/how-it-works', 'how_it_works')->name('how-it-works');
 Route::view('/content-guidelines', 'content-guidelines')->name('content-guidelines');
+
+
+
+$regexForLocalParameter= config("app.regex_for_validating_locale_at_routes");
+$localeInfo = [ 'prefix' => '{lang}',
+    'where' => ['lang' => $regexForLocalParameter],
+    'middleware' => 'set.locale'
+];
+Route::group($localeInfo, function () {
+    Route::get('/privacy-policy', [TermsPrivacyController::class, 'showPrivacyPolicyPage'])->name('privacy-policy');
+    Route::get('/terms-of-use',  [TermsPrivacyController::class, 'showTermsOfUse'])->name('terms-of-use');
+
+});
+
+Route::get('/privacy-policy', function () {
+    return redirect(app()->getLocale() ."/privacy-policy");
+});
+
 Route::get('/lang/{lang}', [UserController::class, 'setLangLocaleCookie'])->name('set-lang-locale');
 Route::get('/communication-cards', [CommunicationResourceController::class, 'index'])->name('communication_resources.index');
 Route::get('/game-cards', [GameResourceController::class, 'index'])->name('game_resources.index');

@@ -81,7 +81,7 @@ return [
     */
 
     'locale' => 'en',
-
+    'regex_for_validating_locale_at_routes' => 'en|el|de',
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale

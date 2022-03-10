@@ -7,7 +7,6 @@
                     <ul>
                         <li><a href="{{ route('communication_resources.index') }}">{!! __('messages.communication_cards') !!}</a></li>
                         <li><a href="{{ route('game_resources.index') }}">{!! __('messages.game_cards') !!}</a></li>
-                        <li><a href="{{ route('content-guidelines')}}">{!! __('messages.content_guidelines') !!}</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-6 col-md-3 item">
@@ -16,6 +15,9 @@
                         <li><a href="https://www.scify.gr/site/en/">{!! __('messages.team') !!}</a></li>
                         <li><a href="{{ config('app.url') }}">{!! __('messages.download') !!} Talk & Play</a></li>
                         <li><a href="https://www.scify.gr/site/en/contact" target="_blank">{!! __('messages.contact_us') !!}</a></li>
+                        <li><a href="{{ route('content-guidelines')}}">{!! __('messages.content_guidelines') !!}</a></li>
+                        <li><a href="{{app()->getLocale() .'/privacy-policy'}}"  target="_blank">Privacy Policy</a></li>
+
                     </ul>
                 </div>
                 <div class="col-md-6 item text">
