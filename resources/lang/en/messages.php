@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'content-guideline-terms' => 'The packages/cards you upload to the platform must have content that is consistent with the structure of the original file  <a target="_blank" href="/storage/resources/content-guidelines/Talk%20&%20Play%20Marketplace%20-%20Content%20Guidelines%20-%20EN.pdf"> here </a>.',
+    'content-guideline-terms' => 'The packages/cards you upload to the platform must have content that is consistent with the structure of the original file </a>',
     'package-create-success' => 'Success! The resource package has been created',
     'package-create-failure' => 'Warning! The resource package has not been created',
     'card-create-success' => 'Success! The resource has been created',
