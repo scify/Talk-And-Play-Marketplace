@@ -36,7 +36,8 @@
                         <div class="row">
                             <div class="col-12">
                                 <h2 class="mt-4 mb-4">2. Was ist der Zweck und die Rechtsgrundlage für die Datenverarbeitung der Nutzer*innen?</h2>
-                                <b>2.1.</b> Der Zweck der Plattform besteht darin, die Meinungen der Nutzer*innen über Fragebögen zu sammeln. Die Meinungen werden ausgewertet, um Erkenntnisse zu gewinnen, wertvolle Ideen und Vorschläge zu den in den Fragebögen angesprochenen Themen zu sammeln und zu präsentieren. Die Nutzer*innen können anonym antworten (ohne Angabe personenbezogener Daten) oder sich freiwillig registrieren, um unter Angabe einer E-Mail-Adresse und eines Spitznamens anonym zu antworten. Die Antworten der Nutzer*innen werden ins Englische übersetzt und in Form von Berichten präsentiert. Die Rechtsgrundlage für den spezifischen Zweck der Verarbeitung ist die vorherige Zustimmung der Nutzer*innen.
+                                <b>2.1.</b> Der Zweck der Plattform besteht darin, den Nutzern die Möglichkeit zu geben, zusätzliche Inhalte zu erstellen, die von der jeweiligen Hilfsanwendung verwendet werden. Die von den Nutzern hochgeladenen Inhalte müssen dann von einem Administrator geprüft werden, damit sie veröffentlicht werden können. Die Rechtsgrundlage für den spezifischen Zweck der Verarbeitung ist die vorherige Zustimmung des Nutzers.
+                                Übersetzt mit www.DeepL.com/Translator (kostenlose Version)
                                 <br><br>
                                 <b>2.2.</b> Versand von Informations-E-Mails an die Nutzer*innen mit dem Ziel, diese über neue Aktivitäten, Projekte und andere Themen von Interesse für die Plattform zu informieren. Die Rechtsgrundlage für diesen Zweck der Verarbeitung ist die vorherige Zustimmung der Nutzer*innen.
                                 <br><br>
@@ -69,7 +70,7 @@
                                 <h2 class="mt-4 mb-4"> 4. Wie die Plattform Daten sammelt</h2>
                                 4.1 Die Informationen können auf die folgenden Arten gesammelt werden: <br>
                                 4.1.1 Wenn die Nutzer*innen sich auf der Plattform registrieren und ein Konto erstellen. <br>
-                                4.1.2 Wenn die Nutzer*innen Antworten auf die Fragebögen der Plattform übermitteln. <br>
+                                4.1.2 Wenn der Nutzer Inhalte hochlädt. <br>
                                 4.1.3 Wenn die Nutzer*innen die Plattform besuchen und der Installation von Cookies (gemäß der Cookie-Richtlinie der Plattform in Artikel 11 unten) und der Erfassung der persönlichen Daten der Nutzer wie IP-Adresse, Betriebssystem, Browsertyp und -version usw. zustimmen
                                 <br>
                             </div>
@@ -284,9 +285,7 @@
                                             <br><br>
                                             XSRF-TOKEN (Sorgt für die Sicherheit der Besuchenden beim Surfen, indem es Cross-Site Request Forgery verhindert. Dieses Cookie ist für die Sicherheit der Website und der Besuchenden unerlässlich. )
                                             <br><br>
-                                            ecas_lets_crowdsource_our_future_session (Wenn sich die App an die angemeldeten Nutzer*innen "erinnern" muss, während sie auf der Plattform navigieren)
-                                            <br><br>
-                                            Crowdsourcing_anonymous_user_id (zur Speicherung anonymer Antworten auf den Fragebögen durch Zuweisung einer ganzzahligen Nummer an die Nutzer*innen, die die Antwort abgeben)
+                                            remember_web_59ba36addc2b2f9401580f014c7f58ea4e30989d (Wenn sich die App an die angemeldeten Nutzer*innen "erinnern" muss, während sie auf der Plattform navigieren)
                                         </td>
                                         <td>1 Jahr
                                             <br><br>

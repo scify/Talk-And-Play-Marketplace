@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container pt-4 mb-2" style="margin-top: 100px">
+    <div class="container pt-4 mb-2">
         <div class="mb-5">
             <div class="row">
                 <div class="col-12 mx-auto mb-3 text-center">
@@ -49,12 +49,9 @@
                         <div class="row">
                             <div class="col-12">
                                 <h2 class="mt-4 mb-4">2. What is the purpose and the legal basis for User’s data processing?</h2>
-                                <b>2.1.</b> Platform's operational purpose is to collect opinions of users via questionnaires. The opinions are processed in order to gain insights, gather and present valuable ideas and suggestions on the topics addressed in the questionnaires.
-                                Users can respond anonymously (without providing any personal information) or can
-                                voluntarily register
-                                in order to submit eponymous answers.
-                                User's answers are translated into English and are presented in Reports.
-                                For the specific purpose of processing, the legal basis is User's prior consent.
+                                <b>2.1.</b> Platform's operational purpose is to allow users to create additional content that will be used by the respective assistive application. The content uploaded by the users is then subject to inspection by an administrator in order to be published. For the specific purpose of processing, the legal basis is User's prior consent.
+
+
                                 <br><br>
                                 <b>2.2.</b> To send User informative emails with the purpose to inform him about
                                 new activities, projects and other issues of interest of the Platform. For this purpose
@@ -78,14 +75,8 @@
                                 In order for a User to voluntarily create an account in the Platform, the User should
                                 fill in the necessary data: his nickname, email address, and password
                                 <br><br>
-                                <b>3.1.2 Submitted questionnaire responses</b><br>
-                                The Platform collects user answers (that is opinions on various subjects) on questions
-                                made via Platform's questionnaires.
-                                These answers are analyzed and presented in a questionnaire results page.
-                                The User is strictly advised to conform the platform's "code of conduct for successful
-                                participation" and avoid
-                                posting publicly any personal data that do not wish to be publicly available on the
-                                Platform.
+                                <b>3.1.2 Submitted/ uploaded content</b><br>
+                                The Platform collects content (image/sound files and texts) via web forms. This content is then used as additional content for the assistive application the platform acts as a companion to. The User is strictly advised to conform the platform's "code of conduct for successful participation" and avoid posting publicly any personal data that do not wish to be publicly available on the Platform.
                                 <br><br>
                                 <b>3.1.3. Platform's communication for reasons related to User's permitted use of the
                                     Platform.</b>
@@ -108,7 +99,7 @@
                                 <h2 class="mt-4 mb-4"> 4. How the Platform collects data</h2>
                                 4.1 The information can be collected by the following ways: <br>
                                 4.1.1 When the User registers and creates an account on the Platform. <br>
-                                4.1.2 When the User submits answer's on the Platform's questionnaires <br>
+                                4.1.2 When the User uploads content <br>
                                 4.1.3 When the User visits the Platform and agrees to the installation of cookies (as
                                 per the Platform's Cookie Policy in article 11 below) and the collection of the User’s
                                 personal data such as the IP address, operation system, type and browser edition
@@ -461,11 +452,7 @@
                                             request forgery. This cookie is essential for the security of the website
                                             and visitor. )
                                             <br><br>
-                                            ecas_lets_crowdsource_our_future_session (When the app needs to “remember” the logged in user while (s)he navigates to the Platform)
-
-                                            <br><br>
-                                            Crowdsourcing_anonymous_user_id (used to store anonymous answers on the questionnaires by assigning an integer number to user that is submitting the response)
-
+                                            remember_web_59ba36addc2b2f9401580f014c7f58ea4e30989d (When the app needs to “remember” the logged in user while (s)he navigates to the Platform)
                                         </td>
                                         <td>1 year
                                             <br><br>
