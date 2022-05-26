@@ -91,7 +91,6 @@ Route::middleware(['auth'])->group(function () {
         ]);
     Route::put("/resources/update_resource/{id}/{type_id}", [ResourceController::class, 'update_resource'])->name('resources.update_resource');
 
-
     Route::resource('game-cards', GameResourceController::class)
         ->except([
             'index', 'show'
