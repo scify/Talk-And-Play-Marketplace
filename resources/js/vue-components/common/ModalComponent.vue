@@ -29,10 +29,10 @@ export default {
     props: {
         allowClose: Boolean,
         open: false,
-        classes: ''
+        classes: ""
     },
     data: function () {
-        return {}
+        return {};
     },
     methods: {
         cancel() {
@@ -41,14 +41,14 @@ export default {
         submit() {
             this.$emit("submit");
         },
-        hasSlot (name = 'default') {
+        hasSlot (name = "default") {
             return !!this.$slots[ name ] || !!this.$scopedSlots[ name ];
         }
     },
     mounted() {
 
     }
-}
+};
 </script>
 <style scoped lang="scss">
 

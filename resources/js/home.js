@@ -1,4 +1,4 @@
-import Flickity from 'flickity';
+import Flickity from "flickity";
 
 (function () {
     let carousel;
@@ -8,9 +8,9 @@ import Flickity from 'flickity';
 
     // data attr in $this
     let initCarousel = function () {
-        carousel = new Flickity('#landing-page-intro-carousel', {
+        carousel = new Flickity("#landing-page-intro-carousel", {
             // options
-            cellAlign: 'left',
+            cellAlign: "left",
             contain: true,
             draggable: true,
             freeScroll: false,
@@ -19,7 +19,7 @@ import Flickity from 'flickity';
             setGallerySize: false
         });
 
-        $('body').on('click', '#tnp-app-btn', function (e) {
+        $("body").on("click", "#tnp-app-btn", function (e) {
             carousel.next();
             e.stopPropagation();
         });

@@ -4,7 +4,9 @@
             <div class="col-md-8 col-sm-12">
                 <div class="container-fluid p-0">
                     <div class="row">
-                        <div v-for="language in contentLanguages" class="col-md-3 col-sm-12">
+                        <div v-for="language in contentLanguages"
+                             class="col-md-3 col-sm-12"
+                             :key="language.id">
                             <button @click="setContentLanguage(language)"
                                     class="w-100 btn btn-secondary"
                                     v-bind:class="{ selected: language.id === selectedContentLanguage.id }">
@@ -58,7 +60,8 @@
             </div>
         </div>
         <div class="row mt-5" v-if="filteredResourcePackages.length">
-            <div class="col-lg-4 col-md-4 col-sm-12 mb-3" v-for="(resourcesPackage, index) in filteredResourcePackages" :key="index">
+            <div class="col-lg-4 col-md-4 col-sm-12 mb-3" v-for="(resourcesPackage, index) in filteredResourcePackages"
+                 :key="index">
                 <resource-package
                     :user="user ? user : {}"
                     :user-id-to-get-content="userIdToGetContent"
@@ -78,6 +81,7 @@
 
 <script>
 import {mapActions} from "vuex";
+import _ from "lodash";
 
 export default {
     mounted() {
@@ -87,22 +91,22 @@ export default {
         user: {
             type: Object,
             default: function () {
-                return {}
+                return {};
             }
         },
         resourcesPackagesTypes: {
             type: Array,
             default: function () {
-                return []
+                return [];
             }
         },
         reportsRoute: String,
-        resourcesPackagesRoute: '',
+        resourcesPackagesRoute: String,
         userIdToGetContent: Number,
         resourcesPackagesStatuses: {
             type: Array,
             default: function () {
-                return []
+                return [];
             }
         },
         isAdmin: String,
@@ -117,14 +121,14 @@ export default {
             resourcePackages: [],
             filteredResourcePackages: [],
             maxRating: 5,
-            searchPlaceholder: window.translate('messages.search_resources_package'),
+            searchPlaceholder: window.translate("messages.search_resources_package"),
             searchLoading: false
-        }
+        };
     },
     methods: {
         ...mapActions([
-            'get',
-            'handleError'
+            "get",
+            "handleError"
         ]),
         setContentLanguage(language) {
             this.selectedContentLanguage = language;
@@ -132,7 +136,7 @@ export default {
         },
         getContentLanguages() {
             this.get({
-                url: route('content_languages.get'),
+                url: window.route("content_languages.get"),
                 urlRelative: false
             }).then(response => {
                 this.contentLanguages = response.data;
@@ -145,31 +149,27 @@ export default {
             this.resourcePackages = [];
             this.filteredResourcePackages = [];
             let url = "";
-            if(this.showReports()){
+            if (this.showReports()) {
                 url = this.reportsRoute;
-            }
-            else {
+            } else {
                 url = this.resourcesPackagesRoute;
             }
 
-            url += ('?lang_id=' + this.selectedContentLanguage.id);
+            url += ("?lang_id=" + this.selectedContentLanguage.id);
             if (this.userIdToGetContent) {
-                url += ('&user_id_to_get_content=' + this.userIdToGetContent);
+                url += ("&user_id_to_get_content=" + this.userIdToGetContent);
             }
             if (this.resourcesPackagesTypes.length) {
-                url += '&type_ids=' + _.map(_.filter(this.resourcesPackagesTypes, r => r.checked), 'id').join();
+                url += "&type_ids=" + _.map(_.filter(this.resourcesPackagesTypes, r => r.checked), "id").join();
             }
-            url += '&status_ids=' + _.map(this.resourcesPackagesStatuses).join();
-            url += '&is_admin=' + this.isAdmin;
+            url += "&status_ids=" + _.map(this.resourcesPackagesStatuses).join();
+            url += "&is_admin=" + this.isAdmin;
             this.get({
                 url: url,
                 urlRelative: false
             }).then(response => {
                 this.resourcePackages = response.data;
-
                 this.filteredResourcePackages = this.resourcePackages;
-                let names = _.map(this.filteredResourcePackages, 'id')
-                console.log(names);
                 this.loadingResources = false;
             });
         },
@@ -193,15 +193,13 @@ export default {
         isGamePackage() {
             return this.packagesType === "GAME";
         },
-        showReports(){
-            console.log('reports route');
-            console.log(this.reportsRoute);
+        showReports() {
             return this.reportsRoute && this.reportsRoute.length > 0;
         }
     }
 
 
-}
+};
 
 
 </script>
