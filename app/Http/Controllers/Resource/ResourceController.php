@@ -289,7 +289,7 @@ class ResourceController extends Controller
         try {
             $viewModel = $this->gameResourcesPackageManager->getGameResourcesPackageIndexPageVM();
             $viewModel->user_id_to_get_content = Auth::id();
-            $viewModel->resourcesPackagesStatuses = [ResourceStatusesLkp::APPROVED];
+            $viewModel->resourcesPackagesStatuses = [ResourceStatusesLkp::APPROVED, ResourceStatusesLkp::CREATED_PENDING_APPROVAL, ResourceStatusesLkp::REJECTED];
             $viewModel->isAdmin = $this->userManager->isAdmin(Auth::user());
             return view('resources_packages.my-packages')->with(
                 ['viewModel' => $viewModel, 'user' => Auth::user()]);

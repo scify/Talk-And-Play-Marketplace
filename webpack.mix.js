@@ -1,4 +1,6 @@
 const mix = require('laravel-mix');
+const ESLintPlugin = require('eslint-webpack-plugin');
+
 mix.disableSuccessNotifications();
 /*
  |--------------------------------------------------------------------------
@@ -21,7 +23,8 @@ mix.js('resources/js/app.js', 'public/dist/js')
     ])
     .sourceMaps()
     .webpackConfig({
-        devtool: 'source-map'
+        devtool: 'source-map',
+        plugins: [new ESLintPlugin()]
     })
     .version()
     .vue();

@@ -61,7 +61,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row mb-0">
+                            <div class="form-group row mb-0 mt-4">
                                 <div class="col-md-6 offset-md-4">
                                     <button id="register_btn" type="submit" class="btn btn-primary">
                                         {{ __('auth.register_btn') }}

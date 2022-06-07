@@ -85,6 +85,3 @@
 
 
 @endsection
-@push('scripts')
-    <script src="{{ mix('dist/js/home.js') }}"></script>
-@endpush
