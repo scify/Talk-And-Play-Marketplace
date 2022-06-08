@@ -1,10 +1,14 @@
 <?php
 
 return [
-
+    'edit-profile' => 'Edit profile',
+    'edit-profile-info' => 'Edit the information on the user profile',
+    'surname' => 'Last name',
+    'password' => 'Password',
+    'continue-confirm' => 'Are you sure you want to continue?',
+    'submit-info' => 'Register information',
     'checkbox-terms-privacy-' => 'I have read and agree with the <a href="https://dianoia.scify.org/terms-of-use"> terms of use </a> and <a href="https://dianoia.scify.org/privacy-policy"> privacy policy </a> of the platform',
     'checkbox-guidelines' => 'The content I will upload aligns with the <a href="https://dianoia.scify.org/content-guidelines"> content rules and guidelines </a>',
-
     'content-guidelines' => 'Content guidelines',
     'privacy-policy' => 'Privacy policy',
     'term-of-use-11' => 'Except for the conditions of the previous paragraph regarding personal data, <a href="http://www.scify.org/" target="_blank">  SciFY </a> maintains the right to change the Terms and Conditions, if they need to be updated or completed, at any time and without notice, therefore the user must be informed of any changes before each use of the application.',

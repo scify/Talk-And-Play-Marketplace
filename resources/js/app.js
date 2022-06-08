@@ -12,6 +12,9 @@ import eachRightLodash from "lodash/eachRight";
 import replaceLodash from "lodash/replace";
 
 
+
+
+
 window.translate = function (string, args) {
     let value = getLodash(window.i18n, string);
 

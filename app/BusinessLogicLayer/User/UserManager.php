@@ -64,10 +64,10 @@ class UserManager {
             'name' => trim($requestData["name"]),
             'email' => trim($requestData["email"])
         ], $id);
-        if (isset($requestData["admin"]) && $requestData["admin"])
-            $this->userRoleManager->assignAdminUserRoleTo($user);
-        else
-            $this->userRoleManager->removeAdminRoleFromUser($user);
+//        if (isset($requestData["admin"]) && $requestData["admin"])
+//            $this->userRoleManager->assignAdminUserRoleTo($user);
+//        else
+//            $this->userRoleManager->removeAdminRoleFromUser($user);
         return $user;
     }
 

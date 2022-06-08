@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}" tabindex="-1">
@@ -59,10 +60,14 @@
                             {{ Auth::user()->name }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">
-                                    {!! __('messages.my_profile') !!}
+                            <li>
+                                <a class="dropdown-item" role="button"
+                                   data-bs-toggle="modal"  data-bs-target="#edit-profile">
+                                    {{__('messages.edit-profile')}}
                                 </a>
                             </li>
+
+
                             @can('manage-platform')
                                 <li>
                                     <a class="dropdown-item {{ UrlMatchesMenuItem("administration.users.index")}}"
@@ -145,3 +150,78 @@
         </div>
     </div>
 </nav>
+
+<div class="modal fade" id="edit-profile" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body mb-5">
+                <form id="form" enctype="multipart/form-data"  role="form" method="POST"
+                      action="{{ route('users.update', Auth::user()) }}">
+                    @if(true)
+                        @method('PUT')
+                    @endif
+                    {{ csrf_field() }}
+                    <div class="form form-new rounded" style="color:blue; text-align: center; font-size:16pt">
+                        <p class="form-new__title p-4">
+                            {{__('messages.edit-profile-info')}}</p>
+                        <hr>
+                    </div>
+                    <div class="form-new__fields p-5">
+                        <div class="col-12">
+                            <label for="username" class="form-label">{{__('messages.name')}} <span>*</span></label>
+                            <input type="text" class="form-control" id="username" name="name" value="{{ Auth::user()->name}}">
+                        </div>
+                        <div class="col-12" >
+                            <label for="email" class="form-label">Email <span>*</span></label>
+                            <input id="email" type="email" class="form-control" name="email" value="{{ Auth::user()->email}}" required autocomplete="email">
+                        </div>
+                        <div class="col-12">
+                            <label for="password" class="form-label">{{__('messages.password')}}</label>
+                            <input id="password-field" type="password" class="form-control"
+                                   name="password" placeholder="********">
+                            <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password me-3"></span>
+                        </div>
+                    </div>
+                    <div class="form-new__submmit-btn d-flex justify-content-end p-5">
+                        <div>
+                            <p class="mb-5">{{__('messages.continue-confirm')}}</p>
+
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <a class="btn btn-outline-secondary mt-1" href="{{route('resources_packages.my_packages')}}" style="color: lightgrey">
+                                        {{trans("messages.cancel")}}
+                                    </a>
+                                </div>
+                                <div class="col-lg-8">
+                                    <input  id="userEditBtrn" class="btn btn-outline-primary mt-1 ms-4" type="submit" value="{{__('messages.submit-info')}}">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@push('scripts')
+<script>
+    $(".toggle-password").click(function () {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        let input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
+
+</script>
+@endpush

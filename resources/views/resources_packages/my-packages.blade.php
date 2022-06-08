@@ -1,10 +1,13 @@
 @extends('layouts.app')
 @push('css')
     <link rel="stylesheet" href="{{ mix('dist/css/resources-packages-index.css') }}">
+{{--    <link rel="stylesheet" href="{{ mix('dist/css/profile-page.css') }}">--}}
 @endpush
 
 @section('content')
-    <div class="container rounded py-5" style="border:1px solid grey;margin:auto;width:60%">
+
+    <div class="container rounded" style="border:1px solid grey;margin:auto;width:60%">
+
         <div class="row my-4">
             <div class="col">
                 <div class="container-fluid">
