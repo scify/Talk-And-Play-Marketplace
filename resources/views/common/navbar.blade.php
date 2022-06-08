@@ -60,13 +60,14 @@
                             {{ Auth::user()->name }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @auth
                             <li>
                                 <a class="dropdown-item" role="button"
                                    data-bs-toggle="modal"  data-bs-target="#edit-profile">
                                     {{__('messages.edit-profile')}}
                                 </a>
                             </li>
-
+                            @endauth
 
                             @can('manage-platform')
                                 <li>
@@ -150,7 +151,7 @@
         </div>
     </div>
 </nav>
-
+@auth
 <div class="modal fade" id="edit-profile" tabindex="-1" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog">
@@ -210,7 +211,7 @@
         </div>
     </div>
 </div>
-
+@endauth
 @push('scripts')
 <script>
     $(".toggle-password").click(function () {
