@@ -1,5 +1,5 @@
-const mix = require('laravel-mix');
-const ESLintPlugin = require('eslint-webpack-plugin');
+const mix = require("laravel-mix");
+const ESLintPlugin = require("eslint-webpack-plugin");
 
 mix.disableSuccessNotifications();
 /*
@@ -13,37 +13,37 @@ mix.disableSuccessNotifications();
  |
  */
 
-mix.js('resources/js/app.js', 'public/dist/js')
-    .js('resources/js/admin/user-management.js', 'public/dist/js')
-    .js('resources/js/home.js', 'public/dist/js')
-    .js('resources/js/create-edit-resource.js', 'public/dist/js')
+mix.js("resources/js/app.js", "public/dist/js")
+    .js("resources/js/admin/user-management.js", "public/dist/js")
+    .js("resources/js/home.js", "public/dist/js")
+    .js("resources/js/create-edit-resource.js", "public/dist/js")
 
     .extract([
-        'jquery', 'bootstrap'
+        "jquery", "bootstrap"
     ])
     .sourceMaps()
     .webpackConfig({
-        devtool: 'source-map',
+        devtool: "source-map",
         plugins: [new ESLintPlugin()]
     })
     .version()
     .vue();
 
 mix.autoload({
-    'jquery': ['$', 'window.jQuery', 'jQuery']
+    "jquery": ["$", "window.jQuery", "jQuery"]
 });
 
-mix.sass('resources/sass/app.scss', 'public/dist/css')
-    .sass('resources/sass/user-management-page.scss', 'public/dist/css')
-    .sass('resources/sass/footer.scss', 'public/dist/css')
-    .sass('resources/sass/home.scss', 'public/dist/css')
-    .sass('resources/sass/resources-packages-index.scss', 'public/dist/css')
-    .sass('resources/sass/communication-cards-create-edit.scss', 'public/dist/css')
-    .sass('resources/sass/login-page-shapes.scss', 'public/dist/css')
-    .sass('resources/sass/content-guidelines.scss', 'public/dist/css')
-    .sass('resources/sass/terms-of-use.scss', 'public/dist/css')
+mix.sass("resources/sass/app.scss", "public/dist/css")
+    .sass("resources/sass/user-management-page.scss", "public/dist/css")
+    .sass("resources/sass/footer.scss", "public/dist/css")
+    .sass("resources/sass/home.scss", "public/dist/css")
+    .sass("resources/sass/resources-packages-index.scss", "public/dist/css")
+    .sass("resources/sass/communication-cards-create-edit.scss", "public/dist/css")
+    .sass("resources/sass/login-page-shapes.scss", "public/dist/css")
+    .sass("resources/sass/content-guidelines.scss", "public/dist/css")
+    .sass("resources/sass/terms-of-use.scss", "public/dist/css")
     .sourceMaps()
     .webpackConfig({
-        devtool: 'source-map'
+        devtool: "source-map"
     })
     .version();
