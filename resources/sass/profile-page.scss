@@ -1,0 +1,93 @@
+@import "modal";
+
+.back-color {
+    background-color: var(--color-grey-light);
+}
+
+/* #region Section with user card (user-info & exercises-tabs) */
+
+
+.user-card {
+    @media screen and (max-width: 768px) {
+        text-align: center;
+
+        button {
+            margin-top: 2.5rem;
+        }
+    }
+
+    .user-info,
+    .exercises-tabs {
+        margin: 0;
+    }
+
+    .user-info {
+
+        span {
+            font-size: .5rem;
+        }
+    }
+}
+
+/* #endregion */
+
+/* #region Section with results */
+
+.total-results {
+    border: 2px solid var(--color-grey);
+    padding: 2rem;
+    font-size: 2.6rem;
+
+    @media screen and (max-width: 768px) {
+        text-align: center;
+    }
+
+    &.row {
+        margin: 0;
+        align-items: center;
+        background-color: #ffff;
+    }
+    .input-group {
+        @media screen and (max-width: 768px) {
+            margin-top: 2.5rem;
+        }
+        ::placeholder {
+            font-style: italic;
+        }
+
+        .btn-outline-primary {
+            color: black;
+            font-weight: bold;
+            font-size: 14px;
+            border-color: #ced4da;
+            background-color: #f2f3f5;
+        }
+    }
+}
+
+/* #endregion */
+
+.without-results {
+    padding: 15rem;
+}
+
+.form-control[type="text"],
+.form-control[type="email"],
+.form-select,
+.form-control[type="password"] {
+    //min-height: 5.4rem;
+    font-size: 1rem;
+    background-color: var(--color-offwhite);
+}
+
+#edit-profile {
+
+
+    .field-icon {
+        font-size: 1.5rem;
+        float: right;
+        margin-top: -36px;
+        position: relative;
+        z-index: 2;
+    }
+}

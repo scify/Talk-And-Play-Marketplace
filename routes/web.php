@@ -25,8 +25,8 @@ Route::view('/how-it-works', 'how_it_works')->name('how-it-works');
 Route::view('/content-guidelines', 'content-guidelines')->name('content-guidelines');
 Route::view('/terms-of-use', 'terms-of-use')->name('terms-of-use');
 
-$regexForLocalParameter= config("app.regex_for_validating_locale_at_routes");
-$localeInfo = [ 'prefix' => '{lang}',
+$regexForLocalParameter = config("app.regex_for_validating_locale_at_routes");
+$localeInfo = ['prefix' => '{lang}',
     'where' => ['lang' => $regexForLocalParameter],
     'middleware' => 'set.locale'
 ];
@@ -66,7 +66,6 @@ Route::middleware(['auth'])->group(function () {
         ]);
 
 
-
     Route::get("resources/clone_package/{id}", [ResourceController::class, 'clone_package'])->name('resources_packages.clone_package');
     Route::get("/my-packages", [ResourceController::class, 'my_packages'])->name('resources_packages.my_packages');
     Route::get("/resources/delete/package/{id}", [ResourceController::class, 'delete_package'])->name('resources_packages.destroy_package');
@@ -90,6 +89,7 @@ Route::middleware(['auth'])->group(function () {
             'destroy' => 'resources.destroy'
         ]);
     Route::put("/resources/update_resource/{id}/{type_id}", [ResourceController::class, 'update_resource'])->name('resources.update_resource');
+    Route::put("/users/update/{user}", [UserController::class, 'update'])->name('users.update');
 
     Route::resource('game-cards', GameResourceController::class)
         ->except([

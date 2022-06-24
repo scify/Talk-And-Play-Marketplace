@@ -75,7 +75,9 @@ class ResourceController extends Controller
         $this->validate($request, [
             'name' => 'required|string|max:100',
             'image' => 'mimes:jpg,png,jpeg|required|file|between:3,1000|nullable',
-            'type_id' => 'required'
+            'type_id' => 'required',
+            'accept-guideline-terms' => 'required',
+            'accept-privacy-terms' => 'required'
         ]);
 
         $type_id = intval($request->type_id);

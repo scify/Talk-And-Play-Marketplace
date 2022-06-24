@@ -1,7 +1,13 @@
 <?php
 
 return [
-    'privacy-policy' => 'DATENSCHUTZRICHTLINIE',
+    'edit-profile' => 'Ihr Profil bearbeiten',
+    'edit-profile-info' => 'Bearbeiten Sie die Informationen im Benutzerprofil',
+    'surname' => 'Nachname',
+    'password' => 'Kennwort',
+    'continue-confirm' => 'Sind Sie sicher, dass Sie fortfahren möchten?',
+    'submit-info' => 'Informationen registrieren',
+    'privacy-policy' => 'Datenschutzrichtlinie',
     'term-of-use-11' => 'Abgesehen von den Bedingungen des vorigen Absatzes in Bezug auf personenbezogene Daten behält sich SciFY das Recht vor, die Allgemeinen Geschäftsbedingungen jederzeit und ohne Vorankündigung zu ändern, wenn sie aktualisiert oder ergänzt werden müssen. Daher muss der Nutzer vor jeder Nutzung der Anwendung über etwaige Änderungen informiert werden.',
     'term-of-use-10' => 'SciFY verwendet die persönlichen Daten, die jeder Nutzer eingibt, nur im Rahmen des  Talk & Play Marketplace -Projekts, zu statistischen Zwecken und um bei Bedarf mit ihm in Kontakt zu treten. Persönliche Daten werden ohne die Zustimmung des Nutzers nicht an Dritte weitergegeben.',
     'term-of-use-9' => 'Jeder Ersteller von Inhalten kann anderen Erstellern erlauben, auf seinen Inhalten aufzubauen und sie zu bereichern oder etwas Neues zu schaffen.',

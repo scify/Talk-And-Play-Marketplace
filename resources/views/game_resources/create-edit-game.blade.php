@@ -85,9 +85,33 @@
                 @error('image')
                 <div class="alert alert-danger">{{$message}}</div>
                 @enderror
+                <hr/>
+                <div class="copyright-rules mb-2 mt-2">
+                    <div class="example">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" id="flexCheckDefault" value=none name="accept-guideline-terms" style="margin-right: 10pt">
+                            {!!__('messages.checkbox-guidelines')!!}<span style="color:red">*</span>
+                        </label>
+                    </div>
+                    @error('accept-guideline-terms')
+                    <div class="alert alert-danger">{{$message}}</div>
+                    @enderror
+                </div>
+                <div class="copyright-rules">
+                    <div class="example">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            <input class="form-check-input" type="checkbox" id="flexCheckDefault" value=none name="accept-privacy-terms" style="margin-right: 10pt">
+                            {!!__('messages.checkbox-terms-privacy-')!!}<span style="color:red">*</span>
+                        </label>
+                    </div>
+                    @error('accept-privacy-terms')
+                    <div class="alert alert-danger">{{$message}}</div>
+                    @enderror
+                </div>
+                <hr/>
             </div>
 
-            <hr/>
+
             <div class="d-flex justify-content-end">
                 <!--<input class="btn btn-outline-primary" type="reset" value="Ακύρωση">-->
                 <a class="btn btn-outline-primary" href="{{route('game_resources.index')}}">

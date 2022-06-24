@@ -1,6 +1,15 @@
 <?php
 
 return [
+    'edit-profile' => 'Edit profile',
+    'edit-profile-info' => 'Edit the information on the user profile',
+    'surname' => 'Last name',
+    'password' => 'Password',
+    'continue-confirm' => 'Are you sure you want to continue?',
+    'submit-info' => 'Register information',
+    'checkbox-terms-privacy-' => 'I have read and agree with the <a href="https://dianoia.scify.org/terms-of-use"> terms of use </a> and <a href="https://dianoia.scify.org/privacy-policy"> privacy policy </a> of the platform',
+    'checkbox-guidelines' => 'The content I will upload aligns with the <a href="https://dianoia.scify.org/content-guidelines"> content rules and guidelines </a>',
+    'content-guidelines' => 'Content guidelines',
     'privacy-policy' => 'Privacy policy',
     'term-of-use-11' => 'Except for the conditions of the previous paragraph regarding personal data, <a href="http://www.scify.org/" target="_blank">  SciFY </a> maintains the right to change the Terms and Conditions, if they need to be updated or completed, at any time and without notice, therefore the user must be informed of any changes before each use of the application.',
     'term-of-use-10' => '<a href="http://www.scify.org/" target="_blank">  SciFY </a> uses the personal data that each user enters only in the context of the <a href="https://talkandplay.scify.org/" target="_blank"> Talk & Play Marketplace </a> project, for statistical purposes and for coming in touch with them, if need be. Personal data is not made public to third parties without the user’s permission.',
@@ -85,7 +94,7 @@ return [
     "how_it_works" => "How it works",
     "contact_us" => "Contact us",
     "watch_tutorials" => "Watch the following tutorials to learn more about Talk & Play Marketplace, and how to use the created packages in the Desktop App",
-    "talk_and_play_description" => "Talk & Play is an app offered for free by SciFY, with the goal of supporting people with disabilities (movement/speech) to communicate more efficiently with their beloved ones, have fun,but also do recovery exercises. <br> Through the Talk n Play Marketplace support web page you can find, create, share, and download more card packs that suit you, and use them in the app.",
+    "talk_and_play_description" => "Talk & Play is an app offered for free by SciFY, with the goal of supporting people with disabilities (movement/speech) to communicate more efficiently with their beloved ones, have fun, but also do recovery exercises. <br>Through the Talk n Play Marketplace support web page you can find, create, share, and download more card packs that suit you, and use them in the app.",
     "communication_cards" => "Communication Cards",
     "game_cards" => "Game Cards",
     "sign_in_register" => "Sign in/Register",
@@ -148,5 +157,5 @@ return [
     "meta_tags_description" => "Talk and Play is a system that allows people with disabilities to communicate, be more independent, and receive training for rehabilitation.",
     "approve_packages" => "Approve Packages",
     "warning_rejection" => "Be careful: a rejection email will be sent to the user who submitted the package",
-    "reject_package" => "Reject Package"
+    "reject_package" => "Reject Package",
 ];
