@@ -18,7 +18,7 @@
     <meta name="twitter:image" content="{{ asset('img/advertisement-poster.png') }}"/>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-        @include('common.favicons')
+    @include('common.favicons')
     <link rel="stylesheet" href="{{ mix('dist/css/app.css') }}">
     @stack('css')
             <!--[if lt IE 9]>
@@ -31,7 +31,7 @@
     @include('common.staging-indication')
     @include('common.navbar')
     @include('common.alerts')
-    <main class="py-5 mb-5">
+    <main class="mb-5">
         <div id="main-content">
             @yield('content')
         </div>

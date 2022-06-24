@@ -43,6 +43,7 @@ mix.sass("resources/sass/app.scss", "public/dist/css")
     .sass("resources/sass/content-guidelines.scss", "public/dist/css")
     .sass("resources/sass/terms-of-use.scss", "public/dist/css")
     .sass("resources/sass/profile-page.scss", "public/dist/css")
+    .sass("resources/sass/login-page.scss", "public/dist/css")
     .sourceMaps()
     .webpackConfig({
         devtool: "source-map"

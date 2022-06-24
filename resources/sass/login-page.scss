@@ -1,0 +1,31 @@
+@import "variables";
+.login-page {
+    background-color: var(--color-grey-dark-2);
+    padding-top: 10rem;
+    padding-bottom: 10rem;
+
+    form {
+        background-color: #ffff;
+        width: 45%;
+        height: 55%;
+        padding: 30px;
+
+        label {
+            color: var(--color-grey-dark);
+            font-size: 1.6rem;
+        }
+
+        button {
+            width: 100%;
+        }
+
+        .form-control {
+            min-height: 54px;
+            background-color: var( --color-offwhite);
+            &::placeholder {
+                font-style: italic;
+                font-size: 1.8rem;
+            }
+        }
+    }
+}

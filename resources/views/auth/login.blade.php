@@ -73,13 +73,23 @@
                             </div>
                         </form>
                     </div>
-                </div>
-            </div>
-            <div class="row justify-content-center mt-3">
-                    <a class="btn btn-link" href="{{ route('shapes.login') }}">Login/Register with a SHAPES account</a>
-                    <p style="font-size: xx-small; text-align:center; font-style: italic">Create an account shared across all SHAPES - powered platforms</p>
-                    <img alt="Shapes Logo" title="" src="img/shapes_logo.png" style="width:70px">
+                    <div class="card-footer">
+                        <p class="text-left mt-5">  {{ __('auth.no_account') }} <a
+                                href="{{ route('register') }} ">{{ __('auth.register_here') }}</a></p>
 
+
+                        <hr class="mt-5">
+                        <div style="text-align: center">
+                            <a class="btn btn-success" href="{{ route('shapes.login') }}">Login / Register with a
+                                SHAPES account</a>
+                            <img alt="Shapes Logo" title="" src="img/shapes_logo.png" style="width:70px">
+                            <p style="font-size:small; font-style: italic; margin-top: 1rem">Create an account
+                                shared across all
+                                SHAPES - powered
+                                platforms</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

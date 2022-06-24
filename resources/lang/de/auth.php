@@ -26,5 +26,10 @@ return [
     'failed' => 'Diese Anmeldedaten stimmen nicht mit unseren Aufzeichnungen überein.',
     'password' => 'Das angegebene Passwort ist falsch.',
     'throttle' => 'Zu viele Anmeldeversuche. Bitte versuchen Sie es in :Sekunden erneut.',
-    'logout' => 'Abmelden'
+    'logout' => 'Abmelden',
+    'already_account' => 'Ich habe bereits einen Account',
+    'no_account' => 'Sie haben kein Konto?',
+    'register_here' => 'Hier registrieren',
+    'type_mail' => 'Geben Sie Ihre E-Mail ein',
+    'type_password' => 'Geben Sie Ihr Passwort ein',
 ];
