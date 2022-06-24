@@ -27,6 +27,8 @@ class User extends Authenticatable# implements MustVerifyEmail #added implement 
         'email',
         'hashed_email',
         'password',
+        'shapes_auth_token',
+        'logout'
     ];
 
     /**
