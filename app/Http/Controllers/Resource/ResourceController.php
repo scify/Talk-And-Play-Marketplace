@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Resource;
 
+use App\BusinessLogicLayer\Analytics\AnalyticsEventManager;
 use App\BusinessLogicLayer\Resource\ResourceManager;
 use App\BusinessLogicLayer\Resource\ResourcesPackageManager;
 use App\BusinessLogicLayer\Resource\CommunicationResourcesPackageManager;
@@ -28,8 +29,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Repository\User\UserRepository;
 use Illuminate\Support\Facades\Notification;
 
-class ResourceController extends Controller
-{
+class ResourceController extends Controller {
 
     protected ResourceManager $resourceManager;
     protected ResourcesPackageManager $resourcesPackageManager;
@@ -39,15 +39,16 @@ class ResourceController extends Controller
     protected CommunicationResourcesPackageManager $communicationResourcesPackageManager;
     protected GameResourcesPackageManager $gameResourcesPackageManager;
     protected UserManager $userManager;
+    protected AnalyticsEventManager $analyticsEventManager;
 
-    public function __construct(ResourceManager $resourceManager, ResourcesPackageManager $resourcesPackageManager,
-                                CommunicationResourcesPackageManager $communicationResourcesPackageManager,
+    public function __construct(ResourceManager                       $resourceManager, ResourcesPackageManager $resourcesPackageManager,
+                                CommunicationResourcesPackageManager  $communicationResourcesPackageManager,
                                 SimilarityGameResourcesPackageManager $similarityGameResourcesPackageManager,
-                                TimeGameResourcesPackageManager $timeGameResourcesPackageManager,
-                                ResponseGameResourcesPackageManager $responseGameResourcesPackageManager,
-                                GameResourcesPackageManager $gameResourcesPackageManager,
-                                UserManager  $userManager)
-    {
+                                TimeGameResourcesPackageManager       $timeGameResourcesPackageManager,
+                                ResponseGameResourcesPackageManager   $responseGameResourcesPackageManager,
+                                GameResourcesPackageManager           $gameResourcesPackageManager,
+                                UserManager                           $userManager,
+                                AnalyticsEventManager                 $analyticsEventManager) {
         $this->resourceManager = $resourceManager;
         $this->resourcesPackageManager = $resourcesPackageManager;
         $this->similarityGameResourcesPackageManager = $similarityGameResourcesPackageManager;
@@ -56,10 +57,8 @@ class ResourceController extends Controller
         $this->timeGameResourcesPackageManager = $timeGameResourcesPackageManager;
         $this->gameResourcesPackageManager = $gameResourcesPackageManager;
         $this->userManager = $userManager;
+        $this->analyticsEventManager = $analyticsEventManager;
     }
-
-
-
 
 
     /**
@@ -69,8 +68,7 @@ class ResourceController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
 
         $this->validate($request, [
             'name' => 'required|string|max:100',
@@ -86,24 +84,32 @@ class ResourceController extends Controller
 
         }
         */
+        $resourceType = '';
         if ($type_id === ResourceTypesLkp::COMMUNICATION) {
             $this->validate($request, ['sound' => 'required|file|between:10,1000|nullable']);
             $manager = $this->communicationResourcesPackageManager;
             $ret_route = "communication_resources.edit";
+            $resourceType = "communication";
         } else if ($type_id === ResourceTypesLkp::SIMILAR_GAME) {
             $manager = $this->similarityGameResourcesPackageManager;
             $ret_route = "game_resources.edit";
+            $resourceType = "game_similar";
         } else if ($type_id === ResourceTypesLkp::TIME_GAME) {
             $manager = $this->timeGameResourcesPackageManager;
             $ret_route = "game_resources.edit";
+            $resourceType = "game_time";
         } else if ($type_id === ResourceTypesLkp::RESPONSE_GAME) {
             $manager = $this->responseGameResourcesPackageManager;
             $ret_route = "game_resources.edit";
+            $resourceType = "game_response";
         } else {
             throw(new \ValueError("Type not supported"));
         }
         try {
             $resource = $this->resourceManager->storeResource($request);
+            $this->analyticsEventManager->storeMarketplaceUsageData(Auth::user(), [
+                'action' => 'RESOURCE_CREATED_' . $resourceType,
+            ]);
             if ($resource->resource_parent_id == null) {
                 $resourcePackage = $manager->storeResourcePackage($resource, $request['lang']);
 
@@ -159,7 +165,7 @@ class ResourceController extends Controller
             $request['status_id'] = ResourceStatusesLkp::CREATED_PENDING_APPROVAL;
             $ret = $this->resourceManager->updateResource($request, $id);
 
-            return redirect()->back()->with('flash_message_success',  __('messages.update-success'));
+            return redirect()->back()->with('flash_message_success', __('messages.update-success'));
         } catch (\Exception $e) {
             return redirect()->back()->with('flash_message_failure', __('messages.update-failure'));
         }
@@ -171,11 +177,10 @@ class ResourceController extends Controller
      * @param int $id
      */
 
-    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse
-    {
+    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse {
         try {
             $this->resourceManager->destroyResource($id);
-            return redirect()->back()->with('flash_message_success',  __('messages.card-delete-success'));
+            return redirect()->back()->with('flash_message_success', __('messages.card-delete-success'));
         } catch (\Exception $e) {
             return redirect()->back()->with('flash_message_failure', __('messages.card-delete-failure'));
         }
@@ -186,11 +191,10 @@ class ResourceController extends Controller
     }
 
 
-    public function submit(int $id): \Illuminate\Http\RedirectResponse
-    {
+    public function submit(int $id): \Illuminate\Http\RedirectResponse {
 
         $package = $this->resourcesPackageManager->getResourcesPackage($id);
-        $redirect_route = $package->type_id===ResourceTypesLkp::COMMUNICATION ? 'communication_resources.index' : 'game_resources.index';
+        $redirect_route = $package->type_id === ResourceTypesLkp::COMMUNICATION ? 'communication_resources.index' : 'game_resources.index';
         $admins = $this->userManager->get_admin_users();
         $coverResourceCardName = $this->resourceManager->getResource($package->card_id)->name;
         Notification::send($admins, new AdminNotice($package, $coverResourceCardName));
@@ -200,7 +204,7 @@ class ResourceController extends Controller
             return redirect()->route($redirect_route)->with('flash_message_success', __('messages.package-submit-success'));
 
         } catch (\Exception $e) {
-            return redirect()->back()->with('flash_message_failure',  __('messages.package-submit-failure'));
+            return redirect()->back()->with('flash_message_failure', __('messages.package-submit-failure'));
         }
 
         //
@@ -209,15 +213,15 @@ class ResourceController extends Controller
     }
 
 
-    public function approve(Request $request):\Illuminate\Http\RedirectResponse{
+    public function approve(Request $request): \Illuminate\Http\RedirectResponse {
         $data = $request->all();
         $package = $this->resourcesPackageManager->getResourcesPackage($data['id']);
-        $redirect_route = $package->type_id===ResourceTypesLkp::COMMUNICATION ? 'communication_resources.index' : 'game_resources.index';
+        $redirect_route = $package->type_id === ResourceTypesLkp::COMMUNICATION ? 'communication_resources.index' : 'game_resources.index';
         try {
             $this->resourcesPackageManager->approveResourcesPackage($data['id']);
             $coverResourceCardName = $this->resourceManager->getResource($package->card_id)->name;
             $creator = $this->userManager->getUser($package['creator_user_id']);
-            Notification::send( $creator, new AcceptanceNotice($coverResourceCardName,$creator->name));
+            Notification::send($creator, new AcceptanceNotice($coverResourceCardName, $creator->name));
             return redirect()->route($redirect_route)->with('flash_message_success', __('messages.package-approve-success'));
 
         } catch (\Exception $e) {
@@ -225,30 +229,30 @@ class ResourceController extends Controller
         }
     }
 
-    public function reject(Request $request):\Illuminate\Http\RedirectResponse{
+    public function reject(Request $request): \Illuminate\Http\RedirectResponse {
         $data = $request->all();
         $rejectionMessage = $data['rejection_comment'];
         $rejectionReason = $data['rejection_reason'];
         $package = $this->resourcesPackageManager->getResourcesPackage($data['id']);
-        $redirect_route = $package->type_id===ResourceTypesLkp::COMMUNICATION ? 'communication_resources.index' : 'game_resources.index';
+        $redirect_route = $package->type_id === ResourceTypesLkp::COMMUNICATION ? 'communication_resources.index' : 'game_resources.index';
 
         try {
             $creator = $this->userManager->getUser($package['creator_user_id']);
             $this->resourcesPackageManager->rejectResourcesPackage($data['id']);
             $coverResourceCardName = $this->resourceManager->getResource($package->card_id)->name;
-            Notification::send( $creator, new RejectionNotice($coverResourceCardName, $rejectionMessage, $rejectionReason, $creator->name));
+            Notification::send($creator, new RejectionNotice($coverResourceCardName, $rejectionMessage, $rejectionReason, $creator->name));
 
             return redirect()->route($redirect_route)->with('flash_message_success', __('messages.package-reject-success'));
 
         } catch (\Exception $e) {
-            return redirect()->back()->with('flash_message_failure',  __('messages.package-reject-failure'));
+            return redirect()->back()->with('flash_message_failure', __('messages.package-reject-failure'));
         }
     }
 
-    public function report(Request $request):\Illuminate\Http\RedirectResponse{
+    public function report(Request $request): \Illuminate\Http\RedirectResponse {
         $data = $request->all();
         $reportComment = $data['report_comment'];
-        $reportReason= $data['report_reason'];
+        $reportReason = $data['report_reason'];
         $package = $this->resourcesPackageManager->getResourcesPackage($data['id']);
         $coverResourceCardName = $this->resourceManager->getResource($package->card_id)->name;
 
@@ -257,15 +261,15 @@ class ResourceController extends Controller
             $reporter = Auth::user();
             $admins = $this->userManager->get_admin_users();
             $this->resourcesPackageManager->reportResourcesPackage($data['id'], $reporter['id'], $reportReason, $reportComment);
-            Notification::send( $admins, new ReportNotice($package,$coverResourceCardName, $reportComment, $reportReason, $creator, $reporter));
-            return redirect()->back()->with('flash_message_success','Reported successfully');
+            Notification::send($admins, new ReportNotice($package, $coverResourceCardName, $reportComment, $reportReason, $creator, $reporter));
+            return redirect()->back()->with('flash_message_success', 'Reported successfully');
         } catch (\Exception $e) {
             return redirect()->back()->with('flash_message_failure', __('Failed to report'));
         }
 
     }
 
-    public function respond(Request $request):\Illuminate\Http\RedirectResponse{
+    public function respond(Request $request): \Illuminate\Http\RedirectResponse {
         $data = $request->all();
         $response = $data['response'];
         $package = $this->resourcesPackageManager->getResourcesPackage($data['id']);
@@ -273,8 +277,8 @@ class ResourceController extends Controller
         $reporting_user_id = $data['reporting_user_id'];
         try {
             $reporter = $this->userManager->getUser($reporting_user_id);
-            Notification::send( $reporter, new ReportResponseNotice($coverResourceCardName, $response, $reporter->name));
-            return redirect()->back()->with('flash_message_success','Responded successfully');
+            Notification::send($reporter, new ReportResponseNotice($coverResourceCardName, $response, $reporter->name));
+            return redirect()->back()->with('flash_message_success', 'Responded successfully');
         } catch (\Exception $e) {
             return redirect()->back()->with('flash_message_failure', __('Failed to report'));
         }
@@ -282,10 +286,7 @@ class ResourceController extends Controller
     }
 
 
-
-
-    public function my_packages()
-    {
+    public function my_packages() {
         try {
             $viewModel = $this->gameResourcesPackageManager->getGameResourcesPackageIndexPageVM();
             $viewModel->user_id_to_get_content = Auth::id();
@@ -299,8 +300,7 @@ class ResourceController extends Controller
     }
 
 
-    public function reported_packages()
-    {
+    public function reported_packages() {
         try {
             $viewModel = $this->gameResourcesPackageManager->getGameResourcesPackageIndexPageVM();
             $viewModel->user_id_to_get_content = Auth::id();
@@ -313,17 +313,16 @@ class ResourceController extends Controller
         }
     }
 
-    public function approve_pending_packages()
-    {
+    public function approve_pending_packages() {
         try {
             $userId = Auth::id();
             $adminIds = $this->userManager->get_admin_users()->map(
-                function($admin){
+                function ($admin) {
                     return $admin->id;
                 }
             );
 
-            if(!$adminIds->contains($userId)){
+            if (!$adminIds->contains($userId)) {
                 return response('Unauthorized.', 401);
             }
 
@@ -342,35 +341,32 @@ class ResourceController extends Controller
     }
 
 
-    public function delete_package($package_id)
-    {
+    public function delete_package($package_id) {
         try {
             $this->resourcesPackageManager->destroyResourcesPackage($package_id);
-        }
-        catch (ModelNotFoundException $e) {
+        } catch (ModelNotFoundException $e) {
             abort(404);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return redirect()->back()->with('flash_message_failure', __('messages.package-delete-failure'));
         }
-        return redirect()->back()->with('flash_message_success',   __('messages.package-delete-success'));
+        return redirect()->back()->with('flash_message_success', __('messages.package-delete-success'));
     }
 
 
-    public function clone_package($package_id){
+    public function clone_package($package_id) {
 
         $package = $this->resourcesPackageManager->getResourcesPackage($package_id);
         $coverResource = $this->resourceManager->cloneResource($package->card_id, null);
         if ($package->type_id === ResourceTypesLkp::COMMUNICATION) {
             $manager = $this->communicationResourcesPackageManager;
             $ret_route = "communication_resources.edit";
-        } else if ($package->type_id  === ResourceTypesLkp::SIMILAR_GAME) {
+        } else if ($package->type_id === ResourceTypesLkp::SIMILAR_GAME) {
             $manager = $this->similarityGameResourcesPackageManager;
             $ret_route = "game_resources.edit";
-        } else if ($package->type_id  === ResourceTypesLkp::TIME_GAME) {
+        } else if ($package->type_id === ResourceTypesLkp::TIME_GAME) {
             $manager = $this->timeGameResourcesPackageManager;
             $ret_route = "game_resources.edit";
-        } else if ($package->type_id  === ResourceTypesLkp::RESPONSE_GAME) {
+        } else if ($package->type_id === ResourceTypesLkp::RESPONSE_GAME) {
             $manager = $this->responseGameResourcesPackageManager;
             $ret_route = "game_resources.edit";
         } else {
@@ -383,29 +379,25 @@ class ResourceController extends Controller
             foreach ($childrenWithParent as $child) {
                 $this->resourceManager->cloneResource($child->id, $coverResource->id);
             }
-            return redirect()->route($ret_route,$newPackage->id)->with('flash_message_success',  __('messages.package-clone-success'));
-        }
-        catch (\Exception $e){
-            return redirect()->route($ret_route,$newPackage->id)->with('flash_message_failure',  __('messages.package-clone-failure'));
+            return redirect()->route($ret_route, $newPackage->id)->with('flash_message_success', __('messages.package-clone-success'));
+        } catch (\Exception $e) {
+            return redirect()->route($ret_route, $newPackage->id)->with('flash_message_failure', __('messages.package-clone-failure'));
         }
     }
 
-    public function getContentLanguages()
-    {
+    public function getContentLanguages() {
         return $this->resourceManager->getContentLanguagesForResources();
     }
 
-    public function getReports(Request $request)
-    {
+    public function getReports(Request $request) {
 
         $data = $request->all();
-        if($data['type_ids']) {
-            $type_ids = explode(",",$data['type_ids']);
-        }
-        else{
+        if ($data['type_ids']) {
+            $type_ids = explode(",", $data['type_ids']);
+        } else {
             $type_ids = [ResourceTypesLkp::COMMUNICATION];
         }
-        $reportedPackagesWithMetadata = $this->resourcesPackageManager->getReportedPackages($type_ids,$data['lang_id']);
+        $reportedPackagesWithMetadata = $this->resourcesPackageManager->getReportedPackages($type_ids, $data['lang_id']);
         return $reportedPackagesWithMetadata;
 
     }
