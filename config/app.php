@@ -58,6 +58,8 @@ return [
     'version' => env('APP_VERSION', '1.0.0'),
     'shapes_key' => env('SHAPES_KEY'),
     'shapes_datalake_api_url' => env('SHAPES_DATALAKE_API_URL'),
+    'sentry_desktop_app_dsn' => env('SENTRY_DESKTOP_APP_DSN'),
+    'firebase_desktop_app_url' => env('FIREBASE_DESKTOP_APP_URL'),
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
