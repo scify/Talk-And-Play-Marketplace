@@ -22,6 +22,7 @@ class AnalyticsEventController extends Controller {
         $data = $request->all();
         $data['source'] = 'desktop';
         $data['devId'] = 'talk_and_play_desktop';
+        $data['endpoint'] = 'desktop';
         return $this->analyticsEventManager->sendUsageDataToDatalakeAPI($data);
     }
 }

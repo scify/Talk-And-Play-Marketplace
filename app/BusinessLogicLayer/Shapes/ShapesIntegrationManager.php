@@ -140,7 +140,7 @@ class ShapesIntegrationManager {
             'X-Authorisation' => $data['token'],
             'Accept' => "application/json"
         ])
-            ->post($this->datalakeAPIUrl . '/mobile', [
+            ->post($this->datalakeAPIUrl . '/' . $data['endpoint'], [
                 'action' => $data['action'],
                 'category_name' => $data['category_name'],
                 'devId' => $data['devId'],
