@@ -8,6 +8,7 @@ use App\BusinessLogicLayer\UserRole\UserRoleManager;
 use App\Models\User;
 use App\Repository\User\UserRepository;
 use Carbon\Carbon;
+use DateTime;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -118,31 +119,10 @@ class ShapesIntegrationManager {
         $this->userRepository->update(['shapes_auth_token' => $new_token], $user->id);
     }
 
-    public function sendUsageDataToDatalakeAPI(User $user, string $action, string $category) {
-        $response = Http::withHeaders([
-            'X-Authorisation' => $user->shapes_auth_token,
-            'Accept' => "application/json"
-        ])
-            ->post($this->datalakeAPIUrl . '/marketplace', [
-                'action' => $action,
-                'category' => $category,
-                'devId' => 'dianoia_marketplace',
-                'lang' => app()->getLocale(),
-                'source' => 'Dianoia-marketplace-web',
-                'time' => Carbon::now()->format(DateTime::ATOM),
-                'version' => config('app.version')
-            ]);
-        if (!$response->ok()) {
-            throw new Exception(json_decode($response->body()));
-        }
-        Log::info('SHAPES Datalake response: ' . json_encode($response->json()));
-        return json_encode($response->json());
-    }
-
     /**
      * @throws Exception
      */
-    public function sendDesktopUsageDataToDatalakeAPI(array $data) {
+    public function sendUsageDataToDatalakeAPI(array $data) {
         if (!isset($data['category_name']))
             $data['category_name'] = null;
         if (!isset($data['duration']))
@@ -163,7 +143,7 @@ class ShapesIntegrationManager {
             ->post($this->datalakeAPIUrl . '/mobile', [
                 'action' => $data['action'],
                 'category_name' => $data['category_name'],
-                'devId' => 'talk_and_play_desktop',
+                'devId' => $data['devId'],
                 'duration' => $data['duration'],
                 'gameName' => $data['gameName'],
                 'gameType' => $data['gameType'],

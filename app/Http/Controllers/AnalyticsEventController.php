@@ -19,6 +19,9 @@ class AnalyticsEventController extends Controller {
             'lang' => 'required',
             'version' => 'required'
         ]);
-        return $this->analyticsEventManager->sendUsageDataToDatalakeAPI($request->all());
+        $data = $request->all();
+        $data['source'] = 'desktop';
+        $data['devId'] = 'talk_and_play_desktop';
+        return $this->analyticsEventManager->sendUsageDataToDatalakeAPI($data);
     }
 }

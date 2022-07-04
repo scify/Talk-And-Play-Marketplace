@@ -8,8 +8,8 @@ use Exception;
 
 class AnalyticsEventManager {
 
-    public $analyticsEventRepository;
-    public $shapesIntegrationManager;
+    protected $analyticsEventRepository;
+    protected $shapesIntegrationManager;
 
     public function __construct(AnalyticsEventRepository $analyticsEventRepository,
                                 ShapesIntegrationManager $shapesIntegrationManager) {
@@ -27,7 +27,7 @@ class AnalyticsEventManager {
             'payload' => json_encode($data)
         ]);
         if (isset($data['token']) && strlen($data['token']) > 5 && ShapesIntegrationManager::isEnabled())
-            $this->shapesIntegrationManager->sendDesktopUsageDataToDatalakeAPI($data);
+            $this->shapesIntegrationManager->sendUsageDataToDatalakeAPI($data);
         return $record;
     }
 
