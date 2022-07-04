@@ -7,9 +7,11 @@ namespace App\BusinessLogicLayer\Shapes;
 use App\BusinessLogicLayer\UserRole\UserRoleManager;
 use App\Models\User;
 use App\Repository\User\UserRepository;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class ShapesIntegrationManager {
 
@@ -20,11 +22,17 @@ class ShapesIntegrationManager {
         'Accept' => "application/json"
     ];
     protected $apiBaseUrl = 'https://kubernetes.pasiphae.eu/shapes/asapa/auth/';
+    protected $datalakeAPIUrl;
 
     public function __construct(UserRoleManager $userRoleManager, UserRepository $userRepository) {
         $this->userRoleManager = $userRoleManager;
         $this->userRepository = $userRepository;
         $this->defaultHeaders['X-Shapes-Key'] = config('app.shapes_key');
+        $this->datalakeAPIUrl = config('app.shapes_datalake_api_url');
+    }
+
+    public static function isEnabled(): bool {
+        return config('app.shapes_datalake_api_url') !== null && config('app.shapes_datalake_api_url') !== "";
     }
 
     /**
@@ -108,6 +116,69 @@ class ShapesIntegrationManager {
         $new_token = $response['message'];
         // echo "\nUser: " . $user->id . "\t New token: " . $new_token . "\n";
         $this->userRepository->update(['shapes_auth_token' => $new_token], $user->id);
+    }
+
+    public function sendUsageDataToDatalakeAPI(User $user, string $action, string $category) {
+        $response = Http::withHeaders([
+            'X-Authorisation' => $user->shapes_auth_token,
+            'Accept' => "application/json"
+        ])
+            ->post($this->datalakeAPIUrl . '/marketplace', [
+                'action' => $action,
+                'category' => $category,
+                'devId' => 'dianoia_marketplace',
+                'lang' => app()->getLocale(),
+                'source' => 'Dianoia-marketplace-web',
+                'time' => Carbon::now()->format(DateTime::ATOM),
+                'version' => config('app.version')
+            ]);
+        if (!$response->ok()) {
+            throw new Exception(json_decode($response->body()));
+        }
+        Log::info('SHAPES Datalake response: ' . json_encode($response->json()));
+        return json_encode($response->json());
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function sendDesktopUsageDataToDatalakeAPI(array $data) {
+        if (!isset($data['category_name']))
+            $data['category_name'] = null;
+        if (!isset($data['duration']))
+            $data['duration'] = null;
+        if (!isset($data['gameName']))
+            $data['gameName'] = null;
+        if (!isset($data['gameType']))
+            $data['gameType'] = null;
+        if (!isset($data['mistakes']))
+            $data['mistakes'] = null;
+        if (!isset($data['parent_category_name']))
+            $data['parent_category_name'] = null;
+
+        $response = Http::withHeaders([
+            'X-Authorisation' => $data['token'],
+            'Accept' => "application/json"
+        ])
+            ->post($this->datalakeAPIUrl . '/mobile', [
+                'action' => $data['action'],
+                'category_name' => $data['category_name'],
+                'devId' => 'talk_and_play_desktop',
+                'duration' => $data['duration'],
+                'gameName' => $data['gameName'],
+                'gameType' => $data['gameType'],
+                'lang' => $data['lang'],
+                'mistakes' => $data['mistakes'],
+                'parent_category_name' => $data['parent_category_name'],
+                'source' => 'desktop',
+                'time' => Carbon::now()->format(DateTime::ATOM),
+                'version' => $data['version']
+            ]);
+        if (!$response->ok()) {
+            throw new Exception($response->body());
+        }
+        Log::info('SHAPES Desktop Datalake response: ' . json_encode($response->json()));
+        return json_encode($response->json());
     }
 
 }

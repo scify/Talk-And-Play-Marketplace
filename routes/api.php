@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnalyticsEventController;
 use App\Http\Controllers\DesktopAppController;
 use App\Http\Controllers\Resource\CommunicationResourceController;
 use App\Http\Controllers\Resource\GameResourceController;
@@ -28,4 +29,5 @@ Route::middleware(['throttle:api'])->group(function () {
     Route::post("/resources/respond", [ResourceController::class, 'respond'])->name('resources.respond.post');
     Route::get("/resources/user-reports", [ResourceController::class, 'getReports'])->name('resources.user-reports.get');
     Route::get("/desktop-app/options", [DesktopAppController::class, 'getOptionsForDesktopApp'])->name('desktop-app.options.get');
+    Route::post("/analytics/store", [AnalyticsEventController::class, 'store']);
 });
