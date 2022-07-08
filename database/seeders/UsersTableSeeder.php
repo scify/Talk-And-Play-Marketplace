@@ -17,13 +17,13 @@ class UsersTableSeeder extends Seeder {
 
     public function run() {
         echo "\nRunning User Seeder...\n";
-        echo env('DEFAULT_ADMIN_USER_PASSWORD_FOR_SEED')."\n";
+        echo config('app.default_admin_password_for_seed')."\n";
         $data = [
             [
                 'id' => 1,
                 'name' => 'Talk and Play admin',
                 'email' => 'admin-tnp@scify.org',
-                'password' => bcrypt(env('DEFAULT_ADMIN_USER_PASSWORD_FOR_SEED'))
+                'password' => bcrypt(config('app.default_admin_password_for_seed'))
             ]
         ];
 
