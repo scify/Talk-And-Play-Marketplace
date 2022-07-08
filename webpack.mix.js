@@ -15,6 +15,7 @@ mix.disableSuccessNotifications();
 
 mix.js("resources/js/app.js", "public/dist/js")
     .js("resources/js/admin/user-management.js", "public/dist/js")
+    .js("resources/js/admin/desktop-app-announcements-management.js", "public/dist/js")
     .js("resources/js/home.js", "public/dist/js")
     .js("resources/js/create-edit-resource.js", "public/dist/js")
 
@@ -35,6 +36,7 @@ mix.autoload({
 
 mix.sass("resources/sass/app.scss", "public/dist/css")
     .sass("resources/sass/user-management-page.scss", "public/dist/css")
+    .sass("resources/sass/desktop-app-announcements-management-page.scss", "public/dist/css")
     .sass("resources/sass/footer.scss", "public/dist/css")
     .sass("resources/sass/home.scss", "public/dist/css")
     .sass("resources/sass/resources-packages-index.scss", "public/dist/css")

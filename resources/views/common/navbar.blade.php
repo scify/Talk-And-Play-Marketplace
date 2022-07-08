@@ -71,13 +71,7 @@
 
                             @can('manage-platform')
                                 <li>
-                                    <a class="dropdown-item {{ UrlMatchesMenuItem("administration.users.index")}}"
-                                       href="{{ route('administration.users.index') }}">
-                                        {!! __('messages.user_management') !!}
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item {{ UrlMatchesMenuItem("administration.users.index")}}"
+                                    <a class="dropdown-item {{ UrlMatchesMenuItem("resources_packages.approve_pending_packages")}}"
                                        href="{{ route('resources_packages.approve_pending_packages') }}">
                                         {!! __('messages.approve_packages') !!}
                                     </a>
@@ -88,6 +82,18 @@
                                         Reported Packages
                                     </a>
                                 </li>
+                                    <li>
+                                        <a class="dropdown-item {{ UrlMatchesMenuItem("administration.users.index")}}"
+                                           href="{{ route('administration.users.index') }}">
+                                            {!! __('messages.user_management') !!}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item {{ UrlMatchesMenuItem("administration.desktop_app_announcements.index")}}"
+                                           href="{{ route('administration.desktop_app_announcements.index') }}">
+                                            {!! __('messages.desktop_app_announcements') !!}
+                                        </a>
+                                    </li>
                             @endcan
                             <li>
                                 <hr class="dropdown-divider">

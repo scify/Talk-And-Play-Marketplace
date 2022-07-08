@@ -97,6 +97,7 @@ return [
     "sign_in_register" => "Anmelden/Registrieren",
     "my_profile" => "Mein Profil",
     "user_management" => "Benutzerverwaltung",
+    "desktop_app_announcements" => "Desktop App Announcements",
     "home_intro_title" => "Der Talk & Play Marktplatz wurde geschaffen, um Fachleuten und Familienmitgliedern zu helfen, Patienten mit Hirnlähmung zu helfen. Von hier aus können Sie Kommunikationskarten und Spielkarten verwalten, die in der <b>Talk & Play App</b> vorhanden sind.</b>.",
     "home_intro_read_more" => "Erfahren Sie mehr über",
     "home_app_intro_description" => "Der Marktplatz Talk & Play wurde geschaffen, um Patienten mit Hirnlähmung, die sich nur schwer verständigen können, Ärzten und ihren Betreuern zu helfen, damit sie ihre <b>Gefühle und Grundbedürfnisse</b> wie den Wunsch nach einem bestimmten Essen mitteilen können. Außerdem können sie ihre Zeit mit den <b>3 angebotenen Spielkategorien</b> (<b>Response-Time</b>, <b>Time Sequence</b>, <b>Find the similar</b>) genießen.",

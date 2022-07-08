@@ -100,6 +100,7 @@ return [
     "sign_in_register" => "Sign in/Register",
     "my_profile" => "My profile",
     "user_management" => "User Management",
+    "desktop_app_announcements" => "Desktop App Announcements",
     "home_intro_title" => "Talk & Play marketplace was created to aid specialists and family members help patients with brain paralysis. From here, you can manage Communication Cards and Game Cards that exist at the <b>Talk & Play app</b>.",
     "home_intro_read_more" => "Learn more about",
     "home_app_intro_description" => "Talk & Play marketplace was created to aid patients with brain paralysis who can not easily communicate, doctors and their carers, so that they can communicate their <b>feelings and basic needs</b> such as the desire to eat a certain food. They are also given the ability to enjoy their time with <b>3 game categories</b> that are offered (<b>Response-Time</b>, <b>Time Sequence</b>, <b>Find the similar</b>).",

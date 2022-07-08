@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DesktopAppAnnouncementController;
 use App\Http\Controllers\Resource\CommunicationResourceController;
 use App\Http\Controllers\Resource\GameResourceController;
 use App\Http\Controllers\Resource\ResourceController;
@@ -49,8 +50,9 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('users', UserController::class)->except([
             'create', 'edit', 'show'
         ]);
-
-
+        Route::resource('desktop_app_announcements', DesktopAppAnnouncementController::class)->except([
+            'create', 'edit', 'show'
+        ]);
     });
 
     Route::get('resources/approve_pending_packages', [ResourceController::class, 'approve_pending_packages'])->name('resources_packages.approve_pending_packages');
@@ -87,7 +89,6 @@ Route::middleware(['auth'])->group(function () {
         ])
         ->names([
             'store' => 'resources.store',
-//            'update' => 'resources.update',
             'destroy' => 'resources.destroy'
         ]);
     Route::put("/resources/update_resource/{id}/{type_id}", [ResourceController::class, 'update_resource'])->name('resources.update_resource');
@@ -102,12 +103,10 @@ Route::middleware(['auth'])->group(function () {
             'store' => 'game_resources.store',
             'edit' => 'game_resources.edit',
             'update' => 'game_resources.update',
-//            'show_packages' => 'game_resources.show_packages',
             'show_package' => 'game_resources.show_package',
             'download_package' => 'game_resources.download_package'
         ]);
 
-//    Route::get("/game-cards/show/packages/{type_id}", [GameResourceController::class, 'show_packages'])->name('game_resources.my_packages');
 
     Route::get("/game-cards/show/package/{id}", [GameResourceController::class, 'show_package'])->name('game_resources.show_package');
     Route::get("/game-cards/download/package/{id}", [GameResourceController::class, 'download_package'])->name('game_resources.download_package');

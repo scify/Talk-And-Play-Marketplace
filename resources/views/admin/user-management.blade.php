@@ -5,7 +5,7 @@
 @endpush
 
 @section('content')
-    <div class="container" id="user-management-page">
+    <div class="container py-5" id="user-management-page">
         <!-- most popular tag section -->
         <div class="row">
             <div class="col text-left">
