@@ -151,7 +151,7 @@ class ShapesIntegrationManager {
                 'mistakes' => $data['mistakes'],
                 'parent_category_name' => $data['parent_category_name'],
                 'source' => 'desktop',
-                'time' => Carbon::now()->format(DateTime::ATOM),
+                'time' => Carbon::now()->format(DateTime::RFC3339),
                 'version' => $data['version']
             ]);
         if (!$response->ok()) {
