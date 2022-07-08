@@ -40,7 +40,7 @@ class DesktopAppAnnouncementController extends Controller {
      */
     public function index() {
         return view('admin.desktop-app-announcements-management', [
-            'announcements' => $this->desktopAppAnnouncementRepository->with(['translations', 'translations.language'])->all(),
+            'announcements' => $this->desktopAppAnnouncementRepository->all($columns = array('*'), $orderColumn = null, $order = null, ['translations', 'translations.language'])->all(),
             'languages' => $this->contentLanguageLkpRepository->all()
         ]);
     }
