@@ -16,20 +16,27 @@
                            required
                            placeholder="A default title">
                 </div>
-                <div class="col-3">
-                    <label for="{{ $action }}_severity" class="form-label">Severity (number from 1 to
+                <div class="col-2">
+                    <label for="{{ $action }}_severity" class="form-label">Severity (from 1 to
                         5)</label>
                     <input type="number" class="form-control" id="{{ $action }}_severity"
                            name="announcement_severity"
                            required
                            placeholder="1">
                 </div>
-                <div class="col-3">
+                <div class="col-2">
                     <label for="{{ $action }}_type" class="form-label">Type ('info', 'alert')</label>
                     <input type="text" class="form-control" id="{{ $action }}_type"
                            name="announcement_type"
                            required
                            placeholder="info">
+                </div>
+                <div class="col-2">
+                    <label for="{{ $action }}_type" class="form-label">Version (e.g. 3.2)</label>
+                    <input type="text" class="form-control" id="{{ $action }}_version"
+                           name="announcement_version"
+                           required
+                           placeholder="3.2">
                 </div>
             </div>
         </div>

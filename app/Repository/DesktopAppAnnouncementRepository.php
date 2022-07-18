@@ -13,13 +13,21 @@ class DesktopAppAnnouncementRepository extends Repository {
         return DesktopAppAnnouncement::class;
     }
 
-    public function getLatest() {
-        $result = DesktopAppAnnouncement::with(['translations', 'translations.language'])->orderBy("desktop_app_announcements.updated_at",'desc')->where('status',1)->first();
+    public function getLatest($version=null) {
+        $queryBuilder = DesktopAppAnnouncement::with(['translations', 'translations.language'])
+            ->orderBy("desktop_app_announcements.updated_at",'desc')
+            ->where('status',1);
+
+        if($version) {
+            $queryBuilder->where('version', '<=',$version);
+        }
+        $result = $queryBuilder->first();
         $toReturn = (object)[];
         if (!empty($result)){
             $toReturn->translations = [];
             $toReturn->severity = $result->severity;
             $toReturn->type = $result->type;
+            $toReturn->version = $result->version;
             $toReturn->updated_at = $result->updated_at;
             foreach ($result->translations as $translation) {
                 $translationObj = (object)[];
