@@ -1,5 +1,4 @@
 import {Modal} from "bootstrap";
-
 (function () {
     $(document).ready(function () {
         init();
@@ -60,7 +59,8 @@ import {Modal} from "bootstrap";
             var url = modalEl.find("#activateAnnouncementForm").attr("action");
             url = url.substr(0, url.lastIndexOf("/"));
             modalEl.find("#activateAnnouncementForm").attr("action", url + "/" + annId);
-            var modal = new bootstrap__WEBPACK_IMPORTED_MODULE_0__.Modal(document.getElementById("activateDesktopAppAnnouncementModal"));
+            const modal = new Modal(document.getElementById("activateDesktopAppAnnouncementModal"));
+            // var modal = new bootstrap__WEBPACK_IMPORTED_MODULE_0__.Modal(document.getElementById("activateDesktopAppAnnouncementModal"));
             modal.show();
         });
     };
@@ -76,7 +76,7 @@ import {Modal} from "bootstrap";
             var url = modalEl.find("#deactivateAnnouncementForm").attr("action");
             url = url.substr(0, url.lastIndexOf("/"));
             modalEl.find("#deactivateAnnouncementForm").attr("action", url + "/" + annId);
-            var modal = new bootstrap__WEBPACK_IMPORTED_MODULE_0__.Modal(document.getElementById("deactivateDesktopAppAnnouncementModal"));
+            const modal = new Modal(document.getElementById("deactivateDesktopAppAnnouncementModal"));
             modal.show();
         });
     };
