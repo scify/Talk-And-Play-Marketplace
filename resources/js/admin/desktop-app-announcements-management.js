@@ -48,6 +48,39 @@ import {Modal} from "bootstrap";
         });
     };
 
+
+    var activateAnnouncementHandler = function activateAnnouncementHandler() {
+        $("body").on("click", ".activate-announcement", function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            var annId = $(this).data("announcementId");
+            var annTitle = $(this).data("announcementTitle");
+            var modalEl = $("#activateDesktopAppAnnouncementModal");
+            modalEl.find("#announcement-title").html(annTitle);
+            var url = modalEl.find("#activateAnnouncementForm").attr("action");
+            url = url.substr(0, url.lastIndexOf("/"));
+            modalEl.find("#activateAnnouncementForm").attr("action", url + "/" + annId);
+            var modal = new bootstrap__WEBPACK_IMPORTED_MODULE_0__.Modal(document.getElementById("activateDesktopAppAnnouncementModal"));
+            modal.show();
+        });
+    };
+
+    var deactivateAnnouncementHandler = function deactivateAnnouncementHandler() {
+        $("body").on("click", ".deactivate-announcement", function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            var annId = $(this).data("announcementId");
+            var annTitle = $(this).data("announcementTitle");
+            var modalEl = $("#deactivateDesktopAppAnnouncementModal");
+            modalEl.find("#announcement-title").html(annTitle);
+            var url = modalEl.find("#deactivateAnnouncementForm").attr("action");
+            url = url.substr(0, url.lastIndexOf("/"));
+            modalEl.find("#deactivateAnnouncementForm").attr("action", url + "/" + annId);
+            var modal = new bootstrap__WEBPACK_IMPORTED_MODULE_0__.Modal(document.getElementById("deactivateDesktopAppAnnouncementModal"));
+            modal.show();
+        });
+    };
+
     let getAnnouncement = function (id) {
         for (let i = 0; i < window.announcements.length; i++) {
             if (window.announcements[i].id === id)
@@ -67,5 +100,7 @@ import {Modal} from "bootstrap";
     let init = function () {
         dropAnnouncementHandler();
         updateAnnouncementHandler();
+        activateAnnouncementHandler();
+        deactivateAnnouncementHandler();
     };
 })();
