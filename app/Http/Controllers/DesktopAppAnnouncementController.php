@@ -116,8 +116,22 @@ class DesktopAppAnnouncementController extends Controller {
      * @return RedirectResponse
      */
     public function destroy($id) {
+        $this->deactivate($id);
         $this->desktopAppAnnouncementRepository->delete($id);
         session()->flash('flash_message_success', "Announcement deleted");
         return back();
     }
+
+    public function activate($id) {
+        $this->desktopAppAnnouncementRepository->activate($id);
+        session()->flash('flash_message_success', "Announcement activated");
+        return back();
+    }
+
+    public function deactivate($id) {
+        $this->desktopAppAnnouncementRepository->deactivate($id);
+        session()->flash('flash_message_success', "Announcement deactivated");
+        return back();
+    }
+
 }

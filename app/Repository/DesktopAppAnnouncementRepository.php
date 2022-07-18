@@ -14,7 +14,7 @@ class DesktopAppAnnouncementRepository extends Repository {
     }
 
     public function getLatest() {
-        $result = DesktopAppAnnouncement::with(['translations', 'translations.language'])->orderBy("desktop_app_announcements.updated_at")->first();
+        $result = DesktopAppAnnouncement::with(['translations', 'translations.language'])->orderBy("desktop_app_announcements.updated_at",'desc')->where('status',1)->first();
         $toReturn = (object)[];
         if (!empty($result)){
             $toReturn->translations = [];
@@ -32,4 +32,23 @@ class DesktopAppAnnouncementRepository extends Repository {
         }
         return $toReturn;
     }
+
+
+    public function activate($id) {
+        // deactivate previous active announcements
+        $prevActiveAnnouncement = DesktopAppAnnouncement::with(['translations', 'translations.language'])->where('status',1)->first();
+        if(!empty($prevActiveAnnouncement)){
+            $prevActiveAnnouncement->update(['status' => 0]);
+        }
+
+        //activate new announcement
+        $announcementToActivate = DesktopAppAnnouncement::with(['translations', 'translations.language'])->find($id);
+        $announcementToActivate->update(['status' => 1]);
+    }
+
+    public function deactivate($id) {
+        $announcementToDeactivate = DesktopAppAnnouncement::with(['translations', 'translations.language'])->find($id);
+        $announcementToDeactivate->update(['status' => 0]);
+    }
+
 }

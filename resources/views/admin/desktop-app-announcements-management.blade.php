@@ -56,6 +56,17 @@
                                         data-announcement-title="{{ $announcement->default_title }}"
                                         class="btn btn-danger drop-announcement">Delete
                                 </button>
+                                @if($announcement->status == 1)
+                                    <button data-announcement-id="{{ $announcement->id }}"
+                                            data-announcement-title="{{ $announcement->default_title }}"
+                                            class="btn  btn-outline-danger btn-status deactivate-announcement "> Deactivate
+                                    </button>
+                                @else
+                                    <button data-announcement-id="{{ $announcement->id }}"
+                                            data-announcement-title="{{ $announcement->default_title }}"
+                                            class="btn btn-outline-success btn-status activate-announcement"> Activate
+                                    </button>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
@@ -117,7 +128,7 @@
 
                         <div class="modal-body">
                             <p class="text-danger"><b>Warning: </b>
-                                <br>This announcmenet will be deleted </p>
+                                <br>This announcement will be deactivated and deleted. </p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -127,6 +138,64 @@
                 </div><!--.modal-content-->
             </div><!--.modal-dialog-->
         </div><!--.modal-->
+
+
+
+        <div class="modal fade" id="activateDesktopAppAnnouncementModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg" style="margin-top: 10%">
+                <div class="modal-content">
+                    <form id="activateAnnouncementForm" method="POST"
+                          action="{{ route('administration.desktop_app_announcements.activate', 0) }}">
+                        @method('PUT')
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Are you sure you would like to activate this announcement?<br><span
+                                    id="announcement-title"></span></h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <p class="text-danger"><b>Warning: </b>
+                                <br>All previous activate announcements will automatically be deactivated </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Activate</button>
+                        </div>
+                    </form>
+                </div><!--.modal-content-->
+            </div><!--.modal-dialog-->
+        </div><!--.modal-->
+
+
+        <div class="modal fade" id="deactivateDesktopAppAnnouncementModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg" style="margin-top: 10%">
+                <div class="modal-content">
+                    <form id="deactivateAnnouncementForm" method="POST"
+                          action="{{ route('administration.desktop_app_announcements.deactivate', 0) }}">
+                        @method('PUT')
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Are you sure you would like to deactivate this announcement?<br><span
+                                    id="announcement-title"></span></h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <p class="text-danger"><b>Warning: </b>
+                                <br>This announcement will be deactivated </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger">Deactivate</button>
+                        </div>
+                    </form>
+                </div><!--.modal-content-->
+            </div><!--.modal-dialog-->
+        </div><!--.modal-->
+
     @endpush
 @endsection
 @push('scripts')
