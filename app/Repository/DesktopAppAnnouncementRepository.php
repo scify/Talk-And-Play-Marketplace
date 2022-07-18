@@ -16,17 +16,19 @@ class DesktopAppAnnouncementRepository extends Repository {
     public function getLatest() {
         $result = DesktopAppAnnouncement::with(['translations', 'translations.language'])->orderBy("desktop_app_announcements.updated_at")->first();
         $toReturn = (object)[];
-        $toReturn->severity = $result->severity;
-        $toReturn->type = $result->type;
-        $toReturn->updated_at = $result->updated_at;
-        $toReturn->translations = [];
-        foreach ($result->translations as $translation) {
-            $translationObj = (object)[];
-            $translationObj->title = $translation->title;
-            $translationObj->message = $translation->message;
-            $translationObj->link = $translation->link;
-            $translationObj->language = $translation->language->code;
-            $toReturn->translations[] = $translationObj;
+        if (!empty($result)){
+            $toReturn->translations = [];
+            $toReturn->severity = $result->severity;
+            $toReturn->type = $result->type;
+            $toReturn->updated_at = $result->updated_at;
+            foreach ($result->translations as $translation) {
+                $translationObj = (object)[];
+                $translationObj->title = $translation->title;
+                $translationObj->message = $translation->message;
+                $translationObj->link = $translation->link;
+                $translationObj->language = $translation->language->code;
+                $toReturn->translations[] = $translationObj;
+            }
         }
         return $toReturn;
     }
