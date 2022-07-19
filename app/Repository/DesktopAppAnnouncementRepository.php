@@ -19,7 +19,7 @@ class DesktopAppAnnouncementRepository extends Repository {
             ->where('status',1);
 
         if($version) {
-            $queryBuilder->where('version', '<=',$version);
+            $queryBuilder->where('version', '>=',$version);
         }
         $result = $queryBuilder->first();
         $toReturn = (object)[];
