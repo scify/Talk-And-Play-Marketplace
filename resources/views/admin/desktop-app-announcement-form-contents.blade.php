@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="col-6">
                     <label for="formControlRange" class="form-label">Min Version </label>
-                    <input type="text" class="form-control" id="{{ $action }}_type"
+                    <input type="text" class="form-control" id="{{ $action }}_min_version"
                            name="announcement_min_version"
                            required
                            placeholder="min.version">
@@ -45,7 +45,7 @@
             <div class="row">
                 <div class="col-6">
                     <label for="formControlRange" class="form-label">Max Version </label>
-                    <input type="text" class="form-control" id="{{ $action }}_type"
+                    <input type="text" class="form-control" id="{{ $action }}_max_version"
                            name="announcement_max_version"
                            required
                            placeholder="max.version">

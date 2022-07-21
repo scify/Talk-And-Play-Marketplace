@@ -31,6 +31,10 @@ import {Modal} from "bootstrap";
             const announcement = getAnnouncement($(this).data("announcementId"));
             modalEl.find("#updateAnnouncementForm").attr("action", url + "/" + announcement.id);
             modalEl.find("#update_default_title").val(announcement.default_title);
+
+
+            modalEl.find("#update_min_version").val(announcement.min_version);
+            modalEl.find("#update_max_version").val(announcement.max_version);
             if (announcement.severity)
                 modalEl.find("#update_severity").val(announcement.severity);
             if (announcement.type)

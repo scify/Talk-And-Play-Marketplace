@@ -32,7 +32,7 @@ class DesktopAppAnnouncementRepository extends Repository {
                 $announcement->severity = $result->severity;
                 $announcement->type = $result->type;
                 $announcement->min_version = $result->min_version;
-                $announcement->max_verison = $result->max_version;
+                $announcement->max_version = $result->max_version;
                 $announcement->updated_at = $result->updated_at;
                 foreach ($result->translations as $translation) {
                     $translationObj = (object)[];
@@ -65,7 +65,7 @@ class DesktopAppAnnouncementRepository extends Repository {
             $toReturn->severity = $result->severity;
             $toReturn->type = $result->type;
             $toReturn->min_version = $result->min_version;
-            $toReturn->max_verison = $result->max_version;
+            $toReturn->max_version = $result->max_version;
             $toReturn->updated_at = $result->updated_at;
             foreach ($result->translations as $translation) {
                 $translationObj = (object)[];
