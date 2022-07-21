@@ -13,9 +13,45 @@ class DesktopAppAnnouncementRepository extends Repository {
         return DesktopAppAnnouncement::class;
     }
 
+
+    public function getAnnouncementsForVersion($version=null) {
+        $queryBuilder = DesktopAppAnnouncement::with(['translations', 'translations.language'])
+            ->where('status',1);
+
+        if($version) {
+            $queryBuilder->where('min_version', '<=',$version)
+                ->where('max_version','>=',$version);
+        }
+        $queryBuilder->orderBy("desktop_app_announcements.updated_at",'asc');
+        $results = $queryBuilder->get();
+        $announcements = [];
+        if (!empty($results)){
+            foreach($results as $result){
+                $announcement = (object)[];
+                $announcement->translations = [];
+                $announcement->severity = $result->severity;
+                $announcement->type = $result->type;
+                $announcement->min_version = $result->min_version;
+                $announcement->max_verison = $result->max_version;
+                $announcement->updated_at = $result->updated_at;
+                foreach ($result->translations as $translation) {
+                    $translationObj = (object)[];
+                    $translationObj->title = $translation->title;
+                    $translationObj->message = $translation->message;
+                    $translationObj->link = $translation->link;
+                    $translationObj->language = $translation->language->code;
+                    $announcement->translations[] = $translationObj;
+                }
+                $announcements[] = $announcement;
+            }
+
+        }
+        return $announcements;
+    }
+
+
     public function getLatest($version=null) {
         $queryBuilder = DesktopAppAnnouncement::with(['translations', 'translations.language'])
-            ->orderBy("desktop_app_announcements.updated_at",'desc')
             ->where('status',1);
 
         if($version) {
@@ -46,10 +82,10 @@ class DesktopAppAnnouncementRepository extends Repository {
 
     public function activate($id) {
         // deactivate previous active announcements
-        $prevActiveAnnouncement = DesktopAppAnnouncement::with(['translations', 'translations.language'])->where('status',1)->first();
-        if(!empty($prevActiveAnnouncement)){
-            $prevActiveAnnouncement->update(['status' => 0]);
-        }
+//        $prevActiveAnnouncement = DesktopAppAnnouncement::with(['translations', 'translations.language'])->where('status',1)->first();
+//        if(!empty($prevActiveAnnouncement)){
+//            $prevActiveAnnouncement->update(['status' => 0]);
+//        }
 
         //activate new announcement
         $announcementToActivate = DesktopAppAnnouncement::with(['translations', 'translations.language'])->find($id);
