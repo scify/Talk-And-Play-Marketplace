@@ -16,7 +16,7 @@
                            required
                            placeholder="A default title">
                 </div>
-                <div class="col-2">
+                <div class="col-3">
                     <label for="{{ $action }}_severity" class="form-label">Severity (from 1 to
                         5)</label>
                     <input type="number" class="form-control" id="{{ $action }}_severity"
@@ -24,21 +24,35 @@
                            required
                            placeholder="1">
                 </div>
-                <div class="col-2">
+                <div class="col-3">
                     <label for="{{ $action }}_type" class="form-label">Type ('info', 'alert')</label>
                     <input type="text" class="form-control" id="{{ $action }}_type"
                            name="announcement_type"
                            required
                            placeholder="info">
                 </div>
-                <div class="col-2">
-                    <label for="{{ $action }}_type" class="form-label">Version (e.g. 3.2)</label>
-                    <input type="text" class="form-control" id="{{ $action }}_version"
-                           name="announcement_version"
-                           required
-                           placeholder="3.2">
-                </div>
             </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="formControlRange" class="form-label">Min Version </label>
+                    <input type="text" class="form-control" id="{{ $action }}_type"
+                           name="announcement_min_version"
+                           required
+                           placeholder="min.version">
+                </div>
+                <div class="col-6"></div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="formControlRange" class="form-label">Max Version </label>
+                    <input type="text" class="form-control" id="{{ $action }}_type"
+                           name="announcement_max_version"
+                           required
+                           placeholder="max.version">
+                </div>
+                <div class="col-6"></div>
+            </div>
+
         </div>
 
     </div>

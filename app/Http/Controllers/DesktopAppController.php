@@ -19,7 +19,6 @@ class DesktopAppController extends Controller {
 
 
     public function getOptionsForDesktopApp(\Illuminate\Http\Request $request): JsonResponse {
-
         $version = $request->input('version',null);
         $announcement = $this->desktopAppAnnouncementRepository->getLatest($version);
         $returnArray = [

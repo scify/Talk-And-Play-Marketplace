@@ -19,7 +19,8 @@ class DesktopAppAnnouncementRepository extends Repository {
             ->where('status',1);
 
         if($version) {
-            $queryBuilder->where('version', '>=',$version);
+            $queryBuilder->where('min_version', '<=',$version)
+                ->where('max_version','>=',$version);
         }
         $result = $queryBuilder->first();
         $toReturn = (object)[];
@@ -27,7 +28,8 @@ class DesktopAppAnnouncementRepository extends Repository {
             $toReturn->translations = [];
             $toReturn->severity = $result->severity;
             $toReturn->type = $result->type;
-            $toReturn->version = $result->version;
+            $toReturn->min_version = $result->min_version;
+            $toReturn->max_verison = $result->max_version;
             $toReturn->updated_at = $result->updated_at;
             foreach ($result->translations as $translation) {
                 $translationObj = (object)[];

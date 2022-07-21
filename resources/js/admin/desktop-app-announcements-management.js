@@ -1,4 +1,5 @@
 import {Modal} from "bootstrap";
+
 (function () {
     $(document).ready(function () {
         init();
@@ -52,11 +53,11 @@ import {Modal} from "bootstrap";
         $("body").on("click", ".activate-announcement", function (e) {
             e.stopPropagation();
             e.preventDefault();
-            var annId = $(this).data("announcementId");
-            var annTitle = $(this).data("announcementTitle");
-            var modalEl = $("#activateDesktopAppAnnouncementModal");
+            let annId = $(this).data("announcementId");
+            let annTitle = $(this).data("announcementTitle");
+            let modalEl = $("#activateDesktopAppAnnouncementModal");
             modalEl.find("#announcement-title").html(annTitle);
-            var url = modalEl.find("#activateAnnouncementForm").attr("action");
+            let url = modalEl.find("#activateAnnouncementForm").attr("action");
             url = url.substr(0, url.lastIndexOf("/"));
             modalEl.find("#activateAnnouncementForm").attr("action", url + "/" + annId);
             const modal = new Modal(document.getElementById("activateDesktopAppAnnouncementModal"));
@@ -65,15 +66,15 @@ import {Modal} from "bootstrap";
         });
     };
 
-    var deactivateAnnouncementHandler = function deactivateAnnouncementHandler() {
+    let deactivateAnnouncementHandler = function deactivateAnnouncementHandler() {
         $("body").on("click", ".deactivate-announcement", function (e) {
             e.stopPropagation();
             e.preventDefault();
-            var annId = $(this).data("announcementId");
-            var annTitle = $(this).data("announcementTitle");
-            var modalEl = $("#deactivateDesktopAppAnnouncementModal");
+            let annId = $(this).data("announcementId");
+            let annTitle = $(this).data("announcementTitle");
+            let modalEl = $("#activateDesktopAppAnnouncementModal");
             modalEl.find("#announcement-title").html(annTitle);
-            var url = modalEl.find("#deactivateAnnouncementForm").attr("action");
+            let url = modalEl.find("#deactivateAnnouncementForm").attr("action");
             url = url.substr(0, url.lastIndexOf("/"));
             modalEl.find("#deactivateAnnouncementForm").attr("action", url + "/" + annId);
             const modal = new Modal(document.getElementById("deactivateDesktopAppAnnouncementModal"));
@@ -97,7 +98,23 @@ import {Modal} from "bootstrap";
         throw new Error("announcement translation with lang id: " + langId + " not found for translation with id: " + announcement.id + ".");
     };
 
+    //
+    // let adjustMaxVersionRange = function(){
+    //     $("body").on("click", ".set-min-version", function (e) {
+    //         e.stopPropagation();
+    //         e.preventDefault();
+    //         let modalEl = $("#updateDesktopAppAnnouncementModal");
+    //         // let url = modalEl.find("#updateAnnouncementForm").attr("action");
+    //         // url = url.substr(0, url.lastIndexOf("/"));
+    //         let url = modalEl.find("#set_min_version").val();
+    //         console.log(url);
+    //         // console.log(minVersionValue);
+    //     });
+    //
+    // };
+
     let init = function () {
+        // adjustMaxVersionRange();
         dropAnnouncementHandler();
         updateAnnouncementHandler();
         activateAnnouncementHandler();

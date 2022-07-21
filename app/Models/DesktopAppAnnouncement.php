@@ -22,7 +22,7 @@ class DesktopAppAnnouncement extends Model
      * @var array
      */
     protected $fillable = [
-        'type', 'severity', 'default_title', 'status', 'version'
+        'type', 'severity', 'default_title', 'status', 'min_version','max_version'
     ];
 
     public function translations(): HasMany {

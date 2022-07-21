@@ -14,7 +14,8 @@ class AddVersionToAnnouncementsTable extends Migration
     public function up()
     {
         Schema::table('desktop_app_announcements', function (Blueprint $table) {
-            $table->double('version')->default(0.0)->after('status');
+            $table->double('min_version')->default(0.0)->after('status');
+            $table->double('max_version')->default(0.0)->after('min_version');
         });
     }
 
@@ -26,7 +27,8 @@ class AddVersionToAnnouncementsTable extends Migration
     public function down()
     {
         Schema::table('desktop_app_announcements', function (Blueprint $table) {
-            $table->dropColumn('version');
+            $table->dropColumn('min_version');
+            $table->dropColumn('max_version');
         });
     }
 }
