@@ -61,7 +61,7 @@
         <input type="hidden" value="{{$language->id}}" name="lang_ids[]">
         <div class="container-fluid py-2">
             <div class="row">
-                <p><b>{{ $language->name }}</b></p>
+                <p><strong>{{ $language->name }}</strong></p>
             </div>
             <div class="row mb-2">
                 <div class="col-6">

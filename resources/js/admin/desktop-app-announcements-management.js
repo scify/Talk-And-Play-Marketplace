@@ -39,13 +39,13 @@ import {Modal} from "bootstrap";
                 modalEl.find("#update_severity").val(announcement.severity);
             if (announcement.type)
                 modalEl.find("#update_type").val(announcement.type);
-            for (let i = 0; i < window.languages.length; i++) {
-                const translation = getAnnouncementTranslationForLang(announcement, window.languages[i].id);
-                modalEl.find("#update_title_" + window.languages[i].id).val(translation.title);
+            for (const element of window.languages) {
+                const translation = getAnnouncementTranslationForLang(announcement, element.id);
+                modalEl.find("#update_title_" + element.id).val(translation.title);
                 if (translation.message)
-                    modalEl.find("#update_message_" + window.languages[i].id).val(translation.message);
+                    modalEl.find("#update_message_" + element.id).val(translation.message);
                 if (translation.link)
-                    modalEl.find("#update_link_" + window.languages[i].id).val(translation.link);
+                    modalEl.find("#update_link_" + element.id).val(translation.link);
             }
             const modal = new Modal(document.getElementById("updateDesktopAppAnnouncementModal"));
             modal.show();
@@ -53,7 +53,7 @@ import {Modal} from "bootstrap";
     };
 
 
-    var activateAnnouncementHandler = function activateAnnouncementHandler() {
+    let activateAnnouncementHandler = function activateAnnouncementHandler() {
         $("body").on("click", ".activate-announcement", function (e) {
             e.stopPropagation();
             e.preventDefault();
@@ -65,7 +65,6 @@ import {Modal} from "bootstrap";
             url = url.substr(0, url.lastIndexOf("/"));
             modalEl.find("#activateAnnouncementForm").attr("action", url + "/" + annId);
             const modal = new Modal(document.getElementById("activateDesktopAppAnnouncementModal"));
-            // var modal = new bootstrap__WEBPACK_IMPORTED_MODULE_0__.Modal(document.getElementById("activateDesktopAppAnnouncementModal"));
             modal.show();
         });
     };
@@ -87,17 +86,17 @@ import {Modal} from "bootstrap";
     };
 
     let getAnnouncement = function (id) {
-        for (let i = 0; i < window.announcements.length; i++) {
-            if (window.announcements[i].id === id)
-                return window.announcements[i];
+        for (const element of window.announcements) {
+            if (element.id === id)
+                return element;
         }
         throw new Error("announcement with id: " + id + " not found.");
     };
 
     let getAnnouncementTranslationForLang = function (announcement, langId) {
-        for (let i = 0; i < announcement.translations.length; i++) {
-            if (announcement.translations[i].lang_id === langId)
-                return announcement.translations[i];
+        for (const element of announcement.translations) {
+            if (element.lang_id === langId)
+                return element;
         }
         throw new Error("announcement translation with lang id: " + langId + " not found for translation with id: " + announcement.id + ".");
     };

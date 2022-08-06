@@ -55,7 +55,7 @@
                     </div>
 
                     <div class="modal-body">
-                        <p class="text-danger"><b>Warning: </b>
+                        <p class="text-danger"><strong>Warning: </strong>
                             <br>This announcement will be deactivated and deleted. </p>
                     </div>
                     <div class="modal-footer">
@@ -84,7 +84,7 @@
                     </div>
 
                     <div class="modal-body">
-                        <p class="text-danger"><b>Warning: </b>
+                        <p class="text-danger"><strong>Warning: </strong>
                             <br>All previous activate announcements will automatically be deactivated </p>
                     </div>
                     <div class="modal-footer">
@@ -112,7 +112,7 @@
                     </div>
 
                     <div class="modal-body">
-                        <p class="text-danger"><b>Warning: </b>
+                        <p class="text-danger"><strong>Warning: </strong>
                             <br>This announcement will be deactivated </p>
                     </div>
                     <div class="modal-footer">
