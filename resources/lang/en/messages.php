@@ -38,14 +38,14 @@ return [
 
         <p style="margin-top: 12px"><strong>2.2 Time Sequence</strong></p>
         <p style="font-size: 18px">In the games of this category, the user sees a number of images that they have to put in order according to what happened first. Let’s see an example:</p>
-        <img src={{asset("img/time-sequence-example.png")}}  alt=""; style="top: 1345px;left: 278px; width: 661px; height: 160px; ">
+        <img src="img/time-sequence-example.png"  alt=""; style="top: 1345px;left: 278px; width: 661px; height: 160px; ">
         <p style="font-size: 18px; font-style:italic; color: var(--content-orange); font-family: "Open Sans",sans-serif">In the game above we see the life course of a flower. The user has to place the last image first, the second-to-last second, and so on.</p>
 
         <p style="margin-top: 12px"><strong>2.3 Find the Similar</strong></p>
         <p style="font-size: 18px">In this game, the user has to click on the image that is similar to the image at the lower part of the screen. Let’s see an example:</p>
-        <img src={{asset("img/find-similar-example.png")}}  alt=""; style="top: 1631px;left: 275px; width: 580px; height: 259px; ">
+        <img src="img/find-similar-example.png"  alt=""; style="top: 1631px;left: 275px; width: 580px; height: 259px; ">
         <p style="font-size: 18px; font-style:italic; color: var(--content-orange); font-family: "Open Sans",sans-serif">In this game, the user has to click on the image that is similar to the image at the lower part of the screen. Let’s see an example:</p>
-    </div>',
+  ',
     'guidelines_content_creation_game_cards' => 'Content-creation - Game Cards',
     'guidelines_communication_package' => 'Many Communication Cards together create a Card Package.',
     'guidelines_communication_cards_example' => 'An example is a patient that is thirsty and wants to ask for a glass of water. This need can be covered by creating a card in Talk & Play Marketplace, showing the image of a glass of water and accompanied by an audio file that contains the phrases <strong>“I want water”</strong> or <strong>“thirsty!”</strong>.',

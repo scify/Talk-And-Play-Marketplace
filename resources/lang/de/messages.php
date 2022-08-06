@@ -38,14 +38,13 @@ return [
 
         <p style="margin-top: 12px"><strong>2.2 Zeitlicher Ablauf</strong></p>
         <p style="font-size: 18px">In den Spielen dieser Kategorie sieht der Benutzer eine Reihe von Bildern, die er in die richtige Reihenfolge bringen muss, je nachdem, was zuerst passiert ist. Lassen Sie uns ein Beispiel sehen:</p>
-        <img src={{asset("img/time-sequence-example.png")}}  alt=""; style="top: 1345px;left: 278px; width: 661px; height: 160px; ">
+        <img src="img/time-sequence-example.png" alt=""; style="top: 1345px;left: 278px; width: 661px; height: 160px; ">
         <p style="font-size: 18px; font-style:italic; color: var(--content-orange); font-family: "Open Sans",sans-serif">In dem Spiel oben sehen wir den Lebenslauf einer Blume. Der Benutzer muss das letzte Bild als erstes platzieren, das vorletzte als zweites und so weiter.</p>
 
         <p style="margin-top: 12px"><strong>2.3 Finden Sie das Ähnliche</strong></p>
         <p style="font-size: 18px">Bei diesem Spiel muss der Benutzer auf das Bild klicken, das dem Bild im unteren Teil des Bildschirms ähnlich ist. Lassen Sie uns ein Beispiel sehen:</p>
-        <img src={{asset("img/find-similar-example.png")}}  alt=""; style="top: 1631px;left: 275px; width: 580px; height: 259px; ">
-        <p style="font-size: 18px; font-style:italic; color: var(--content-orange); font-family: "Open Sans",sans-serif">In diesem Beispiel muss der Benutzer auf das zweite Bild mit dem gelben Kreis klicken.</p>
-    </div>',
+        <img src="img/find-similar-example.png"  alt=""; style="top: 1631px;left: 275px; width: 580px; height: 259px; ">
+        <p style="font-size: 18px; font-style:italic; color: var(--content-orange); font-family: "Open Sans",sans-serif">In diesem Beispiel muss der Benutzer auf das zweite Bild mit dem gelben Kreis klicken.</p>',
     'guidelines_content_creation_game_cards' => 'Erstellung von Inhalten - Spielkarten',
     'guidelines_communication_package' => 'Viele Kommunikationskarten zusammen ergeben ein Kartenpaket.',
     'guidelines_communication_cards_example' => 'Ein Beispiel ist ein Patient, der durstig ist und um ein Glas Wasser bitten möchte. Dieses Bedürfnis kann durch die Erstellung einer Karte im Talk & Play Marketplace gedeckt werden, die das Bild eines Glases Wasser zeigt und von einer Audiodatei begleitet wird, die die Ausdrücke "Ich möchte Wasser" oder "Durstig!".',

@@ -39,15 +39,15 @@ return [
 
         <p style="margin-top: 12px"><strong>2.2 Χρονική Αλληλουχία</strong></p>
         <p style="font-size: 18px">Στα παιχνίδια αυτής της κατηγορίας ο χρήστης βλέπει μια σειρά από εικόνες, τις οποίες πρέπει στη συνέχεια να ταξινομήσει με βάση το γεγονός που έγινε πρώτο. Ας δούμε ένα παράδειγμα:</p>
-        <img src={{asset("img/time-sequence-example.png")}}  alt=""; style="top: 1345px;left: 278px; width: 661px; height: 160px; ">
+        <img src="img/time-sequence-example.png")  alt=""; style="top: 1345px;left: 278px; width: 661px; height: 160px; ">
         <p style="font-size: 18px; font-style:italic; color: var(--content-orange); font-family: "Open Sans",sans-serif">Στο παραπάνω παιχνίδι βλέπουμε την πορεία ζωής ενός λουλουδιού. Ο χρήστης πρέπει να τοποθετήσει πρώτη στη σειρά την τελευταία εικόνα, δεύτερη την προτελευταία, και ούτω καθεξής.
 </p>
 
         <p style="margin-top: 12px"><strong>2.3 Βρές το Όμοιο</strong></p>
         <p style="font-size: 18px">Σε αυτό το παιχνίδι ο χρήστης καλείται να πατήσει πάνω στην εικόνα που είναι όμοια με την εικόνα στο κάτω μέρος της οθόνης. Ας δούμε ένα παράδειγμα:</p>
-        <img src={{asset("img/find-similar-example.png")}}  alt=""; style="top: 1631px;left: 275px; width: 580px; height: 259px; ">
+        <img src="img/find-similar-example.png")  alt=""; style="top: 1631px;left: 275px; width: 580px; height: 259px; ">
         <p style="font-size: 18px; font-style:italic; color: var(--content-orange); font-family: "Open Sans",sans-serif">Σε αυτό το παράδειγμα, ο χρήστης πρέπει να πατήσει πάνω στη δεύτερη εικόνα με τον κίτρινο κύκλο.</p>
-    </div>',
+    ',
     'guidelines_content_creation_game_cards' => 'Δημιουργία περιεχομένου - Κάρτες Παιχνιδιών',
     'guidelines_communication_package' => 'Πολλές Κάρτες Επικοινωνίας μαζί δημιουργούν ένα Πακέτο Καρτών.',
     'guidelines_communication_cards_example' => 'Ένα παράδειγμα είναι ο ασθενής που διψά και θέλει να ζητήσει ένα ποτήρι με νερό. Αυτή η ανάγκη μπορεί να καλυφθεί δημιουργώντας μια κάρτα στο Talk & Play Marketplace, που θα έχει μια εικόνα ενός ποτηριού με νερό, και η συνοδεία της με ένα ηχητικό αρχείο στο οποίο θα ακούγονται οι φράσεις “θέλω νερό” ή “διψάω!”.',
