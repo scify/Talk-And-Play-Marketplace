@@ -1,6 +1,63 @@
 <?php
 
 return [
+
+    'guidelines_image_sound_rules' => '<p><strong>4.1 Εικόνες</strong></p>
+                        <p>Η εικόνα που φαίνεται στην κάρτα πρέπει να δείχνει με όσο το δυνατόν πιο καθαρό τρόπο το περιεχόμενο της κάρτας, για να καλύψει την ανάγκη του χρήστη.</p>
+                        <p>Στο παράδειγμα με το ποτήρι με το νερό, πρέπει να επιλέξουμε μια εικόνα που να πληροί όλα τα παρακάτω κριτήρια:</p>
+                        <p><span class="list-number">1</span> <span style="font-family: "Open Sans",sans-serif;">Να δείχνει ένα ποτήρι με νερό και όχι άλλα αντικείμενα που μπορεί να μπερδέψουν ή να συγχύσουν το χρήστη και το φροντιστή του.</span></p>
+                        <p><span class="list-number">2</span> <span style="font-family: "Open Sans",sans-serif;">Να είναι διαστάσεων περίπου 500 επί 500 pixels</span></p>
+                        <p><span class="list-number">3</span> <span style="font-family: "Open Sans",sans-serif;">Να μήν έχει μέγεθος μεγαλύτερο των 2 megabytes</span></p>
+                        <p><span class="list-number">4</span> <span style="font-family: "Open Sans",sans-serif;">Να είναι τύπου .png, .jpg, ή .jpeg</span></p>
+                        <p><span class="list-number">5</span> <span style="font-family: "Open Sans",sans-serif;">Να μπορεί να χρησιμοποιηθεί ελεύθερα, με τα κατάλληλα πνευματικά δικαιώματα</span></p>
+
+                        <p>Για να περικόψουμε, να σμικρύνουμε ή και να αλλάξουμε τον τύπο εικόνων που έχουμε στον υπολογιστή μας ή έχουμε κατεβάσει από το Internet, μπορούμε να χρησιμοποιήσουμε κάποιο online εργαλείο, όπως το <span style="color:var(--content-green); font-family: "Open Sans Extrabold""> Online Image Converter.</span>
+                        <p>Για να βρούμε εικόνες με πνευματικά δικαιώματα που επιτρέπουν τη χρήση τους, μπορούμε να χρησιμοποιήσουμε, ενδεικτικά, τους παρακάτω ιστότοπους: <span style="color:var(--content-green); font-family: "Open Sans Extrabold"">Pixabay / Unsplash / Pexels / Shutterstock</span></p>
+
+                        <p style="margin-top:75px"><strong>4.2 Ήχοι</strong></p>
+                        <p>Ο ήχος που μπορεί να συνοδεύει την κάρτα πρέπει να εκφράζει με όσο το δυνατόν πιο καθαρό τρόπο το περιεχόμενο της κάρτας, για να καλύψει την ανάγκη του χρήστη.</p>
+
+                        <p><span class="list-number">1</span> <span style="font-family: "Open Sans",sans-serif;"> Να ακούγεται καθαρά η φράση “Ποτήρι με νερό” ή “Διψάω”, χωρίς φασαρία ή άλλους ήχους που μπορεί να μπερδέψουν ή να συγχύσουν το χρήστη και το φροντιστή του.</span></p>
+                        <p><span class="list-number">2</span> <span style="font-family: "Open Sans",sans-serif;"> Να μήν έχει μέγεθος μεγαλύτερο των 2 megabytes/span></p>
+                        <p><span class="list-number">3</span> <span style="font-family: "Open Sans",sans-serif;">Να είναι τύπου .mp3 </span></p>
+                        <p><span class="list-number">4</span> <span style="font-family: "Open Sans",sans-serif;">Να μπορεί να χρησιμοποιηθεί ελεύθερα, με τα κατάλληλα πνευματικά δικαιώματα.</span></p>
+                        <p><span class="list-number">5</span> <span style="font-family: "Open Sans",sans-serif;">Αν πρόκειται για λέξη/πρόταση, να είναι στη γλώσσα του χρήστη.</span></p>
+
+
+                        <p>Για να περικόψουμε, να επεξεργαστούμε και να αλλάξουμε ένα αρχείο ήχου που έχουμε στον υπολογιστή μας, στο κινητό μας, ή έχουμε κατεβάσει από το Internet, μπορούμε να χρησιμοποιήσουμε κάποιο online εργαλείο, όπως το  <span style="color:var(--content-green); font-family: "Open Sans Extrabold"">   Online Mp3 Cutter</span> , ή να κατεβάσουμε ένα εργαλείο όπως το <span style="color:var(--content-green); font-family: "Open Sans Extrabold"> Audacity</span>.
+                        <p>Για να βρούμε αρχεία ήχου με πνευματικά δικαιώματα που επιτρέπουν τη χρήση τους, μπορούμε να χρησιμοποιήσουμε τους παρακάτω ιστότοπους:  <span style="color:var(--content-green); font-family: "Open Sans Extrabold",sans-serif">Freesound.org / Pixabay </span>',
+    'guidelines_uploading_content' => 'Σημειώσεις για την εύρεση, επεξεργασία, και μεταφόρτωση περιεχομένου για τις κάρτες επικοινωνίας/παιχνιδιών',
+    'guidelines_game_cards' => '<p>Τα πακέτα καρτών παιχνιδιών, έχουν ως σκοπό την ψυχαγωγία του χρήστη/ασθενή, με παιχνίδια που κρατούν το μυαλό του σε εγρήγορση και που του επιτρέπουν να εκπαιδεύεται δημιουργικά.
+</p>
+
+        <p>Το <span style="color:var(--content-green)!important; font-weight: bold">Talk & Play Marketplace</span>  περιλαμβάνει παιχνίδια σε 3 κατηγορίες::</p>
+
+
+        <p><strong>2.1 Ερέθισμα - Αντίδραση</strong></p>
+        <p>Εδώ ο στόχος είναι ο χρήστης να πατήσει ένα κουμπί από το πληκτρολόγιο, και ως αποτέλεσμα να δει κάτι να συμβαίνει στην οθόνη. Έτσι συνδυάζει το ερέθισμα (όταν πατάω ένα κουμπί…) με την αντίδραση (συμβαίνει κάτι στην οθόνη).</p>
+        <p>Οι εικόνες που απαρτίζουν τα παιχνίδια αυτής της κατηγορίας πρέπει να είναι απλές, και ελκυστικές προς τον τελικό χρήστη.</p>
+
+        <p style="margin-top: 12px"><strong>2.2 Χρονική Αλληλουχία</strong></p>
+        <p style="font-size: 18px">Στα παιχνίδια αυτής της κατηγορίας ο χρήστης βλέπει μια σειρά από εικόνες, τις οποίες πρέπει στη συνέχεια να ταξινομήσει με βάση το γεγονός που έγινε πρώτο. Ας δούμε ένα παράδειγμα:</p>
+        <img src={{asset("img/time-sequence-example.png")}}  alt=""; style="top: 1345px;left: 278px; width: 661px; height: 160px; ">
+        <p style="font-size: 18px; font-style:italic; color: var(--content-orange); font-family: "Open Sans",sans-serif">Στο παραπάνω παιχνίδι βλέπουμε την πορεία ζωής ενός λουλουδιού. Ο χρήστης πρέπει να τοποθετήσει πρώτη στη σειρά την τελευταία εικόνα, δεύτερη την προτελευταία, και ούτω καθεξής.
+</p>
+
+        <p style="margin-top: 12px"><strong>2.3 Βρές το Όμοιο</strong></p>
+        <p style="font-size: 18px">Σε αυτό το παιχνίδι ο χρήστης καλείται να πατήσει πάνω στην εικόνα που είναι όμοια με την εικόνα στο κάτω μέρος της οθόνης. Ας δούμε ένα παράδειγμα:</p>
+        <img src={{asset("img/find-similar-example.png")}}  alt=""; style="top: 1631px;left: 275px; width: 580px; height: 259px; ">
+        <p style="font-size: 18px; font-style:italic; color: var(--content-orange); font-family: "Open Sans",sans-serif">Σε αυτό το παράδειγμα, ο χρήστης πρέπει να πατήσει πάνω στη δεύτερη εικόνα με τον κίτρινο κύκλο.</p>
+    </div>',
+    'guidelines_content_creation_game_cards' => 'Δημιουργία περιεχομένου - Κάρτες Παιχνιδιών',
+    'guidelines_communication_package' => 'Πολλές Κάρτες Επικοινωνίας μαζί δημιουργούν ένα Πακέτο Καρτών.',
+    'guidelines_communication_cards_example' => 'Ένα παράδειγμα είναι ο ασθενής που διψά και θέλει να ζητήσει ένα ποτήρι με νερό. Αυτή η ανάγκη μπορεί να καλυφθεί δημιουργώντας μια κάρτα στο Talk & Play Marketplace, που θα έχει μια εικόνα ενός ποτηριού με νερό, και η συνοδεία της με ένα ηχητικό αρχείο στο οποίο θα ακούγονται οι φράσεις “θέλω νερό” ή “διψάω!”.',
+    'guidelines_communication_cards_understanding' => 'Ο ασθενής πρέπει να βλέπει μια κάρτα και να καταλαβαίνει αμέσως τι δείχνει, έτσι ώστε να μπορεί να αποφασίσει αν καλύπτεται η ανάγκη του.',
+    'guidelines_communication_cards_intro'=> 'Οι κάρτες επικοινωνίας έχουν ως σκοπό τη διευκόλυνση του ασθενή/τελικού χρήστη στην επικοινωνία με τους οικείους του.',
+    'guidelines_content_creation_communication_cards' => 'Δημιουργία περιεχομένου - Κάρτες Επικοινωνίας',
+    'guidelines_marketplace_brief_intro' => '<p class="mb-1">Το Talk & Play Marketplace είναι μια διαδικτυακή εφαρμογή που υλοποίησε και διαθέτει δωρεάν η μη κερδοσκοπική SciFY, ώστε ο καθένας να μπορεί να δημιουργεί και να μοιράζεται με άλλους τα δικά του δωρεάν περιεχόμενο για την εφαρμογή Talk & Play</p>
+        <p>Το περιεχόμενο του Talk & Play Marketplace απευθύνονται κυρίως σε άτομα χωρίς νοητικά προβλήματα, που έχουν όμως πρόβλημα επικοινωνίας λόγω κινητικών δυσκολιών ή και δυσκολιών στην ομιλία (π.χ. τραχειοστομία συνδυασμένη με κινητικά προβλήματα), καθώς και άτομα με αφασία (π.χ. λόγω εγκεφαλικής βλάβης).</p>',
+
+    'guidelines_instructions_content_creators' => 'Οδηγίες για δημιουργούς περιεχομένου',
     'edit-profile' => 'Επεξεργασία προφίλ',
     'edit-profile-info' => 'Επεξεργασία στοιχείων προφίλ χρήστη',
     'surname' => 'Επώνυμο',
