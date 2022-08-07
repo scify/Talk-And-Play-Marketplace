@@ -150,7 +150,7 @@ class ResourceController extends Controller {
 //        $id = intval($request->id);
         $type_id = intval($request->type_id);
         if ($type_id === ResourceTypesLkp::COMMUNICATION) {
-            $this->validate($request, ['sound' => 'mimes:mp3|file|between:10,2000|nullable']);
+            $this->validate($request, ['sound' => 'mimes:mp3|file|between:1,2000|nullable']);
             $ret_route = "communication_resources.edit";
         } else if (in_array($type_id, [
             ResourceTypesLkp::SIMILAR_GAME,
