@@ -100,7 +100,7 @@ return [
     "communication_cards_tutorial_step_3_title" => "Nichts Passendes für Sie dabei? Erstellen Sie Ihre eigenen Kommunikationskarten und -pakete",
     "communication_cards_tutorial_step_4_title" => "Laden Sie die App zur Unterstützung von Patienten herunter",
     "communication_cards_tutorial_step_1_description" => "Wählen Sie eine Sprache, und sehen Sie sich die verfügbaren Kommunikationspakete an. Jedes Kommunikationspaket ist mit einem Namen, einem Titelbild und einer Audiodatei versehen. Sie können die darin enthaltenen Karten sehen, indem Sie auf die Schaltfläche \"Die Karten sehen\" klicken.",
-    "communication_cards_tutorial_step_2_description" => "Jedes Paket hat ein spezielles Symbol <i class=\"fas fa-file-download\"></i> in seiner Menüliste (<i class='fa fa-ellipsis-v'></i>).<br>Drücken Sie auf das Symbol, um die Dateien auf Ihr Gerät herunterzuladen.<br><br>Entpacken/extrahieren Sie dann die Dateien im Ordner <pre>C:\Users\USERNAME\Talk and Play\communicationCards</pre>.",
+    "communication_cards_tutorial_step_2_description" => "Jedes Paket hat ein spezielles Symbol <i class=\"fas fa-file-download\"></i> in seiner Menüliste (<i class='fa fa-ellipsis-v'></i>).<br>Drücken Sie auf das Symbol, um die Dateien auf Ihr Gerät herunterzuladen.<br>Entpacken/extrahieren Sie dann die Dateien im Ordner <pre>C:\Users\USERNAME\Talk and Play\communicationCards</pre>",
     "communication_cards_tutorial_step_3_description" => "<b class=\"mt-4\">Wie kann ich ein Paket erstellen?</b><br>
 	Drücken Sie die Schaltfläche \"Neues Kommunikationspaket erstellen\", und füllen Sie das daraufhin erscheinende Formular mit einem Paketnamen, einem Titelbild und einer Tondatei aus, die das Paket repräsentiert.
                                     <p class=\"note mt-3\">Hinweis: Wenn Sie ein neues Paket erstellen, muss es von einem Administrator genehmigt werden, damit es in der Sammlung sichtbar wird</p>
@@ -115,7 +115,7 @@ return [
     "game_cards_tutorial_step_3_title" => "Nichts Passendes für Sie dabei? Erstellen Sie Ihre eigenen Spielkarten und Pakete",
     "game_cards_tutorial_step_4_title" => "Laden Sie die App zur Unterstützung von Patienten herunter",
     "game_cards_tutorial_step_1_description" => "Wählen Sie eine Sprache und sehen Sie sich die verfügbaren Spielepakete an. Jedes Spielpaket ist mit einem Namen und einem Titelbild versehen. Sie können die darin enthaltenen Karten sehen, indem Sie auf die Schaltfläche \"Die Karten sehen\" drücken.",
-    "game_cards_tutorial_step_2_description" => "Jedes Paket hat ein spezielles Symbol <i class=\"fas fa-file-download\"></i> in seiner Menüliste (<i class='fa fa-ellipsis-v'></i>).<br>Drücken Sie auf das Symbol, um die Dateien auf Ihr Gerät herunterzuladen.<br><br>Entpacken/extrahieren Sie dann die Dateien im Ordner <pre>C:\Users\USERNAME\Talk and Play\communicationCards</pre>.",
+    "game_cards_tutorial_step_2_description" => "Jedes Paket hat ein spezielles Symbol <i class=\"fas fa-file-download\"></i> in seiner Menüliste (<i class='fa fa-ellipsis-v'></i>).<br>Drücken Sie auf das Symbol, um die Dateien auf Ihr Gerät herunterzuladen.<br>Entpacken/extrahieren Sie dann die Dateien im Ordner <pre>C:\Users\USERNAME\Talk and Play\communicationCards</pre>",
     "game_cards_tutorial_step_3_description" => "<b class=\"mt-4\">Wie kann ich ein Paket erstellen?</b><br>
 	Drücken Sie die Schaltfläche \"Neues Spielepaket erstellen\", und wählen Sie eine der drei angebotenen Spielkategorien aus:
                                     <ul>

@@ -109,7 +109,7 @@ return [
     "communication_cards_tutorial_step_3_title" => "Nothing suits you? Create your own communication cards and packages",
     "communication_cards_tutorial_step_4_title" => "Download the app to help patients",
     "communication_cards_tutorial_step_1_description" => "Select a language, and view the available commmunication packages. Every communication package, is accompanied by a name, a cover image, and a sound file. You can see the cards it contains by presing the button \"See the cards\".",
-    "communication_cards_tutorial_step_2_description" => "Every package has a special icon <i class=\"fas fa-file-download\"></i> in its menu list (<i class='fa fa-ellipsis-v'></i>).<br>Press the icon to download the files to your device.<br><br>Then unzip/extract the files in the folder <pre>C:\Users\USERNAME\Talk and Play\communicationCards</pre>.",
+    "communication_cards_tutorial_step_2_description" => "Every package has a special icon <i class=\"fas fa-file-download\"></i> in its menu list (<i class='fa fa-ellipsis-v'></i>).<br>Press the icon to download the files to your device.<br>Then unzip/extract the files in the folder <pre>C:\Users\USERNAME\Talk and Play\communicationCards</pre>",
     "communication_cards_tutorial_step_3_description" => "<b class=\"mt-4\">How can I create a package;</b><br>
                                     Press the button \"Create new communication package\", and fill-in the form that will appear with a package name, a cover image and a sound file representing the package.
                                     <p class=\"note mt-3\">Note: When creating a new package, it will need to get an administrator's approval in order to become visible in the collection</p>
@@ -124,7 +124,7 @@ return [
     "game_cards_tutorial_step_3_title" => "Nothing suits you? Create your own game cards and packages",
     "game_cards_tutorial_step_4_title" => "Download the app to help patients",
     "game_cards_tutorial_step_1_description" => "Select a language, and view the available game packages. Every game package is accompanied by a name and cover image. You can see the cards it contains by pressing the button \"See the cards\".",
-    "game_cards_tutorial_step_2_description" => "Every package has a special icon <i class=\"fas fa-file-download\"></i> in its menu list (<i class='fa fa-ellipsis-v'></i>).<br>Press the icon to download the files to your device.<br><br><br><br>Then unzip/extract the files in the folder <pre>C:\Users\USERNAME\Talk and Play\gameCards</pre>.",
+    "game_cards_tutorial_step_2_description" => "Every package has a special icon <i class=\"fas fa-file-download\"></i> in its menu list (<i class='fa fa-ellipsis-v'></i>).<br>Press the icon to download the files to your device.<br>Then unzip/extract the files in the folder <pre>C:\Users\USERNAME\Talk and Play\gameCards</pre>",
     "game_cards_tutorial_step_3_description" => "<b class=\"mt-4\">How can I create a package;</b><br>
                                     Press the button \"Create new game package\", and select one out of three provided game categories:
                                     <ul>
