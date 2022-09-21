@@ -124,7 +124,7 @@
                     </div>
 
                     <div class="modal-body">
-                        <p class="text-danger"><b>Warning: </b>
+                        <p class="text-danger"><strong>Warning: </strong>
                             <br>This account will be deleted </p>
                     </div>
                     <div class="modal-footer">

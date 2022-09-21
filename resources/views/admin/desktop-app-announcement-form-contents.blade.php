@@ -17,7 +17,7 @@
                            placeholder="A default title">
                 </div>
                 <div class="col-3">
-                    <label for="{{ $action }}_severity" class="form-label">Severity (number from 1 to
+                    <label for="{{ $action }}_severity" class="form-label">Severity (from 1 to
                         5)</label>
                     <input type="number" class="form-control" id="{{ $action }}_severity"
                            name="announcement_severity"
@@ -32,6 +32,27 @@
                            placeholder="info">
                 </div>
             </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="formControlRange" class="form-label">Min Version </label>
+                    <input type="text" class="form-control" id="{{ $action }}_min_version"
+                           name="announcement_min_version"
+                           required
+                           placeholder="min.version">
+                </div>
+                <div class="col-6"></div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="formControlRange" class="form-label">Max Version </label>
+                    <input type="text" class="form-control" id="{{ $action }}_max_version"
+                           name="announcement_max_version"
+                           required
+                           placeholder="max.version">
+                </div>
+                <div class="col-6"></div>
+            </div>
+
         </div>
 
     </div>
@@ -40,7 +61,7 @@
         <input type="hidden" value="{{$language->id}}" name="lang_ids[]">
         <div class="container-fluid py-2">
             <div class="row">
-                <p><b>{{ $language->name }}</b></p>
+                <p><strong>{{ $language->name }}</strong></p>
             </div>
             <div class="row mb-2">
                 <div class="col-6">

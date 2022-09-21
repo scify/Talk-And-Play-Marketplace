@@ -1,6 +1,60 @@
 <?php
 
 return [
+
+    'guidelines_image_sound_rules' => '<p><strong>4.1 Bilder</strong></p>
+                        <p>Das Bild auf der Karte muss den Inhalt der Karte so deutlich wie möglich zeigen, um den Bedarf des Benutzers zu decken.</p>
+                        <p>In dem Beispiel mit dem Wasserglas müssen wir ein Bild auswählen, das alle folgenden Kriterien erfüllt:</p>
+                        <p><span class="list-number">1</span> <span style="font-family: "Open Sans",sans-serif;">Es muss ein Glas Wasser zeigen, aber keine anderen Objekte, die den Benutzer und seinen Betreuer verwirren könnten.</span></p>
+                        <p><span class="list-number">2</span> <span style="font-family: "Open Sans",sans-serif;">Die Abmessungen müssen ungefähr 500 x 500 Pixel betragen.</span></p>
+                        <p><span class="list-number">3</span> <span style="font-family: "Open Sans",sans-serif;">Die Datei darf nicht größer als 2 Megabyte sein.</span></p>
+                        <p><span class="list-number">4</span> <span style="font-family: "Open Sans",sans-serif;">Es muss sich um eine .png-, .jpg- oder .jpeg-Datei handeln.</span></p>
+                        <p><span class="list-number">5</span> <span style="font-family: "Open Sans",sans-serif;">Es muss frei verwendet werden können, mit dem entsprechenden Copyright.</span></p>
+
+                        <p>Zum Zuschneiden, Verkleinern oder Ändern von Bildern, die wir auf unserem Computer haben oder aus dem Internet heruntergeladen haben, können wir ein Online-Tool wie <span style="color:var(--content-green); font-family: "Open Sans Extrabold""> Online Image Converter.</span> verwenden.
+                        <p>Um Bilder zu finden, deren Urheberrecht ihre Verwendung erlaubt, können wir die folgenden Websites nutzen (indikativ):                                     or download a tool such as <span style="color:var(--content-green); font-family: "Open Sans Extrabold"">Pixabay / Unsplash / Pexels / Shutterstock</span></p>
+
+                        <p style="margin-top:75px"><strong>4.2 Klänge</strong></p>
+                        <p>Der Ton, der die Karte begleiten kann, muss den Inhalt der Karte so klar wie möglich zum Ausdruck bringen, um den Bedarf des Benutzers zu decken.</p>
+
+                        <p><span class="list-number">1</span> <span style="font-family: "Open Sans",sans-serif;">Der Satz "Glas Wasser" oder "Durst" sollte deutlich zu hören sein, ohne Geräusche oder andere Töne, die den Benutzer und seine Pflegeperson verwirren könnten. </span></p>
+                        <p><span class="list-number">2</span> <span style="font-family: "Open Sans",sans-serif;">Die Datei darf nicht größer als 2 Megabyte sein.</span></p>
+                        <p><span class="list-number">3</span> <span style="font-family: "Open Sans",sans-serif;">Es muss eine .mp3-Datei sein </span></p>
+                        <p><span class="list-number">4</span> <span style="font-family: "Open Sans",sans-serif;">Es muss frei verwendet werden können, mit dem entsprechenden Copyright. </span></p>
+                        <p><span class="list-number">5</span> <span style="font-family: "Open Sans",sans-serif;">Wenn es sich um ein Wort/Satz handelt, muss es in der Sprache des Benutzers sein.</span></p>
+
+
+                        <p>Um eine Audiodatei, die wir auf unserem Computer, unserem Handy oder aus dem Internet heruntergeladen haben, zuzuschneiden, zu bearbeiten oder zu ändern, können wir ein Online-Tool wie <span style="color:var(--content-green); font-family: "Open Sans Extrabold"">   Online Mp3 Cutter</span> , verwenden oder ein Tool wie <span style="color:var(--content-green); font-family: "Open Sans Extrabold"> Audacity</span> herunterladen.
+                        <p>Um Audiodateien zu finden, die urheberrechtlich geschützt sind und deren Nutzung erlaubt ist, können wir die folgenden Websites nutzen:  <span style="color:var(--content-green); font-family: "Open Sans Extrabold",sans-serif">Freesound.org / Pixabay </span>',
+    'guidelines_uploading_content' => 'Hinweise für das Finden, Bearbeiten und Hochladen von Inhalten für die Kommunikations-/Spielkarten',
+    'guidelines_game_cards' => '<p>Die Spielkarten sollen den Benutzer/Patienten mit Spielen unterhalten, die seinen Geist wach halten und ihm die Möglichkeit geben, kreativ zu trainieren.</p>
+
+        <p><span style="color:var(--content-green)!important; font-weight: bold">Talk & Play Marketplace</span> enthält Spiele in 3 Kategorien:</p>
+
+
+        <p><strong>2.1 Stimulus - Reaction</strong></p>
+        <p>Das Ziel ist es, dass der Benutzer eine Taste auf der Tastatur drückt und daraufhin etwas auf dem Bildschirm passiert. Auf diese Weise kombinieren sie den Reiz (das Drücken einer Taste) mit der Reaktion (etwas passiert auf dem Bildschirm).</p>
+        <p>Die Bilder, aus denen die Spiele dieser Kategorie bestehen, müssen einfach und für den Endverbraucher attraktiv sein.</p>
+
+        <p style="margin-top: 12px"><strong>2.2 Zeitlicher Ablauf</strong></p>
+        <p style="font-size: 18px">In den Spielen dieser Kategorie sieht der Benutzer eine Reihe von Bildern, die er in die richtige Reihenfolge bringen muss, je nachdem, was zuerst passiert ist. Lassen Sie uns ein Beispiel sehen:</p>
+        <img src="img/time-sequence-example.png" alt=""; style="top: 1345px;left: 278px; width: 661px; height: 160px; ">
+        <p style="font-size: 18px; font-style:italic; color: var(--content-orange); font-family: "Open Sans",sans-serif">In dem Spiel oben sehen wir den Lebenslauf einer Blume. Der Benutzer muss das letzte Bild als erstes platzieren, das vorletzte als zweites und so weiter.</p>
+
+        <p style="margin-top: 12px"><strong>2.3 Finden Sie das Ähnliche</strong></p>
+        <p style="font-size: 18px">Bei diesem Spiel muss der Benutzer auf das Bild klicken, das dem Bild im unteren Teil des Bildschirms ähnlich ist. Lassen Sie uns ein Beispiel sehen:</p>
+        <img src="img/find-similar-example.png"  alt=""; style="top: 1631px;left: 275px; width: 580px; height: 259px; ">
+        <p style="font-size: 18px; font-style:italic; color: var(--content-orange); font-family: "Open Sans",sans-serif">In diesem Beispiel muss der Benutzer auf das zweite Bild mit dem gelben Kreis klicken.</p>',
+    'guidelines_content_creation_game_cards' => 'Erstellung von Inhalten - Spielkarten',
+    'guidelines_communication_package' => 'Viele Kommunikationskarten zusammen ergeben ein Kartenpaket.',
+    'guidelines_communication_cards_example' => 'Ein Beispiel ist ein Patient, der durstig ist und um ein Glas Wasser bitten möchte. Dieses Bedürfnis kann durch die Erstellung einer Karte im Talk & Play Marketplace gedeckt werden, die das Bild eines Glases Wasser zeigt und von einer Audiodatei begleitet wird, die die Ausdrücke "Ich möchte Wasser" oder "Durstig!".',
+    'guidelines_communication_cards_understanding' => 'Wenn der Patient eine Karte sieht, muss er sofort verstehen können, was sie zeigt, damit er entscheiden kann, ob sie seinen Bedarf abdeckt.',
+    'guidelines_communication_cards_intro'=> 'Die Kommunikationskarten sollen dem Patienten/Endverbraucher die Kommunikation mit seinen Angehörigen erleichtern.',
+    'guidelines_content_creation_communication_cards' => 'Erstellung von Inhalten - Kommunikationskarten',
+    'guidelines_marketplace_brief_intro' => '<p class="mb-1"> Talk & Play Marketplace ist eine Online-Anwendung, die von der gemeinnützigen Organisation SciFY implementiert wurde und kostenlos zur Verfügung steht, damit jeder seine eigenen kostenlosen Inhalte für die Talk & Play-Anwendung erstellen und teilen kann.</p>
+        <p>Der Inhalt von Talk & Play Marketplace richtet sich vor allem an Menschen ohne psychische Probleme, aber mit Kommunikationsproblemen aufgrund von motorischen oder sprachlichen Schwierigkeiten (z. B. Tracheostomie in Kombination mit motorischen Problemen) sowie an Menschen mit Aphasie (z. B. aufgrund von Hirnschäden).</p>',
+
+    'guidelines_instructions_content_creators' => 'Anweisungen für Ersteller von Inhalten',
     'edit-profile' => 'Ihr Profil bearbeiten',
     'edit-profile-info' => 'Bearbeiten Sie die Informationen im Benutzerprofil',
     'surname' => 'Nachname',

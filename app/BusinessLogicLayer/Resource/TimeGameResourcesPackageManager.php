@@ -21,8 +21,8 @@ class TimeGameResourcesPackageManager extends GameResourcesPackageManager
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
     protected ResourceRepository $resourceRepository;
     protected ReportsRepository  $reportsRepository;
-    const maximumCardsThreshold = 4;
-    const type_id = ResourceTypesLkp::TIME_GAME;
+    const MAXIMUM_CARDS_THRESHOLD = 4;
+    const TYPE_ID = ResourceTypesLkp::TIME_GAME;
 
     public function __construct(ResourceTypeLkpRepository $resourceTypeLkpRepository,
                                 ResourceRepository $resourceRepository,
@@ -34,7 +34,8 @@ class TimeGameResourcesPackageManager extends GameResourcesPackageManager
         $this->contentLanguageLkpRepository = $contentLanguageLkpRepository;
         $this->resourcesPackageRepository = $resourcesPackageRepository;
         $this->reportsRepository = $reportsRepository;
-        parent::__construct($resourceTypeLkpRepository, $resourceRepository, $contentLanguageLkpRepository, $resourcesPackageRepository, $reportsRepository, self::type_id);    }
+        parent::__construct($resourceTypeLkpRepository, $resourceRepository, $contentLanguageLkpRepository, $resourcesPackageRepository, $reportsRepository, self::TYPE_ID);
+    }
 
     public function getCreateResourcesPackageViewModel(): CreateEditResourceVM
     {
@@ -43,8 +44,8 @@ class TimeGameResourcesPackageManager extends GameResourcesPackageManager
             new  Resource(),
             new Collection(),
             new ResourcesPackage(),
-            self::maximumCardsThreshold,
-            self::type_id);
+            self::MAXIMUM_CARDS_THRESHOLD,
+            self::TYPE_ID);
     }
 
     public function getEditResourceViewModel($package): CreateEditResourceVM
@@ -58,14 +59,14 @@ class TimeGameResourcesPackageManager extends GameResourcesPackageManager
             $this->resourceRepository->find($package->card_id),
             $childrenResourceCards,
             $package,
-            self::maximumCardsThreshold,
-            self::type_id);
+            self::MAXIMUM_CARDS_THRESHOLD,
+            self::TYPE_ID);
     }
 
     public function getApprovedTimeGamePackagesParentResources(): DisplayPackageVM
     {
 
-        $approvedCommunicationPackages = $this->resourcesPackageRepository->getResourcesPackages([self::type_id]);
+        $approvedCommunicationPackages = $this->resourcesPackageRepository->getResourcesPackages([self::TYPE_ID]);
         return new DisplayPackageVM($approvedCommunicationPackages);
 
     }

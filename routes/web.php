@@ -50,9 +50,14 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('users', UserController::class)->except([
             'create', 'edit', 'show'
         ]);
+
         Route::resource('desktop_app_announcements', DesktopAppAnnouncementController::class)->except([
             'create', 'edit', 'show'
         ]);
+
+        Route::put("/desktop_app_announcements/activate/{id}", [DesktopAppAnnouncementController::class, 'activate'])->name('desktop_app_announcements.activate');
+        Route::put("/desktop_app_announcements/deactivate/{id}", [DesktopAppAnnouncementController::class, 'deactivate'])->name('desktop_app_announcements.deactivate');
+
     });
 
     Route::get('resources/approve_pending_packages', [ResourceController::class, 'approve_pending_packages'])->name('resources_packages.approve_pending_packages');

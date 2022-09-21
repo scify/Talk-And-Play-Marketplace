@@ -57,12 +57,16 @@ class DesktopAppAnnouncementController extends Controller {
             'announcement_default_title' => 'required|string',
             'announcement_severity' => 'required|integer|digits_between:1,5',
             'announcement_type' => 'required|string',
-            'announcement_titles.*' => 'required|string'
+            'announcement_titles.*' => 'required|string',
+            'announcement_min_version' => 'required|numeric|gt:0',
+            'announcement_max_version' => 'required|numeric|gt:announcement_min_version'
         ]);
         $announcement = $this->desktopAppAnnouncementRepository->create([
             'default_title' => $request->announcement_default_title,
             'severity' => $request->announcement_severity,
-            'type' => $request->announcement_type
+            'type' => $request->announcement_type,
+            'min_version' => $request->announcement_min_version,
+            'max_version' => $request->announcement_max_version
         ]);
 
         foreach ($request->lang_ids as $index => $lang_id) {
@@ -91,12 +95,16 @@ class DesktopAppAnnouncementController extends Controller {
             'announcement_default_title' => 'required|string',
             'announcement_severity' => 'required|integer|digits_between:1,5',
             'announcement_type' => 'required|string',
-            'announcement_titles.*' => 'required|string'
+            'announcement_titles.*' => 'required|string',
+            'announcement_min_version' => 'required|numeric|gt:0',
+            'announcement_max_version' => 'required|numeric|gt:announcement_min_version'
         ]);
         $this->desktopAppAnnouncementRepository->update([
             'default_title' => $request->announcement_default_title,
             'severity' => $request->announcement_severity,
-            'type' => $request->announcement_type
+            'type' => $request->announcement_type,
+            'min_version' => $request->announcement_min_version,
+            'max_version' => $request->announcement_max_version
         ], $id);
         foreach ($request->lang_ids as $index => $lang_id) {
             $announcementTranslation = DesktopAppAnnouncementTranslation::where(['announcement_id' => $id, 'lang_id' => $lang_id])->first();
@@ -116,8 +124,22 @@ class DesktopAppAnnouncementController extends Controller {
      * @return RedirectResponse
      */
     public function destroy($id) {
+        $this->deactivate($id);
         $this->desktopAppAnnouncementRepository->delete($id);
         session()->flash('flash_message_success', "Announcement deleted");
         return back();
     }
+
+    public function activate($id) {
+        $this->desktopAppAnnouncementRepository->activate($id);
+        session()->flash('flash_message_success', "Announcement activated");
+        return back();
+    }
+
+    public function deactivate($id) {
+        $this->desktopAppAnnouncementRepository->deactivate($id);
+        session()->flash('flash_message_success', "Announcement deactivated");
+        return back();
+    }
+
 }
