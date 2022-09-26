@@ -144,7 +144,8 @@ return [
     "rate" => "Bewerten",
     "how_it_works" => "Wie es funktioniert",
     "contact_us" => "Kontaktieren Sie uns",
-    "watch_tutorials" => "Sehen Sie sich die folgenden Tutorials an, um mehr über den Talk & Play Marketplace zu erfahren und wie Sie die erstellten Pakete in der Desktop App verwenden können",
+    "watch_tutorials" => "Sehen Sie sich die folgenden Tutorials an, um mehr über den Talk & Play Marketplace:",
+    "watch_tutorials_desktop" => "Sehen Sie sich die folgenden Tutorials an, um mehr über Talk & Play Desktop zu erfahren:",
     "talk_and_play_description" => "Talk & Play ist eine von SciFY kostenlos angebotene App mit dem Ziel, Menschen mit Behinderungen (Bewegung/Sprache) dabei zu unterstützen, effizienter mit ihren Liebsten zu kommunizieren, Spaß zu haben, aber auch Erholungsübungen zu machen. <br> Über die Support-Webseite Talk n Play Marketplace können Sie weitere Kartenpakete finden, erstellen, teilen und herunterladen, die Ihnen zusagen, und diese in der App verwenden..",
     "communication_cards" => "Kommunikations-Karten",
     "game_cards" => "Spiel-Karten",
@@ -209,5 +210,11 @@ return [
     "meta_tags_description" => "Talk and Play ist ein System, das es Menschen mit Behinderungen ermöglicht, zu kommunizieren, unabhängiger zu sein und Rehabilitationstraining zu erhalten.",
     "approve_packages" => "Pakete genehmigen",
     "warning_rejection" => "Vorsicht: Der Benutzer, der das Paket eingereicht hat, erhält eine Ablehnungs-E-Mail.",
-    "reject_package" => "Paket ablehnen"
+    "reject_package" => "Paket ablehnen",
+    "marketplace_tutorial_url" => "https://www.youtube.com/embed/lcCb6r2XBDk",
+    "desktop_tutorial_title_1" => "Sehen Sie sich an, wie die Desktop-App verwendet wird:",
+    "desktop_tutorial_title_2" => "Sehen Sie sich an, wie Sie zusätzliche Inhalte herunterladen:",
+    "desktop_tutorial_url_1" => "https://www.youtube.com/embed/ruTuW06JWVI",
+    "desktop_tutorial_url_2" => "https://www.youtube.com/embed/EYCNIRM586s",
+    "installation_instructions_linux_btn" => "Installationsanweisungen für Linux"
 ];

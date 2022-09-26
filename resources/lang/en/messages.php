@@ -153,7 +153,8 @@ return [
     "rate" => "Rate",
     "how_it_works" => "How it works",
     "contact_us" => "Contact us",
-    "watch_tutorials" => "Watch the following tutorials to learn more about Talk & Play Marketplace, and how to use the created packages in the Desktop App",
+    "watch_tutorials" => "Watch the following tutorials to learn more about Talk & Play Marketplace:",
+    "watch_tutorials_desktop" => "Watch the following tutorials to learn more about Talk & Play Desktop:",
     "talk_and_play_description" => "Talk & Play is an app offered for free by SciFY, with the goal of supporting people with disabilities (movement/speech) to communicate more efficiently with their beloved ones, have fun, but also do recovery exercises. <br>Through the Talk n Play Marketplace support web page you can find, create, share, and download more card packs that suit you, and use them in the app.",
     "communication_cards" => "Communication Cards",
     "game_cards" => "Game Cards",
@@ -219,4 +220,10 @@ return [
     "approve_packages" => "Approve Packages",
     "warning_rejection" => "Be careful: a rejection email will be sent to the user who submitted the package",
     "reject_package" => "Reject Package",
+    "marketplace_tutorial_url" => "https://www.youtube.com/embed/lcCb6r2XBDk",
+    "desktop_tutorial_title_1" => "Watch how the Desktop app is used:",
+    "desktop_tutorial_title_2" => "Watch how to download additional content:",
+    "desktop_tutorial_url_1" => "https://www.youtube.com/embed/ruTuW06JWVI",
+    "desktop_tutorial_url_2" => "https://www.youtube.com/embed/EYCNIRM586s",
+    "installation_instructions_linux_btn" => "Installation instructions for Linux"
 ];

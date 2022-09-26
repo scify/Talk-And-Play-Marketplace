@@ -22,7 +22,8 @@ use App\Http\Controllers\TermsPrivacyController;
 */
 
 Route::view('/', 'home')->name('home');
-Route::view('/how-it-works', 'how_it_works')->name('how-it-works');
+Route::view('/how-it-works-marketplace', 'how_it_works_marketplace')->name('how-it-works-marketplace');
+Route::view('/how-it-works-desktop', 'how_it_works_desktop')->name('how-it-works-desktop');
 Route::view('/content-guidelines', 'content-guidelines')->name('content-guidelines');
 Route::view('/terms-of-use', 'terms-of-use')->name('terms-of-use');
 

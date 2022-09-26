@@ -160,7 +160,8 @@ return [
     "clone" => "Κλωνοποίηση",
     "rate" => "Βαθμολόγησε",
     "how_it_works" => "Πώς Λειτουργεί",
-    "watch_tutorials" => "Παρακολουθήστε τα παρακάτω βίντεο για να δείτε πώς λειτουργεί η πλατφόρμα του Talk & Play Marketplace, αλλά και το πώς μπορεί να συνδεθεί με τη Desktop εφαρμογή.",
+    "watch_tutorials" => "Παρακολουθήστε τα παρακάτω βίντεο για να δείτε πώς λειτουργεί η πλατφόρμα του Talk & Play Marketplace:",
+    "watch_tutorials_desktop" => "Παρακολουθήστε τα παρακάτω βίντεο για να δείτε πώς λειτουργεί η Desktop εφαρμογή του Talk & Play:",
     "talk_and_play_description" => "Το Τalk & Play ειναι μία εφαρμογή που  παρέχεται δωρεάν από τη SciFY με σκοπό να υποστηρίξει άτομα με κινητικά προβλήματα ή δυσκολία έκφρασης λόγου να επικοινωνήσουν με τους δικούς τους, να διασκεδάσουν, αλλά και να κάνουν ασκήσεις αποκατάστασης.<br> Μέσω της υποστηρικτικής διαδικτυακής σελίδας του Talk n Play Marketplace μπορείτε να βρείτε, να δημιουργήσετε, να μοιραστείτε, και να κατεβάσετε περισσότερα πακέτα καρτών που σας ταιριάζουν, και να τα χρησιμοποιήσετε στην εφαρμογή.",
     "contact_us" => "Επικοινωνήστε μαζί μας",
     "communication_cards" => "Κάρτες Επικοινωνίας",
@@ -226,5 +227,11 @@ return [
     "meta_tags_description" => "Το Talk and Play είναι ένα σύστημα που επιτρέπει σε άτομα με αναπηρίες να επικοινωνούν, να είναι πιο ανεξάρτητα, και να ασκούνται για αποκατάσταση και στο σπίτι.",
     "approve_packages" => "Έγκριση Πακέτων",
     "warning_rejection" => "Προσοχή! Ένα μήνυμα απόρριψης θα σταλεί στον δημιουργό του πακέτου",
-    "reject_package" => "Απόρριψη Πακέτου"
+    "reject_package" => "Απόρριψη Πακέτου",
+    "marketplace_tutorial_url" => "https://www.youtube.com/embed/lcCb6r2XBDk",
+    "desktop_tutorial_title_1" => "Δείτε πώς να χρησιμοποιήσετε τη Desktop εφαρμογή:",
+    "desktop_tutorial_title_2" => "Δείτε πώς να κατεβάσετε επιπλέον περιεχόμενο:",
+    "desktop_tutorial_url_1" => "https://www.youtube.com/embed/ruTuW06JWVI",
+    "desktop_tutorial_url_2" => "https://www.youtube.com/embed/EYCNIRM586s",
+    "installation_instructions_linux_btn" => "Οδηγίες εγκατάστασης για Linux"
 ];
