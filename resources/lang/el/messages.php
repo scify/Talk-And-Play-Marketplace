@@ -233,5 +233,6 @@ return [
     "desktop_tutorial_title_2" => "Δείτε πώς να κατεβάσετε επιπλέον περιεχόμενο:",
     "desktop_tutorial_url_1" => "https://www.youtube.com/embed/ruTuW06JWVI",
     "desktop_tutorial_url_2" => "https://www.youtube.com/embed/EYCNIRM586s",
-    "installation_instructions_linux_btn" => "Οδηγίες εγκατάστασης για Linux"
+    "installation_instructions_linux_btn" => "Οδηγίες εγκατάστασης για Linux",
+    "installation_instructions_windows_btn" => "Οδηγίες εγκατάστασης για Windows"
 ];

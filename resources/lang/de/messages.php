@@ -216,5 +216,6 @@ return [
     "desktop_tutorial_title_2" => "Sehen Sie sich an, wie Sie zusätzliche Inhalte herunterladen:",
     "desktop_tutorial_url_1" => "https://www.youtube.com/embed/ruTuW06JWVI",
     "desktop_tutorial_url_2" => "https://www.youtube.com/embed/EYCNIRM586s",
-    "installation_instructions_linux_btn" => "Installationsanweisungen für Linux"
+    "installation_instructions_linux_btn" => "Installationsanweisungen für Linux",
+    "installation_instructions_windows_btn" => "Installationsanweisungen für Windows"
 ];
