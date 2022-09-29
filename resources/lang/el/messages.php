@@ -121,7 +121,7 @@ return [
                                     <b class=\"mt-4\">Πώς προσθέτω μια κάρτα;</b><br>
                                     Στο πακέτο που θέλεις, επιλέγεις το κουμπί \"Προσθήκη Νέας Κάρτας\" και
                                     συμπλήρωσε στη φόρμα που θα εμφανιστεί, το όνομα και την εικόνα εξωφύλλου της κάρτας, καθώς και τον ήχο που θα ακούγεται όταν επιλέγεται η κάρτα στην εφαρμογή του Talk & Play",
-    "communication_cards_tutorial_step_4_description" => "Κατέβασε την εφαρμογή για <a href=\"https://go.scify.gr/talkandplaydownloadl\">Linux</a> και για <a href=\"https://go.scify.gr/talkandplaydownloadw\">Windows</a>.",
+    "communication_cards_tutorial_step_4_description" => "Κατέβασε την εφαρμογή για <a href=\"https://go.scify.gr/talkandplaydownloadzip\">Linux</a> και για <a href=\"https://go.scify.gr/talkandplaydownloadexe\">Windows</a>.",
 
     "game_cards_tutorial_step_1_title"  => "Εξερεύνησε τα διαθέσιμα πακέτα παιχνιδιού",
     "game_cards_tutorial_step_2_title" => "Κατέβασε τα πακέτα που σου αρέσουν",
@@ -148,7 +148,7 @@ return [
                                     <b class=\"mt-4\">Πώς προσθέτω μια κάρτα;</b><br>
                                     Στο πακέτο που θέλεις, επιλέγεις το κουμπί \"Προσθήκη Νέας Κάρτας\" και
                                     συμπλήρωσε στη φόρμα που θα εμφανιστεί το όνομα και την εικόνα εξωφύλλου της κάρτας",
-    "game_cards_tutorial_step_4_description" => "Κατέβασε την εφαρμογή για <a href=\"https://go.scify.gr/talkandplaydownloadl\">Linux</a> και για <a href=\"https://go.scify.gr/talkandplaydownloadw\">Windows</a>.",
+    "game_cards_tutorial_step_4_description" => "Κατέβασε την εφαρμογή για <a href=\"https://go.scify.gr/talkandplaydownloadzip\">Linux</a> και για <a href=\"https://go.scify.gr/talkandplaydownloadexe\">Windows</a>.",
 
 
     "services" => "Υπηρεσίες",

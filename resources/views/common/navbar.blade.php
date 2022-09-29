@@ -18,14 +18,14 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item"
-                               href="https://go.scify.gr/talkandplaydownloadw">{!! __('messages.download_the_app_windows') !!}
+                               href="https://go.scify.gr/talkandplaydownloadexe">{!! __('messages.download_the_app_windows') !!}
                                 <i class="ml-1 fab fa-windows"></i></a>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
                         <li><a class="dropdown-item"
-                               href="https://go.scify.gr/talkandplaydownloadl">{!! __('messages.download_the_app_linux') !!}
+                               href="https://go.scify.gr/talkandplaydownloadzip">{!! __('messages.download_the_app_linux') !!}
                                 <i class="ml-1 fab fa-linux"></i></a>
                         </li>
                     </ul>

@@ -117,7 +117,7 @@ return [
                                     <br><br>
                                     <b class=\"mt-4\">How can I add a card?</b><br>
                                     On your package of interest, select the button  \"Add a new card\" and fill in the form that will appear with a card name, an image and a sound file representing the card",
-    "communication_cards_tutorial_step_4_description" => "Download the app for <a href=\"https://go.scify.gr/talkandplaydownloadl\">Linux</a> and for <a href=\"https://go.scify.gr/talkandplaydownloadw\">Windows</a>.",
+    "communication_cards_tutorial_step_4_description" => "Download the app for <a href=\"https://go.scify.gr/talkandplaydownloadzip\">Linux</a> and for <a href=\"https://go.scify.gr/talkandplaydownloadexe\">Windows</a>.",
 
     "game_cards_tutorial_step_1_title"  => "Explore available game packages",
     "game_cards_tutorial_step_2_title" => "Download the packages that you like",
@@ -138,7 +138,7 @@ return [
                                     <br><br>
                                     <b class=\"mt-4\">How can I add a card?</b><br>
                                     On your package of interest, select the button  \"Add a new card\" and fill in the form that will appear with a card name and a representative image",
-    "game_cards_tutorial_step_4_description" => "Download the app for <a href=\"https://go.scify.gr/talkandplaydownloadl\">Linux</a> and for <a href=\"https://go.scify.gr/talkandplaydownloadw\">Windows</a>.",
+    "game_cards_tutorial_step_4_description" => "Download the app for <a href=\"https://go.scify.gr/talkandplaydownloadzip\">Linux</a> and for <a href=\"https://go.scify.gr/talkandplaydownloadexe\">Windows</a>.",
 
 
     "services" => "Services",
