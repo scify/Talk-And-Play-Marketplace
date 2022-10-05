@@ -24,7 +24,7 @@ class AnalyticsEventManager {
     public function storeUsageData(array $data) {
         $record = $this->analyticsEventRepository->create([
             'name' => $data['action'],
-            'source' => 'web',
+            'source' => $data['source'],
             'payload' => json_encode($data)
         ]);
         if (isset($data['token']) && strlen($data['token']) > 5 && ShapesIntegrationManager::isEnabled())
