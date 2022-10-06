@@ -22,14 +22,17 @@ class AnalyticsEventManager {
      * @throws Exception
      */
     public function storeUsageData(array $data) {
-        $record = $this->analyticsEventRepository->create([
+        $response = json_encode([]);
+
+        if (isset($data['token']) && strlen($data['token']) > 5 && ShapesIntegrationManager::isEnabled())
+            $response = $this->shapesIntegrationManager->sendUsageDataToDatalakeAPI($data);
+
+        return $this->analyticsEventRepository->create([
             'name' => $data['action'],
             'source' => $data['source'],
-            'payload' => json_encode($data)
+            'payload' => json_encode($data),
+            'response' => $response
         ]);
-        if (isset($data['token']) && strlen($data['token']) > 5 && ShapesIntegrationManager::isEnabled())
-            $this->shapesIntegrationManager->sendUsageDataToDatalakeAPI($data);
-        return $record;
     }
 
     public function storeMarketplaceUsageData(User $user, array $data) {
