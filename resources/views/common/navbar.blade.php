@@ -17,7 +17,7 @@
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Talk & Play app <i class="ml-1 fas fa-download"></i>
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownDownloadApp">
+                    <ul id="navbarDropdownDownloadAppContent" class="dropdown-menu" aria-labelledby="navbarDropdownDownloadApp">
                         <li><a class="dropdown-item"
                                target="_blank"
                                rel="noopener noreferrer"
