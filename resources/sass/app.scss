@@ -54,3 +54,12 @@ a {
 a.link-info {
     color: $blue;
 }
+
+#navbarDropdownDownloadApp {
+    .dropdown-item {
+        i {
+            float: right;
+            margin-top: 5px;
+        }
+    }
+}
