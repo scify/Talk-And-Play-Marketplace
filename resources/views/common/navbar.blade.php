@@ -18,6 +18,8 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item"
+                               target="_blank"
+                               rel="noopener noreferrer"
                                href="https://go.scify.gr/talkandplaydownloadexe">{!! __('messages.download_the_app_windows') !!}
                                 <i class="ml-1 fab fa-windows"></i></a>
                         </li>
@@ -25,8 +27,19 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li><a class="dropdown-item"
+                               target="_blank"
+                               rel="noopener noreferrer"
                                href="https://go.scify.gr/talkandplaydownloadzip">{!! __('messages.download_the_app_linux') !!}
                                 <i class="ml-1 fab fa-linux"></i></a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               href="https://docs.google.com/document/d/1izUlMZZ5el7P2laoLaYzuGuK46Hhgrmj_WpJnOWEzwY/edit">{!! __('messages.installation_instructions') !!}
+                                <i class="fas fa-paste"></i></a>
                         </li>
                     </ul>
                 </li>

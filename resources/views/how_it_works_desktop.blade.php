@@ -19,11 +19,11 @@
         <div class="row my-5">
             <div class="col-lg-4 col-md-5 col-sm-12 offset-lg-1 offset-md-1 offset-sm-0 text-center">
                 <a class="btn btn-lg btn-primary w-100" href="https://docs.google.com/document/d/11nGgpyyTvYeUpiUGW2PW9w5tdtqkAjxI4I2tt0YwvL0/"
-                   target="_blank">{!! __('messages.installation_instructions_linux_btn') !!}<i class="fab fa-linux ms-2 fw-bold"></i></a>
+                   target="_blank" rel="noopener noreferrer">{!! __('messages.installation_instructions_linux_btn') !!}<i class="fab fa-linux ms-2 fw-bold"></i></a>
             </div>
             <div class="col-lg-4 col-md-5 col-sm-12 offset-lg-1 offset-md-0 offset-sm-0 text-center">
                 <a class="btn btn-lg btn-primary w-100" href="https://docs.google.com/document/d/1izUlMZZ5el7P2laoLaYzuGuK46Hhgrmj_WpJnOWEzwY/"
-                   target="_blank">{!! __('messages.installation_instructions_windows_btn') !!}<i class="fab fa-windows ms-2"></i></a>
+                   target="_blank" rel="noopener noreferrer">{!! __('messages.installation_instructions_windows_btn') !!}<i class="fab fa-windows ms-2"></i></a>
             </div>
         </div>
         <div class="row align-items-center">

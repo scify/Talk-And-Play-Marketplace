@@ -19,7 +19,7 @@
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
         "sentry/sentry-laravel": "^2.8",
-      "ext-json": "*"
+        "ext-json": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
