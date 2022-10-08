@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-md-6 item text">
                     <h3>Created by</h3>
-                    <p><a href="https://www.scify.gr/site/en/who-we-are/scify" target="_blank">SciFY</a> is a not-for-profit organization, that develops cutting-edge information technology systems
+                    <p><a href="https://www.scify.gr/site/en/who-we-are/scify" target="_blank" rel="noopener noreferrer">SciFY</a> is a not-for-profit organization, that develops cutting-edge information technology systems
                         and freely offers them to all, including the design, the implementation details, and the support
                         needed, in order to solve real-life problems.</p>
                 </div>
