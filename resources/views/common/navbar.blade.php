@@ -1,3 +1,4 @@
+@php use Illuminate\Support\Facades\App; @endphp
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}" tabindex="-1">
@@ -12,11 +13,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown navbar-item-dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownDownloadApp" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Talk & Play app <i class="ml-1 fas fa-download"></i>
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownDownloadApp">
                         <li><a class="dropdown-item"
                                target="_blank"
                                rel="noopener noreferrer"
@@ -82,11 +83,11 @@
                     </li>
                 @else
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUserActions" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
                             {{ Auth::user()->name }}
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownUserActions">
                             @auth
                                 <li>
                                     <a class="dropdown-item" role="button"
@@ -143,14 +144,14 @@
                     </li>
                 @endguest
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLangSelector" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         <img
                             loading="lazy"
-                            src="{{ asset('img/lang/' . \Illuminate\Support\Facades\App::getLocale() . '.png') }}"
+                            src="{{ asset('img/lang/' . App::getLocale() . '.png') }}"
                             height="20px" alt="Language">
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownLangSelector">
                         <li><a class="dropdown-item" href="{{ route('set-lang-locale', 'en') }}">
                                 <img
                                     loading="lazy"
