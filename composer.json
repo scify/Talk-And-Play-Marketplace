@@ -9,17 +9,18 @@
     "license": "MIT",
     "require": {
         "php": "^7.4|^8.0",
+        "ext-json": "*",
         "ext-libxml": "*",
         "ext-simplexml": "*",
         "ext-zip": "*",
+        "doctrine/dbal": "^3.4",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/fortify": "^1.7",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
-        "sentry/sentry-laravel": "^2.8",
-        "ext-json": "*"
+        "sentry/sentry-laravel": "^2.8"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",
