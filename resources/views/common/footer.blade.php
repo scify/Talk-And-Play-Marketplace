@@ -1,7 +1,7 @@
 <div class="footer-dark py-4">
     <footer>
         <div class="container">
-            <div class="row" style="margin-bottom: 30px">
+            <div class="row">
                 <div class="col-sm-6 col-md-3 item">
                     <h3>{!! __('messages.services') !!}</h3>
                     <ul>
@@ -51,7 +51,7 @@
                         <img alt="Shapes Logo" title="" src="{{asset("img/shapes_logo.png")}}"
                              style="width:70px;height:50px; float: right; display: block; background: white; margin-right:10px;">
                     </div>
-                    <p style="font-size: small;">This project has received funding from the
+                    <p style="font-size: small; color:white!important">This project has received funding from the
                         European Union's Horizon 2020 research and innovation programme under grant agreement No.
                         857159.</p>
                 </div>
