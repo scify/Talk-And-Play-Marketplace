@@ -42,13 +42,13 @@
                                         <div class="container-fluid mt-4 p-0 download-app-container">
                                             <div class="row">
                                                 <div class="col">
-                                                    <a href="https://go.scify.gr/talkandplaydownloadexe41"
+                                                    <a href="https://go.scify.gr/talkandplayexe"
                                                        target="_blank" class="btn btn-primary w-100" style="height:70px">
                                                         {!! __('messages.download_the_app_windows') !!}<br> <i class="ml-1 fab fa-windows"></i>
                                                     </a>
                                                 </div>
                                                 <div class="col">
-                                                    <a href="https://go.scify.gr/talkandplaydownloadzip41"
+                                                    <a href="https://go.scify.gr/talkandplaylinux"
                                                        target="_blank" class="btn btn-primary w-100" style="height:70px">
                                                         {!! __('messages.download_the_app_linux') !!} <br><i class="ml-1 fab fa-linux"></i>
                                                     </a>

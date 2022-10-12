@@ -21,7 +21,7 @@
                         <li><a class="dropdown-item"
                                target="_blank"
                                rel="noopener noreferrer"
-                               href="https://go.scify.gr/talkandplaydownloadexe41">{!! __('messages.download_the_app_windows') !!}
+                               href="https://go.scify.gr/talkandplayexe">{!! __('messages.download_the_app_windows') !!}
                                 <i class="ml-2 fab fa-windows"></i></a>
                         </li>
                         <li>
@@ -30,7 +30,7 @@
                         <li><a class="dropdown-item"
                                target="_blank"
                                rel="noopener noreferrer"
-                               href="https://go.scify.gr/talkandplaydownloadzip41">{!! __('messages.download_the_app_linux') !!}
+                               href="https://go.scify.gr/talkandplaylinux">{!! __('messages.download_the_app_linux') !!}
                                 <i class="ml-2 fab fa-linux"></i></a>
                         </li>
                         <li>

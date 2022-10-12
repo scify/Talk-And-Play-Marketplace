@@ -108,7 +108,7 @@ return [
                                     <br><br>
                                     <b class=\"mt-4\">Wie kann ich eine Karte hinzufügen?</b><br>
                                     Wählen Sie auf dem Paket, das Sie interessiert, die Schaltfläche \"Neue Karte hinzufügen\" und füllen Sie das erscheinende Formular mit einem Kartennamen, einem Bild und einer Sounddatei aus, die die Karte repräsentiert.",
-    "communication_cards_tutorial_step_4_description" => "Laden Sie die App für <a href=\"https://go.scify.gr/talkandplaydownloadzip41\">Linux</a> und für <a href=\"https://go.scify.gr/talkandplaydownloadexe41\">Windows</a> herunter.",
+    "communication_cards_tutorial_step_4_description" => "Laden Sie die App für <a href=\"https://go.scify.gr/talkandplaylinux\">Linux</a> und für <a href=\"https://go.scify.gr/talkandplayexe\">Windows</a> herunter.",
 
     "game_cards_tutorial_step_1_title"  => "Erkunden Sie die verfügbaren Spielepakete",
     "game_cards_tutorial_step_2_title" => "Laden Sie die Pakete herunter, die Ihnen gefallen",
@@ -129,7 +129,7 @@ return [
                                     <br><br>
                                     <b class=\"mt-4\">Wie kann ich eine Karte hinzufügen?</b><br>
                                     Wählen Sie auf dem Paket, das Sie interessiert, die Schaltfläche \"Eine neue Karte hinzufügen\" und füllen Sie das Formular aus, das mit einem Kartennamen und einem repräsentativen Bild erscheint.",
-    "game_cards_tutorial_step_4_description" => "Laden Sie die App für <a href=\"https://go.scify.gr/talkandplaydownloadzip41\">Linux</a> und für <a href=\"https://go.scify.gr/talkandplaydownloadexe41\">Windows</a> herunter.",
+    "game_cards_tutorial_step_4_description" => "Laden Sie die App für <a href=\"https://go.scify.gr/talkandplaylinux\">Linux</a> und für <a href=\"https://go.scify.gr/talkandplayexe\">Windows</a> herunter.",
 
 
     "services" => "Dienstleistungen",
