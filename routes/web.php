@@ -33,6 +33,17 @@ $localeInfo = ['prefix' => '{lang}',
     'middleware' => 'set.locale'
 ];
 
+Route::get('ip', function (\Illuminate\Http\Request $request) {
+    $data = [
+        'ip' => $request->ip,
+        'ips' => $request->ips(),
+        'client_ip' => $request->getClientIp(),
+        'client_ips' => $request->getClientIps(),
+    ];
+
+    dd($data);
+});
+
 Route::get('/privacy-policy', [TermsPrivacyController::class, 'showPrivacyPolicyPage'])->name('privacy-policy');
 Route::get('/lang/{lang}', [UserController::class, 'setLangLocaleCookie'])->name('set-lang-locale');
 Route::get('/communication-cards', [CommunicationResourceController::class, 'index'])->name('communication_resources.index');
