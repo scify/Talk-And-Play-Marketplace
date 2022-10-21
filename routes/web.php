@@ -5,6 +5,9 @@ use App\Http\Controllers\Resource\CommunicationResourceController;
 use App\Http\Controllers\Resource\GameResourceController;
 use App\Http\Controllers\Resource\ResourceController;
 use App\Http\Controllers\UserController;
+use App\Models\User;
+use App\Notifications\AcceptanceNotice;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShapesIntegrationController;
@@ -32,6 +35,18 @@ $localeInfo = ['prefix' => '{lang}',
     'where' => ['lang' => $regexForLocalParameter],
     'middleware' => 'set.locale'
 ];
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/test-sentry/{message}', function (Request $request) {
+        throw new Exception('Test Sentry error: ' . $request->message);
+    })->middleware('can:manage-platform');
+
+    Route::get('/test-email/{email}', function (Request $request) {
+        User::where(['email' => $request->email])->first()->notify(new AcceptanceNotice("test card resource", $request->email));
+
+        return 'Success! Email sent to: ' . $request->email;
+    })->middleware('can:manage-platform');
+});
 
 Route::get('/privacy-policy', [TermsPrivacyController::class, 'showPrivacyPolicyPage'])->name('privacy-policy');
 Route::get('/lang/{lang}', [UserController::class, 'setLangLocaleCookie'])->name('set-lang-locale');
