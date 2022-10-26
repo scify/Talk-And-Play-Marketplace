@@ -9,13 +9,12 @@
 
 
     <form id="md-form" enctype="multipart/form-data" role="form" method="POST"
-          action="{{ $viewModel->isEditMode() ? route('resources.update',$viewModel->resource->id) : route('communication_resources.store') }}">
+          action="{{ $viewModel->isEditMode() ? route('resources.update_resource_package',$viewModel->package->id) : route('communication_resources.store') }}">
         <input type="hidden" id="type_id" value='{{$viewModel->type_id}}'/>
     @if($viewModel->isEditMode())
         @method('PUT')
     @endif
 
-    <!--form class="md-form" action="{{route('communication_resources.store')}}" method="POST" enctype="multipart/form-data"-->
         {{ csrf_field() }}
         <div class="container rounded py-4" style="border:1px solid grey">
             <div class="mx-3">
@@ -34,10 +33,10 @@
                 </div>
                 <div class="mb-3">
                     <label for="category_lang" class="form-label">{{trans("messages.language")}}</label>
-                    <select class="form-select"@if($viewModel->package->lang_id != null) disabled @endif aria-label="category_lang" name="lang">
+                    <select class="form-select" aria-label="category_lang" name="lang">
                         @foreach ($viewModel->languages as $lang){
                         @if($viewModel->package->lang_id === $lang->id)
-                            <option selected> {{$lang->name}} </option>
+                            <option value="{{$lang->id}}" selected> {{$lang->name}} </option>
                         @else
                             <option value="{{$lang->id}}"> {{$lang->name}} </option>
                         @endif

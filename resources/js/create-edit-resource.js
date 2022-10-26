@@ -86,19 +86,13 @@ import {Modal} from "bootstrap";
     let listenForPackageSubmitClick = function () {
         $("#packageSubmitBtn").on("click", function () {
             console.log("clicked  package submit");
-            let parent_id = $("#parentId").attr("value");
             let type_id = $("#type_id").attr("value");
-            // const route = window.route('resources.update_resource,[\'id\' => '.concat(card_id).concat(', \'type_id\' => ').concat(type_id).concat(']'));
-            let route = window.route("resources.update", parent_id);
-            // console.log(route);
+            let route = $("#md-form").attr("action");
             let lastChar = route.substr(-1); // Selects the last character
             if (lastChar === "/") {         // If the last character is a slash
                 route = route.slice(0, -1);
             }
-            console.log(route);
             route = route.concat("?type_id=").concat(type_id);
-            //
-            console.log(route);
             $("#md-form").attr("action", route);
         });
     };

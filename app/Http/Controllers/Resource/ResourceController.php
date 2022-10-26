@@ -74,9 +74,9 @@ class ResourceController extends Controller {
             'name' => 'required|string|max:100',
             'image' => 'mimes:jpg,png,jpeg|required|file|between:3,1000|nullable',
             'type_id' => 'required',
-            'accept-guideline-terms' => 'required',
-            'accept-privacy-terms' => 'required'
         ]);
+
+
 
         $type_id = intval($request->type_id);
         /*switch($type_id){
@@ -111,6 +111,10 @@ class ResourceController extends Controller {
                 'action' => 'RESOURCE_CREATED_' . $resourceType,
             ]);
             if ($resource->resource_parent_id == null) {
+                $this->validate($request, [
+                    'accept-guideline-terms' => 'required',
+                    'accept-privacy-terms' => 'required'
+                ]);
                 $resourcePackage = $manager->storeResourcePackage($resource, $request['lang']);
 
                 return redirect()->route($ret_route, $resourcePackage->id)
@@ -140,6 +144,7 @@ class ResourceController extends Controller {
 
     public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse#after submit, (action-route submit button directs here)
     {
+
         $this->validate($request, [
             'name' => 'string|max:100',
             'image' => 'mimes:jpg,png|file|between:3,1000|nullable',
@@ -161,6 +166,8 @@ class ResourceController extends Controller {
         } else {
             throw(new \ValueError("Type not supported"));
         }
+
+
         try {
             $request['status_id'] = ResourceStatusesLkp::CREATED_PENDING_APPROVAL;
             $ret = $this->resourceManager->updateResource($request, $id);
@@ -170,6 +177,42 @@ class ResourceController extends Controller {
             return redirect()->back()->with('flash_message_failure', __('messages.update-failure'));
         }
     }
+
+    public function update_resource_package(Request $request, int $id): \Illuminate\Http\RedirectResponse
+    {
+        $this->validate($request, [
+            'name' => 'string|max:100',
+            'lang' => 'required',
+            'image' => 'mimes:jpg,png|file|between:3,1000|nullable',
+            'type_id' => 'required',
+            'accept-guideline-terms' => 'required',
+            'accept-privacy-terms' => 'required'
+        ]);
+
+        $type_id = intval($request->type_id);
+        if ($type_id === ResourceTypesLkp::COMMUNICATION) {
+            $this->validate($request, ['sound' => 'mimes:mp3|file|between:1,2000|nullable']);
+            $ret_route = "communication_resources.edit";
+        } else if (in_array($type_id, [
+            ResourceTypesLkp::SIMILAR_GAME,
+            ResourceTypesLkp::TIME_GAME,
+            ResourceTypesLkp::RESPONSE_GAME
+        ])) {
+            $ret_route = "game_resources.edit";
+        } else {
+            throw(new \ValueError("Type not supported"));
+        }
+        try {
+            $request['status_id'] = ResourceStatusesLkp::CREATED_PENDING_APPROVAL;
+
+            $ret = $this->resourcesPackageManager->updateResourcePackage($request, $id);
+
+            return redirect()->back()->with('flash_message_success', __('messages.update-success'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('flash_message_failure', __('messages.update-failure'));
+        }
+    }
+
 
     /**
      * Remove the specified resource from storage.

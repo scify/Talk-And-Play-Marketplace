@@ -81,6 +81,10 @@ class CommunicationResourceController extends Controller {
 
             $resource = $this->resourceManager->storeResource($request);
             if ($resource->resource_parent_id === null) {
+                $this->validate($request, [
+                    'accept-guideline-terms' => 'required',
+                    'accept-privacy-terms' => 'required'
+                ]);
                 $resourcePackage = $this->communicationResourcesPackageManager->storeResourcePackage($resource, $request['lang']);
                 return redirect()->route('communication_resources.edit', $resourcePackage->id)->with('flash_message_success', __('messages.package-create-success'));
             } else {

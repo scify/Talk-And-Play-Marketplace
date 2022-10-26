@@ -9,7 +9,7 @@
 
 
     <form id="md-form" enctype="multipart/form-data" role="form" method="POST"
-          action="{{ $viewModel->isEditMode() ? route('resources.update', $viewModel->resource->id) : route('resources.store',['type_id'=>$viewModel->type_id]) }}">
+          action="{{ $viewModel->isEditMode() ? route('resources.update_resource_package', $viewModel->package->id) : route('resources.store',['type_id'=>$viewModel->type_id]) }}">
         <input type="hidden" id="type_id" value='{{$viewModel->type_id}}'/>
     @if($viewModel->isEditMode())
         @method('PUT')
@@ -40,11 +40,10 @@
                 </div>
                 <div class="mb-3">
                     <label for="category_lang" class="form-label">{{trans("messages.language")}}</label>
-                    <select class="form-select" @if($viewModel->package->lang_id != null) disabled
-                            @endif aria-label="category_lang" name="lang">
+                    <select class="form-select" aria-label="category_lang" name="lang">
                         @foreach ($viewModel->languages as $lang){
                         @if($viewModel->package->lang_id === $lang->id)
-                            <option selected> {{$lang->name}} </option>
+                            <option value="{{$lang->id}}" selected> {{$lang->name}} </option>
                         @else
                             <option value="{{$lang->id}}"> {{$lang->name}} </option>
                         @endif

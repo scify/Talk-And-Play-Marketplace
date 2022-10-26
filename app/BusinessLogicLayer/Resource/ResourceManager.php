@@ -73,15 +73,12 @@ class ResourceManager {
     {
         $storeArr = [
             "name" => $request['name'],
-//            "lang_id" => $request['lang'],
             "img_path" => null,
             "audio_path" => null,
-//            'type_id' => ResourceTypesLkp::COMMUNICATION,
-//            'status_id' => ResourceStatusesLkp::CREATED_PENDING_APPROVAL,
-//            'resource_parent_id' => $request->parentId ? intval($request->parentId) : null,
             'creator_user_id' => Auth::id(),
             'admin_user_id' => null
         ];
+
         $old_resource = $this->resourceRepository->find($id);
         $storeArr['img_path'] = $old_resource['img_path'];
         $storeArr['audio_path'] = $old_resource['audio_path'];

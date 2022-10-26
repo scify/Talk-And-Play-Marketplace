@@ -50,7 +50,15 @@ class ResourcesPackageManager extends ResourceManager {
                 'card_id' => $resource['id']
             ]
         );
+    }
 
+    public function updateResourcePackage($request, $id){
+        $package = $this->resourcesPackageRepository->getResourcesPackage($id);
+        $coverCardId = $package->card_id;
+        $package = $this->resourcesPackageRepository->update(["lang_id" => $request->lang], $id);
+        $this->updateResource( $request , $coverCardId);
+
+        return $package;
 
     }
 

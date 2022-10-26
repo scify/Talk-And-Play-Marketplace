@@ -137,6 +137,15 @@ class GameResourceController extends Controller {
             'name' => 'required|string|max:100',
             'image' => 'file|between:10,500|nullable'
         ]);
+
+        $resource = $this->resourceManager->getResource($id);
+        if ($resource->resource_parent_id == null) {
+            $this->validate($request, [
+                'accept-guideline-terms' => 'required',
+                'accept-privacy-terms' => 'required'
+            ]);
+        }
+
         try {
             $ret = $this->resourceManager->updateResource($request, $id);
             $redirect_id = $ret['resource_parent_id'] ?: $ret->id;
