@@ -48,6 +48,10 @@
                     </ul>
                 </div>
             </div>
+
+            <div v-if="isPending()" class="card-status-message status-pending-approval">{{trans('messages.info_pending_approval')}}</div>
+            <div v-else-if="isApproved()" class="card-status-message status-approved">{{trans('messages.info_approved')}}</div>
+            <div v-else class="card-status-message status-rejected">{{trans('messages.info_rejected')}}</div>
             <img :src="'/storage/'+resourcesPackage.cover_resource.img_path" class="card-img-top"
                  :alt="resourcesPackage.cover_resource.name">
             <div class="card-body">
@@ -512,7 +516,15 @@ export default {
                 window.location.reload();
             });
         },
-
+        isApproved(){
+            return this.resourcesPackage.status_id === 2;
+        },
+        isPending(){
+            return this.resourcesPackage.status_id === 1;
+        },
+        isRejected(){
+            return this.resourcesPackage.status_id === 3;
+        }
 
     }
 };
