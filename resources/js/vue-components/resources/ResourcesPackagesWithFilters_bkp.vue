@@ -1,12 +1,12 @@
 <template>
     <div class="container-fluid p-0">
         <div class="row justify-content-start mb-2">
-            <div v-if="this.isExercisesPage" class="col-md-8 col-sm-12">
+            <div class="col-md-8 col-sm-12">
                 <div class="container-fluid p-0">
                     <div class="row">
                         <div v-for="language in contentLanguages"
-                             class="col-md-3 col-sm-12" :key="language.id">
-
+                             class="col-md-3 col-sm-12"
+                             :key="language.id">
                             <button @click="setContentLanguage(language)"
                                     class="w-100 btn btn-secondary"
                                     v-bind:class="{ selected: language.id === selectedContentLanguage.id }">
@@ -16,8 +16,7 @@
                     </div>
                 </div>
             </div>
-
-            <div v-bind:class="[this.isExercisesPage? 'col-md-4': 'col-md-12', 'col-sm-12']" >
+            <div class="col-md-4 col-sm-12">
                 <div class="search"><i class="fa fa-search"></i>
                     <input
                         @keyup.stop="search($event.target.value)"
@@ -111,7 +110,6 @@ export default {
             }
         },
         isAdmin: String,
-        isExercisesPage: Boolean,
         packagesType: String,
         approvePackages: Number
     },
@@ -157,14 +155,7 @@ export default {
                 url = this.resourcesPackagesRoute;
             }
 
-
-            if(this.isExercisesPage){
-                url += ("?lang_id=" + this.selectedContentLanguage.id);
-            }
-            else{
-                url += "?";
-            }
-
+            url += ("?lang_id=" + this.selectedContentLanguage.id);
             if (this.userIdToGetContent) {
                 url += ("&user_id_to_get_content=" + this.userIdToGetContent);
             }
@@ -204,10 +195,7 @@ export default {
         },
         showReports() {
             return this.reportsRoute && this.reportsRoute.length > 0;
-        },
-
-
-
+        }
     }
 
 

@@ -440,7 +440,7 @@ class ResourceController extends Controller {
         } else {
             $type_ids = [ResourceTypesLkp::COMMUNICATION];
         }
-        $reportedPackagesWithMetadata = $this->resourcesPackageManager->getReportedPackages($type_ids, $data['lang_id']);
+        $reportedPackagesWithMetadata = $this->resourcesPackageManager->getReportedPackages($type_ids, $request->lang_id);
         return $reportedPackagesWithMetadata;
 
     }

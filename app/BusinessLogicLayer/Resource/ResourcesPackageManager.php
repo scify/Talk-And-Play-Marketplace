@@ -96,7 +96,7 @@ class ResourcesPackageManager extends ResourceManager {
     }
 
 
-    public function getResourcesPackages(int $lang_id, $user_id = null, array $type_ids, array $status_ids ) {
+    public function getResourcesPackages(int $lang_id=null, $user_id = null, array $type_ids, array $status_ids ) {
         return $this->resourcesPackageRepository->getResourcesPackages($type_ids, $user_id, $lang_id, $status_ids);
     }
 
@@ -205,7 +205,7 @@ XML;
         $packagesWithReportInfo= $packagesWithReportInfo->filter(
             function($x) use ($type_ids, $lang_id){
                 return
-                    in_array($x->type_id, $type_ids) && $x->lang_id==$lang_id;
+                    in_array($x->type_id, $type_ids) && ( !$lang_id || $x->lang_id==$lang_id);
             }
         );
         $packagesWithReportInfo = array_values($packagesWithReportInfo->toArray());

@@ -114,6 +114,7 @@
                         :packages-type="'GAME'"
                         :resources-packages-statuses='@json($viewModel->resourcesPackagesStatuses)'
                         :is-admin="'{{$viewModel->isAdmin}}'"
+                        :is-exercises-page="{{true}}"
                         :approve-packages="{{0}}">
                     </resources-packages-with-filters>
                 </div>
