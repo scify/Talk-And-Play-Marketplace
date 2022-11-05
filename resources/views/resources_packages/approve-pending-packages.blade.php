@@ -22,7 +22,6 @@
                                     :resources-packages-statuses='@json($viewModel->resourcesPackagesStatuses)'
                                     :packages-type="'COMMUNICATION'"
                                     :is-admin="'{{$viewModel->isAdmin}}'"
-                                    :is-exercises-page="{{false}}"
                                     :approve-packages="{{true}}">
                                 </resources-packages-with-filters>
                             </div>
@@ -53,7 +52,6 @@
                                 :resources-packages-statuses='@json($viewModel->resourcesPackagesStatuses)'
                                 :packages-type="'GAME'"
                                 :is-admin="'{{$viewModel->isAdmin}}'"
-                                :is-exercises-page="{{false}}"
                                 :approve-packages="{{true}}">
                             </resources-packages-with-filters>
                         </div>

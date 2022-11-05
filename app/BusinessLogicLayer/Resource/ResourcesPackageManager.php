@@ -107,6 +107,11 @@ class ResourcesPackageManager extends ResourceManager {
 
     public function downloadGamePackage($package, $gameType = "") {
         $fileManager = new ResourceFileManager();
+        $this->resourcesPackageRepository->update(
+            [
+                "num_downloads" => $package->num_downloads+1
+            ], $package->id
+        );
         $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($package->card_id);
         $parentResource = $this->resourceRepository->find($package->card_id);
         $packageDir = 'resources_packages/zips/package-' . $package->id;
