@@ -75,7 +75,7 @@ import {Modal} from "bootstrap";
             e.preventDefault();
             let annId = $(this).data("announcementId");
             let annTitle = $(this).data("announcementTitle");
-            let modalEl = $("#activateDesktopAppAnnouncementModal");
+            let modalEl = $("#deactivateDesktopAppAnnouncementModal");
             modalEl.find("#announcement-title").html(annTitle);
             let url = modalEl.find("#deactivateAnnouncementForm").attr("action");
             url = url.substr(0, url.lastIndexOf("/"));
