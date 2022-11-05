@@ -25,7 +25,7 @@
                                 class="fas fa-clone me-2"></i>{{ trans('messages.clone') }}</a>
                         </li>
 
-                        <li v-if="(!loggedInUserIsDifferentFromContentUser() || loggedInUserIsAdmin()) && !isAdminPageForPackageApproval()">
+                        <li v-if="(!loggedInUserIsDifferentFromContentUser() || loggedInUserIsAdmin())">
                             <a v-if="isCommunicationPackage()" class="dropdown-item"
                                :href="getEditCommunicationPackageRoute()"><i
                                 class="fas fa-edit me-2"></i>{{ trans('messages.edit') }}</a>
