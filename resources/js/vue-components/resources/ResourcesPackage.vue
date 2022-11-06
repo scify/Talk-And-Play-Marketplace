@@ -210,12 +210,12 @@
                 <div class="container pt-3 pb-5">
                     <div class="row">
                         <select v-model="rejectionReason">
-                            <option disabled value="">Select rejection reason</option>
-                            <option> Αυτή η άσκηση παραβιάζει τους όρους χρήσης της πλατφορμας</option>
-                            <option> Αυτή η άσκηση περιέχει ακατάλληλο περιεχόμενο</option>
-                            <option> Aυτή η άσκηση παραβιάζει τους κανονισμούς περί πνευματικής ιδιοκτησίας</option>
-                            <option> Το περιεχόμενο της άσκησης δεν είναι ευκρινές / ευανάγνωστο</option>
-                            <option> Άλλο</option>
+                            <option selected disabled value="">{{ trans('messages.select_rejection_reason') }}</option>
+                            <option> {{ trans('messages.rejection_violation_terms') }}</option>
+                            <option> {{ trans('messages.rejection_inappropriate_content') }}</option>
+                            <option> {{ trans('messages.rejection_copyright') }}</option>
+                            <option> {{ trans('messages.rejection_not_readable') }}</option>
+                            <option> {{ trans('messages.other') }}</option>
                         </select>
                         <p style="white-space: pre-line;">{{ }}</p>
                         <br>

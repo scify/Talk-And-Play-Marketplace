@@ -234,4 +234,10 @@ return [
     "warning_download_default_package" => "This package belongs in the default list of packages contained in Talk & Play Application. To avoid having the same package twice in the application, it is suggested to clone and modify the package according to your preferences.",
     "reported_packages" => "Reported Packages",
     "report" => "Report",
+    "select_rejection_reason" => "Select rejection reason",
+    "rejection_violation_terms" => "This exercise violates the terms of use of the platform",
+    "rejection_inappropriate_content" => "This exercise contains inappropriate content",
+    "rejection_copyright" => "This exercise violates copyright regulations",
+    "rejection_not_readable" => "The content of the exercise is not clear / legible",
+    "other" => "Other",
 ];

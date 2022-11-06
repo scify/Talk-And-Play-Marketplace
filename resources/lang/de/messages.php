@@ -226,5 +226,11 @@ return [
     "reported_packages" => "gemeldete Pakete",
     "approve" => "genehmigen",
     "reject" => "zurückweisen",
-    "report" => "berichten"
+    "report" => "berichten",
+    "select_rejection_reason" => "Wählen Sie den Grund für die Ablehnung",
+    "rejection_violation_terms" => "Diese Übung verstößt gegen die Nutzungsbedingungen der Plattform",
+    "rejection_inappropriate_content" => "Diese Übung enthält unangemessene Inhalte",
+    "rejection_copyright" => "Diese Übung verstößt gegen die Bestimmungen zum geistigen Eigentum",
+    "rejection_not_readable" => "Der Inhalt der Übung ist nicht klar / lesbar",
+    "other" => "Andere",
 ];
