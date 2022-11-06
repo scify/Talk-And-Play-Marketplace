@@ -47,9 +47,9 @@
                 </div>
             </div>
 
-            <div v-if="isPending()" class="card-status-message status-pending-approval">{{trans('messages.info_pending_approval')}}</div>
-            <div v-else-if="isApproved()" class="card-status-message status-approved">{{trans('messages.info_approved')}}</div>
-            <div v-else class="card-status-message status-rejected">{{trans('messages.info_rejected')}}</div>
+            <div v-if="isPending() && !isExercisesPage" class="card-status-message status-pending-approval">{{trans('messages.info_pending_approval')}}</div>
+            <div v-else-if="isApproved() && !isExercisesPage" class="card-status-message status-approved">{{trans('messages.info_approved')}}</div>
+            <div v-else-if="!isExercisesPage" class="card-status-message status-rejected">{{trans('messages.info_rejected')}}</div>
             <img :src="'/storage/'+resourcesPackage.cover_resource.img_path" class="card-img-top"
                  :alt="resourcesPackage.cover_resource.name">
             <div class="card-body">
@@ -345,7 +345,11 @@ export default {
         userIdToGetContent: Number,
         packagesType: String,
         isAdmin: String,
-        approvePackages: Number
+        approvePackages: Number,
+        isExercisesPage: {
+            type: Boolean,
+            default: false
+        },
     },
     data: function () {
         return {

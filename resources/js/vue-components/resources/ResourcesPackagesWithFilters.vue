@@ -69,7 +69,9 @@
                     :resources-package="resourcesPackage"
                     :packages-type="packagesType"
                     :is-admin="isAdmin"
-                    :approve-packages="approvePackages">
+                    :approve-packages="approvePackages"
+                    :is-exercises-page="isExercisesPage"
+                >
                 </resource-package>
 
             </div>
@@ -111,7 +113,10 @@ export default {
             }
         },
         isAdmin: String,
-        isExercisesPage: Boolean,
+        isExercisesPage: {
+            type: Boolean,
+            default: false
+        },
         packagesType: String,
         approvePackages: Number
     },
