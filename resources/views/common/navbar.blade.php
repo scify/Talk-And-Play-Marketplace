@@ -107,7 +107,7 @@
                                 <li>
                                     <a class="dropdown-item {{ UrlMatchesMenuItem("resources.user-reports.get")}}"
                                        href="{{route('resources_packages.reported-packages')}}">
-                                        Reported Packages
+                                        {!! __('messages.reported_packages') !!}
                                     </a>
                                 </li>
                                 <li>

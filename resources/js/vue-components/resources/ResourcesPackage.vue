@@ -76,7 +76,7 @@
                        v-bind:class="{ fas: resourceHasRating(index), far: !resourceHasRating(index) }"></i>
                     <button style="float:right" type="submit" class="btn btn--report" @click="showPackageReportModal"><i
                         class="fas fa-exclamation-triangle hover-red " title="Report"
-                        style="font-size:15px;color:rgba(255,0,0,0.1);padding-right:15px;">Report</i></button>
+                        style="font-size:15px;color:rgba(255,0,0,0.1);padding-right:15px;">{{ trans('messages.report') }}</i></button>
 
                 </div>
 
