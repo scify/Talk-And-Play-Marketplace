@@ -120,14 +120,15 @@ class CommunicationResourceController extends Controller {
         }
     }
 
-    public function download_package(int $id): View {
+    public function download_package(int $id) {
         try {
             $package = $this->communicationResourcesPackageManager->getResourcesPackage($id);
-            $this->communicationResourcesPackageManager->downloadPackage($package);
-            $this->analyticsEventManager->storeMarketplaceUsageData(Auth::user(), [
-                'action' => 'PACKAGE_DOWNLOADED',
-            ]);
-            return $this->show_packages();
+
+                $this->communicationResourcesPackageManager->downloadPackage($package);
+                $this->analyticsEventManager->storeMarketplaceUsageData(Auth::user(), [
+                    'action' => 'PACKAGE_DOWNLOADED',
+                ]);
+                return redirect()->back()->with('flash_message_success','Preparing download');
         } catch (ModelNotFoundException $e) {
             abort(404);
         }

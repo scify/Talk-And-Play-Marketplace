@@ -235,5 +235,6 @@ return [
     "desktop_tutorial_url_2" => "https://www.youtube.com/embed/EYCNIRM586s",
     "installation_instructions_linux_btn" => "Οδηγίες εγκατάστασης για Linux",
     "installation_instructions_windows_btn" => "Οδηγίες εγκατάστασης για Windows",
-    "installation_instructions" => "Οδηγίες εγκατάστασης"
+    "installation_instructions" => "Οδηγίες εγκατάστασης",
+    "warning_download_default_package" => "Αυτό το πακέτο ανήκει στην προεπιλεγμένη λίστα των πακέτων που περιέχονται στην εφαρμογή Talk & Play. Για να αποφύγετε να έχετε το ίδιο πακέτο δύο φορές στην εφαρμογή, προτείνεται να κλωνοποιήσετε και να τροποποιήσετε το πακέτο σύμφωνα με τις προτιμήσεις σας."
 ];

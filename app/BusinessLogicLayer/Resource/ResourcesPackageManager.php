@@ -47,7 +47,8 @@ class ResourcesPackageManager extends ResourceManager {
                 'lang_id' => $lang,
                 'creator_user_id' => Auth::id(),
                 'admin_user_id' => null,
-                'card_id' => $resource['id']
+                'card_id' => $resource['id'],
+                'downloadable' => true
             ]
         );
     }

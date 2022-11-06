@@ -230,5 +230,6 @@ return [
     "desktop_tutorial_url_2" => "https://www.youtube.com/embed/EYCNIRM586s",
     "installation_instructions_linux_btn" => "Installation instructions for Linux",
     "installation_instructions_windows_btn" => "Installation instructions for Windows",
-    "installation_instructions" => "Installation instructions"
+    "installation_instructions" => "Installation instructions",
+    "warning_download_default_package" => "This package belongs in the default list of packages contained in Talk & Play Application. To avoid having the same package twice in the application, it is suggested to clone and modify the package according to your preferences."
 ];

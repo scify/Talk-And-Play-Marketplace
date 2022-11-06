@@ -218,5 +218,6 @@ return [
     "desktop_tutorial_url_2" => "https://www.youtube.com/embed/EYCNIRM586s",
     "installation_instructions_linux_btn" => "Installationsanweisungen für Linux",
     "installation_instructions_windows_btn" => "Installationsanweisungen für Windows",
-    "installation_instructions" => "Installationsanweisungen"
+    "installation_instructions" => "Installationsanweisungen",
+    "warning_download_default_package" => "Dieses Paket gehört zur Standardliste der in der Talk & Play-Anwendung enthaltenen Pakete. Um zu vermeiden, dass das gleiche Paket zweimal in der Anwendung enthalten ist, wird empfohlen, das Paket zu klonen und nach Ihren Wünschen zu ändern."
 ];

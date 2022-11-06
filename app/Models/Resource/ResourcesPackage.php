@@ -26,7 +26,7 @@ class ResourcesPackage extends Model
     protected $fillable = [
         'lang_id', 'creator_user_id',
         'admin_user_id', 'type_id',
-        'card_id', 'status_id', 'num_downloads'
+        'card_id', 'status_id', 'num_downloads', 'downloadable'
     ];
 
     public function coverResource(): HasOne {

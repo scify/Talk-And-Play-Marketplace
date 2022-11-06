@@ -12,11 +12,9 @@
 
 
                         <li v-if="!isAdminPageForPackageApproval()">
-                            <a v-if="isCommunicationPackage()" class="dropdown-item"
-                               :href="getDownloadCommunicationPackageRoute()"><i
-                                class="fas fa-file-download me-2"></i>{{ trans('messages.download') }}</a>
-                            <a v-else-if="isGamePackage()" class="dropdown-item"
-                               :href="getDownloadGamePackageRoute()"><i
+                            <a  class="dropdown-item"
+                               v-on:click ="downloadOrShowDownloadWarningModal"
+                            ><i
                                 class="fas fa-file-download me-2"></i>{{ trans('messages.download') }}</a>
                         </li>
                         <li v-if="!isAdminPageForPackageApproval()">
@@ -279,8 +277,49 @@
                 </div>
             </template>
         </modal>
+        <modal
+            @canceled="packageDownloadWarningModalOpen = false"
+            id="package-download-modal"
+            class="modal"
+            :open="packageDownloadWarningModalOpen"
+            :allow-close="true">
+
+            <template v-slot:header>
+                <h5 class="modal-title pl-2"> Download package
+                    <b>{{ resourcesPackage.cover_resource.name }}</b>
+                </h5>
+            </template>
+            <template v-slot:body>
+                <div class="container pt-3 pb-5">
+                    <i> {{ trans('messages.warning_download_default_package')}} </i>
+                </div>
+                <div style="text-align: center;" class="py-3">
+
+                    <a  style="margin-right: 10pt" class="btn btn-outline-primary" :href=getClonePackageRoute()>
+                        <i style="font-size:15px;color:rgba(255,0,0,0.1);"
+                           class="fas fa-clone me-2 hover-green"></i>{{ trans('messages.clone') }}
+                    </a>
+
+                    <a v-if="isCommunicationPackage()">
+                        <a style="margin-left: 10pt" class="btn btn-outline-danger" :href=getDownloadCommunicationPackageRoute()>
+                            <i style="font-size:15px;color:rgba(255,0,0,0.1);"
+                               class="fas fa-file-download me-2 hover-red" ></i>{{ trans('messages.download') }}
+                        </a>
+                    </a>
+                    <a v-else>
+                        <a style="margin-left: 10pt" class="btn btn-outline-danger" :href=getDownloadGamePackageRoute()>
+                            <i style="font-size:15px;color:rgba(255,0,0,0.1);"
+                               class="fas fa-file-download me-2 hover-red" ></i>{{ trans('messages.download') }}
+                        </a>
+                    </a>
+                </div>
+
+
+            </template>
+        </modal>
     </div>
 </template>
+
 
 <script>
 import {mapActions} from "vuex";
@@ -322,6 +361,7 @@ export default {
             rateModalOpen: false,
             deleteModalOpen: false,
             packageRejectionModalOpen: false,
+            packageDownloadWarningModalOpen: false,
             packageReportModalOpen: false,
             rateTitleKey: "rate_package_modal_body_text_no_rating"
         };
@@ -338,6 +378,16 @@ export default {
         getDownloadGamePackageRoute() {
             return window.route("game_resources.download_package", this.resourcesPackage.id);
         },
+        downloadOrShowDownloadWarningModal(){
+            if (this.resourcesPackage.downloadable){
+                if (this.isCommunicationPackage()){
+                    return location.href = this.getDownloadCommunicationPackageRoute();
+                }
+                return location.href = this.getDownloadGamePackageRoute();
+            }
+            this.showDownloadWarningModal();
+        },
+
         getDownloadCommunicationPackageRoute() {
             return window.route("communication_resources.download_package", this.resourcesPackage.id);
         },
@@ -400,6 +450,11 @@ export default {
 
         showPackageRejectionModal() {
             this.packageRejectionModalOpen = true;
+        },
+        showDownloadWarningModal() {
+            if (!this.resourcesPackage.downloadable){
+                this.packageDownloadWarningModalOpen = true;
+            }
 
         },
         showResponseModal() {
@@ -464,10 +519,12 @@ export default {
                 let found = false;
                 for (let i = 0; i < this.resourcesPackage.ratings.length; i++) {
                     if (this.resourcesPackage.ratings[i].voter_user_id === this.user.id) {
+                        // eslint-disable-next-line vue/no-mutating-props
                         this.resourcesPackage.ratings[i].rating = response.data.rating;
                     }
                 }
                 if (!found)
+                    // eslint-disable-next-line vue/no-mutating-props
                     this.resourcesPackage.ratings.push(response.data);
                 this.computeTotalRating();
             });
