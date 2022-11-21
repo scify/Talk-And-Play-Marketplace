@@ -29,6 +29,7 @@ return [
     ],
     'enabled' => [
         'strictly_necessary',
+        'targeting'
     ],
     'required' => ['strictly_necessary'],
     /*
