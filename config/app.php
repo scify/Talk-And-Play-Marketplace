@@ -61,6 +61,7 @@ return [
     'sentry_desktop_app_dsn' => env('SENTRY_DESKTOP_APP_DSN'),
     'firebase_desktop_app_url' => env('FIREBASE_DESKTOP_APP_URL'),
     'default_admin_password_for_seed' => env('DEFAULT_ADMIN_USER_PASSWORD_FOR_SEED'),
+    'google_tag_manager_id' => env('GOOGLE_TAG_MANAGER_ID'),
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

@@ -20,6 +20,7 @@
         "laravel/fortify": "^1.7",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
+        "scify/laravel-cookies-consent": "^0.9.1",
         "sentry/sentry-laravel": "^2.8"
     },
     "require-dev": {
