@@ -7,7 +7,7 @@ return [
      * When using this plugin for multiple apps, it is a good strategy to set a prefix that is relevant to the app
      * (for example "my_app_", in order for the cookies not to be mingled when running locally.
      */
-    'cookie_prefix' => 'tnp_marketplace',
+    'cookie_prefix' => 'tnp_marketplace_',
     /*
     |--------------------------------------------------------------------------
     | Editor
