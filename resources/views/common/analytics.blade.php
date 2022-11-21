@@ -13,7 +13,7 @@
 
             gtag('js', new Date());
 
-            gtag('config', {{ config('app.google_tag_manager_id') }});
+            gtag('config', '{{ config('app.google_tag_manager_id') }}');
         </script>
         <!-- End Google Tag Manager -->
     @endif
