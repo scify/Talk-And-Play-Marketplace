@@ -23,9 +23,7 @@ return [
     */
     'cookies' => [
         'strictly_necessary',
-        'targeting',
-        'performance',
-        'functionality',
+        'targeting'
     ],
     'enabled' => [
         'strictly_necessary',
