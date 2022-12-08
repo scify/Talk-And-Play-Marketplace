@@ -18,3 +18,4 @@ public/web.config
 *.~lock.*
 public/fonts
 happiness.mp3
+public/sitemap.xml

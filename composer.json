@@ -21,7 +21,8 @@
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
         "scify/laravel-cookies-consent": "^0.9.2",
-        "sentry/sentry-laravel": "^2.8"
+        "sentry/sentry-laravel": "^2.8",
+        "spatie/laravel-sitemap": "^6.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",
