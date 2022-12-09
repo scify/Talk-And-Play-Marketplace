@@ -49,6 +49,19 @@ This application uses [Spatie - Laravel Sitemap](https://github.com/spatie/larav
 the `public/sitemap.xml` file (which is excluded from git), that will be crawled by the search engines.
 In order to run the generator for the current application installation, run the embedded Laravel command:
 
+## PHP code style - Laravel Pint
+
+This application uses [Laravel Pint](https://laravel.com/docs/9.x/pint) in order to perform code-style.
+
+In order to run the styler, run :
+
+```bash
+
+./vendor/bin/pint --test -v # the --test will not do any changes, it will just output the changes needed
+
+./vendor/bin/pint -v # this command will actually perform the code style changes 
+
+```
 
 ## Apache configuration example:
 
