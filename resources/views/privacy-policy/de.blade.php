@@ -282,11 +282,13 @@
                                         <td>Absolut notwendige Cookies</td>
                                         <td>Die absolut notwendigen Cookies sind für den ordnungsgemäßen Betrieb der Plattform unerlässlich. Die Nutzerinnen können mit diesen Cookies auf der Plattform surfen und deren Funktionen nutzen, z. B. den Zugang zu geschützten Bereichen. Diese Cookies erkennen nicht die individuelle Identität der Nutzerinnen und ohne sie ist der reibungslose Betrieb der Plattform nicht möglich.
                                         </td>
-                                        <td>CookieConsent (Speichert den Cookie-Zustimmungsstatus der Nutzerinnen für die aktuelle Domain )
+                                        <td>tnp_marketplace_cookies_consent_selection, tnp_marketplace_cookies_consent_targeting (Speichert den Cookie-Zustimmungsstatus der Nutzerinnen für die aktuelle Domain )
                                             <br><br>
                                             XSRF-TOKEN (Sorgt für die Sicherheit der Besuchenden beim Surfen, indem es Cross-Site Request Forgery verhindert. Dieses Cookie ist für die Sicherheit der Website und der Besuchenden unerlässlich. )
                                             <br><br>
-                                            remember_web_59ba36addc2b2f9401580f014c7f58ea4e30989d (Wenn sich die App an die angemeldeten Nutzerinnen "erinnern" muss, während sie auf der Plattform navigieren)
+                                            remember_web_*, tnp_marketplace_session (Wenn sich die App an die angemeldeten Nutzerinnen "erinnern" muss, während sie auf der Plattform navigieren)
+                                            <br><br>
+                                            lang (Speichert die Spracheinstellung des Benutzers)
                                         </td>
                                         <td>1 Jahr
                                             <br><br>
