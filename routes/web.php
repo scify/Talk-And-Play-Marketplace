@@ -139,8 +139,8 @@ Route::get('js/translations.js', function () {
     Cache::flush();
     $strings = Cache::rememberForever('lang_' . $lang . '.js', function () use ($lang) {
         $files = [
-            resource_path('lang/' . $lang . '/messages.php'),
-            resource_path('lang/' . $lang . '/validation.php'),
+            app()->langPath() . '/' . $lang . '/messages.php',
+            app()->langPath() . '/' . $lang . '/validation.php',
         ];
         $strings = [];
 
