@@ -1,21 +1,18 @@
 <?php
 
-
 namespace App\BusinessLogicLayer\User;
-
 
 use App\Actions\Fortify\PasswordValidationRules;
 use App\BusinessLogicLayer\UserRole\UserRoleManager;
 use App\Models\User;
 use App\Repository\User\UserRepository;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Hash;
 
 class UserManager {
-
     protected $userRepository;
     protected $userRoleManager;
+
     use PasswordValidationRules;
+
     public function __construct(UserRoleManager $userRoleManager, UserRepository $userRepository) {
         $this->userRoleManager = $userRoleManager;
         $this->userRepository = $userRepository;
@@ -26,27 +23,28 @@ class UserManager {
      * by default. If the data array includes a field for Administrator role,
      * the role is added as well.
      *
-     * @param array $requestData array with the form data
+     * @param  array  $requestData array with the form data
      * @return User the newly created user
      */
-    public function create(array $requestData):User {
-
+    public function create(array $requestData): User {
         $user = $this->userRepository->create([
-            'name' => $requestData["name"],
-            'email' => $requestData["email"],
-            'password' => $requestData["password"]
+            'name' => $requestData['name'],
+            'email' => $requestData['email'],
+            'password' => $requestData['password'],
         ]);
-        if(key_exists("shapes",$requestData)){
+        if (array_key_exists('shapes', $requestData)) {
             $this->userRoleManager->assignShapesUserRoleTo($user);
-        }else{
+        } else {
             $this->userRoleManager->assignRegisteredUserRoleTo($user);
         }
-        if (isset($requestData["admin"]) && $requestData["admin"])
+        if (isset($requestData['admin']) && $requestData['admin']) {
             $this->userRoleManager->assignAdminUserRoleTo($user);
+        }
+
         return $user;
     }
 
-    public function isAdmin($user){
+    public function isAdmin($user) {
         return $this->userRoleManager->userHasAdminRole($user);
     }
 
@@ -55,20 +53,22 @@ class UserManager {
      * Also checks the existence of the administrator field
      * in the request data, and adds or removes the administrator role.
      *
-     * @param int $id the id of the user to be updated
-     * @param array $requestData array with the form data
+     * @param  int  $id the id of the user to be updated
+     * @param  array  $requestData array with the form data
      * @return User the newly created user
      */
     public function update(int $id, array $requestData): User {
         $user = $this->userRepository->update([
-            'name' => trim($requestData["name"]),
-            'email' => trim($requestData["email"])
+            'name' => trim($requestData['name']),
+            'email' => trim($requestData['email']),
         ], $id);
 
-        if (isset($requestData["admin"]) && $requestData["admin"])
+        if (isset($requestData['admin']) && $requestData['admin']) {
             $this->userRoleManager->assignAdminUserRoleTo($user);
-        else
+        } else {
             $this->userRoleManager->removeAdminRoleFromUser($user);
+        }
+
         return $user;
     }
 
@@ -76,20 +76,19 @@ class UserManager {
         return $this->userRepository->delete($id);
     }
 
-    function get_admin_users()
-    {
+    public function get_admin_users() {
         $users = $this->userRepository->getUsersWithAdminRoleStatus(-1);
+
         return $users->filter(
             function ($obj) {
                 return $obj->is_admin === 1;
             })->map(
-            function ($obj) {
-                return $this->userRepository->find($obj->id);
-            });
+                function ($obj) {
+                    return $this->userRepository->find($obj->id);
+                });
     }
 
-    public function getUser($id)
-    {
+    public function getUser($id) {
         return $this->userRepository->find($id);
     }
 }

@@ -7,7 +7,6 @@ use App\Repository\User\UserRepository;
 use Illuminate\Database\Seeder;
 
 class UserRolesTableSeeder extends Seeder {
-
     protected $userRepository;
     protected $userRoleManager;
 

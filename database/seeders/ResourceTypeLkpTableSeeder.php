@@ -12,7 +12,6 @@ class ResourceTypeLkpTableSeeder extends Seeder {
         $this->repository = $repository;
     }
 
-
     public function run() {
         echo "\nRunning Resource status lkp Seeder...\n";
 

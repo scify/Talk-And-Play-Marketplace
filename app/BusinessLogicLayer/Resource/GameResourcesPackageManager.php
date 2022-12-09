@@ -12,7 +12,6 @@ use App\ViewModels\GameResourcePackagesIndexPage;
 use Illuminate\Support\Collection;
 
 class GameResourcesPackageManager extends ResourcesPackageManager {
-
     protected ResourceTypeLkpRepository $resourceTypeLkpRepository;
     protected ReportsRepository $reportsRepository;
 
@@ -33,26 +32,27 @@ class GameResourcesPackageManager extends ResourcesPackageManager {
 
     public function getAllGameResourcesPackageTypes(): Collection {
         $data = $this->resourceTypeLkpRepository->getResourceTypes([
-                ResourceTypesLkp::RESPONSE_GAME,
-                ResourceTypesLkp::TIME_GAME,
-                ResourceTypesLkp::SIMILAR_GAME
-            ]
+            ResourceTypesLkp::RESPONSE_GAME,
+            ResourceTypesLkp::TIME_GAME,
+            ResourceTypesLkp::SIMILAR_GAME,
+        ]
         );
 
         foreach ($data as $datum) {
             $datum->checked = true;
             switch ($datum->id) {
                 case ResourceTypesLkp::RESPONSE_GAME:
-                    $datum->name = trans("messages.find_response_tagline");
+                    $datum->name = trans('messages.find_response_tagline');
                     break;
                 case ResourceTypesLkp::TIME_GAME:
-                    $datum->name = trans("messages.find_time_tagline");
+                    $datum->name = trans('messages.find_time_tagline');
                     break;
                 case ResourceTypesLkp::SIMILAR_GAME:
-                    $datum->name = trans("messages.find_similar_tagline");
+                    $datum->name = trans('messages.find_similar_tagline');
                     break;
             }
         }
+
         return $data;
     }
 }

@@ -49,6 +49,7 @@ class GenerateSitemap extends Command {
         $sitemapGenerator->add(Url::create('/communication-cards')->setPriority(0.9)->addImage(asset('img/advertisement-poster.png'), 'Talk & Play Marketplace image')->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY));
         $sitemapGenerator->add(Url::create('/game-cards')->setPriority(0.9)->addImage(asset('img/advertisement-poster.png'), 'Talk & Play Marketplace image')->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY));
         $sitemapGenerator->writeToFile(public_path('sitemap.xml'));
+
         return CommandAlias::SUCCESS;
     }
 }

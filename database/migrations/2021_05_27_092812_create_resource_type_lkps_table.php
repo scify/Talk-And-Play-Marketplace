@@ -4,15 +4,13 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateResourceTypeLkpsTable extends Migration
-{
+class CreateResourceTypeLkpsTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('resource_types_lkp', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -27,8 +25,7 @@ class CreateResourceTypeLkpsTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('resource_types_lkp');
     }
 }

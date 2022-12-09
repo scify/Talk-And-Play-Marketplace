@@ -5,9 +5,9 @@ namespace App\Models\UserRole;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class UserRoleLkp extends Model
-{
+class UserRoleLkp extends Model {
     use SoftDeletes;
+
     /**
      * The table associated with the model.
      *
@@ -21,6 +21,6 @@ class UserRoleLkp extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'name'
+        'id', 'name',
     ];
 }

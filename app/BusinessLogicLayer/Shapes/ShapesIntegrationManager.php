@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\BusinessLogicLayer\Shapes;
-
 
 use App\BusinessLogicLayer\UserRole\UserRoleManager;
 use App\Models\User;
@@ -15,12 +13,11 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class ShapesIntegrationManager {
-
     protected UserRepository $userRepository;
     protected UserRoleManager $userRoleManager;
     protected $defaultHeaders = [
         'X-Shapes-Key' => null,
-        'Accept' => "application/json"
+        'Accept' => 'application/json',
     ];
     protected $apiBaseUrl = 'https://kubernetes.pasiphae.eu/shapes/asapa/auth/';
     protected $datalakeAPIUrl;
@@ -33,14 +30,13 @@ class ShapesIntegrationManager {
     }
 
     public static function isEnabled(): bool {
-        return config('app.shapes_datalake_api_url') !== null && config('app.shapes_datalake_api_url') !== "";
+        return config('app.shapes_datalake_api_url') !== null && config('app.shapes_datalake_api_url') !== '';
     }
 
     /**
      * @throws Exception
      */
     public function createShapes(Request $request) {
-
         $response = Http::withHeaders($this->defaultHeaders)
             ->post($this->apiBaseUrl . 'register', [
                 'email' => $request['email'],
@@ -51,6 +47,7 @@ class ShapesIntegrationManager {
         if (!$response->ok()) {
             throw new Exception(json_decode($response->body())->error);
         }
+
         return $this->storeShapesUserLocally($request);
     }
 
@@ -60,6 +57,7 @@ class ShapesIntegrationManager {
         $user = $this->userRepository->create($requestData);
         $this->userRepository->update(['name' => 'Talk_and_play_user_' . $user->id], $user->id);
         $this->userRoleManager->assignShapesUserRoleTo($user);
+
         return $this->userRepository->find($user->id);
     }
 
@@ -75,6 +73,7 @@ class ShapesIntegrationManager {
         if (!$response->ok()) {
             throw new Exception(json_decode($response->body())->error);
         }
+
         return $response->json();
     }
 
@@ -100,7 +99,6 @@ class ShapesIntegrationManager {
                 $this->userRepository->update(['logout' => true], $shapesUser->id);
             }
         }
-
     }
 
     /**
@@ -108,7 +106,7 @@ class ShapesIntegrationManager {
      */
     public function updateSHAPESAuthTokenForUser(User $user) {
         $response = Http::withHeaders(array_merge($this->defaultHeaders, [
-            'X-Pasiphae-Auth' => $user->shapes_auth_token
+            'X-Pasiphae-Auth' => $user->shapes_auth_token,
         ]))->post($this->apiBaseUrl . 'token/refresh');
         if (!$response->ok()) {
             throw new Exception(json_decode($response->body())->error);
@@ -123,22 +121,28 @@ class ShapesIntegrationManager {
      * @throws Exception
      */
     public function sendUsageDataToDatalakeAPI(array $data) {
-        if (!isset($data['category_name']))
+        if (!isset($data['category_name'])) {
             $data['category_name'] = null;
-        if (!isset($data['duration']))
+        }
+        if (!isset($data['duration'])) {
             $data['duration'] = null;
-        if (!isset($data['gameName']))
+        }
+        if (!isset($data['gameName'])) {
             $data['gameName'] = null;
-        if (!isset($data['gameType']))
+        }
+        if (!isset($data['gameType'])) {
             $data['gameType'] = null;
-        if (!isset($data['mistakes']))
+        }
+        if (!isset($data['mistakes'])) {
             $data['mistakes'] = null;
-        if (!isset($data['parent_category_name']))
+        }
+        if (!isset($data['parent_category_name'])) {
             $data['parent_category_name'] = null;
+        }
 
         $response = Http::withHeaders([
             'X-Authorisation' => $data['token'],
-            'Accept' => "application/json"
+            'Accept' => 'application/json',
         ])
             ->post($this->datalakeAPIUrl . $data['endpoint'], [
                 'action' => $data['action'],
@@ -152,13 +156,13 @@ class ShapesIntegrationManager {
                 'parent_category_name' => $data['parent_category_name'],
                 'source' => 'desktop',
                 'time' => Carbon::now()->format(DateTime::RFC3339),
-                'version' => $data['version']
+                'version' => $data['version'],
             ]);
         if (!$response->ok()) {
             throw new Exception($response->body());
         }
         Log::info('SHAPES Desktop Datalake response: ' . json_encode($response->json()));
+
         return json_encode($response->json());
     }
-
 }

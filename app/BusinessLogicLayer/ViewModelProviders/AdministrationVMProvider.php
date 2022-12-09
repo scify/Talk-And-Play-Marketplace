@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\BusinessLogicLayer\ViewModelProviders;
 
 use App\BusinessLogicLayer\UserRole\UserRoleManager;
@@ -18,8 +17,8 @@ class AdministrationVMProvider {
     }
 
     public function getUsersManagementVM(): UsersManagementPageVM {
-        $users = $this->userRepository->all(array('*'), null, null, ['roles']);
+        $users = $this->userRepository->all(['*'], null, null, ['roles']);
+
         return new UsersManagementPageVM($users, $this->userRoleManager);
     }
-
 }

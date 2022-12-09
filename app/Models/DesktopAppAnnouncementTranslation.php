@@ -6,15 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class DesktopAppAnnouncementTranslation extends Model {
-
     /**
      * The table associated with the model.
      *
      * @var string
      */
     protected $table = 'desktop_app_announcement_translations';
+
     protected $primaryKey = ['announcement_id', 'lang_id'];
     public $incrementing = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -22,7 +23,7 @@ class DesktopAppAnnouncementTranslation extends Model {
      */
     protected $fillable = [
         'announcement_id', 'lang_id',
-        'title', 'message', 'link'
+        'title', 'message', 'link',
     ];
 
     // the following 2 methods are required when setting a composite promary key,
@@ -43,7 +44,7 @@ class DesktopAppAnnouncementTranslation extends Model {
     /**
      * Get the primary key value for a save query.
      *
-     * @param mixed $keyName
+     * @param  mixed  $keyName
      * @return mixed
      */
     protected function getKeyForSaveQuery($keyName = null) {

@@ -6,11 +6,10 @@ use App\Models\Analytics\AnalyticsEvent;
 use App\Repository\Repository;
 
 class AnalyticsEventRepository extends Repository {
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    function getModelClassName() {
+    public function getModelClassName() {
         return AnalyticsEvent::class;
     }
 }

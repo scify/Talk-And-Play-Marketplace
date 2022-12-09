@@ -7,7 +7,6 @@ use App\Models\User;
 use Illuminate\Support\Collection;
 
 class UsersManagementPageVM {
-
     public Collection $users;
     protected UserRoleManager $userRoleManager;
 

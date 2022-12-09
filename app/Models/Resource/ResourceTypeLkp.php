@@ -5,9 +5,9 @@ namespace App\Models\Resource;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ResourceTypeLkp extends Model
-{
+class ResourceTypeLkp extends Model {
     use SoftDeletes;
+
     /**
      * The table associated with the model.
      *
@@ -21,6 +21,6 @@ class ResourceTypeLkp extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'description'
+        'id', 'name', 'description',
     ];
 }

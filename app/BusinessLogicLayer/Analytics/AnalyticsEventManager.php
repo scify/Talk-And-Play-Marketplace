@@ -8,7 +8,6 @@ use App\Repository\Analytics\AnalyticsEventRepository;
 use Exception;
 
 class AnalyticsEventManager {
-
     protected $analyticsEventRepository;
     protected $shapesIntegrationManager;
 
@@ -24,14 +23,15 @@ class AnalyticsEventManager {
     public function storeUsageData(array $data) {
         $response = json_encode([]);
 
-        if (isset($data['token']) && strlen($data['token']) > 5 && ShapesIntegrationManager::isEnabled())
+        if (isset($data['token']) && strlen($data['token']) > 5 && ShapesIntegrationManager::isEnabled()) {
             $response = $this->shapesIntegrationManager->sendUsageDataToDatalakeAPI($data);
+        }
 
         return $this->analyticsEventRepository->create([
             'name' => $data['action'],
             'source' => $data['source'],
             'payload' => json_encode($data),
-            'response' => $response
+            'response' => $response,
         ]);
     }
 
@@ -41,9 +41,10 @@ class AnalyticsEventManager {
         $data['lang'] = app()->getLocale();
         $data['endpoint'] = 'marketplace';
         $data['version'] = config('app.version');
-        if ($user->shapes_auth_token)
+        if ($user->shapes_auth_token) {
             $data['token'] = $user->shapes_auth_token;
+        }
+
         return $this->storeUsageData($data);
     }
-
 }

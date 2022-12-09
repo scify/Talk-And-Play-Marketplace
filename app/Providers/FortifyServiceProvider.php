@@ -15,15 +15,13 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
 
-class FortifyServiceProvider extends ServiceProvider
-{
+class FortifyServiceProvider extends ServiceProvider {
     /**
      * Register any application services.
      *
      * @return void
      */
-    public function register()
-    {
+    public function register() {
         //
     }
 
@@ -34,12 +32,12 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public UserRoleManager $userRoleManager;
 
-    public function boot(UserRoleManager $userRoleManager)
-    {
+    public function boot(UserRoleManager $userRoleManager) {
         $this->userRoleManager = $userRoleManager;
 
         Fortify::registerView(function () {
             $registrationFormVM = new RegistrationFormVM($this->userRoleManager);
+
             return view('auth.register');
         });
 
