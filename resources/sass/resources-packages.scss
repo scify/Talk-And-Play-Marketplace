@@ -91,6 +91,12 @@
 
 .dropdown-menu {
     z-index: 100000;
+
+    .dropdown-item {
+        &:hover {
+            cursor: pointer;
+        }
+    }
 }
 
 .rate-btn {

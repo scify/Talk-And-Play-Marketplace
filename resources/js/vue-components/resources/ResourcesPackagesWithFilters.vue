@@ -61,7 +61,7 @@
             </div>
         </div>
         <div class="row mt-5" v-if="filteredResourcePackages.length">
-            <div class="col-lg-4 col-md-4 col-sm-12 mb-3" v-for="(resourcesPackage, index) in filteredResourcePackages"
+            <div class="col-lg-4 col-md-4 col-sm-12 mb-3 resource-package" v-for="(resourcesPackage, index) in filteredResourcePackages"
                  :key="index">
                 <resource-package
                     :user="user ? user : {}"
