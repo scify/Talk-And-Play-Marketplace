@@ -16,7 +16,7 @@
     <meta name="twitter:title" content="Talk & Play - Marketplace"/>
     <meta name="twitter:description" content="{{ __('messages.meta_tags_description') }}"/>
     <meta name="twitter:image" content="{{ asset('img/advertisement-poster.png') }}"/>
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=5" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @include('common.favicons')
     <link rel="stylesheet" href="{{ mix('dist/css/app.css') }}">

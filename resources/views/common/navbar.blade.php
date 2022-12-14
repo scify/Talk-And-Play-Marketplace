@@ -4,7 +4,7 @@
         <a class="navbar-brand" href="{{ route('home') }}" tabindex="-1">
             <img
                 loading="lazy"
-                src="{{ asset('img/tp_logo_small.png') }}" height="50px" alt="Marketplace logo">
+                src="{{ asset('img/tp_logo_small.png') }}" height="50px" width="200px" alt="Marketplace logo">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -168,7 +168,7 @@
                         <img
                             loading="lazy"
                             src="{{ asset('img/lang/' . App::getLocale() . '.png') }}"
-                            height="20px" alt="Language">
+                            height="20px" width="20px" alt="Language">
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownLangSelector">
                         <li><a class="dropdown-item"
@@ -178,7 +178,7 @@
                                     loading="lazy"
                                     class="mr-2"
                                     src="{{ asset('img/lang/en.png') }}"
-                                    height="20px" alt="English">
+                                    height="20px" width="20px" alt="English">
                                 English
                             </a>
                         </li>
@@ -189,7 +189,7 @@
                                     loading="lazy"
                                     class="mr-2"
                                     src="{{ asset('img/lang/el.png') }}"
-                                    height="20px" alt="Greek">
+                                    height="20px" width="20px" alt="Greek">
                                 Ελληνικά
                             </a>
                         </li>
@@ -200,7 +200,7 @@
                                     loading="lazy"
                                     class="mr-2"
                                     src="{{ asset('img/lang/de.png') }}"
-                                    height="20px" alt="German">
+                                    height="20px" width="20px" alt="German">
                                 Deutsch
                             </a>
                         </li>
