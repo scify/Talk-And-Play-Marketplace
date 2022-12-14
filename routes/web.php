@@ -7,10 +7,13 @@ use App\Http\Controllers\Resource\ResourceController;
 use App\Http\Controllers\ShapesIntegrationController;
 use App\Http\Controllers\TermsPrivacyController;
 use App\Http\Controllers\UserController;
+use App\Models\Resource\ResourcesPackage;
 use App\Models\User;
 use App\Notifications\AcceptanceNotice;
+use App\Notifications\AdminNotice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -73,6 +76,10 @@ Route::middleware(['auth'])->group(function () {
 
         Route::put('/desktop_app_announcements/activate/{id}', [DesktopAppAnnouncementController::class, 'activate'])->name('desktop_app_announcements.activate');
         Route::put('/desktop_app_announcements/deactivate/{id}', [DesktopAppAnnouncementController::class, 'deactivate'])->name('desktop_app_announcements.deactivate');
+        Route::get('test-email/{email}', function (Request $request) {
+            Notification::send([User::where(['email' => $request->email])->first()], new AdminNotice(ResourcesPackage::first(), "test"));
+            return "Email sent to: " . $request->email;
+        });
     });
 
     Route::get('resources/approve_pending_packages', [ResourceController::class, 'approve_pending_packages'])->name('resources_packages.approve_pending_packages');
