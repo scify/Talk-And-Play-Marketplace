@@ -16,19 +16,19 @@ class PlatformStatisticsRepository {
                 users.deleted_at is null
             ),
             res_stats as (
-                select count(res.id) as "Total number of resources "
+                select count(res.id) as "Total number of cards "
                 from resources as res
                 where
                 res.deleted_at is null
             ),
             res_packages_stats as (
-                select count(res_package.id) as "Total number of resource packages"
+                select count(res_package.id) as "Total number of card packages"
                 from resources_package as res_package
                 where
                 res_package.deleted_at is null
             ),
             published_res_stats as (
-                select count(res_package.id) as "Total number of published resources packages"
+                select count(res_package.id) as "Total number of published card packages"
                 from resources_package as res_package
                 where
                 res_package.deleted_at is null and
