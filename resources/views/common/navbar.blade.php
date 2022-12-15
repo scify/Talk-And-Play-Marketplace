@@ -137,6 +137,13 @@
                                         {!! __('messages.desktop_app_announcements') !!}
                                     </a>
                                 </li>
+                                <li>
+                                    <a class="dropdown-item {{ UrlMatchesMenuItem("administration.platform_statistics")}}"
+                                       aria-label="Platform statistics link"
+                                       href="{{ route('administration.platform_statistics') }}">
+                                        {!! __('messages.platform_statistics') !!}
+                                    </a>
+                                </li>
                             @endcan
                             <li>
                                 <hr class="dropdown-divider">

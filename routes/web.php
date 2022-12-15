@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DesktopAppAnnouncementController;
+use App\Http\Controllers\PlatformStatisticsController;
 use App\Http\Controllers\Resource\CommunicationResourceController;
 use App\Http\Controllers\Resource\GameResourceController;
 use App\Http\Controllers\Resource\ResourceController;
@@ -80,6 +81,7 @@ Route::middleware(['auth'])->group(function () {
             Notification::send([User::where(['email' => $request->email])->first()], new AdminNotice(ResourcesPackage::first(), "test"));
             return "Email sent to: " . $request->email;
         });
+        Route::get('/platform-statistics', [PlatformStatisticsController::class, 'show_platform_statistics'])->name('platform_statistics');
     });
 
     Route::get('resources/approve_pending_packages', [ResourceController::class, 'approve_pending_packages'])->name('resources_packages.approve_pending_packages');

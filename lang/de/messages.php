@@ -222,6 +222,7 @@ return [
     'installation_instructions_linux_btn' => 'Installationsanweisungen für Linux',
     'installation_instructions_windows_btn' => 'Installationsanweisungen für Windows',
     'installation_instructions' => 'Installationsanweisungen',
+    'platform_statistics' => 'Plattformstatistik',
     'warning_download_default_package' => 'Dieses Paket gehört zur Standardliste der in der Talk & Play-Anwendung enthaltenen Pakete. Um zu vermeiden, dass das gleiche Paket zweimal in der Anwendung enthalten ist, wird empfohlen, das Paket zu klonen und nach Ihren Wünschen zu ändern.',
     'reported_packages' => 'gemeldete Pakete',
     'report' => 'berichten',

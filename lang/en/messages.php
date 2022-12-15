@@ -221,6 +221,7 @@ return [
     'delete_package' => 'Delete Package',
     'meta_tags_description' => 'Talk and Play is a system that allows people with disabilities to communicate, be more independent, and receive training for rehabilitation.',
     'approve_packages' => 'Approve Packages',
+    'platform_statistics' => 'Platform Statistics',
     'warning_rejection' => 'Be careful: a rejection email will be sent to the user who submitted the package',
     'reject_package' => 'Reject Package',
     'marketplace_tutorial_url' => 'https://www.youtube.com/embed/lcCb6r2XBDk',
