@@ -83,6 +83,7 @@ class PlatformStatisticsRepository {
             and resp.deleted_at is null
             and resp.status_id = 2
             group by users.id, users.name
+            order by resources_packages_num desc
             limit 10
         '));
     }
