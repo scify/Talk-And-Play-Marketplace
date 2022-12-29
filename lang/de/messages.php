@@ -227,9 +227,12 @@ return [
     'reported_packages' => 'gemeldete Pakete',
     'report' => 'berichten',
     'select_rejection_reason' => 'Wählen Sie den Grund für die Ablehnung',
-    'rejection_violation_terms' => 'Diese Übung verstößt gegen die Nutzungsbedingungen der Plattform',
-    'rejection_inappropriate_content' => 'Diese Übung enthält unangemessene Inhalte',
-    'rejection_copyright' => 'Diese Übung verstößt gegen die Bestimmungen zum geistigen Eigentum',
-    'rejection_not_readable' => 'Der Inhalt der Übung ist nicht klar / lesbar',
     'other' => 'Andere',
+    'rejection_terms_of_use' => 'Diese Übung verstößt gegen die Nutzungsbedingungen der Plattform',
+    'rejection_inappropriate_content' => 'Diese Übung enthält unangemessene Inhalte',
+    'rejection_ip_rights' => 'Diese Übung verstößt gegen die Bestimmungen zum geistigen Eigentum',
+    'rejection_illegible_content' => 'Diese Übung verstößt gegen die Urheberrechtsbestimmungen',
+    'rejection_other' => 'Sonstiges',
+    'choose_reporting_reason' => 'Wählen Sie den Grund für die Meldung',
+    'optional_include_comments' => 'Fügen Sie optional einige Kommentare unten ein'
 ];

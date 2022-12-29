@@ -261,9 +261,9 @@
                         <div id="reportForm">
                             <p>{{ trans('messages.optionally_include_comments') }}</p>
                             <textarea rows="4" cols="50" v-model="reportComment"></textarea>
-                            <p>Report Package</p>
+                            <p></p>
                             <button @click="reportPackage" class="btn btn-danger">
-                                Report
+                                {{ trans('messages.report') }}
                             </button>
                         </div>
                     </div>
