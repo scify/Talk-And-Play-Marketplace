@@ -5,15 +5,13 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddTypeToCommunicationsPackTable extends Migration
-{
+class AddTypeToCommunicationsPackTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::table('communication_resources_pack', function (Blueprint $table) {
             $table->unsignedBigInteger('type_id')->nullable();
             $table->foreign('type_id')->references('id')->on('resources');
@@ -25,8 +23,7 @@ class AddTypeToCommunicationsPackTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::table('communication_resources_pack', function (Blueprint $table) {
             $table->dropForeign('type_id');
         });

@@ -9,7 +9,6 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class ResourcePackageRatingController extends Controller {
-
     protected $resourcesPackageRatingManager;
 
     public function __construct(ResourcesPackageRatingManager $resourcesPackageRatingManager) {
@@ -17,11 +16,11 @@ class ResourcePackageRatingController extends Controller {
     }
 
     public function getUserRatingForResourcesPackage(Request $request) {
-
         $this->validate($request, [
             'user_id' => 'required|integer',
-            'resources_package_id' => 'required|integer'
+            'resources_package_id' => 'required|integer',
         ]);
+
         return $this->resourcesPackageRatingManager->getUserRatingForResourcesPackage(
             $request->user_id,
             $request->resources_package_id
@@ -29,15 +28,15 @@ class ResourcePackageRatingController extends Controller {
     }
 
     public function storeOrUpdateRating(Request $request) {
-
         $this->validate($request, [
             'user_id' => 'required|integer',
             'resources_package_id' => 'required|integer|exists:resources_package,id',
-            'rating' => 'required|integer|min:1|max:5'
+            'rating' => 'required|integer|min:1|max:5',
         ]);
 
-        if(!Auth::check())
+        if (!Auth::check()) {
             abort(Response::HTTP_UNAUTHORIZED);
+        }
 
         return $this->resourcesPackageRatingManager->storeOrUpdateRating(
             $request->user_id,
@@ -45,5 +44,4 @@ class ResourcePackageRatingController extends Controller {
             $request->rating
         );
     }
-
 }

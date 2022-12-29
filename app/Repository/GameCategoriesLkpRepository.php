@@ -1,18 +1,14 @@
 <?php
 
-
 namespace App\Repository;
-
 
 use App\Models\GameCategoriesLkp;
 
 class GameCategoriesLkpRepository extends Repository {
-
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    function getModelClassName(): string
-    {
+    public function getModelClassName(): string {
         return GameCategoriesLkp::class;
     }
 }

@@ -19,6 +19,6 @@ class ResourcesPackageRating extends Model {
      */
     protected $fillable = [
         'resources_package_id', 'voter_user_id',
-        'rating'
+        'rating',
     ];
 }

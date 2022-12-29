@@ -61,7 +61,7 @@
             </div>
         </div>
         <div class="row mt-5" v-if="filteredResourcePackages.length">
-            <div class="col-lg-4 col-md-4 col-sm-12 mb-3" v-for="(resourcesPackage, index) in filteredResourcePackages"
+            <div class="col-lg-4 col-md-4 col-sm-12 mb-3 resource-package" v-for="(resourcesPackage, index) in filteredResourcePackages"
                  :key="index">
                 <resource-package
                     :user="user ? user : {}"
@@ -87,133 +87,133 @@ import {mapActions} from "vuex";
 import _ from "lodash";
 
 export default {
-    mounted() {
-        this.getContentLanguages();
-    },
-    props: {
-        user: {
-            type: Object,
-            default: function () {
-                return {};
-            }
-        },
-        resourcesPackagesTypes: {
-            type: Array,
-            default: function () {
-                return [];
-            }
-        },
-        reportsRoute: String,
-        resourcesPackagesRoute: String,
-        userIdToGetContent: Number,
-        resourcesPackagesStatuses: {
-            type: Array,
-            default: function () {
-                return [];
-            }
-        },
-        isAdmin: String,
-        isExercisesPage: {
-            type: Boolean,
-            default: false
-        },
-        packagesType: String,
-        approvePackages: Number
-    },
-    data: function () {
-        return {
-            contentLanguages: [],
-            selectedContentLanguage: {},
-            loadingResources: false,
-            resourcePackages: [],
-            filteredResourcePackages: [],
-            maxRating: 5,
-            searchPlaceholder: window.translate("messages.search_resources_package"),
-            searchLoading: false
-        };
-    },
-    methods: {
-        ...mapActions([
-            "get",
-            "handleError"
-        ]),
-        setContentLanguage(language) {
-            this.selectedContentLanguage = language;
-            this.getResourcesPackages();
-        },
-        getContentLanguages() {
-            this.get({
-                url: window.route("content_languages.get"),
-                urlRelative: false
-            }).then(response => {
-                this.contentLanguages = response.data;
-                this.selectedContentLanguage = this.contentLanguages[0];
-                this.getResourcesPackages();
-            });
-        },
-        getResourcesPackages() {
-            this.loadingResources = true;
-            this.resourcePackages = [];
-            this.filteredResourcePackages = [];
-            let url = "";
-            if (this.showReports()) {
-                url = this.reportsRoute;
-            } else {
-                url = this.resourcesPackagesRoute;
-            }
+	mounted() {
+		this.getContentLanguages();
+	},
+	props: {
+		user: {
+			type: Object,
+			default: function () {
+				return {};
+			}
+		},
+		resourcesPackagesTypes: {
+			type: Array,
+			default: function () {
+				return [];
+			}
+		},
+		reportsRoute: String,
+		resourcesPackagesRoute: String,
+		userIdToGetContent: Number,
+		resourcesPackagesStatuses: {
+			type: Array,
+			default: function () {
+				return [];
+			}
+		},
+		isAdmin: String,
+		isExercisesPage: {
+			type: Boolean,
+			default: false
+		},
+		packagesType: String,
+		approvePackages: Number
+	},
+	data: function () {
+		return {
+			contentLanguages: [],
+			selectedContentLanguage: {},
+			loadingResources: false,
+			resourcePackages: [],
+			filteredResourcePackages: [],
+			maxRating: 5,
+			searchPlaceholder: window.translate("messages.search_resources_package"),
+			searchLoading: false
+		};
+	},
+	methods: {
+		...mapActions([
+			"get",
+			"handleError"
+		]),
+		setContentLanguage(language) {
+			this.selectedContentLanguage = language;
+			this.getResourcesPackages();
+		},
+		getContentLanguages() {
+			this.get({
+				url: window.route("content_languages.get"),
+				urlRelative: false
+			}).then(response => {
+				this.contentLanguages = response.data;
+				this.selectedContentLanguage = this.contentLanguages[0];
+				this.getResourcesPackages();
+			});
+		},
+		getResourcesPackages() {
+			this.loadingResources = true;
+			this.resourcePackages = [];
+			this.filteredResourcePackages = [];
+			let url = "";
+			if (this.showReports()) {
+				url = this.reportsRoute;
+			} else {
+				url = this.resourcesPackagesRoute;
+			}
 
 
-            if(this.isExercisesPage){
-                url += ("?lang_id=" + this.selectedContentLanguage.id);
-            }
-            else{
-                url += "?";
-            }
+			if(this.isExercisesPage){
+				url += ("?lang_id=" + this.selectedContentLanguage.id);
+			}
+			else{
+				url += "?";
+			}
 
-            if (this.userIdToGetContent) {
-                url += ("&user_id_to_get_content=" + this.userIdToGetContent);
-            }
-            if (this.resourcesPackagesTypes.length) {
-                url += "&type_ids=" + _.map(_.filter(this.resourcesPackagesTypes, r => r.checked), "id").join();
-            }
-            url += "&status_ids=" + _.map(this.resourcesPackagesStatuses).join();
-            url += "&is_admin=" + this.isAdmin;
-            this.get({
-                url: url,
-                urlRelative: false
-            }).then(response => {
-                this.resourcePackages = response.data;
-                this.filteredResourcePackages = this.resourcePackages;
-                this.loadingResources = false;
-            });
-        },
-        search(searchTerm) {
-            if (this.timer) {
-                clearTimeout(this.timer);
-                this.timer = null;
-            }
-            this.timer = setTimeout(() => {
-                this.searchLoading = true;
-                this.filteredResourcePackages = _.filter(this.resourcePackages, function (p) {
-                    return p.cover_resource.name.toLowerCase().includes(searchTerm.toLowerCase());
-                });
-                this.searchLoading = false;
-            }, 500);
-        },
+			if (this.userIdToGetContent) {
+				url += ("&user_id_to_get_content=" + this.userIdToGetContent);
+			}
+			if (this.resourcesPackagesTypes.length) {
+				url += "&type_ids=" + _.map(_.filter(this.resourcesPackagesTypes, r => r.checked), "id").join();
+			}
+			url += "&status_ids=" + _.map(this.resourcesPackagesStatuses).join();
+			url += "&is_admin=" + this.isAdmin;
+			this.get({
+				url: url,
+				urlRelative: false
+			}).then(response => {
+				this.resourcePackages = response.data;
+				this.filteredResourcePackages = this.resourcePackages;
+				this.loadingResources = false;
+			});
+		},
+		search(searchTerm) {
+			if (this.timer) {
+				clearTimeout(this.timer);
+				this.timer = null;
+			}
+			this.timer = setTimeout(() => {
+				this.searchLoading = true;
+				this.filteredResourcePackages = _.filter(this.resourcePackages, function (p) {
+					return p.cover_resource.name.toLowerCase().includes(searchTerm.toLowerCase());
+				});
+				this.searchLoading = false;
+			}, 500);
+		},
 
-        isCommunicationPackage() {
-            return this.packagesType === "COMMUNICATION";
-        },
-        isGamePackage() {
-            return this.packagesType === "GAME";
-        },
-        showReports() {
-            return this.reportsRoute && this.reportsRoute.length > 0;
-        },
+		isCommunicationPackage() {
+			return this.packagesType === "COMMUNICATION";
+		},
+		isGamePackage() {
+			return this.packagesType === "GAME";
+		},
+		showReports() {
+			return this.reportsRoute && this.reportsRoute.length > 0;
+		},
 
 
 
-    }
+	}
 
 
 };

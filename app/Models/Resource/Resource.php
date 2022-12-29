@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Resource extends Model
-{
+class Resource extends Model {
     use SoftDeletes;
+
     /**
      * The table associated with the model.
      *
@@ -27,7 +27,7 @@ class Resource extends Model
         'name',
         'lang_id', 'creator_user_id',
         'admin_user_id', 'img_path', 'audio_path',
-        'resource_parent_id', 'type_id'
+        'resource_parent_id', 'type_id',
     ];
 
     public function childrenResources(): HasMany {

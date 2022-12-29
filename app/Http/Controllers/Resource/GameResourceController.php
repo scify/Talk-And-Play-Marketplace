@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Resource;
 use App\BusinessLogicLayer\Resource\GameResourcesPackageManager;
 use App\BusinessLogicLayer\Resource\ResourceManager;
 use App\BusinessLogicLayer\Resource\ResourcesPackageManager;
+use App\BusinessLogicLayer\Resource\ResponseGameResourcesPackageManager;
 use App\BusinessLogicLayer\Resource\SimilarityGameResourcesPackageManager;
 use App\BusinessLogicLayer\Resource\TimeGameResourcesPackageManager;
-use App\BusinessLogicLayer\Resource\ResponseGameResourcesPackageManager;
 
+use App\BusinessLogicLayer\User\UserManager;
 use App\Http\Controllers\Controller;
 use App\Repository\Resource\ResourceStatusesLkp;
 use App\Repository\Resource\ResourceTypesLkp;
@@ -18,7 +19,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
-use App\BusinessLogicLayer\User\UserManager;
 
 class GameResourceController extends Controller {
     protected ResourceTypesLkp $resourceTypesLkp;
@@ -38,7 +38,6 @@ class GameResourceController extends Controller {
         ResourcesPackageManager               $resourcesPackageManager,
         GameResourcesPackageManager           $gameResourcesPackageManager,
         UserManager  $userManager) {
-
         $this->resourceManager = $resourceManager;
         $this->resourcesPackageManager = $resourcesPackageManager;
         $this->gameResourcesPackageManager = $gameResourcesPackageManager;
@@ -47,7 +46,6 @@ class GameResourceController extends Controller {
         $this->timeGameResourcesPackageManager = $timeGameResourcesPackageManager;
         $this->userManager = $userManager;
     }
-
 
     /**
      * Display a listing of the resource.
@@ -58,17 +56,16 @@ class GameResourceController extends Controller {
         $viewModel = $this->gameResourcesPackageManager->getGameResourcesPackageIndexPageVM();
         $viewModel->resourcesPackagesStatuses = [ResourceStatusesLkp::APPROVED];
         $viewModel->isAdmin = Auth::check() && $this->userManager->isAdmin(Auth::user());
+
         return view('game_resources.index')->with(['viewModel' => $viewModel, 'user' => Auth::user()]);
     }
-
 
     /**
      * @throws \Illuminate\Validation\ValidationException
      */
     public function create(Request $request): View {
-
         $this->validate($request, [
-            'type_id' => 'required'//TODO check if exists in DB tab
+            'type_id' => 'required', //TODO check if exists in DB tab
         ]);
 
 
@@ -88,13 +85,11 @@ class GameResourceController extends Controller {
             default:
                 throw(new ResourceNotFoundException('Game type under development'));
         }
-        return view('game_resources.create-edit-game')->with(['viewModel' => $createResourcesPackageViewModel, 'game' => $game]);
 
+        return view('game_resources.create-edit-game')->with(['viewModel' => $createResourcesPackageViewModel, 'game' => $game]);
     }
 
-
-    public function edit(int $package_id)#returns view
-    {
+    public function edit(int $package_id) {//returns view
         try {
             $package = $this->resourcesPackageManager->getResourcesPackage($package_id);
             switch ($package->type_id) {
@@ -103,11 +98,11 @@ class GameResourceController extends Controller {
                     $game = 'SIMILAR';
                     break;
                 case  ResourceTypesLkp::TIME_GAME:
-                    $editResourceViewModel = $this->timeGameResourcesPackageManager->getEditResourceViewModel($package);;
+                    $editResourceViewModel = $this->timeGameResourcesPackageManager->getEditResourceViewModel($package);
                     $game = 'TIME';
                     break;
                 case ResourceTypesLkp::RESPONSE_GAME:
-                    $editResourceViewModel = $this->responseGameResourcesPackageManager->getEditResourceViewModel($package);;
+                    $editResourceViewModel = $this->responseGameResourcesPackageManager->getEditResourceViewModel($package);
                     $game = 'RESPONSE';
                     break;
                 case ResourceTypesLkp::COMMUNICATION:
@@ -115,8 +110,8 @@ class GameResourceController extends Controller {
                 default:
                     throw(new ResourceNotFoundException('Game category not yet implemented'));
             }
-            return view('game_resources.create-edit-game')->with(['viewModel' => $editResourceViewModel, 'game' => $game]);
 
+            return view('game_resources.create-edit-game')->with(['viewModel' => $editResourceViewModel, 'game' => $game]);
         } catch (ModelNotFoundException $e) {
             abort(404);
         }
@@ -125,57 +120,54 @@ class GameResourceController extends Controller {
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param int $id
+     * @param  Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
+     *
      * @throws \Illuminate\Validation\ValidationException
      */
-
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse#after submit, (action-route submit button directs here)
-    {
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse {//after submit, (action-route submit button directs here)
         $this->validate($request, [
             'name' => 'required|string|max:100',
-            'image' => 'file|between:10,500|nullable'
+            'image' => 'file|between:10,500|nullable',
         ]);
 
         $resource = $this->resourceManager->getResource($id);
         if ($resource->resource_parent_id == null) {
             $this->validate($request, [
                 'accept-guideline-terms' => 'required',
-                'accept-privacy-terms' => 'required'
+                'accept-privacy-terms' => 'required',
             ]);
         }
 
         try {
             $ret = $this->resourceManager->updateResource($request, $id);
             $redirect_id = $ret['resource_parent_id'] ?: $ret->id;
+
             return redirect()->route('game_resources.edit', $redirect_id)->with('flash_message_success', __('messages.update-success'));
         } catch (\Exception $e) {
             return redirect()->back()->with('flash_message_failure', __('messages.update-failure'));
         }
     }
 
-
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return Response
      */
-
-    public function download_package(int $id)
-    {
+    public function download_package(int $id) {
         $package = $this->resourcesPackageManager->getResourcesPackage($id);
         try {
             switch ($package->type_id) {
                 case ResourceTypesLkp::SIMILAR_GAME:
-                    $gameType = "similarityGame";
+                    $gameType = 'similarityGame';
                     break;
                 case  ResourceTypesLkp::TIME_GAME:
-                    $gameType = "sequenceGame";
+                    $gameType = 'sequenceGame';
                     break;
                 case ResourceTypesLkp::RESPONSE_GAME:
-                    $gameType = "stimulusReactionGame";
+                    $gameType = 'stimulusReactionGame';
                     break;
                 default:
                     throw(new ResourceNotFoundException('Game category not yet implemented'));
@@ -186,14 +178,14 @@ class GameResourceController extends Controller {
         }
     }
 
-    public function getGameResourcePackages(Request $request)
-    {
+    public function getGameResourcePackages(Request $request) {
         $user_id = null;
         if ($request->user_id_to_get_content) {
             $user_id = intval($request->user_id_to_get_content);
         }
         $type_ids = explode(',', $request->type_ids);
         $status_ids = explode(',', $request->status_ids);
+
         return $this->resourcesPackageManager->getResourcesPackages(
             $request->lang_id,
             $user_id,
@@ -201,5 +193,4 @@ class GameResourceController extends Controller {
             $status_ids
         );
     }
-
 }

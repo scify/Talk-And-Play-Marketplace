@@ -9,7 +9,7 @@
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
 [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://GitHub.com/scify)
 
-Laravel 8 Web Application for Creating content for the Talk & Play application
+Laravel 9 Web Application for Creating content for the Talk & Play application
 
 [Project URL](https://crowdsourcing.scify.org/)
 
@@ -42,6 +42,26 @@ npm install
 php artisan storage:link
 ```
 to link the `/public/storage` folder with the `/storage/app/public` directory
+
+## SEO - Generate Sitemap
+
+This application uses [Spatie - Laravel Sitemap](https://github.com/spatie/laravel-sitemap) plugin, in order to create
+the `public/sitemap.xml` file (which is excluded from git), that will be crawled by the search engines.
+In order to run the generator for the current application installation, run the embedded Laravel command:
+
+## PHP code style - Laravel Pint
+
+This application uses [Laravel Pint](https://laravel.com/docs/9.x/pint) in order to perform code-style.
+
+In order to run the styler, run :
+
+```bash
+
+./vendor/bin/pint --test -v # the --test will not do any changes, it will just output the changes needed
+
+./vendor/bin/pint -v # this command will actually perform the code style changes 
+
+```
 
 ## Apache configuration example:
 

@@ -4,7 +4,7 @@
         <a class="navbar-brand" href="{{ route('home') }}" tabindex="-1">
             <img
                 loading="lazy"
-                src="{{ asset('img/tp_logo_small.png') }}" height="50px" alt="Marketplace logo">
+                src="{{ asset('img/tp_logo_small.png') }}" height="50px" width="200px" alt="Marketplace logo">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,14 +13,17 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown navbar-item-dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownDownloadApp" role="button"
+                    <a aria-label="Menu dropdown" class="nav-link dropdown-toggle" href="#"
+                       id="navbarDropdownDownloadApp" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         Talk & Play app <i class="ml-1 fas fa-download"></i>
                     </a>
-                    <ul id="navbarDropdownDownloadAppContent" class="dropdown-menu" aria-labelledby="navbarDropdownDownloadApp">
+                    <ul id="navbarDropdownDownloadAppContent" class="dropdown-menu"
+                        aria-labelledby="navbarDropdownDownloadApp">
                         <li><a class="dropdown-item"
                                target="_blank"
                                rel="noopener noreferrer"
+                               aria-label="Windows download"
                                href="https://go.scify.gr/talkandplayexe">{!! __('messages.download_the_app_windows') !!}
                                 <i class="ml-2 fab fa-windows"></i></a>
                         </li>
@@ -30,6 +33,7 @@
                         <li><a class="dropdown-item"
                                target="_blank"
                                rel="noopener noreferrer"
+                               aria-label="Linux download"
                                href="https://go.scify.gr/talkandplaylinux">{!! __('messages.download_the_app_linux') !!}
                                 <i class="ml-2 fab fa-linux"></i></a>
                         </li>
@@ -39,6 +43,7 @@
                         <li><a class="dropdown-item"
                                target="_blank"
                                rel="noopener noreferrer"
+                               aria-label="Installation instructions"
                                href="https://docs.google.com/document/d/1izUlMZZ5el7P2laoLaYzuGuK46Hhgrmj_WpJnOWEzwY/edit">{!! __('messages.installation_instructions') !!}
                                 <i class="ml-2 fas fa-paste"></i></a>
                         </li>
@@ -46,11 +51,13 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="howItWorksDropdown" role="button"
+                       aria-label="How it works menu dropdown"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         {!! __('messages.how_it_works') !!}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="howItWorksDropdown">
                         <li><a class="dropdown-item"
+                               aria-label="How the marketplace works"
                                href="{{route('how-it-works-marketplace')}}">{!! __('messages.how_it_works') !!} -
                                 Marketplace</a>
                         </li>
@@ -58,6 +65,7 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li><a class="dropdown-item"
+                               aria-label="How the desktop app works"
                                href="{{route('how-it-works-desktop')}}">{!! __('messages.how_it_works') !!} - Desktop
                                 app</a>
                         </li>
@@ -65,25 +73,30 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ UrlMatchesMenuItem("communication_resources.index") }}"
+                       aria-label="Communication cards link"
                        href="{{route('communication_resources.index')}}">
                         {!! __('messages.communication_cards') !!}
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ UrlMatchesMenuItem("game_resources.index") }}"
+                       aria-label="Game cards link"
                        href="{{route('game_resources.index')}}">
                         {!! __('messages.game_cards') !!}
                     </a>
                 </li>
                 @guest()
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">
+                        <a class="nav-link" href="{{ route('login') }}"
+                           aria-label="Login link"
+                        >
                             {!! __('messages.sign_in_register') !!}
                         </a>
                     </li>
                 @else
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUserActions" role="button"
+                           aria-label="User menu"
                            data-bs-toggle="dropdown" aria-expanded="false">
                             {{ Auth::user()->name }}
                         </a>
@@ -91,6 +104,7 @@
                             @auth
                                 <li>
                                     <a class="dropdown-item" role="button"
+                                       aria-label="Edit profile link"
                                        data-bs-toggle="modal" data-bs-target="#edit-profile">
                                         {{__('messages.edit-profile')}}
                                     </a>
@@ -100,6 +114,7 @@
                             @can('manage-platform')
                                 <li>
                                     <a class="dropdown-item {{ UrlMatchesMenuItem("resources_packages.approve_pending_packages")}}"
+                                       aria-label="Approve packages link"
                                        href="{{ route('resources_packages.approve_pending_packages') }}">
                                         {!! __('messages.approve_packages') !!}
                                     </a>
@@ -122,14 +137,23 @@
                                         {!! __('messages.desktop_app_announcements') !!}
                                     </a>
                                 </li>
+                                <li>
+                                    <a class="dropdown-item {{ UrlMatchesMenuItem("administration.platform_statistics")}}"
+                                       aria-label="Platform statistics link"
+                                       href="{{ route('administration.platform_statistics') }}">
+                                        {!! __('messages.platform_statistics') !!}
+                                    </a>
+                                </li>
                             @endcan
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
                             <li><a class="dropdown-item"
+                                   aria-label="My packages link"
                                    href="{{route('resources_packages.my_packages')}}">{{__('messages.my_packages')}}</a>
                             </li>
                             <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                   aria-label="Logout button"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('auth.logout') }}
@@ -144,38 +168,46 @@
                     </li>
                 @endguest
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLangSelector" role="button"
+                    <a class="nav-link dropdown-toggle"
+                       aria-label="Language menu"
+                       href="#" id="navbarDropdownLangSelector" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         <img
                             loading="lazy"
                             src="{{ asset('img/lang/' . App::getLocale() . '.png') }}"
-                            height="20px" alt="Language">
+                            height="20px" width="20px" alt="Language">
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownLangSelector">
-                        <li><a class="dropdown-item" href="{{ route('set-lang-locale', 'en') }}">
+                        <li><a class="dropdown-item"
+                               aria-label="English language"
+                               href="{{ route('set-lang-locale', 'en') }}">
                                 <img
                                     loading="lazy"
                                     class="mr-2"
                                     src="{{ asset('img/lang/en.png') }}"
-                                    height="20px" alt="English">
+                                    height="20px" width="20px" alt="English">
                                 English
                             </a>
                         </li>
-                        <li><a class="dropdown-item" href="{{ route('set-lang-locale', 'el') }}">
+                        <li><a class="dropdown-item"
+                               aria-label="Greek language"
+                               href="{{ route('set-lang-locale', 'el') }}">
                                 <img
                                     loading="lazy"
                                     class="mr-2"
                                     src="{{ asset('img/lang/el.png') }}"
-                                    height="20px" alt="Greek">
+                                    height="20px" width="20px" alt="Greek">
                                 Ελληνικά
                             </a>
                         </li>
-                        <li><a class="dropdown-item" href="{{ route('set-lang-locale', 'de') }}">
+                        <li><a class="dropdown-item"
+                               aria-label="German language"
+                               href="{{ route('set-lang-locale', 'de') }}">
                                 <img
                                     loading="lazy"
                                     class="mr-2"
                                     src="{{ asset('img/lang/de.png') }}"
-                                    height="20px" alt="German">
+                                    height="20px" width="20px" alt="German">
                                 Deutsch
                             </a>
                         </li>
@@ -197,9 +229,7 @@
                 <div class="modal-body mb-5">
                     <form id="form" enctype="multipart/form-data" role="form" method="POST"
                           action="{{ route('users.update', Auth::user()) }}">
-                        @if(true)
-                            @method('PUT')
-                        @endif
+                        @method('PUT')
                         {{ csrf_field() }}
                         <div class="form form-new rounded" style="color:blue; text-align: center; font-size:16pt">
                             <p class="form-new__title p-4">
@@ -256,12 +286,11 @@
         $(".toggle-password").click(function () {
             $(this).toggleClass("fa-eye fa-eye-slash");
             let input = $($(this).attr("toggle"));
-            if (input.attr("type") == "password") {
+            if (input.attr("type") === "password") {
                 input.attr("type", "text");
             } else {
                 input.attr("type", "password");
             }
         });
-
     </script>
 @endpush

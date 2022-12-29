@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ContentLanguageLkp extends Model
-{
+class ContentLanguageLkp extends Model {
     use SoftDeletes;
+
     /**
      * The table associated with the model.
      *
@@ -21,6 +21,6 @@ class ContentLanguageLkp extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'code', 'img_path'
+        'name', 'code', 'img_path',
     ];
 }

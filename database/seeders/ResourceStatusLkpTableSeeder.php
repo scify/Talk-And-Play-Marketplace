@@ -12,14 +12,13 @@ class ResourceStatusLkpTableSeeder extends Seeder {
         $this->resourceStatusLkpRepository = $resourceStatusLkpRepository;
     }
 
-
     public function run() {
         echo "\nRunning Resource status lkp Seeder...\n";
 
         $data = [
             ['id' => 1, 'name' => 'Created - pending approval', 'description' => 'The resource has been created and is pending approval'],
             ['id' => 2, 'name' => 'Approved', 'description' => 'The resource has been approved by an administrator'],
-            ['id' => 3, 'name' => 'Rejected', 'description' => 'The resource has been rejected by an administrator']
+            ['id' => 3, 'name' => 'Rejected', 'description' => 'The resource has been rejected by an administrator'],
         ];
 
         foreach ($data as $datum) {

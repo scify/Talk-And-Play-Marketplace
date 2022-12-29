@@ -36,6 +36,7 @@ class UpdateShapesUsersTokens extends Command {
      */
     public function handle(ShapesIntegrationManager $shapesIntegrationManager) {
         $shapesIntegrationManager->updateSHAPESAuthTokenForUsers();
+
         return 0;
     }
 }

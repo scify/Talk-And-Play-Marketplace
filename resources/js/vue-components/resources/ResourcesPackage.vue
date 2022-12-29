@@ -326,268 +326,268 @@ import {mapActions} from "vuex";
 import _ from "lodash";
 
 export default {
-    created() {
-        this.computeTotalRating();
-    },
-    props: {
-        resourcesPackage: {
-            type: Object,
-            default: function () {
-                return {};
-            }
-        },
-        user: {
-            type: Object,
-            default: function () {
-                return {};
-            }
-        },
-        userIdToGetContent: Number,
-        packagesType: String,
-        isAdmin: String,
-        approvePackages: Number,
-        isExercisesPage: {
-            type: Boolean,
-            default: false
-        },
-    },
-    data: function () {
-        return {
-            userRating: 0,
-            totalRating: 0,
-            maxRating: 5,
-            rejectionComment: "this package violates the platform rules of conduct",
-            rejectionReason: "this package violates the platform rules of conduct",
-            reportComment: "this exercise violates the platform rules of conduct",
-            reportReason: "",
-            response: "",
-            resourceChildrenModalOpen: false,
-            rateModalOpen: false,
-            deleteModalOpen: false,
-            packageRejectionModalOpen: false,
-            packageDownloadWarningModalOpen: false,
-            packageReportModalOpen: false,
-            rateTitleKey: "rate_package_modal_body_text_no_rating"
-        };
-    },
-    methods: {
-        ...mapActions([
-            "get",
-            "post",
-            "handleError"
-        ]),
-        getFormValues() {
-            this.output = this.$refs.message.value;
-        },
-        getDownloadGamePackageRoute() {
-            return window.route("game_resources.download_package", this.resourcesPackage.id);
-        },
-        downloadOrShowDownloadWarningModal(){
-            if (this.resourcesPackage.downloadable){
-                if (this.isCommunicationPackage()){
-                    return location.href = this.getDownloadCommunicationPackageRoute();
-                }
-                return location.href = this.getDownloadGamePackageRoute();
-            }
-            this.showDownloadWarningModal();
-        },
+	created() {
+		this.computeTotalRating();
+	},
+	props: {
+		resourcesPackage: {
+			type: Object,
+			default: function () {
+				return {};
+			}
+		},
+		user: {
+			type: Object,
+			default: function () {
+				return {};
+			}
+		},
+		userIdToGetContent: Number,
+		packagesType: String,
+		isAdmin: String,
+		approvePackages: Number,
+		isExercisesPage: {
+			type: Boolean,
+			default: false
+		},
+	},
+	data: function () {
+		return {
+			userRating: 0,
+			totalRating: 0,
+			maxRating: 5,
+			rejectionComment: "this package violates the platform rules of conduct",
+			rejectionReason: "this package violates the platform rules of conduct",
+			reportComment: "this exercise violates the platform rules of conduct",
+			reportReason: "",
+			response: "",
+			resourceChildrenModalOpen: false,
+			rateModalOpen: false,
+			deleteModalOpen: false,
+			packageRejectionModalOpen: false,
+			packageDownloadWarningModalOpen: false,
+			packageReportModalOpen: false,
+			rateTitleKey: "rate_package_modal_body_text_no_rating"
+		};
+	},
+	methods: {
+		...mapActions([
+			"get",
+			"post",
+			"handleError"
+		]),
+		getFormValues() {
+			this.output = this.$refs.message.value;
+		},
+		getDownloadGamePackageRoute() {
+			return window.route("game_resources.download_package", this.resourcesPackage.id);
+		},
+		downloadOrShowDownloadWarningModal(){
+			if (this.resourcesPackage.downloadable){
+				if (this.isCommunicationPackage()){
+					return location.href = this.getDownloadCommunicationPackageRoute();
+				}
+				return location.href = this.getDownloadGamePackageRoute();
+			}
+			this.showDownloadWarningModal();
+		},
 
-        getDownloadCommunicationPackageRoute() {
-            return window.route("communication_resources.download_package", this.resourcesPackage.id);
-        },
-        getEditCommunicationPackageRoute() {
-            return window.route("communication_resources.edit", this.resourcesPackage.id);
-        },
-        getRejectPackageRoute() {
-            return window.route("resources.reject", this.resourcesPackage.id);
-        },
-        getClonePackageRoute() {
-            return window.route("resources_packages.clone_package", this.resourcesPackage.id);
-        },
-        getEditGamePackageRoute() {
-            return window.route("game_resources.edit", this.resourcesPackage.id);
-        },
-        getDeletePackageRoute() {
-            return window.route("resources_packages.destroy_package", this.resourcesPackage.id);
-        },
-        resourceHasRating(rateIndex) {
-            return this.totalRating >= rateIndex;
-        },
-        resourceHasRatingFromUser(rateIndex) {
-            return this.userRating >= rateIndex;
-        },
-        showChildrenResourcesModal() {
-            this.resourceChildrenModalOpen = true;
-        },
-        computeTotalRating() {
-            const ratings = _.map(this.resourcesPackage.ratings, "rating");
-            const sum = ratings.reduce((a, b) => a + b, 0);
-            this.totalRating = Math.round(sum / ratings.length) || 0;
-        },
-        showRateModal() {
-            this.rateModalOpen = true;
-            if (this.userRating)
-                return;
-            if (this.userLoggedIn()) {
-                this.get({
-                    url: window.route("resources-package.user-rating.get")
+		getDownloadCommunicationPackageRoute() {
+			return window.route("communication_resources.download_package", this.resourcesPackage.id);
+		},
+		getEditCommunicationPackageRoute() {
+			return window.route("communication_resources.edit", this.resourcesPackage.id);
+		},
+		getRejectPackageRoute() {
+			return window.route("resources.reject", this.resourcesPackage.id);
+		},
+		getClonePackageRoute() {
+			return window.route("resources_packages.clone_package", this.resourcesPackage.id);
+		},
+		getEditGamePackageRoute() {
+			return window.route("game_resources.edit", this.resourcesPackage.id);
+		},
+		getDeletePackageRoute() {
+			return window.route("resources_packages.destroy_package", this.resourcesPackage.id);
+		},
+		resourceHasRating(rateIndex) {
+			return this.totalRating >= rateIndex;
+		},
+		resourceHasRatingFromUser(rateIndex) {
+			return this.userRating >= rateIndex;
+		},
+		showChildrenResourcesModal() {
+			this.resourceChildrenModalOpen = true;
+		},
+		computeTotalRating() {
+			const ratings = _.map(this.resourcesPackage.ratings, "rating");
+			const sum = ratings.reduce((a, b) => a + b, 0);
+			this.totalRating = Math.round(sum / ratings.length) || 0;
+		},
+		showRateModal() {
+			this.rateModalOpen = true;
+			if (this.userRating)
+				return;
+			if (this.userLoggedIn()) {
+				this.get({
+					url: window.route("resources-package.user-rating.get")
                         + "?resources_package_id=" + this.resourcesPackage.id + "&user_id=" + this.user.id,
-                    urlRelative: false
-                }).then(response => {
-                    this.userRating = response.data.rating;
-                });
-            }
-        },
-        rejectPackage() {
-            this.post({
-                url: this.getRejectPackageRoute(),
-                data: {
-                    id: this.resourcesPackage.id,
-                    rejection_reason: this.rejectionReason,
-                    rejection_comment: this.rejectionComment
-                },
-                urlRelative: false
-            }).then(() => {
-                window.location.reload();
-            });
-        },
+					urlRelative: false
+				}).then(response => {
+					this.userRating = response.data.rating;
+				});
+			}
+		},
+		rejectPackage() {
+			this.post({
+				url: this.getRejectPackageRoute(),
+				data: {
+					id: this.resourcesPackage.id,
+					rejection_reason: this.rejectionReason,
+					rejection_comment: this.rejectionComment
+				},
+				urlRelative: false
+			}).then(() => {
+				window.location.reload();
+			});
+		},
 
-        showPackageRejectionModal() {
-            this.packageRejectionModalOpen = true;
-        },
-        showDownloadWarningModal() {
-            if (!this.resourcesPackage.downloadable){
-                this.packageDownloadWarningModalOpen = true;
-            }
+		showPackageRejectionModal() {
+			this.packageRejectionModalOpen = true;
+		},
+		showDownloadWarningModal() {
+			if (!this.resourcesPackage.downloadable){
+				this.packageDownloadWarningModalOpen = true;
+			}
 
-        },
-        showResponseModal() {
-            this.responseModalOpen = true;
-        },
+		},
+		showResponseModal() {
+			this.responseModalOpen = true;
+		},
 
-        showPackagesReportModal() {
-            this.packagesReportModalOpen = true;
-        },
+		showPackagesReportModal() {
+			this.packagesReportModalOpen = true;
+		},
 
-        getApprovePackageRoute() {
-            return window.route("resources.approve", this.resourcesPackage.id);
-        },
+		getApprovePackageRoute() {
+			return window.route("resources.approve", this.resourcesPackage.id);
+		},
 
-        approvePackage() {
-            this.post({
-                url: this.getApprovePackageRoute(),
-                data: {
-                    id: this.resourcesPackage.id
-                },
-                urlRelative: false
-            }).then(response => {
-                console.log(response);
-            });
-            window.location.reload();
-        },
+		approvePackage() {
+			this.post({
+				url: this.getApprovePackageRoute(),
+				data: {
+					id: this.resourcesPackage.id
+				},
+				urlRelative: false
+			}).then(response => {
+				console.log(response);
+			});
+			window.location.reload();
+		},
 
-        respond() {
-            this.post({
-                url: this.getResponseRoute(),
-                data: {
-                    response: this.response,
-                    resource_name: this.resource.name,
-                    reporting_user_id: this.resource.reportData.reporting_user_id
-                },
-                urlRelative: false
-            }).then(() => {
-            });
-            window.location.reload();
-        },
+		respond() {
+			this.post({
+				url: this.getResponseRoute(),
+				data: {
+					response: this.response,
+					resource_name: this.resource.name,
+					reporting_user_id: this.resource.reportData.reporting_user_id
+				},
+				urlRelative: false
+			}).then(() => {
+			});
+			window.location.reload();
+		},
 
-        showDeleteModal() {
-            console.log("delete");
-            this.deleteModalOpen = true;
-        },
-        getRateTitleForUser() {
-            if (this.userRating)
-                this.rateTitleKey = "rate_package_modal_body_text_update_rating";
-            return window.translate("messages." + this.rateTitleKey);
-        },
-        ratePackage(rateIndex) {
-            this.post({
-                url: window.route("resources-package.user-rating.post"),
-                data: {
-                    user_id: this.user.id,
-                    resources_package_id: this.resourcesPackage.id,
-                    rating: rateIndex
-                },
-                urlRelative: false
-            }).then(response => {
-                this.userRating = response.data.rating;
-                let found = false;
-                for (let i = 0; i < this.resourcesPackage.ratings.length; i++) {
-                    if (this.resourcesPackage.ratings[i].voter_user_id === this.user.id) {
-                        // eslint-disable-next-line vue/no-mutating-props
-                        this.resourcesPackage.ratings[i].rating = response.data.rating;
-                    }
-                }
-                if (!found)
-                    // eslint-disable-next-line vue/no-mutating-props
-                    this.resourcesPackage.ratings.push(response.data);
-                this.computeTotalRating();
-            });
-        },
-        loggedInUserIsDifferentFromContentUser() {
-            return this.resourcesPackage.creator.id !== this.user.id;
-        },
-        loggedInUserIsAdmin() {
-            return this.isAdmin === "1";
-        },
-        userLoggedIn() {
-            return this.user && this.user.id;
-        },
-        getLoginRoute() {
-            return window.window.route("login");
-        },
-        isCommunicationPackage() {
-            return this.packagesType === "COMMUNICATION";
-        },
-        isGamePackage() {
-            return this.packagesType === "GAME";
-        },
-        getResponseRoute() {
-            return window.route("resources.respond.post");
-        },
-        isAdminPageForPackageApproval() {
-            return this.approvePackages === 1;
-        },
-        showPackageReportModal() {
-            this.packageReportModalOpen = true;
-        },
-        getReportPackageRoute() {
-            return window.route("resources.report", this.resourcesPackage.id);
-        },
-        reportPackage() {
-            console.log("report package");
-            this.post({
-                url: this.getReportPackageRoute(),
-                data: {
-                    id: this.resourcesPackage.id,
-                    report_reason: this.reportReason,
-                    report_comment: this.reportComment
-                },
-                urlRelative: false
-            }).then(() => {
-                window.location.reload();
-            });
-        },
-        isApproved(){
-            return this.resourcesPackage.status_id === 2;
-        },
-        isPending(){
-            return this.resourcesPackage.status_id === 1;
-        },
-        isRejected(){
-            return this.resourcesPackage.status_id === 3;
-        }
+		showDeleteModal() {
+			console.log("delete");
+			this.deleteModalOpen = true;
+		},
+		getRateTitleForUser() {
+			if (this.userRating)
+				this.rateTitleKey = "rate_package_modal_body_text_update_rating";
+			return window.translate("messages." + this.rateTitleKey);
+		},
+		ratePackage(rateIndex) {
+			this.post({
+				url: window.route("resources-package.user-rating.post"),
+				data: {
+					user_id: this.user.id,
+					resources_package_id: this.resourcesPackage.id,
+					rating: rateIndex
+				},
+				urlRelative: false
+			}).then(response => {
+				this.userRating = response.data.rating;
+				let found = false;
+				for (let i = 0; i < this.resourcesPackage.ratings.length; i++) {
+					if (this.resourcesPackage.ratings[i].voter_user_id === this.user.id) {
+						// eslint-disable-next-line vue/no-mutating-props
+						this.resourcesPackage.ratings[i].rating = response.data.rating;
+					}
+				}
+				if (!found)
+				// eslint-disable-next-line vue/no-mutating-props
+					this.resourcesPackage.ratings.push(response.data);
+				this.computeTotalRating();
+			});
+		},
+		loggedInUserIsDifferentFromContentUser() {
+			return this.resourcesPackage.creator.id !== this.user.id;
+		},
+		loggedInUserIsAdmin() {
+			return this.isAdmin === "1";
+		},
+		userLoggedIn() {
+			return this.user && this.user.id;
+		},
+		getLoginRoute() {
+			return window.window.route("login");
+		},
+		isCommunicationPackage() {
+			return this.packagesType === "COMMUNICATION";
+		},
+		isGamePackage() {
+			return this.packagesType === "GAME";
+		},
+		getResponseRoute() {
+			return window.route("resources.respond.post");
+		},
+		isAdminPageForPackageApproval() {
+			return this.approvePackages === 1;
+		},
+		showPackageReportModal() {
+			this.packageReportModalOpen = true;
+		},
+		getReportPackageRoute() {
+			return window.route("resources.report", this.resourcesPackage.id);
+		},
+		reportPackage() {
+			console.log("report package");
+			this.post({
+				url: this.getReportPackageRoute(),
+				data: {
+					id: this.resourcesPackage.id,
+					report_reason: this.reportReason,
+					report_comment: this.reportComment
+				},
+				urlRelative: false
+			}).then(() => {
+				window.location.reload();
+			});
+		},
+		isApproved(){
+			return this.resourcesPackage.status_id === 2;
+		},
+		isPending(){
+			return this.resourcesPackage.status_id === 1;
+		},
+		isRejected(){
+			return this.resourcesPackage.status_id === 3;
+		}
 
-    }
+	}
 };
 </script>
 

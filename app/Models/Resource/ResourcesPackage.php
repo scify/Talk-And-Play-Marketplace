@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ResourcesPackage extends Model
-{
+class ResourcesPackage extends Model {
     use SoftDeletes;
+
     /**
      * The table associated with the model.
      *
@@ -26,7 +26,7 @@ class ResourcesPackage extends Model
     protected $fillable = [
         'lang_id', 'creator_user_id',
         'admin_user_id', 'type_id',
-        'card_id', 'status_id', 'num_downloads', 'downloadable'
+        'card_id', 'status_id', 'num_downloads', 'downloadable',
     ];
 
     public function coverResource(): HasOne {

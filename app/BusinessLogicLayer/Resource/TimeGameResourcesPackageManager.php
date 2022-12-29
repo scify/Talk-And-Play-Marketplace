@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\BusinessLogicLayer\Resource;
 
 use App\Models\Resource\Resource;
@@ -15,12 +14,12 @@ use App\ViewModels\CreateEditResourceVM;
 use App\ViewModels\DisplayPackageVM;
 use Illuminate\Support\Collection;
 
-class TimeGameResourcesPackageManager extends GameResourcesPackageManager
-{
+class TimeGameResourcesPackageManager extends GameResourcesPackageManager {
     public ResourcesPackageRepository $resourcesPackageRepository;
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
     protected ResourceRepository $resourceRepository;
     protected ReportsRepository  $reportsRepository;
+
     const MAXIMUM_CARDS_THRESHOLD = 4;
     const TYPE_ID = ResourceTypesLkp::TIME_GAME;
 
@@ -28,8 +27,7 @@ class TimeGameResourcesPackageManager extends GameResourcesPackageManager
                                 ResourceRepository $resourceRepository,
                                 ContentLanguageLkpRepository $contentLanguageLkpRepository,
                                 ResourcesPackageRepository $resourcesPackageRepository,
-                                ReportsRepository  $reportsRepository)
-    {
+                                ReportsRepository  $reportsRepository) {
         $this->resourceRepository = $resourceRepository;
         $this->contentLanguageLkpRepository = $contentLanguageLkpRepository;
         $this->resourcesPackageRepository = $resourcesPackageRepository;
@@ -37,9 +35,9 @@ class TimeGameResourcesPackageManager extends GameResourcesPackageManager
         parent::__construct($resourceTypeLkpRepository, $resourceRepository, $contentLanguageLkpRepository, $resourcesPackageRepository, $reportsRepository, self::TYPE_ID);
     }
 
-    public function getCreateResourcesPackageViewModel(): CreateEditResourceVM
-    {
+    public function getCreateResourcesPackageViewModel(): CreateEditResourceVM {
         $contentLanguages = $this->getContentLanguagesForResources();
+
         return new CreateEditResourceVM($contentLanguages,
             new  Resource(),
             new Collection(),
@@ -48,8 +46,7 @@ class TimeGameResourcesPackageManager extends GameResourcesPackageManager
             self::TYPE_ID);
     }
 
-    public function getEditResourceViewModel($package): CreateEditResourceVM
-    {
+    public function getEditResourceViewModel($package): CreateEditResourceVM {
         $contentLanguages = $this->getContentLanguagesForResources();
 
         $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($package->card_id);
@@ -63,12 +60,9 @@ class TimeGameResourcesPackageManager extends GameResourcesPackageManager
             self::TYPE_ID);
     }
 
-    public function getApprovedTimeGamePackagesParentResources(): DisplayPackageVM
-    {
-
+    public function getApprovedTimeGamePackagesParentResources(): DisplayPackageVM {
         $approvedCommunicationPackages = $this->resourcesPackageRepository->getResourcesPackages([self::TYPE_ID]);
+
         return new DisplayPackageVM($approvedCommunicationPackages);
-
     }
-
 }

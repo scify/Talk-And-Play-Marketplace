@@ -11,10 +11,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 
-
 class UserController extends Controller {
     protected AdministrationVMProvider $administrationVMProvider;
     protected UserManager $userManager;
+
     use PasswordValidationRules;
 
     public function __construct(AdministrationVMProvider $administrationVMProvider,
@@ -23,7 +23,6 @@ class UserController extends Controller {
         $this->userManager = $userManager;
     }
 
-
     /**
      * Display a listing of the resource.
      *
@@ -31,13 +30,14 @@ class UserController extends Controller {
      */
     public function index(): View {
         $viewModel = $this->administrationVMProvider->getUsersManagementVM();
-        return view("admin.user-management", compact(['viewModel']));
+
+        return view('admin.user-management', compact(['viewModel']));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return RedirectResponse
      */
     public function store(Request $request): RedirectResponse {
@@ -48,7 +48,7 @@ class UserController extends Controller {
         ]);
         try {
             $this->userManager->create($request->all());
-            session()->flash('flash_message_success', "User created");
+            session()->flash('flash_message_success', 'User created');
         } catch (\Exception $e) {
             session()->flash('flash_message_failure', $e->getMessage());
         } finally {
@@ -59,18 +59,18 @@ class UserController extends Controller {
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param User $user
+     * @param  Request  $request
+     * @param  User  $user
      * @return RedirectResponse
      */
     public function update(Request $request, User $user): RedirectResponse {
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $user->id
+            'email' => 'required|email|unique:users,email,' . $user->id,
         ]);
         try {
             $this->userManager->update($user->id, $request->all());
-            session()->flash('flash_message_success', "User successfuly updated");
+            session()->flash('flash_message_success', 'User successfuly updated');
         } catch (\Exception $e) {
             session()->flash('flash_message_failure', $e->getMessage());
         } finally {
@@ -81,13 +81,13 @@ class UserController extends Controller {
     /**
      * Remove the specified resource from storage.
      *
-     * @param User $user
+     * @param  User  $user
      * @return RedirectResponse
      */
     public function destroy(User $user): RedirectResponse {
         try {
             $this->userManager->delete($user->id);
-            session()->flash('flash_message_success', "User deleted");
+            session()->flash('flash_message_success', 'User deleted');
         } catch (\Exception $e) {
             session()->flash('flash_message_failure', $e->getMessage());
         } finally {
@@ -96,11 +96,13 @@ class UserController extends Controller {
     }
 
     public function setLangLocaleCookie(Request $request): RedirectResponse {
-        if(!in_array($request->lang, ['en', 'el', 'de'])) {
+        if (!in_array($request->lang, ['en', 'el', 'de'])) {
             session()->flash('flash_message_failure', 'Wrong language.');
+
             return back();
         }
-        Cookie::queue( Cookie::forever('lang', $request->lang) );
+        Cookie::queue(Cookie::forever('lang', $request->lang));
+
         return redirect()->back();
     }
 }

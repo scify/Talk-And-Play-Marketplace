@@ -10,9 +10,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-#use Illuminate\Contracts\Auth\MustVerifyEmail;
-class User extends Authenticatable# implements MustVerifyEmail #added implement as per guideline https://laravel.com/docs/8.x/verification
-{
+
+//use Illuminate\Contracts\Auth\MustVerifyEmail;
+class User extends Authenticatable { // implements MustVerifyEmail #added implement as per guideline https://laravel.com/docs/8.x/verification
     use HasFactory, Notifiable, SoftDeletes;
 
     /**
@@ -20,7 +20,6 @@ class User extends Authenticatable# implements MustVerifyEmail #added implement 
      *
      * @var array
      */
-
     protected $fillable = [
         'id',
         'name',
@@ -28,7 +27,7 @@ class User extends Authenticatable# implements MustVerifyEmail #added implement 
         'hashed_email',
         'password',
         'shapes_auth_token',
-        'logout'
+        'logout',
     ];
 
     /**

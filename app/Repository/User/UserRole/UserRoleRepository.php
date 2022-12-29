@@ -1,15 +1,12 @@
 <?php
 
-
 namespace App\Repository\User\UserRole;
-
 
 use App\Models\UserRole\UserRole;
 use App\Repository\Repository;
 
 class UserRoleRepository extends Repository {
-
-    function getModelClassName() {
+    public function getModelClassName() {
         return UserRole::class;
     }
 

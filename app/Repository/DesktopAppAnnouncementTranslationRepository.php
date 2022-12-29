@@ -5,8 +5,7 @@ namespace App\Repository;
 use App\Models\DesktopAppAnnouncementTranslation;
 
 class DesktopAppAnnouncementTranslationRepository extends Repository {
-
-    function getModelClassName() {
+    public function getModelClassName() {
         return DesktopAppAnnouncementTranslation::class;
     }
 }

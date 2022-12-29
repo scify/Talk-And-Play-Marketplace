@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Repository\User;
 
 use App\Models\User;
@@ -12,24 +11,22 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserRepository extends Repository {
-
-    function getModelClassName() {
+    public function getModelClassName() {
         return User::class;
     }
 
     public function create(array $data) {
-
-        $storeArr = array(
-            "name" => $data["name"],
-            "email" => $data["email"],
-            "password" => Hash::make($data["password"])
-        );
-        if (array_key_exists('hashed_email', $data)){
+        $storeArr = [
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ];
+        if (array_key_exists('hashed_email', $data)) {
             $storeArr['hashed_email'] = $data['hashed_email'];
         }
+
         return parent::create($storeArr);
     }
-
 
     public function getUsersWithAdminRoleStatus(int $userIdToExclude): Collection {
         return collect(DB::select('select u.id, u.name, u.email,
@@ -48,6 +45,7 @@ class UserRepository extends Repository {
         $user = $this->find($id);
         $user->email = $user->email . '_deleted_' . Carbon::now()->timestamp;
         $user->save();
+
         return parent::delete($id);
     }
 

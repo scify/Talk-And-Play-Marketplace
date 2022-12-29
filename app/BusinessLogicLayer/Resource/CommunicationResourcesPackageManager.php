@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\BusinessLogicLayer\Resource;
 
 use App\Models\Resource\Resource;
@@ -12,7 +11,6 @@ use App\Repository\Resource\ResourcesPackageRepository;
 use App\Repository\Resource\ResourceTypesLkp;
 use App\ViewModels\CreateEditResourceVM;
 use App\ViewModels\DisplayPackageVM;
-use Facade\FlareClient\Report;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -22,6 +20,7 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager {
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
     protected ResourceRepository $resourceRepository;
     protected ReportsRepository $reportsRepository;
+
     const maximumCardsThreshold = 10;
     const type_id = ResourceTypesLkp::COMMUNICATION;
 
@@ -30,12 +29,12 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager {
         $this->reportsRepository = $reportsRepository;
         $this->contentLanguageLkpRepository = $contentLanguageLkpRepository;
         $this->resourcesPackageRepository = $resourcesPackageRepository;
-        parent::__construct($resourceRepository, $contentLanguageLkpRepository, $resourcesPackageRepository, $reportsRepository , self::type_id);
+        parent::__construct($resourceRepository, $contentLanguageLkpRepository, $resourcesPackageRepository, $reportsRepository, self::type_id);
     }
-
 
     public function getCreateResourcesPackageViewModel(): CreateEditResourceVM {
         $contentLanguages = $this->getContentLanguagesForResources();
+
         return new CreateEditResourceVM($contentLanguages,
             new  Resource(),
             new Collection(),
@@ -47,6 +46,7 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager {
     public function getEditResourceViewModel($id, $package): CreateEditResourceVM {
         $contentLanguages = $this->getContentLanguagesForResources();
         $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($id);
+
         return new CreateEditResourceVM($contentLanguages,
             $this->resourceRepository->find($id),
             $childrenResourceCards,
@@ -62,7 +62,6 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager {
 //    }
 //
 
-
     public function downloadPackage($package) {
         $fileManager = new ResourceFileManager();
         $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($package->card_id);
@@ -71,20 +70,20 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager {
 
         $this->resourcesPackageRepository->update(
             [
-                "num_downloads" => $package->num_downloads+1
+                'num_downloads' => $package->num_downloads + 1,
             ], $package->id
         );
         if (is_dir($packageDir) == false) {
             Storage::makeDirectory($packageDir);
         }
         $header =
-            <<<XML
+            <<<'XML'
 <?xml version='1.0' encoding="UTF-8"?>
 <category name="" enabled="true" languages="">
 </category>
 XML;
         $xmlTemplate = simplexml_load_string($header);
-        $xmlTemplate['name']  = str_replace(array("?","!",",",";"), "",  $parentResource->name );
+        $xmlTemplate['name'] = str_replace(['?', '!', ',', ';'], '', $parentResource->name);
         $lang = $this->contentLanguageLkpRepository->find($package->lang_id)->code;
 
         $xmlTemplate['languages'] = $lang === 'el' ? 'gr' : $lang;
@@ -95,8 +94,8 @@ XML;
         $imageName = basename($parentResource->img_path);
         $audioName = basename($parentResource->audio_path);
         $dirPath = Storage::path($packageDir);
-        $fileManager->copyResourceToDirectory($dirPath, $imageName, "image");
-        $fileManager->copyResourceToDirectory($dirPath, $audioName, "audio");
+        $fileManager->copyResourceToDirectory($dirPath, $imageName, 'image');
+        $fileManager->copyResourceToDirectory($dirPath, $audioName, 'audio');
         $xmlTemplate->addChild('image', $imageName);
         $xmlTemplate->addChild('sound', $audioName);
         $xmlTemplate->addChild('categories');
@@ -105,38 +104,31 @@ XML;
         foreach ($childrenResourceCards as $child) {
             $imageName = basename($child->img_path);
             $audioName = basename($child->audio_path);
-            $fileManager->copyResourceToDirectory($dirPath, $imageName, "image");
-            $fileManager->copyResourceToDirectory($dirPath, $audioName, "audio");
+            $fileManager->copyResourceToDirectory($dirPath, $imageName, 'image');
+            $fileManager->copyResourceToDirectory($dirPath, $audioName, 'audio');
             $category = $categories->addChild('category');
-            $category->addAttribute('enabled', "true");
+            $category->addAttribute('enabled', 'true');
             $category->addAttribute('name', $child->name);
-            $category->addChild("image",$imageName);
-            $category->addChild("sound",$audioName);
-
-
+            $category->addChild('image', $imageName);
+            $category->addChild('sound', $audioName);
         }
 
         $xmlTemplate->asXML($dirPath . '/structure.xml');
-        $zipName = basename($dirPath . ".zip");
-        $fileManager->getCreateZip( $dirPath);
-        Storage::makeDirectory("resources_packages/zips");
+        $zipName = basename($dirPath . '.zip');
+        $fileManager->getCreateZip($dirPath);
+        Storage::makeDirectory('resources_packages/zips');
         Storage::deleteDirectory($packageDir);
         $headers = [
-            "Content-type: application/zip",
+            'Content-type: application/zip',
             "Content-Disposition: attachment; filename=$zipName",
-            "Pragma: no-cache",
-            "Expires: 0"
-        ] ;
+            'Pragma: no-cache',
+            'Expires: 0',
+        ];
 //       return Storage::download("resources_packages/zips/".$zipName,$zipName,$headers);
-        foreach($headers as $header){
+        foreach ($headers as $header) {
             header($header);
         }
-        readfile(Storage::path("resources_packages/zips")."/".basename($zipName));
+        readfile(Storage::path('resources_packages/zips') . '/' . basename($zipName));
         exit(0);
     }
-
-
-
-
-
 }

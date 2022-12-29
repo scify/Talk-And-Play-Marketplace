@@ -5,14 +5,12 @@ namespace Database\Seeders;
 use App\Repository\User\UserRole\UserRoleLkpRepository;
 use Illuminate\Database\Seeder;
 
-class UserRoleLkpTableSeeder extends Seeder
-{
+class UserRoleLkpTableSeeder extends Seeder {
     protected UserRoleLkpRepository $userRoleLkpRepository;
 
     public function __construct(UserRoleLkpRepository $userRoleLkpRepository) {
         $this->userRoleLkpRepository = $userRoleLkpRepository;
     }
-
 
     public function run() {
         echo "\nRunning User Role lkp Seeder...\n";
@@ -20,7 +18,7 @@ class UserRoleLkpTableSeeder extends Seeder
         $data = [
             ['id'=> 1,  'name'=>'Platform Administrator'],
             ['id'=> 2,  'name'=>'Transcriber'],
-            ['id'=> 3,  'name'=>'Shapes User']
+            ['id'=> 3,  'name'=>'Shapes User'],
         ];
 
         foreach ($data as $userRoleLkp) {

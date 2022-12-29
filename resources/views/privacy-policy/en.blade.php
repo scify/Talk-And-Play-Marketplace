@@ -445,14 +445,16 @@
                                             individual identity and without them, the smooth operation of the Platform
                                             is not possible.
                                         </td>
-                                        <td>CookieConsent (Stores the user's cookie consent state for the current domain
+                                        <td>tnp_marketplace_cookies_consent_selection, tnp_marketplace_cookies_consent_targeting (Stores the user's cookie consent state for the current domain
                                             )
                                             <br><br>
                                             XSRF-TOKEN (Ensures visitor browsing-security by preventing cross-site
                                             request forgery. This cookie is essential for the security of the website
                                             and visitor. )
                                             <br><br>
-                                            remember_web_59ba36addc2b2f9401580f014c7f58ea4e30989d (When the app needs to “remember” the logged in user while (s)he navigates to the Platform)
+                                            remember_web_*, tnp_marketplace_session (When the app needs to “remember” the logged in user while (s)he navigates to the Platform)
+                                            <br><br>
+                                            lang (Stores the language preference of the user)
                                         </td>
                                         <td>1 year
                                             <br><br>

@@ -2,30 +2,27 @@
 
 namespace App\Notifications;
 
+use App\Models\Resource\ResourcesPackage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\Models\Resource\ResourcesPackage;
-use App\Models\Resource\Resource;
 
-
-class AdminNotice extends Notification implements ShouldQueue
-{
+class AdminNotice extends Notification implements ShouldQueue {
     use Queueable;
+
     protected ResourcesPackage $package;
     protected String $coverResourceCardName;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($package, $coverResourceCardName)
-    {
+    public function __construct($package, $coverResourceCardName) {
         $this->afterCommit = true;
         $this->package = $package;
         $this->coverResourceCardName = $coverResourceCardName;
-
     }
 
     /**
@@ -34,8 +31,7 @@ class AdminNotice extends Notification implements ShouldQueue
      * @param  mixed  $notifiable
      * @return array
      */
-    public function via($notifiable)
-    {
+    public function via($notifiable) {
         return ['mail'];
     }
 
@@ -45,18 +41,17 @@ class AdminNotice extends Notification implements ShouldQueue
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toMail($notifiable)
-    {
-
+    public function toMail($notifiable) {
         $url = Route('resources_packages.my_packages');
+
         return (new MailMessage)
             ->greeting('Submitted Package Details')
-            ->subject('TnP: Confirm New Package Submission / '.$this->coverResourceCardName)
-            ->line("Package ID:\t".$this->package->id)
-            ->line("Package Name:\t".$this->coverResourceCardName)
-            ->line("User Name:\t".$notifiable->name)
-            ->line("User Email:\t".$notifiable->email)
-            ->line("User ID:\t".$this->package->creator_user_id)
+            ->subject('TnP: Confirm New Package Submission / ' . $this->coverResourceCardName)
+            ->line("Package ID:\t" . $this->package->id)
+            ->line("Package Name:\t" . $this->coverResourceCardName)
+            ->line("User Name:\t" . $notifiable->name)
+            ->line("User Email:\t" . $notifiable->email)
+            ->line("User ID:\t" . $this->package->creator_user_id)
             ->action('View Submitted Packages', $url);
     }
 
@@ -66,8 +61,7 @@ class AdminNotice extends Notification implements ShouldQueue
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
-    {
+    public function toArray($notifiable) {
         return [
             //
         ];

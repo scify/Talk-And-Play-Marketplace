@@ -1,18 +1,12 @@
 <?php
 
-
 namespace App\ViewModels;
-
 
 use App\Models\Resource\Resource;
 use App\Models\Resource\ResourcesPackage;
-use Illuminate\Collections\ItemNotFoundException;
 use Illuminate\Support\Collection;
-use PHPUnit\Exception;
-use App\Repository\Resource\ResourceTypesLkp;
 
-class CreateEditResourceVM
-{
+class CreateEditResourceVM {
     public Collection $languages;
     public Resource $resource;
     public Collection $childrenCards;
@@ -25,27 +19,22 @@ class CreateEditResourceVM
                                 Collection $childrenCards,
                                 ResourcesPackage $package,
                                 $maximumCardThreshold = 10,
-                                int $type_id = -1)
-    {
+                                int $type_id = -1) {
         $this->languages = $languages;
         $this->resource = $resource;
         $this->childrenCards = $childrenCards;
         $this->package = $package;
         $this->maximumCardThreshold = $maximumCardThreshold;
         $this->type_id = $type_id;
-
     }
 
-    public function ReachedMaximumCardLimit(): bool
-    {
-        $numCards = sizeof($this->childrenCards);
+    public function ReachedMaximumCardLimit(): bool {
+        $numCards = count($this->childrenCards);
+
         return $numCards === $this->maximumCardThreshold;
     }
 
-    public function isEditMode(): bool
-    {
-        return ($this->resource->id != null);
+    public function isEditMode(): bool {
+        return $this->resource->id != null;
     }
-
-
 }
