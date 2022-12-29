@@ -211,11 +211,11 @@
                     <div class="row">
                         <select v-model="rejectionReason">
                             <option selected disabled value="">{{ trans('messages.select_rejection_reason') }}</option>
-                            <option> {{ trans('messages.rejection_violation_terms') }}</option>
-                            <option> {{ trans('messages.rejection_inappropriate_content') }}</option>
-                            <option> {{ trans('messages.rejection_copyright') }}</option>
-                            <option> {{ trans('messages.rejection_not_readable') }}</option>
-                            <option> {{ trans('messages.other') }}</option>
+                            <option> {{trans('messages.rejection_terms_of_use')}}</option>
+                            <option> {{trans('messages.rejection_inappropriate_content')}}</option>
+                            <option> {{trans('messages.rejection_ip_rights')}} </option>
+                            <option> {{trans('messages.rejection_illegible_content')}}</option>
+                            <option> {{trans('messages.rejection_other')}}  </option>
                         </select>
                         <p style="white-space: pre-line;">{{ }}</p>
                         <br>
@@ -249,17 +249,17 @@
                 <div class="container pt-3 pb-5">
                     <div v-if="userLoggedIn()" class="row">
                         <select v-model="reportReason">
-                            <option disabled value="">Choose your reason for reporting</option>
-                            <option> Αυτή η άσκηση παραβιάζει τους όρους χρήσης της πλατφορμας</option>
-                            <option> Αυτή η άσκηση περιέχει ακατάλληλο περιεχόμενο</option>
-                            <option> Aυτή η άσκηση παραβιάζει τους κανονισμούς περί πνευματικής ιδιοκτησίας</option>
-                            <option> Το περιεχόμενο της άσκησης δεν είναι ευκρινές / ευανάγνωστο</option>
-                            <option> Άλλο</option>
+                            <option disabled value="">{{trans('messages.choose_reporting_reason')}}</option>
+                            <option> {{trans('messages.rejection_terms_of_use')}}</option>
+                            <option> {{trans('messages.rejection_inappropriate_content')}}</option>
+                            <option> {{trans('messages.rejection_ip_rights')}} </option>
+                            <option> {{trans('messages.rejection_illegible_content')}}</option>
+                            <option> {{trans('messages.rejection_other')}}  </option>
                         </select>
                         <p style="white-space: pre-line;">{{ }}</p>
                         <br>
                         <div id="reportForm">
-                            <p>Optionally include some comments below</p>
+                            <p>{{ trans('messages.optionally_include_comments') }}</p>
                             <textarea rows="4" cols="50" v-model="reportComment"></textarea>
                             <p>Report Package</p>
                             <button @click="reportPackage" class="btn btn-danger">
