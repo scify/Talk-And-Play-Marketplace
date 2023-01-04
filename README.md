@@ -53,7 +53,7 @@ npm run dev
 ```bash
 php artisan storage:link
 ```
-to link the `/public/storage` folder with the `/storage/app/public` directory
+in order to link the `/public/storage` folder with the `/storage/app/public` directory
 
 ## SEO - Generate Sitemap
 
