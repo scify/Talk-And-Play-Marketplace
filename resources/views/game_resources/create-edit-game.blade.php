@@ -32,7 +32,7 @@
             <div class="container-sm px-5">
                 <!-- Content here -->
                 <div class="mb-3">
-                    <label for="category_name" class="form-label">Όνομα <span style="color:#ff0000">*</span></label>
+                    <label for="category_name" class="form-label">{{__('messages.name')}} <span style="color:#ff0000">*</span></label>
                     <input type="text" class="form-control" id="category_name"
                            name="name"
                            required
