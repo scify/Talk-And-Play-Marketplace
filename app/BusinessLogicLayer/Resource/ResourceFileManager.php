@@ -27,8 +27,9 @@ class ResourceFileManager {
     }
 
     public function deleteResourceAudio(Resource $resource) {
-        echo $resource->audio_path;
-        Storage::disk('public')->delete($resource->audio_path);
+        if (!is_null($resource->audio_path)){
+            Storage::disk('public')->delete($resource->audio_path);
+        }
     }
 
     public function keepLatinCharactersAndNumbersString($string) {
