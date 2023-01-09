@@ -26,22 +26,34 @@ Laravel 9 Web Application for Creating content for the Talk & Play application
    ```php artisan db:seed``` in order to insert the starter data to the DB
 
 2. Install laravel/back-end dependencies
-```
+```bash
 composer install
-
 ```
 
-3. Install front-end dependencies
+3. Front-end dependencies 
+
+It is very easy to install multiple versions of NodeJS and npm, by using [Node Version Manager (nvm)](https://github.com/creationix/nvm).
+
+If you are using [`nvm`](https://github.com/nvm-sh/nvm), run this command in order to sync to the correct NodeJS version for the project:
+
+```bash
+nvm use
 ```
+
+Then, install and compile the front-end dependencies:
+
+```bash
 npm install
+
+npm run dev
 ```
 
-4. Create symbolic link for uploaded files.
+4. Create the symbolic link for user-uploaded files.
 
-```
+```bash
 php artisan storage:link
 ```
-to link the `/public/storage` folder with the `/storage/app/public` directory
+in order to link the `/public/storage` folder with the `/storage/app/public` directory
 
 ## SEO - Generate Sitemap
 
@@ -56,11 +68,9 @@ This application uses [Laravel Pint](https://laravel.com/docs/9.x/pint) in order
 In order to run the styler, run :
 
 ```bash
-
 ./vendor/bin/pint --test -v # the --test will not do any changes, it will just output the changes needed
 
 ./vendor/bin/pint -v # this command will actually perform the code style changes 
-
 ```
 
 ## Apache configuration example:
@@ -93,7 +103,7 @@ Enable mod_rewrite, mod_ssl and restart apache:
 % sudo a2enmod rewrite && sudo a2enmod ssl && sudo service apache2 restart
 ```
 Fix permissions for storage directory:
-```
+```bash
 sudo chown -R user:www-data storage
 chmod 775 storage
 cd storage/
@@ -106,8 +116,7 @@ Or run the `set-file-permissions.sh` script.
 Change hosts file so dev.tnpmarketplace points to to localhost
 ```$xslt
 sudo nano /etc/hosts
-127.0.0.1       dev.tnpmarketplace
-
+127.0.0.1   dev.tnpmarketplace
 ```
 
 ## How to debug
