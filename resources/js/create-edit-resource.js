@@ -53,7 +53,7 @@ import {Modal} from "bootstrap";
 
 			$("#modal_player").hide();
 			$("#md-modal-form").attr("action", route);
-			$("#modalHeader").prepend("<h5 class=\"modal-title w-100\" id=\"ModalLabel\">Προσθήκη Νέας Κάρτας</h5>");
+			$("#modalHeader").prepend("<h5 class=\"modal-title w-100\" id=\"ModalLabel\">" + window.translate("messages.add_new_card") + "</h5>");
 			$("#modal_mp3_src").attr("src", null);
 			$("#modal_url").attr("src", null);
 			$("#cardId").attr("value", null);
@@ -113,7 +113,7 @@ import {Modal} from "bootstrap";
 			console.log("clicked  edit card");
 
 			document.getElementById("ModalLabel").remove();
-			$("#modalHeader").prepend("<h5 class=\"modal-title w-100\" id=\"ModalLabel\">Επεξεργασία Κάρτας</h5>");
+			$("#modalHeader").prepend("<h5 class=\"modal-title w-100\" id=\"ModalLabel\">" + window.translate("messages.edit") + " " + window.translate("messages.card")+ "</h5>");
 			$("#md-modal-form").append("<input id='ToDelete' type=\"hidden\" name=\"_method\" value=\"PUT\">");
 
 			let card = $(this).parents(".card");
