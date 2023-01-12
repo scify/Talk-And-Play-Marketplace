@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Resource\ResourcePackageRatingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,6 +41,10 @@ $localeInfo = ['prefix' => '{lang}',
 ];
 
 Route::group(['middleware' => 'auth'], function () {
+
+    Route::get('/resources-package/user-rating', [ResourcePackageRatingController::class, 'getUserRatingForResourcesPackage'])->name('resources-package.user-rating.get');
+    Route::post('/resources-package/user-rating', [ResourcePackageRatingController::class, 'storeOrUpdateRating'])->name('resources-package.user-rating.post');
+
     Route::get('/test-sentry/{message}', function (Request $request) {
         throw new Exception('Test Sentry error: ' . $request->message);
     })->middleware('can:manage-platform');
