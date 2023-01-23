@@ -224,7 +224,7 @@ return [
     'platform_statistics' => 'Platform Statistics',
     'warning_rejection' => 'Be careful: a rejection email will be sent to the user who submitted the package',
     'reject_package' => 'Reject Package',
-    'marketplace_tutorial_url' => 'https://www.youtube.com/embed/lcCb6r2XBDk',
+    'marketplace_tutorial_url' => 'https://www.youtube.com/embed/S5Rri1YxiK4',
     'desktop_tutorial_title_1' => 'Watch how the Desktop app is used:',
     'desktop_tutorial_title_2' => 'Watch how to download additional content:',
     'desktop_tutorial_url_1' => 'https://www.youtube.com/embed/fl1Ls4ffv2c',
