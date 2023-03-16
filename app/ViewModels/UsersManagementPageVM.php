@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 
 class UsersManagementPageVM {
     public Collection $users;
+
     protected UserRoleManager $userRoleManager;
 
     public function __construct(Collection $users, UserRoleManager $userRoleManager) {

@@ -18,14 +18,17 @@ use Illuminate\Support\Facades\Auth;
 
 class CommunicationResourceController extends Controller {
     protected ResourceManager $resourceManager;
+
     protected CommunicationResourcesPackageManager $communicationResourcesPackageManager;
+
     protected UserManager $userManager;
+
     protected AnalyticsEventManager $analyticsEventManager;
 
-    public function __construct(ResourceManager                      $resourceManager,
+    public function __construct(ResourceManager $resourceManager,
                                 CommunicationResourcesPackageManager $communicationResourcesPackageManager,
-                                UserManager                          $userManager,
-                                AnalyticsEventManager                $analyticsEventManager) {
+                                UserManager $userManager,
+                                AnalyticsEventManager $analyticsEventManager) {
         $this->resourceManager = $resourceManager;
         $this->communicationResourcesPackageManager = $communicationResourcesPackageManager;
         $this->userManager = $userManager;
@@ -103,7 +106,6 @@ class CommunicationResourceController extends Controller {
      * @return Response
      */
     public function edit($id) {//returns view
-        
         try {
 //            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
             $package = $this->communicationResourcesPackageManager->getResourcesPackage($id);

@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 
 class UserRolesTableSeeder extends Seeder {
     protected $userRepository;
+
     protected $userRoleManager;
 
     public function __construct(UserRepository $userRepository, UserRoleManager $userRoleManager) {

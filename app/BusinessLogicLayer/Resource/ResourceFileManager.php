@@ -11,9 +11,13 @@ use ZipArchive;
 
 class ResourceFileManager {
     private $IMG_FOLDER;
+
     private $AUDIO_FOLDER;
+
     private $RESOURCE_PREFIX_FOLDER;
+
     private array $SUPPORTED_FILE_TYPES = ['audio', 'image'];
+
     protected ResourceRepository $resourceRepository;
 
     public function __construct() {
@@ -27,7 +31,7 @@ class ResourceFileManager {
     }
 
     public function deleteResourceAudio(Resource $resource) {
-        if (!is_null($resource->audio_path)){
+        if (!is_null($resource->audio_path)) {
             Storage::disk('public')->delete($resource->audio_path);
         }
     }

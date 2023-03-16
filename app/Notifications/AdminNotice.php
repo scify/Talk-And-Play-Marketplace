@@ -12,6 +12,7 @@ class AdminNotice extends Notification implements ShouldQueue {
     use Queueable;
 
     protected ResourcesPackage $package;
+
     protected String $coverResourceCardName;
 
     /**

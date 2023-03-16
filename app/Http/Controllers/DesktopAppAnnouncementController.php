@@ -15,7 +15,9 @@ use Illuminate\Validation\ValidationException;
 
 class DesktopAppAnnouncementController extends Controller {
     protected DesktopAppAnnouncementRepository $desktopAppAnnouncementRepository;
+
     protected DesktopAppAnnouncementTranslationRepository $desktopAppAnnouncementTranslationRepository;
+
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
 
     /**
@@ -23,9 +25,9 @@ class DesktopAppAnnouncementController extends Controller {
      * @param  DesktopAppAnnouncementTranslationRepository  $desktopAppAnnouncementTranslationRepository
      * @param  ContentLanguageLkpRepository  $contentLanguageLkpRepository
      */
-    public function __construct(DesktopAppAnnouncementRepository            $desktopAppAnnouncementRepository,
+    public function __construct(DesktopAppAnnouncementRepository $desktopAppAnnouncementRepository,
                                 DesktopAppAnnouncementTranslationRepository $desktopAppAnnouncementTranslationRepository,
-                                ContentLanguageLkpRepository                $contentLanguageLkpRepository) {
+                                ContentLanguageLkpRepository $contentLanguageLkpRepository) {
         $this->desktopAppAnnouncementRepository = $desktopAppAnnouncementRepository;
         $this->desktopAppAnnouncementTranslationRepository = $desktopAppAnnouncementTranslationRepository;
         $this->contentLanguageLkpRepository = $contentLanguageLkpRepository;

@@ -12,7 +12,8 @@ use Illuminate\Notifications\Notifiable;
 
 
 
-class Reports extends Authenticatable { // implements MustVerifyEmail #added implement as per guideline https://laravel.com/docs/8.x/verification
+class Reports extends Authenticatable {
+    // implements MustVerifyEmail #added implement as per guideline https://laravel.com/docs/8.x/verification
     use HasFactory, Notifiable, SoftDeletes;
 
     /**

@@ -13,14 +13,15 @@ use Illuminate\Support\Collection;
 
 class GameResourcesPackageManager extends ResourcesPackageManager {
     protected ResourceTypeLkpRepository $resourceTypeLkpRepository;
+
     protected ReportsRepository $reportsRepository;
 
-    public function __construct(ResourceTypeLkpRepository    $resourceTypeLkpRepository,
-                                ResourceRepository           $resourceRepository,
+    public function __construct(ResourceTypeLkpRepository $resourceTypeLkpRepository,
+                                ResourceRepository $resourceRepository,
                                 ContentLanguageLkpRepository $contentLanguageLkpRepository,
-                                ResourcesPackageRepository   $resourcesPackageRepository,
+                                ResourcesPackageRepository $resourcesPackageRepository,
                                 ReportsRepository $reportsRepository,
-                                int                          $type_id = -1) {
+                                int $type_id = -1) {
         $this->resourceTypeLkpRepository = $resourceTypeLkpRepository;
         $this->reportsRepository = $reportsRepository;
         parent::__construct($resourceRepository, $contentLanguageLkpRepository, $resourcesPackageRepository, $reportsRepository, $type_id);

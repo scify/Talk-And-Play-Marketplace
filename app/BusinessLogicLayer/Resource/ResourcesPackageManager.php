@@ -16,16 +16,20 @@ use InvalidArgumentException;
 
 class ResourcesPackageManager extends ResourceManager {
     public ResourcesPackageRepository $resourcesPackageRepository;
+
     protected ReportsRepository $reportsRepository;
+
     protected ResourceManager $resourceManager;
+
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
+
     protected int $type_id;
 
-    public function __construct(ResourceRepository           $resourceRepository,
+    public function __construct(ResourceRepository $resourceRepository,
                                 ContentLanguageLkpRepository $contentLanguageLkpRepository,
-                                ResourcesPackageRepository   $resourcesPackageRepository,
+                                ResourcesPackageRepository $resourcesPackageRepository,
                                 ReportsRepository $reportsRepository,
-                                int                          $type_id = -1) {
+                                int $type_id = -1) {
         $this->reportsRepository = $reportsRepository;
         $this->resourcesPackageRepository = $resourcesPackageRepository;
         $this->type_id = $type_id;
@@ -110,7 +114,7 @@ class ResourcesPackageManager extends ResourceManager {
         $header =
             <<<XML
 <?xml version='1.0' encoding="UTF-8"?>
-<game name="" enabled="true" gameType="$gameType">
+<game name="" enabled="true" gameType="{$gameType}">
 </game>
 XML;
         $xmlTemplate = simplexml_load_string($header);
@@ -144,7 +148,7 @@ XML;
         Storage::deleteDirectory($packageDir);
         $headers = [
             'Content-type: application/zip',
-            "Content-Disposition: attachment; filename=$zipName",
+            "Content-Disposition: attachment; filename={$zipName}",
             'Pragma: no-cache',
             'Expires: 0',
         ];

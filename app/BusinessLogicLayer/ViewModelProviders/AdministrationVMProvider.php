@@ -9,6 +9,7 @@ use App\ViewModels\UsersManagementPageVM;
 
 class AdministrationVMProvider {
     private Repository $userRepository;
+
     protected UserRoleManager $userRoleManager;
 
     public function __construct(UserRepository $userRepository, UserRoleManager $userRoleManager) {

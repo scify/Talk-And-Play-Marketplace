@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ShapesIntegrationController extends Controller {
     public ShapesIntegrationManager $shapesIntegrationManager;
+
     public UserRoleManager $userRoleManager;
 
     public function __construct(UserRoleManager $userRoleManager, ShapesIntegrationManager $shapesIntegrationManager) {

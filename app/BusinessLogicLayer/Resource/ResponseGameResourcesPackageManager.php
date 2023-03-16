@@ -16,17 +16,21 @@ use Illuminate\Support\Collection;
 
 class ResponseGameResourcesPackageManager extends GameResourcesPackageManager {
     public ResourcesPackageRepository $resourcesPackageRepository;
+
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
+
     protected ResourceRepository $resourceRepository;
+
     protected ReportsRepository $reportsRepository;
 
     const maximumCardsThreshold = 4;
+
     const type_id = ResourceTypesLkp::RESPONSE_GAME;
 
-    public function __construct(ResourceTypeLkpRepository    $resourceTypeLkpRepository,
-                                ResourceRepository           $resourceRepository,
+    public function __construct(ResourceTypeLkpRepository $resourceTypeLkpRepository,
+                                ResourceRepository $resourceRepository,
                                 ContentLanguageLkpRepository $contentLanguageLkpRepository,
-                                ResourcesPackageRepository   $resourcesPackageRepository,
+                                ResourcesPackageRepository $resourcesPackageRepository,
                                 ReportsRepository $reportsRepository) {
         $this->resourceRepository = $resourceRepository;
         $this->contentLanguageLkpRepository = $contentLanguageLkpRepository;

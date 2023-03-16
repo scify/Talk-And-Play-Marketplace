@@ -9,6 +9,7 @@ use Exception;
 
 class AnalyticsEventManager {
     protected $analyticsEventRepository;
+
     protected $shapesIntegrationManager;
 
     public function __construct(AnalyticsEventRepository $analyticsEventRepository,

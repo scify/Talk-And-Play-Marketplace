@@ -17,11 +17,15 @@ use Illuminate\Support\Facades\Storage;
 
 class CommunicationResourcesPackageManager extends ResourcesPackageManager {
     public ResourcesPackageRepository $resourcesPackageRepository;
+
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
+
     protected ResourceRepository $resourceRepository;
+
     protected ReportsRepository $reportsRepository;
 
     const maximumCardsThreshold = 10;
+
     const type_id = ResourceTypesLkp::COMMUNICATION;
 
     public function __construct(ResourceRepository $resourceRepository, ContentLanguageLkpRepository $contentLanguageLkpRepository, ResourcesPackageRepository $resourcesPackageRepository, ReportsRepository $reportsRepository) {
@@ -120,7 +124,7 @@ XML;
         Storage::deleteDirectory($packageDir);
         $headers = [
             'Content-type: application/zip',
-            "Content-Disposition: attachment; filename=$zipName",
+            "Content-Disposition: attachment; filename={$zipName}",
             'Pragma: no-cache',
             'Expires: 0',
         ];

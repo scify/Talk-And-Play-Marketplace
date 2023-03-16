@@ -27,23 +27,31 @@ use Illuminate\Support\Facades\Notification;
 
 class ResourceController extends Controller {
     protected ResourceManager $resourceManager;
+
     protected ResourcesPackageManager $resourcesPackageManager;
+
     protected SimilarityGameResourcesPackageManager $similarityGameResourcesPackageManager;
+
     protected TimeGameResourcesPackageManager $timeGameResourcesPackageManager;
+
     protected ResponseGameResourcesPackageManager $responseGameResourcesPackageManager;
+
     protected CommunicationResourcesPackageManager $communicationResourcesPackageManager;
+
     protected GameResourcesPackageManager $gameResourcesPackageManager;
+
     protected UserManager $userManager;
+
     protected AnalyticsEventManager $analyticsEventManager;
 
-    public function __construct(ResourceManager                       $resourceManager, ResourcesPackageManager $resourcesPackageManager,
-                                CommunicationResourcesPackageManager  $communicationResourcesPackageManager,
+    public function __construct(ResourceManager $resourceManager, ResourcesPackageManager $resourcesPackageManager,
+                                CommunicationResourcesPackageManager $communicationResourcesPackageManager,
                                 SimilarityGameResourcesPackageManager $similarityGameResourcesPackageManager,
-                                TimeGameResourcesPackageManager       $timeGameResourcesPackageManager,
-                                ResponseGameResourcesPackageManager   $responseGameResourcesPackageManager,
-                                GameResourcesPackageManager           $gameResourcesPackageManager,
-                                UserManager                           $userManager,
-                                AnalyticsEventManager                 $analyticsEventManager) {
+                                TimeGameResourcesPackageManager $timeGameResourcesPackageManager,
+                                ResponseGameResourcesPackageManager $responseGameResourcesPackageManager,
+                                GameResourcesPackageManager $gameResourcesPackageManager,
+                                UserManager $userManager,
+                                AnalyticsEventManager $analyticsEventManager) {
         $this->resourceManager = $resourceManager;
         $this->resourcesPackageManager = $resourcesPackageManager;
         $this->similarityGameResourcesPackageManager = $similarityGameResourcesPackageManager;
@@ -136,7 +144,6 @@ class ResourceController extends Controller {
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse {//after submit, (action-route submit button directs here)
-        
         $this->validate($request, [
             'name' => 'string|max:100',
             'image' => 'mimes:jpg,png|file|between:3,1000|nullable',

@@ -14,6 +14,7 @@ class DesktopAppAnnouncementTranslation extends Model {
     protected $table = 'desktop_app_announcement_translations';
 
     protected $primaryKey = ['announcement_id', 'lang_id'];
+
     public $incrementing = false;
 
     /**

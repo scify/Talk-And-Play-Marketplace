@@ -252,6 +252,6 @@ return [
     'rejection_illegible_content' => ' Aυτή η άσκηση παραβιάζει τους κανονισμούς περί πνευματικής ιδιοκτησίας',
     'rejection_other' => 'Άλλο',
     'choose_reporting_reason' => 'Επιλέξτε το λόγο για την αναφορά σας',
-    'optionally_include_comments' => 'Προαιρετικά συμπεριλάβετε κάποια σχόλια παρακάτω'
+    'optionally_include_comments' => 'Προαιρετικά συμπεριλάβετε κάποια σχόλια παρακάτω',
 
 ];

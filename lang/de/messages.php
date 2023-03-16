@@ -234,5 +234,5 @@ return [
     'rejection_illegible_content' => 'Diese Übung verstößt gegen die Urheberrechtsbestimmungen',
     'rejection_other' => 'Sonstiges',
     'choose_reporting_reason' => 'Wählen Sie den Grund für die Meldung',
-    'optional_include_comments' => 'Fügen Sie optional einige Kommentare unten ein'
+    'optional_include_comments' => 'Fügen Sie optional einige Kommentare unten ein',
 ];

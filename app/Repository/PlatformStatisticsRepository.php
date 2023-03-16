@@ -6,7 +6,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class PlatformStatisticsRepository {
-
     public function getPlatformStatistics(): Collection {
         return collect(DB::select('
             with users_stats as (

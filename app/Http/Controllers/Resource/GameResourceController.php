@@ -22,22 +22,29 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class GameResourceController extends Controller {
     protected ResourceTypesLkp $resourceTypesLkp;
+
     protected SimilarityGameResourcesPackageManager $similarityGameResourcesPackageManager;
+
     protected TimeGameResourcesPackageManager $timeGameResourcesPackageManager;
+
     protected ResponseGameResourcesPackageManager $responseGameResourcesPackageManager;
+
     protected ResourceManager $resourceManager;
+
     protected ResourcesPackageManager $resourcesPackageManager;
+
     protected GameResourcesPackageManager $gameResourcesPackageManager;
+
     protected UserManager  $userManager;
 
     public function __construct(
         SimilarityGameResourcesPackageManager $similarityGameResourcesPackageManager,
-        TimeGameResourcesPackageManager       $timeGameResourcesPackageManager,
-        ResponseGameResourcesPackageManager   $responseGameResourcesPackageManager,
-        ResourceManager                       $resourceManager,
-        ResourcesPackageManager               $resourcesPackageManager,
-        GameResourcesPackageManager           $gameResourcesPackageManager,
-        UserManager  $userManager) {
+        TimeGameResourcesPackageManager $timeGameResourcesPackageManager,
+        ResponseGameResourcesPackageManager $responseGameResourcesPackageManager,
+        ResourceManager $resourceManager,
+        ResourcesPackageManager $resourcesPackageManager,
+        GameResourcesPackageManager $gameResourcesPackageManager,
+        UserManager $userManager) {
         $this->resourceManager = $resourceManager;
         $this->resourcesPackageManager = $resourcesPackageManager;
         $this->gameResourcesPackageManager = $gameResourcesPackageManager;

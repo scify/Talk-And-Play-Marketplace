@@ -9,9 +9,10 @@ use Illuminate\Support\Facades\Auth;
 
 class ResourceManager {
     protected ResourceRepository $resourceRepository;
+
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
 
-    public function __construct(ResourceRepository $resourceRepository, ContentLanguageLkpRepository  $contentLanguageLkpRepository) {
+    public function __construct(ResourceRepository $resourceRepository, ContentLanguageLkpRepository $contentLanguageLkpRepository) {
         $this->resourceRepository = $resourceRepository;
         $this->contentLanguageLkpRepository = $contentLanguageLkpRepository;
     }

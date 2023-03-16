@@ -5,7 +5,6 @@ use App\Http\Controllers\DesktopAppController;
 use App\Http\Controllers\Resource\CommunicationResourceController;
 use App\Http\Controllers\Resource\GameResourceController;
 use App\Http\Controllers\Resource\ResourceController;
-use App\Http\Controllers\Resource\ResourcePackageRatingController;
 use Illuminate\Support\Facades\Route;
 
 /*

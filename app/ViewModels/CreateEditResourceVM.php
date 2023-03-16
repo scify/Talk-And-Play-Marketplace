@@ -8,10 +8,15 @@ use Illuminate\Support\Collection;
 
 class CreateEditResourceVM {
     public Collection $languages;
+
     public Resource $resource;
+
     public Collection $childrenCards;
+
     public ResourcesPackage $package;
+
     public int $maximumCardThreshold;
+
     public int $type_id;
 
     public function __construct(Collection $languages,

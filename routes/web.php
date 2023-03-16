@@ -5,6 +5,7 @@ use App\Http\Controllers\PlatformStatisticsController;
 use App\Http\Controllers\Resource\CommunicationResourceController;
 use App\Http\Controllers\Resource\GameResourceController;
 use App\Http\Controllers\Resource\ResourceController;
+use App\Http\Controllers\Resource\ResourcePackageRatingController;
 use App\Http\Controllers\ShapesIntegrationController;
 use App\Http\Controllers\TermsPrivacyController;
 use App\Http\Controllers\UserController;
@@ -16,7 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Resource\ResourcePackageRatingController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,7 +42,6 @@ $localeInfo = ['prefix' => '{lang}',
 ];
 
 Route::group(['middleware' => 'auth'], function () {
-
     Route::get('/resources-package/user-rating', [ResourcePackageRatingController::class, 'getUserRatingForResourcesPackage'])->name('resources-package.user-rating.get');
     Route::post('/resources-package/user-rating', [ResourcePackageRatingController::class, 'storeOrUpdateRating'])->name('resources-package.user-rating.post');
 
@@ -82,8 +82,9 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/desktop_app_announcements/activate/{id}', [DesktopAppAnnouncementController::class, 'activate'])->name('desktop_app_announcements.activate');
         Route::put('/desktop_app_announcements/deactivate/{id}', [DesktopAppAnnouncementController::class, 'deactivate'])->name('desktop_app_announcements.deactivate');
         Route::get('test-email/{email}', function (Request $request) {
-            Notification::send([User::where(['email' => $request->email])->first()], new AdminNotice(ResourcesPackage::first(), "test"));
-            return "Email sent to: " . $request->email;
+            Notification::send([User::where(['email' => $request->email])->first()], new AdminNotice(ResourcesPackage::first(), 'test'));
+
+            return 'Email sent to: ' . $request->email;
         });
         Route::get('/platform-statistics', [PlatformStatisticsController::class, 'show_platform_statistics'])->name('platform_statistics');
     });

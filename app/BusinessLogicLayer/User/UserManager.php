@@ -9,6 +9,7 @@ use App\Repository\User\UserRepository;
 
 class UserManager {
     protected $userRepository;
+
     protected $userRoleManager;
 
     use PasswordValidationRules;

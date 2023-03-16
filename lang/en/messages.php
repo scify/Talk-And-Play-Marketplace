@@ -243,5 +243,5 @@ return [
     'rejection_illegible_content' => 'This exercise violates the copyright regulations',
     'rejection_other' => 'Other',
     'choose_reporting_reason' => 'Choose your reason for reporting',
-    'optionally_include_comments' => 'Optionally include some comments below'
+    'optionally_include_comments' => 'Optionally include some comments below',
 ];

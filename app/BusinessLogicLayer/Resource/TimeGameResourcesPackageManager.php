@@ -16,18 +16,22 @@ use Illuminate\Support\Collection;
 
 class TimeGameResourcesPackageManager extends GameResourcesPackageManager {
     public ResourcesPackageRepository $resourcesPackageRepository;
+
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
+
     protected ResourceRepository $resourceRepository;
+
     protected ReportsRepository  $reportsRepository;
 
     const MAXIMUM_CARDS_THRESHOLD = 4;
+
     const TYPE_ID = ResourceTypesLkp::TIME_GAME;
 
     public function __construct(ResourceTypeLkpRepository $resourceTypeLkpRepository,
                                 ResourceRepository $resourceRepository,
                                 ContentLanguageLkpRepository $contentLanguageLkpRepository,
                                 ResourcesPackageRepository $resourcesPackageRepository,
-                                ReportsRepository  $reportsRepository) {
+                                ReportsRepository $reportsRepository) {
         $this->resourceRepository = $resourceRepository;
         $this->contentLanguageLkpRepository = $contentLanguageLkpRepository;
         $this->resourcesPackageRepository = $resourcesPackageRepository;

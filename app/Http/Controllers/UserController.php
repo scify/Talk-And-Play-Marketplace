@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Cookie;
 
 class UserController extends Controller {
     protected AdministrationVMProvider $administrationVMProvider;
+
     protected UserManager $userManager;
 
     use PasswordValidationRules;

@@ -23,6 +23,7 @@ class PlatformStatisticsController extends Controller {
             $this->platformStatisticsRepository->getNumOfResourcesPerUser(),
             $this->platformStatisticsRepository->getNumOfResourcesPackagesPerUser()
         );
+
         return view('admin.platform-statistics', compact('viewModel'));
     }
 }

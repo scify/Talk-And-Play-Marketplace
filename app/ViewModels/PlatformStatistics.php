@@ -5,10 +5,12 @@ namespace App\ViewModels;
 use Illuminate\Support\Collection;
 
 class PlatformStatistics {
-
     public Collection $generalPlatformStatistics;
+
     public Collection $resourcePackagesPerTypeStatistics;
+
     public Collection $resourcesPerUserStatistics;
+
     public Collection $resourcesPackagesPerUserStatistics;
 
     /**
@@ -26,6 +28,4 @@ class PlatformStatistics {
         $this->resourcesPerUserStatistics = $resourcesPerUserStatistics;
         $this->resourcesPackagesPerUserStatistics = $resourcesPackagesPerUserStatistics;
     }
-
-
 }

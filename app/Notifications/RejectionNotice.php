@@ -11,8 +11,11 @@ class RejectionNotice extends Notification implements ShouldQueue {
     use Queueable;
 
     protected String $coverResourceCardName;
+
     protected String $rejectionMessage;
+
     protected String $rejectionReason;
+
     protected String $username;
 
     /**

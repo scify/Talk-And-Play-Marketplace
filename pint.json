@@ -40,11 +40,11 @@
         "no_extra_blank_lines": false,
         "class_attributes_separation": {
             "elements": {
-                "const": "none",
+                "const": "one",
                 "method": "one",
-                "property": "none",
-                "trait_import": "none",
-                "case": "none"
+                "property": "one",
+                "trait_import": "one",
+                "case": "one"
             }
         },
         "class_definition": {

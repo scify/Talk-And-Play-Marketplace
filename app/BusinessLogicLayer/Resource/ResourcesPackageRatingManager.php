@@ -8,12 +8,14 @@ use App\Repository\User\UserRepository;
 
 class ResourcesPackageRatingManager {
     protected ResourcesPackageRatingRepository $resourcesPackageRatingRepository;
+
     protected AnalyticsEventManager $analyticsEventManager;
+
     protected UserRepository $userRepository;
 
     public function __construct(ResourcesPackageRatingRepository $resourcesPackageRatingRepository,
-                                AnalyticsEventManager            $analyticsEventManager,
-                                UserRepository                   $userRepository) {
+                                AnalyticsEventManager $analyticsEventManager,
+                                UserRepository $userRepository) {
         $this->resourcesPackageRatingRepository = $resourcesPackageRatingRepository;
         $this->analyticsEventManager = $analyticsEventManager;
         $this->userRepository = $userRepository;

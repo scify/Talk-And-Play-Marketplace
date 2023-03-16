@@ -14,12 +14,16 @@ use Illuminate\Support\Facades\Log;
 
 class ShapesIntegrationManager {
     protected UserRepository $userRepository;
+
     protected UserRoleManager $userRoleManager;
+
     protected $defaultHeaders = [
         'X-Shapes-Key' => null,
         'Accept' => 'application/json',
     ];
+
     protected $apiBaseUrl = 'https://kubernetes.pasiphae.eu/shapes/asapa/auth/';
+
     protected $datalakeAPIUrl;
 
     public function __construct(UserRoleManager $userRoleManager, UserRepository $userRepository) {

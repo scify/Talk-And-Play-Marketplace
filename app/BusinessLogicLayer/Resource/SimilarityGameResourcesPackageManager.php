@@ -16,17 +16,21 @@ use Illuminate\Support\Collection;
 
 class SimilarityGameResourcesPackageManager extends GameResourcesPackageManager {
     public ResourcesPackageRepository $resourcesPackageRepository;
+
     protected ContentLanguageLkpRepository $contentLanguageLkpRepository;
+
     protected ResourceRepository $resourceRepository;
+
     protected ReportsRepository $reportsRepository;
 
     const MAXIMUM_CARDS_THRESHOLD = 10;
+
     const TYPE_ID = ResourceTypesLkp::SIMILAR_GAME;
 
-    public function __construct(ResourceTypeLkpRepository    $resourceTypeLkpRepository,
-                                ResourceRepository           $resourceRepository,
+    public function __construct(ResourceTypeLkpRepository $resourceTypeLkpRepository,
+                                ResourceRepository $resourceRepository,
                                 ContentLanguageLkpRepository $contentLanguageLkpRepository,
-                                ResourcesPackageRepository   $resourcesPackageRepository,
+                                ResourcesPackageRepository $resourcesPackageRepository,
                                 ReportsRepository $reportsRepository) {
         $this->resourceRepository = $resourceRepository;
         $this->contentLanguageLkpRepository = $contentLanguageLkpRepository;
