@@ -11,6 +11,13 @@ import getLodash from "lodash/get";
 import eachRightLodash from "lodash/eachRight";
 import replaceLodash from "lodash/replace";
 
+import * as Sentry from "@sentry/browser";
+
+if(process.env.MIX_SENTRY_DSN_PUBLIC) {
+	Sentry.init({
+		dsn: process.env.MIX_SENTRY_DSN_PUBLIC,
+	});
+}
 
 window.translate = function (string, args) {
 	let value = getLodash(window.i18n, string);
