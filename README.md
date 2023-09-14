@@ -9,7 +9,7 @@
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
 [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://GitHub.com/scify)
 
-Laravel 9 Web Application for Creating content for the Talk & Play application
+Laravel 10 Web Application for Creating content for the Talk & Play application
 
 [Project URL](https://crowdsourcing.scify.org/)
 
@@ -17,7 +17,7 @@ Laravel 9 Web Application for Creating content for the Talk & Play application
 
 ## First time install (setup database and install dependencies)
 
-0. Make sure php 7.4 (or newer) is installed.
+0. Make sure PHP 8.1 (or newer) is installed.
 
 
 1. After cloning the project, create an .env file (should be a copy of .env.example),
