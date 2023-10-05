@@ -4617,7 +4617,7 @@
         },
         {
             "name": "scify/laravel-cookies-consent",
-            "version": "v0.9.4",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scify/laravel-cookies-consent.git",
