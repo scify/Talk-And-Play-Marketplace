@@ -75,13 +75,13 @@
                         <form id="new-user-form" action="{{ route('administration.users.store') }}" method="POST">
                             @csrf
                             <div class="mb-3">
-                                <label for="newUserName">Name:</label>
+                                <label for="newUserName">{{ __('auth.name_label') }}:</label>
                                 <input class="form-control w-50" id="newUserName" type="text" name="name"
                                        value="{{ old('name') != '' ? old('name') : ''}}"
                                        placeholder="Jane Doe" required/>
                             </div>
                             <div class="mb-3">
-                                <label for="newUserEmail">Email:</label>
+                                <label for="newUserEmail">{{ __('auth.email_label') }}:</label>
                                 <input form="new-user-form"
                                        class="form-control w-50" id="newUserEmail" type="email" name="email"
                                        value="{{ old('email') != '' ? old('email') : ''}}"
@@ -90,10 +90,17 @@
                                        autocomplete="email"/>
                             </div>
                             <div class="mb-3">
-                                <label for="newUserPassword">Password:</label>
+                                <label for="newUserPassword">{{ __('auth.password_label') }}:</label>
                                 <input form="new-user-form"
                                        class="form-control w-50" id="newUserPassword" type="password"
                                        name="password" placeholder="" required/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password-confirm">{{ __('auth.confirm_password_label') }}:</label>
+
+                                <input form="new-user-form" id="password-confirm" type="password"
+                                       class="form-control w-50"
+                                       name="password_confirmation" placeholder="" required autocomplete="newUserPassword">
                             </div>
                             <div class="mb-3">
                                 <input form="new-user-form"
@@ -119,7 +126,7 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="modal-header">
                         <h4 class="modal-title">Are you sure you would like to delete this account? <span
-                                id="user-name"></span></h4>
+                                    id="user-name"></span></h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
