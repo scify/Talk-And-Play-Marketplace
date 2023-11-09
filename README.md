@@ -53,7 +53,16 @@ npm run dev
 ```bash
 php artisan storage:link
 ```
-in order to link the `/public/storage` folder with the `/storage/app/public` directory
+in order to link the `/public/storage` folder with the `/storage/app/public` directory.
+
+## Crontab configuration (for production/staging server)
+
+```text
+# For more information see the manual pages of crontab(5) and cron(8)
+# 
+# m h  dom mon dow   command
+* * * * * cd /home/project_talkandplay/www/talkandplay.scify.org/ && php artisan schedule:run >> /dev/null 2>&1
+```
 
 ## SEO - Generate Sitemap
 
