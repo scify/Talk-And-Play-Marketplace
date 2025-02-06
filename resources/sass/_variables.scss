@@ -23,6 +23,7 @@ $grey: #C7C7C7;
 $gray-600: #8a8a8a;
 $beige: #dbbeb4;
 $white: #ffffff;
+$grey-dark: #6d6d6d;
 
 // Body
 $body-bg: $white;
@@ -62,3 +63,5 @@ $display-font-sizes: (
     5: 3rem,
     6: 2.5rem
 );
+
+$primary: map-get($theme-colors, "primary");
