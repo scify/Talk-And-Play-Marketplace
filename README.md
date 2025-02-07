@@ -13,12 +13,11 @@
 
 [Project URL](https://crowdsourcing.scify.org/)
 
-# Installation Instructions:
+# Installation Instructions
 
 ## First time install (setup database and install dependencies)
 
 0. Make sure PHP 8.1 (or newer) is installed.
-
 
 1. After cloning the project, create an .env file (should be a copy of .env.example),
    containing the information about your database name and credentials.
@@ -26,11 +25,12 @@
    ```php artisan db:seed``` in order to insert the starter data to the DB
 
 2. Install laravel/back-end dependencies
+
 ```bash
 composer install
 ```
 
-3. Front-end dependencies 
+3. Front-end dependencies
 
 It is very easy to install multiple versions of NodeJS and npm, by using [Node Version Manager (nvm)](https://github.com/creationix/nvm).
 
@@ -53,6 +53,7 @@ npm run dev
 ```bash
 php artisan storage:link
 ```
+
 in order to link the `/public/storage` folder with the `/storage/app/public` directory.
 
 ## Crontab configuration (for production/staging server)
@@ -82,8 +83,7 @@ In order to run the styler, run :
 ./vendor/bin/pint -v # this command will actually perform the code style changes 
 ```
 
-## Apache configuration example:
-
+## Apache configuration example
 
 ```
 % sudo touch /etc/apache2/sites-available/tnpmarketplace.conf
@@ -103,15 +103,21 @@ In order to run the styler, run :
 
 </VirtualHost>
 ```
+
 Make the symbolic link:
+
 ```
 % cd /etc/apache2/sites-enabled && sudo ln -s ../sites-available/tnpmarketplace.conf
 ```
+
 Enable mod_rewrite, mod_ssl and restart apache:
+
 ```
 % sudo a2enmod rewrite && sudo a2enmod ssl && sudo service apache2 restart
 ```
+
 Fix permissions for storage directory:
+
 ```bash
 sudo chown -R user:www-data storage
 chmod 775 storage
@@ -123,12 +129,20 @@ find . -type d -exec chmod 775 {} \;
 Or run the `set-file-permissions.sh` script.
 
 Change hosts file so dev.tnpmarketplace points to to localhost
+
 ```$xslt
 sudo nano /etc/hosts
 127.0.0.1   dev.tnpmarketplace
+
+
+## How to run tests
+
+```bash
+php artisan test
 ```
 
 ## How to debug
+
 - Install and configure Xdebug on your machine
 - At Chrome install [Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc?utm_source=chrome-app-launcher-info-dialog)
 - At PhpStorm/IntelliJ click the "Start listening for PHP debug connections"
