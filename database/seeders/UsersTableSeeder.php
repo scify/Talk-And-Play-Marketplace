@@ -13,8 +13,9 @@ class UsersTableSeeder extends Seeder {
     }
 
     public function run() {
-        echo "\nRunning User Seeder...\n";
-        echo config('app.default_admin_password_for_seed') . "\n";
+        if (config('app.env') !== 'testing') {
+            echo "\nRunning User Seeder...\n";
+        }
         $data = [
             [
                 'id' => 1,
@@ -27,7 +28,9 @@ class UsersTableSeeder extends Seeder {
         foreach ($data as $user) {
             $user = $this->userRepository->updateOrCreate(['id' => $user['id']],
                 $user);
-            echo "\nAdded User: " . $user->name . ' with email: ' . $user->email . "\n";
+            if (config('app.env') !== 'testing') {
+                echo "\nAdded User: " . $user->name . ' with email: ' . $user->email . "\n";
+            }
         }
     }
 }

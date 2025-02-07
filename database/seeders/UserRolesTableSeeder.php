@@ -17,8 +17,9 @@ class UserRolesTableSeeder extends Seeder {
     }
 
     public function run() {
-        echo "\nRunning User Role Seeder...\n";
-
+        if (config('app.env') !== 'testing') {
+            echo "\nRunning User Role Seeder...\n";
+        }
         $this->userRoleManager->assignAdminUserRoleTo($this->userRepository->find(1));
     }
 }

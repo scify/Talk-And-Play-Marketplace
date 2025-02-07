@@ -13,9 +13,8 @@ class AddHashedEmailToUserTable extends Migration {
      */
     public function up() {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('hashed_email')->nullable();
+            $table->string('hashed_email')->after('email')->nullable();
         });
-        DB::statement('ALTER TABLE users MODIFY COLUMN hashed_email VARCHAR(255) AFTER email');
     }
 
     /**

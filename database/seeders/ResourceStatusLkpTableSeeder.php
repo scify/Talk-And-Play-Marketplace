@@ -13,8 +13,9 @@ class ResourceStatusLkpTableSeeder extends Seeder {
     }
 
     public function run() {
-        echo "\nRunning Resource status lkp Seeder...\n";
-
+        if (config('app.env') !== 'testing') {
+            echo "\nRunning Resource status lkp Seeder...\n";
+        }
         $data = [
             ['id' => 1, 'name' => 'Created - pending approval', 'description' => 'The resource has been created and is pending approval'],
             ['id' => 2, 'name' => 'Approved', 'description' => 'The resource has been approved by an administrator'],
@@ -23,7 +24,9 @@ class ResourceStatusLkpTableSeeder extends Seeder {
 
         foreach ($data as $datum) {
             $status = $this->resourceStatusLkpRepository->updateOrCreate(['id' => $datum['id']], $datum);
-            echo "\nAdded Resource Status: " . $status->name . "\n";
+            if (config('app.env') !== 'testing') {
+                echo "\nAdded Resource Status: " . $status->name . "\n";
+            }
         }
     }
 }

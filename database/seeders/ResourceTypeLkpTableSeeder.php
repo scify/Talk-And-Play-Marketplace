@@ -13,7 +13,9 @@ class ResourceTypeLkpTableSeeder extends Seeder {
     }
 
     public function run() {
-        echo "\nRunning Resource status lkp Seeder...\n";
+        if (config('app.env') !== 'testing') {
+            echo "\nRunning Resource status lkp Seeder...\n";
+        }
 
         $data = [
             ['id' => 1, 'name' => 'Communication', 'description' => 'Communication resource'],
@@ -24,7 +26,9 @@ class ResourceTypeLkpTableSeeder extends Seeder {
 
         foreach ($data as $datum) {
             $type = $this->repository->updateOrCreate(['id' => $datum['id']], $datum);
-            echo "\nAdded Resource Type: " . $type->name . "\n";
+            if (config('app.env') !== 'testing') {
+                echo "\nAdded Resource Type: " . $type->name . "\n";
+            }
         }
     }
 }

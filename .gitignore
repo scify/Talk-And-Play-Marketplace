@@ -20,3 +20,5 @@ public/fonts
 happiness.mp3
 public/sitemap.xml
 public/*.html
+database/testing.sqlite
+.phpunit.cache

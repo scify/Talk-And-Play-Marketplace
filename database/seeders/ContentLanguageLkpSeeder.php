@@ -13,7 +13,9 @@ class ContentLanguageLkpSeeder extends Seeder {
     }
 
     public function run() {
-        echo "\nRunning Content Language lkp Seeder...\n";
+        if (config('app.env') !== 'testing') {
+            echo "\nRunning Content Language lkp Seeder...\n";
+        }
 
         $data = [
             ['id' => 1, 'name' => 'Ελληνικά', 'code' => 'el', 'img_path' => '/img/lang/el.png'],
@@ -23,7 +25,9 @@ class ContentLanguageLkpSeeder extends Seeder {
 
         foreach ($data as $datum) {
             $lang = $this->contentLanguageLkpRepository->updateOrCreate(['id' => $datum['id']], $datum);
-            echo "\nAdded Content Language: " . $lang->name . "\n";
+            if (config('app.env') !== 'testing') {
+                echo "\nAdded Content Language: " . $lang->name . "\n";
+            }
         }
     }
 }

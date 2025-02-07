@@ -13,7 +13,9 @@ class GameCategoriesSeeder extends Seeder {
     }
 
     public function run() {
+        if (config('app.env') !== 'testing') {
         echo "\nRunning Game Categories Seeder...\n";
+        }
 
         $data = [
             [
@@ -35,7 +37,9 @@ class GameCategoriesSeeder extends Seeder {
 
         foreach ($data as $gameCategoriesLkp) {
             $resource = $this->gameCategoriesLkpRepository->updateOrCreate(['id' => $gameCategoriesLkp['id']], $gameCategoriesLkp);
-            echo "\nAdded Resource: " . $resource->name . "\n";
+            if (config('app.env') !== 'testing') {
+                echo "\nAdded Resource: " . $resource->name . "\n";
+            }
         }
     }
 }

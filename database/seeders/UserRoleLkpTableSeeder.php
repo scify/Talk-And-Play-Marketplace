@@ -13,7 +13,9 @@ class UserRoleLkpTableSeeder extends Seeder {
     }
 
     public function run() {
+        if (config('app.env') !== 'testing') {
         echo "\nRunning User Role lkp Seeder...\n";
+        }
 
         $data = [
             ['id'=> 1,  'name'=>'Platform Administrator'],
@@ -23,7 +25,10 @@ class UserRoleLkpTableSeeder extends Seeder {
 
         foreach ($data as $userRoleLkp) {
             $role = $this->userRoleLkpRepository->updateOrCreate(['id' => $userRoleLkp['id']], $userRoleLkp);
-            echo "\nAdded User Role: " . $role->name . "\n";
+            // if not in testing:
+            if (config('app.env') !== 'testing') {
+                echo "\nAdded User Role: " . $role->name . "\n";
+            }
         }
     }
 }
