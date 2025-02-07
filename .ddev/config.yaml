@@ -1,0 +1,61 @@
+name: talkandplay-marketplace
+type: laravel
+docroot: public
+php_version: "8.2"
+webserver_type: nginx-fpm
+router_http_port: "8080"
+router_https_port: "8443"
+xdebug_enabled: false
+additional_hostnames: []
+additional_fqdns: []
+database:
+  type: mysql
+  version: "8.0"
+nodejs_version: "22"
+
+# Expose Vite port
+web_extra_exposed_ports:
+  - name: vite
+    container_port: 5179
+    http_port: 5178
+    https_port: 5179
+
+# Key Features
+hooks:
+  post-start:
+    # Create directories if they don't exist
+    - exec: mkdir -p storage/framework/{cache,sessions,views}
+    - exec: mkdir -p storage/logs
+    - exec: mkdir -p bootstrap/cache
+    # Set permissions
+    - exec: chmod -R ugo+rw storage bootstrap/cache
+
+    # Clear caches
+    - exec: php artisan config:clear
+    - exec: php artisan cache:clear
+    - exec: php artisan view:clear
+
+    # Install dependencies and set up Laravel
+    - exec: composer install --no-interaction --no-progress
+    - exec: cp -n .env.example .env || true
+    - exec: php artisan key:generate --no-interaction
+    - exec: php artisan migrate --no-interaction
+    - exec: npm install
+  post-import-db:
+    - exec: php artisan migrate --no-interaction
+
+# Laravel-specific settings
+web_environment:
+  - APP_ENV=local
+  - DB_CONNECTION=mysql
+  - DB_HOST=db
+  - DB_DATABASE=db
+  - DB_USERNAME=db
+  - DB_PASSWORD=db
+
+# Health check settings
+web_environment_add:
+  - DDEV_PHP_VERSION=8.2
+
+# Use default nginx configuration
+nginx_full_override: false
