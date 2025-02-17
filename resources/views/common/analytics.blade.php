@@ -1,6 +1,8 @@
-@if(isset($_COOKIE[config('cookies_consent.cookie_prefix')
-. 'cookies_consent_targeting']))
-    @if(config('app.google_tag_manager_id'))
+@if(isset($_COOKIE[config('cookies_consent.cookie_prefix') . 'cookies_consent']))
+    @php
+        $cookiesConsent = json_decode($_COOKIE[config('cookies_consent.cookie_prefix') . 'cookies_consent'], true);
+    @endphp
+    @if(isset($cookiesConsent['targeting']) && $cookiesConsent['targeting'] && config('app.google_tag_manager_id'))
         <!-- Google Tag Manager -->
         <script async
                 src="https://www.googletagmanager.com/gtag/js?id={{ config('app.google_tag_manager_id') }}"></script>
