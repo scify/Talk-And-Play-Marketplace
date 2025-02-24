@@ -56,8 +56,6 @@ return [
 
     'asset_url' => env('ASSET_URL', null),
     'version' => env('APP_VERSION', '1.0.0'),
-    'shapes_key' => env('SHAPES_KEY'),
-    'shapes_datalake_api_url' => env('SHAPES_DATALAKE_API_URL'),
     'sentry_desktop_app_dsn' => env('SENTRY_DESKTOP_APP_DSN'),
     'firebase_desktop_app_url' => env('FIREBASE_DESKTOP_APP_URL'),
     'default_admin_password_for_seed' => env('DEFAULT_ADMIN_USER_PASSWORD_FOR_SEED'),

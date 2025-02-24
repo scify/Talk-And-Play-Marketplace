@@ -27,10 +27,6 @@ class UserRoleManager {
         return $this->assignRoleTo($user, UserRolesLkp::CONTENT_CREATOR);
     }
 
-    public function assignShapesUserRoleTo(User $user) {
-        return $this->assignRoleTo($user, UserRolesLkp::SHAPES_USER);
-    }
-
     public function assignAdminUserRoleTo(User $user) {
         return $this->assignRoleTo($user, UserRolesLkp::ADMIN);
     }

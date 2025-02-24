@@ -20,7 +20,6 @@ class UserRoleLkpTableSeeder extends Seeder {
         $data = [
             ['id'=> 1,  'name'=>'Platform Administrator'],
             ['id'=> 2,  'name'=>'Transcriber'],
-            ['id'=> 3,  'name'=>'Shapes User'],
         ];
 
         foreach ($data as $userRoleLkp) {

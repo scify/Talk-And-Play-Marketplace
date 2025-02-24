@@ -27,7 +27,6 @@ class User extends Authenticatable {
         'email',
         'hashed_email',
         'password',
-        'shapes_auth_token',
         'logout',
     ];
 

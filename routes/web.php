@@ -6,7 +6,6 @@ use App\Http\Controllers\Resource\CommunicationResourceController;
 use App\Http\Controllers\Resource\GameResourceController;
 use App\Http\Controllers\Resource\ResourceController;
 use App\Http\Controllers\Resource\ResourcePackageRatingController;
-use App\Http\Controllers\ShapesIntegrationController;
 use App\Http\Controllers\UserController;
 use App\Models\Resource\ResourcesPackage;
 use App\Models\User;
@@ -57,13 +56,6 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('/lang/{lang}', [UserController::class, 'setLangLocaleCookie'])->name('set-lang-locale');
 Route::get('/communication-cards', [CommunicationResourceController::class, 'index'])->name('communication_resources.index');
 Route::get('/game-cards', [GameResourceController::class, 'index'])->name('game_resources.index');
-
-Route::middleware(['guest'])->group(function () {
-    Route::get('/login-shapes/', [ShapesIntegrationController::class, 'login'])->name('shapes.login');
-    Route::get('/register-shapes/', [ShapesIntegrationController::class, 'register'])->name('shapes.register-shapes');
-    Route::post('/request-shapes-user-creation/', [ShapesIntegrationController::class, 'request_create_user'])->name('shapes.request-create-user');
-    Route::post('/request-shapes-user-login_token/', [ShapesIntegrationController::class, 'request_login_token'])->name('shapes.request-login-token');
-});
 
 // Auth::routes(['verify' => true]);
 Route::middleware(['auth'])->group(function () {

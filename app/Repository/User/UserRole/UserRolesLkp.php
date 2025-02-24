@@ -7,6 +7,4 @@ abstract class UserRolesLkp {
     const ADMIN = 1;
 
     const CONTENT_CREATOR = 2;
-
-    const SHAPES_USER = 3;
 }

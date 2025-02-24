@@ -33,11 +33,7 @@ class UserManager {
             'email' => $requestData['email'],
             'password' => $requestData['password'],
         ]);
-        if (array_key_exists('shapes', $requestData)) {
-            $this->userRoleManager->assignShapesUserRoleTo($user);
-        } else {
-            $this->userRoleManager->assignRegisteredUserRoleTo($user);
-        }
+        $this->userRoleManager->assignRegisteredUserRoleTo($user);
         if (isset($requestData['admin']) && $requestData['admin']) {
             $this->userRoleManager->assignAdminUserRoleTo($user);
         }

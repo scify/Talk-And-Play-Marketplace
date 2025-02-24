@@ -21,9 +21,7 @@ class Kernel extends ConsoleKernel {
      * @param  Schedule  $schedule
      * @return void
      */
-    protected function schedule(Schedule $schedule) {
-        $schedule->command('shapes:update-user-tokens')->everyThreeHours()->withoutOverlapping();
-    }
+    protected function schedule(Schedule $schedule) {}
 
     /**
      * Register the commands for the application.

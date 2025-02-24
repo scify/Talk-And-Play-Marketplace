@@ -48,8 +48,4 @@ class UserRepository extends Repository {
 
         return parent::delete($id);
     }
-
-    public function getAllShapesUsers(): Collection {
-        return User::whereNotNull('shapes_auth_token')->get();
-    }
 }
