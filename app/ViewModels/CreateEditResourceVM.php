@@ -20,11 +20,11 @@ class CreateEditResourceVM {
     public int $type_id;
 
     public function __construct(Collection $languages,
-                                Resource $resource,
-                                Collection $childrenCards,
-                                ResourcesPackage $package,
-                                $maximumCardThreshold = 10,
-                                int $type_id = -1) {
+        Resource $resource,
+        Collection $childrenCards,
+        ResourcesPackage $package,
+        $maximumCardThreshold = 10,
+        int $type_id = -1) {
         $this->languages = $languages;
         $this->resource = $resource;
         $this->childrenCards = $childrenCards;

@@ -40,9 +40,9 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager {
         $contentLanguages = $this->getContentLanguagesForResources();
 
         return new CreateEditResourceVM($contentLanguages,
-            new  Resource(),
-            new Collection(),
-            new ResourcesPackage(),
+            new Resource,
+            new Collection,
+            new ResourcesPackage,
             self::maximumCardsThreshold,
             self::type_id);
     }
@@ -60,14 +60,14 @@ class CommunicationResourcesPackageManager extends ResourcesPackageManager {
     }
 
 
-//    public function getApprovedCommunicationPackagesParentResources(): DisplayPackageVM {
-//        $approvedCommunicationPackages = $this->resourcesPackageRepository->getResourcesPackages([self::type_id],  Auth::id());
-//        return new DisplayPackageVM($approvedCommunicationPackages);
-//    }
-//
+    //    public function getApprovedCommunicationPackagesParentResources(): DisplayPackageVM {
+    //        $approvedCommunicationPackages = $this->resourcesPackageRepository->getResourcesPackages([self::type_id],  Auth::id());
+    //        return new DisplayPackageVM($approvedCommunicationPackages);
+    //    }
+    //
 
     public function downloadPackage($package) {
-        $fileManager = new ResourceFileManager();
+        $fileManager = new ResourceFileManager;
         $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($package->card_id);
         $parentResource = $this->resourceRepository->find($package->card_id);
         $packageDir = 'resources_packages/zips/package-' . $package->id;
@@ -92,8 +92,8 @@ XML;
 
         $xmlTemplate['languages'] = $lang === 'el' ? 'gr' : $lang;
 
-//        $lang = $this->contentLanguageLkpRepository->find($package->lang_id)->code;
-//        $xmlTemplate['languages'] = $lang;
+        //        $lang = $this->contentLanguageLkpRepository->find($package->lang_id)->code;
+        //        $xmlTemplate['languages'] = $lang;
 
         $imageName = basename($parentResource->img_path);
         $audioName = basename($parentResource->audio_path);
@@ -128,7 +128,7 @@ XML;
             'Pragma: no-cache',
             'Expires: 0',
         ];
-//       return Storage::download("resources_packages/zips/".$zipName,$zipName,$headers);
+        //       return Storage::download("resources_packages/zips/".$zipName,$zipName,$headers);
         foreach ($headers as $header) {
             header($header);
         }

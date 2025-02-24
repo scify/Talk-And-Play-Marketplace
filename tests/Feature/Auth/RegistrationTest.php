@@ -1,11 +1,8 @@
 <?php
 
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\DB;
-use function Pest\Laravel\get;
+
 use function Pest\Laravel\post;
-use function Pest\Laravel\assertDatabaseHas;
 
 test('registration page loads successfully', function () {
     $this->get('/register')
@@ -57,6 +54,3 @@ test('registration requires correct password', function () {
         'password_confirmation' => 'short',
     ])->assertSessionHasErrors(['password']);
 });
-
-
-

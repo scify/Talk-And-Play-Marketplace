@@ -41,11 +41,11 @@ class ResourceManager {
         $resource = $this->resourceRepository->create($storeArr);
 
 
-        $resourceFileManager = new ResourceFileManager();
+        $resourceFileManager = new ResourceFileManager;
         $img_path = $resourceFileManager->saveImage($resource->id, $request);
         try {
             $audio_path = $resourceFileManager->saveAudio($resource->id, $request);
-        } catch(FileNotFoundException $e) {
+        } catch (FileNotFoundException $e) {
             $audio_path = null;
         }
 
@@ -69,7 +69,7 @@ class ResourceManager {
         $storeArr['img_path'] = $old_resource['img_path'];
         $storeArr['audio_path'] = $old_resource['audio_path'];
         $resource = $this->resourceRepository->update($storeArr, $id);
-        $resourceFileManager = new ResourceFileManager();
+        $resourceFileManager = new ResourceFileManager;
         if (isset($request['image'])) {
             $resourceFileManager->deleteResourceImage($old_resource);
             $img_path = $resourceFileManager->saveImage($resource->id, $request);
@@ -90,7 +90,7 @@ class ResourceManager {
 
     public function destroyResource($id) {
         $resource = $this->resourceRepository->find($id);
-        $resourceFileManager = new ResourceFileManager();
+        $resourceFileManager = new ResourceFileManager;
         $resourceFileManager->deleteResourceAudio($resource);
         $resourceFileManager->deleteResourceImage($resource);
         $this->resourceRepository->delete($id);
@@ -98,7 +98,7 @@ class ResourceManager {
 
     public function cloneResource($id, $newParentId) {
         $resource = $this->resourceRepository->find($id);
-        $fileManager = new ResourceFileManager();
+        $fileManager = new ResourceFileManager;
         $storeArr = [
             'name' =>  $resource->name,
             'img_path' => $fileManager->cloneResourceToDirectory(basename($resource->img_path), 'image'),

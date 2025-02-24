@@ -19,7 +19,7 @@ class UserController extends Controller {
     use PasswordValidationRules;
 
     public function __construct(AdministrationVMProvider $administrationVMProvider,
-                                UserManager $userManager) {
+        UserManager $userManager) {
         $this->administrationVMProvider = $administrationVMProvider;
         $this->userManager = $userManager;
     }

@@ -13,7 +13,7 @@ class AnalyticsEventManager {
     protected $shapesIntegrationManager;
 
     public function __construct(AnalyticsEventRepository $analyticsEventRepository,
-                                ShapesIntegrationManager $shapesIntegrationManager) {
+        ShapesIntegrationManager $shapesIntegrationManager) {
         $this->analyticsEventRepository = $analyticsEventRepository;
         $this->shapesIntegrationManager = $shapesIntegrationManager;
     }

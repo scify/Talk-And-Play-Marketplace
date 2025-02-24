@@ -60,7 +60,7 @@ class ResourceFileManager {
     public function saveAudio($id, Request $request) {
         $contentAudio = $request->file('sound');
         if (!$contentAudio) {
-            throw(new FileNotFoundException('Audio missing'));
+            throw (new FileNotFoundException('Audio missing'));
         }
         $audioFolder = $this->getResourceFileFolder('audio');
         $normalizedAudioName = $this->getNormalizedResourceName($contentAudio, $id);
@@ -146,7 +146,7 @@ class ResourceFileManager {
         $zip->addEmptyDir(basename($path));
         $nodes = glob($path . '/*');
         foreach ($nodes as $node) {
-            //print $node . '<br>';
+            // print $node . '<br>';
             if (is_dir($node)) {
                 $zip = $this->addDir($zip, $node);
             } elseif (is_file($node)) {

@@ -17,11 +17,11 @@ class GameResourcesPackageManager extends ResourcesPackageManager {
     protected ReportsRepository $reportsRepository;
 
     public function __construct(ResourceTypeLkpRepository $resourceTypeLkpRepository,
-                                ResourceRepository $resourceRepository,
-                                ContentLanguageLkpRepository $contentLanguageLkpRepository,
-                                ResourcesPackageRepository $resourcesPackageRepository,
-                                ReportsRepository $reportsRepository,
-                                int $type_id = -1) {
+        ResourceRepository $resourceRepository,
+        ContentLanguageLkpRepository $contentLanguageLkpRepository,
+        ResourcesPackageRepository $resourcesPackageRepository,
+        ReportsRepository $reportsRepository,
+        int $type_id = -1) {
         $this->resourceTypeLkpRepository = $resourceTypeLkpRepository;
         $this->reportsRepository = $reportsRepository;
         parent::__construct($resourceRepository, $contentLanguageLkpRepository, $resourcesPackageRepository, $reportsRepository, $type_id);

@@ -14,7 +14,7 @@ class UserRoleLkpTableSeeder extends Seeder {
 
     public function run() {
         if (config('app.env') !== 'testing') {
-        echo "\nRunning User Role lkp Seeder...\n";
+            echo "\nRunning User Role lkp Seeder...\n";
         }
 
         $data = [

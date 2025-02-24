@@ -2,16 +2,16 @@
 
 //
 //
-//namespace Database\Seeders;
+// namespace Database\Seeders;
 //
 //
-//use App\Repository\Resource\ContentLanguagesLkp;
-//use App\Repository\Resource\ResourceRepository;
-//use App\Repository\Resource\ResourceStatusesLkp;
-//use App\Repository\Resource\ResourceTypesLkp;
-//use Illuminate\Database\Seeder;
+// use App\Repository\Resource\ContentLanguagesLkp;
+// use App\Repository\Resource\ResourceRepository;
+// use App\Repository\Resource\ResourceStatusesLkp;
+// use App\Repository\Resource\ResourceTypesLkp;
+// use Illuminate\Database\Seeder;
 //
-//class DefaultCardResourcesSeeder extends Seeder {
+// class DefaultCardResourcesSeeder extends Seeder {
 //
 //    protected ResourceRepository $resourceRepository;
 //
@@ -104,4 +104,4 @@
 //            echo "\nAdded Resource: " . $resource->name . "\n";
 //        }
 //    }
-//}
+// }

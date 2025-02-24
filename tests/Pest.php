@@ -12,8 +12,6 @@
 */
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Artisan;
 
 uses(
@@ -57,7 +55,6 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
-{
+function something() {
     // ..
 }

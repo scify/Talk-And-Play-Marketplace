@@ -1,7 +1,8 @@
 <?php
 
-use App\Models\User;
 use App\BusinessLogicLayer\UserRole\UserRoleManager;
+use App\Models\User;
+
 use function Pest\Laravel\actingAs;
 
 test('admin users can access admin routes', function () {

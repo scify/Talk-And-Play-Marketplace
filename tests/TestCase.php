@@ -2,17 +2,17 @@
 
 namespace Tests;
 
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 
 abstract class TestCase extends BaseTestCase {
     use CreatesApplication;
+
     use RefreshDatabase;
 
-    protected function setUp(): void
-    {
+    protected function setUp(): void {
         parent::setUp();
 
         // Ensure the SQLite testing database exists
@@ -29,8 +29,7 @@ abstract class TestCase extends BaseTestCase {
         }
     }
 
-    protected function tearDown(): void
-    {
+    protected function tearDown(): void {
         parent::tearDown();
     }
 }

@@ -26,9 +26,9 @@ class CommunicationResourceController extends Controller {
     protected AnalyticsEventManager $analyticsEventManager;
 
     public function __construct(ResourceManager $resourceManager,
-                                CommunicationResourcesPackageManager $communicationResourcesPackageManager,
-                                UserManager $userManager,
-                                AnalyticsEventManager $analyticsEventManager) {
+        CommunicationResourcesPackageManager $communicationResourcesPackageManager,
+        UserManager $userManager,
+        AnalyticsEventManager $analyticsEventManager) {
         $this->resourceManager = $resourceManager;
         $this->communicationResourcesPackageManager = $communicationResourcesPackageManager;
         $this->userManager = $userManager;
@@ -55,7 +55,7 @@ class CommunicationResourceController extends Controller {
      * @return View
      */
     public function create(): View {
-//        $createResourceViewModel = $this->communicationResourceManager->getCreateResourceViewModel();
+        //        $createResourceViewModel = $this->communicationResourceManager->getCreateResourceViewModel();
         $createResourcesPackageViewModel = $this->communicationResourcesPackageManager->getCreateResourcesPackageViewModel();
 
         return view('communication_resources.create-edit')->with(['viewModel' => $createResourcesPackageViewModel]);
@@ -105,9 +105,9 @@ class CommunicationResourceController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id) {//returns view
+    public function edit($id) { // returns view
         try {
-//            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
+            //            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
             $package = $this->communicationResourcesPackageManager->getResourcesPackage($id);
             $createResourceViewModel = $this->communicationResourcesPackageManager->getEditResourceViewModel($package->card_id, $package);
 

@@ -26,10 +26,10 @@ class ResourcesPackageManager extends ResourceManager {
     protected int $type_id;
 
     public function __construct(ResourceRepository $resourceRepository,
-                                ContentLanguageLkpRepository $contentLanguageLkpRepository,
-                                ResourcesPackageRepository $resourcesPackageRepository,
-                                ReportsRepository $reportsRepository,
-                                int $type_id = -1) {
+        ContentLanguageLkpRepository $contentLanguageLkpRepository,
+        ResourcesPackageRepository $resourcesPackageRepository,
+        ReportsRepository $reportsRepository,
+        int $type_id = -1) {
         $this->reportsRepository = $reportsRepository;
         $this->resourcesPackageRepository = $resourcesPackageRepository;
         $this->type_id = $type_id;
@@ -90,7 +90,7 @@ class ResourcesPackageManager extends ResourceManager {
         return $this->contentLanguageLkpRepository->all();
     }
 
-    public function getResourcesPackages(int $lang_id = null, $user_id, array $type_ids, array $status_ids) {
+    public function getResourcesPackages(?int $lang_id, $user_id, array $type_ids, array $status_ids) {
         return $this->resourcesPackageRepository->getResourcesPackages($type_ids, $user_id, $lang_id, $status_ids);
     }
 
@@ -99,7 +99,7 @@ class ResourcesPackageManager extends ResourceManager {
     }
 
     public function downloadGamePackage($package, $gameType = '') {
-        $fileManager = new ResourceFileManager();
+        $fileManager = new ResourceFileManager;
         $this->resourcesPackageRepository->update(
             [
                 'num_downloads' => $package->num_downloads + 1,
@@ -121,8 +121,8 @@ XML;
         $xmlTemplate['name'] = str_replace(['?', '!', ',', ';'], '', $parentResource->name);
 
 
-//        $lang = $this->contentLanguageLkpRepository->find($package->lang_id)->code;
-//        $xmlTemplate['languages'] = $lang;
+        //        $lang = $this->contentLanguageLkpRepository->find($package->lang_id)->code;
+        //        $xmlTemplate['languages'] = $lang;
 
         $imageName = basename($parentResource->img_path);
         $imageName = utf8_encode($imageName);
@@ -152,7 +152,7 @@ XML;
             'Pragma: no-cache',
             'Expires: 0',
         ];
-//       return Storage::download("resources_packages/zips/".$zipName,$zipName,$headers);
+        //       return Storage::download("resources_packages/zips/".$zipName,$zipName,$headers);
         foreach ($headers as $h) {
             header($h);
         }
@@ -172,7 +172,7 @@ XML;
     }
 
     public function getPendingResourcePackages() {
-        return  $this->resourcesPackageRepository->getPendingResourcePackages();
+        return $this->resourcesPackageRepository->getPendingResourcePackages();
     }
 
     public function reportResourcesPackage($id, $reporting_user_id, $reportReason, $reportComment) {
@@ -185,7 +185,7 @@ XML;
         $reports = $this->reportsRepository->create($storeArr);
     }
 
-    public function getReportedPackages(array $type_ids, int $lang_id = null) {
+    public function getReportedPackages(array $type_ids, ?int $lang_id = null) {
         $reports = $this->reportsRepository->all();
         $packagesWithReportInfo = Collection::empty();
         foreach ($reports as $report) {
@@ -198,8 +198,7 @@ XML;
         }
         $packagesWithReportInfo = $packagesWithReportInfo->filter(
             function ($x) use ($type_ids, $lang_id) {
-                return
-                    in_array($x->type_id, $type_ids) && (!$lang_id || $x->lang_id == $lang_id);
+                return in_array($x->type_id, $type_ids) && (!$lang_id || $x->lang_id == $lang_id);
             }
         );
         $packagesWithReportInfo = array_values($packagesWithReportInfo->toArray());

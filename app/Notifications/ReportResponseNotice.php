@@ -10,13 +10,13 @@ use Illuminate\Notifications\Notification;
 class ReportResponseNotice extends Notification implements ShouldQueue {
     use Queueable;
 
-    protected String $resource_name;
+    protected string $resource_name;
 
-    protected String $response;
+    protected string $response;
 
-    protected String $reporter_name;
+    protected string $reporter_name;
 
-    protected String $coverResourceCardName;
+    protected string $coverResourceCardName;
 
     /**
      * Create a new notification instance.

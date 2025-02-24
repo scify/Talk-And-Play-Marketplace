@@ -26,8 +26,8 @@ class DesktopAppAnnouncementController extends Controller {
      * @param  ContentLanguageLkpRepository  $contentLanguageLkpRepository
      */
     public function __construct(DesktopAppAnnouncementRepository $desktopAppAnnouncementRepository,
-                                DesktopAppAnnouncementTranslationRepository $desktopAppAnnouncementTranslationRepository,
-                                ContentLanguageLkpRepository $contentLanguageLkpRepository) {
+        DesktopAppAnnouncementTranslationRepository $desktopAppAnnouncementTranslationRepository,
+        ContentLanguageLkpRepository $contentLanguageLkpRepository) {
         $this->desktopAppAnnouncementRepository = $desktopAppAnnouncementRepository;
         $this->desktopAppAnnouncementTranslationRepository = $desktopAppAnnouncementTranslationRepository;
         $this->contentLanguageLkpRepository = $contentLanguageLkpRepository;

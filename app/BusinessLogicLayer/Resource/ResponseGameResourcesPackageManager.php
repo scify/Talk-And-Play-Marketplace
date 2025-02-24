@@ -28,10 +28,10 @@ class ResponseGameResourcesPackageManager extends GameResourcesPackageManager {
     const type_id = ResourceTypesLkp::RESPONSE_GAME;
 
     public function __construct(ResourceTypeLkpRepository $resourceTypeLkpRepository,
-                                ResourceRepository $resourceRepository,
-                                ContentLanguageLkpRepository $contentLanguageLkpRepository,
-                                ResourcesPackageRepository $resourcesPackageRepository,
-                                ReportsRepository $reportsRepository) {
+        ResourceRepository $resourceRepository,
+        ContentLanguageLkpRepository $contentLanguageLkpRepository,
+        ResourcesPackageRepository $resourcesPackageRepository,
+        ReportsRepository $reportsRepository) {
         $this->resourceRepository = $resourceRepository;
         $this->contentLanguageLkpRepository = $contentLanguageLkpRepository;
         $this->resourcesPackageRepository = $resourcesPackageRepository;
@@ -43,9 +43,9 @@ class ResponseGameResourcesPackageManager extends GameResourcesPackageManager {
         $contentLanguages = $this->getContentLanguagesForResources();
 
         return new CreateEditResourceVM($contentLanguages,
-            new  Resource(),
-            new Collection(),
-            new ResourcesPackage(),
+            new Resource,
+            new Collection,
+            new ResourcesPackage,
             self::maximumCardsThreshold,
             self::type_id);
     }

@@ -2,24 +2,24 @@
 
 //
 //
-//namespace Database\Seeders;
+// namespace Database\Seeders;
 //
 //
-//use App\Repository\Resource\ContentLanguagesLkp;
-//use App\Repository\Resource\ResourceRepository;
-//use App\Repository\Resource\ResourcesPackageRepository;
-//use App\Repository\Resource\ResourceStatusesLkp;
-//use App\Repository\Resource\ResourceTypesLkp;
-//use Illuminate\Database\Seeder;
+// use App\Repository\Resource\ContentLanguagesLkp;
+// use App\Repository\Resource\ResourceRepository;
+// use App\Repository\Resource\ResourcesPackageRepository;
+// use App\Repository\Resource\ResourceStatusesLkp;
+// use App\Repository\Resource\ResourceTypesLkp;
+// use Illuminate\Database\Seeder;
 //
-//class DefaultPackagesResourcesSeeder extends Seeder {
+// class DefaultPackagesResourcesSeeder extends Seeder {
 //
 //    protected ResourcesPackageRepository $resourcesPackageRepository;
 //
 //    public function __construct(ResourcesPackageRepository $resourcesPackageRepository) {
 //        $this->resourcePackageRepository = $resourcesPackageRepository;
 //    }
-//# id, card_id, status_id, lang_id, creator_user_id, admin_user_id, created_at, updated_at, deleted_at, type_id
+// # id, card_id, status_id, lang_id, creator_user_id, admin_user_id, created_at, updated_at, deleted_at, type_id
 //
 //
 //    public function run() {
@@ -145,4 +145,4 @@
 //            echo "\nAdded Resource: " . $resourcePackage->id . "\n";
 //        }
 //    }
-//}
+// }

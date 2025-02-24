@@ -21,17 +21,17 @@ class TimeGameResourcesPackageManager extends GameResourcesPackageManager {
 
     protected ResourceRepository $resourceRepository;
 
-    protected ReportsRepository  $reportsRepository;
+    protected ReportsRepository $reportsRepository;
 
     const MAXIMUM_CARDS_THRESHOLD = 4;
 
     const TYPE_ID = ResourceTypesLkp::TIME_GAME;
 
     public function __construct(ResourceTypeLkpRepository $resourceTypeLkpRepository,
-                                ResourceRepository $resourceRepository,
-                                ContentLanguageLkpRepository $contentLanguageLkpRepository,
-                                ResourcesPackageRepository $resourcesPackageRepository,
-                                ReportsRepository $reportsRepository) {
+        ResourceRepository $resourceRepository,
+        ContentLanguageLkpRepository $contentLanguageLkpRepository,
+        ResourcesPackageRepository $resourcesPackageRepository,
+        ReportsRepository $reportsRepository) {
         $this->resourceRepository = $resourceRepository;
         $this->contentLanguageLkpRepository = $contentLanguageLkpRepository;
         $this->resourcesPackageRepository = $resourcesPackageRepository;
@@ -43,9 +43,9 @@ class TimeGameResourcesPackageManager extends GameResourcesPackageManager {
         $contentLanguages = $this->getContentLanguagesForResources();
 
         return new CreateEditResourceVM($contentLanguages,
-            new  Resource(),
-            new Collection(),
-            new ResourcesPackage(),
+            new Resource,
+            new Collection,
+            new ResourcesPackage,
             self::MAXIMUM_CARDS_THRESHOLD,
             self::TYPE_ID);
     }
@@ -54,7 +54,7 @@ class TimeGameResourcesPackageManager extends GameResourcesPackageManager {
         $contentLanguages = $this->getContentLanguagesForResources();
 
         $childrenResourceCards = $this->resourceRepository->getChildrenCardsWithParent($package->card_id);
-//        return new CreateParentVM(self::maximumCardsThreshold, self::type_id)
+        //        return new CreateParentVM(self::maximumCardsThreshold, self::type_id)
 
         return new CreateEditResourceVM($contentLanguages,
             $this->resourceRepository->find($package->card_id),

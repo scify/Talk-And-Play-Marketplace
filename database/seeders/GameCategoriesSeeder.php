@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use  App\Repository\GameCategoriesLkpRepository;
+use App\Repository\GameCategoriesLkpRepository;
 use Illuminate\Database\Seeder;
 
 class GameCategoriesSeeder extends Seeder {
@@ -14,7 +14,7 @@ class GameCategoriesSeeder extends Seeder {
 
     public function run() {
         if (config('app.env') !== 'testing') {
-        echo "\nRunning Game Categories Seeder...\n";
+            echo "\nRunning Game Categories Seeder...\n";
         }
 
         $data = [

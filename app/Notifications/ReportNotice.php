@@ -12,13 +12,13 @@ use Illuminate\Notifications\Notification;
 class ReportNotice extends Notification implements ShouldQueue {
     use Queueable;
 
-    protected String $coverResourceCardName;
+    protected string $coverResourceCardName;
 
     protected ResourcesPackage $package;
 
-    protected String $reportComment;
+    protected string $reportComment;
 
-    protected String $reportReason;
+    protected string $reportReason;
 
     protected User $creator;
 

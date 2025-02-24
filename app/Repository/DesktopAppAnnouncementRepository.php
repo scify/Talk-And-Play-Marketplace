@@ -79,12 +79,12 @@ class DesktopAppAnnouncementRepository extends Repository {
 
     public function activate($id) {
         // deactivate previous active announcements
-//        $prevActiveAnnouncement = DesktopAppAnnouncement::with(['translations', 'translations.language'])->where('status',1)->first();
-//        if(!empty($prevActiveAnnouncement)){
-//            $prevActiveAnnouncement->update(['status' => 0]);
-//        }
+        //        $prevActiveAnnouncement = DesktopAppAnnouncement::with(['translations', 'translations.language'])->where('status',1)->first();
+        //        if(!empty($prevActiveAnnouncement)){
+        //            $prevActiveAnnouncement->update(['status' => 0]);
+        //        }
 
-        //activate new announcement
+        // activate new announcement
         $announcementToActivate = DesktopAppAnnouncement::with(['translations', 'translations.language'])->find($id);
         $announcementToActivate->update(['status' => 1]);
     }

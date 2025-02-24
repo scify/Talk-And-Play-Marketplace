@@ -65,7 +65,7 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/request-shapes-user-login_token/', [ShapesIntegrationController::class, 'request_login_token'])->name('shapes.request-login-token');
 });
 
-//Auth::routes(['verify' => true]);
+// Auth::routes(['verify' => true]);
 Route::middleware(['auth'])->group(function () {
     Route::prefix('administration')->middleware('can:manage-platform')->name('administration.')->group(function () {
         Route::resource('users', UserController::class)->except([
@@ -90,7 +90,7 @@ Route::middleware(['auth'])->group(function () {
 
 
     Route::resource('communication-resources', CommunicationResourceController::class)
-        ->except([//ONLY
+        ->except([// ONLY
             'index', 'show',
         ])
         ->names([

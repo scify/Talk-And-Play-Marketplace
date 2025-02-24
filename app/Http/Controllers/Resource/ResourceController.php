@@ -45,13 +45,13 @@ class ResourceController extends Controller {
     protected AnalyticsEventManager $analyticsEventManager;
 
     public function __construct(ResourceManager $resourceManager, ResourcesPackageManager $resourcesPackageManager,
-                                CommunicationResourcesPackageManager $communicationResourcesPackageManager,
-                                SimilarityGameResourcesPackageManager $similarityGameResourcesPackageManager,
-                                TimeGameResourcesPackageManager $timeGameResourcesPackageManager,
-                                ResponseGameResourcesPackageManager $responseGameResourcesPackageManager,
-                                GameResourcesPackageManager $gameResourcesPackageManager,
-                                UserManager $userManager,
-                                AnalyticsEventManager $analyticsEventManager) {
+        CommunicationResourcesPackageManager $communicationResourcesPackageManager,
+        SimilarityGameResourcesPackageManager $similarityGameResourcesPackageManager,
+        TimeGameResourcesPackageManager $timeGameResourcesPackageManager,
+        ResponseGameResourcesPackageManager $responseGameResourcesPackageManager,
+        GameResourcesPackageManager $gameResourcesPackageManager,
+        UserManager $userManager,
+        AnalyticsEventManager $analyticsEventManager) {
         $this->resourceManager = $resourceManager;
         $this->resourcesPackageManager = $resourcesPackageManager;
         $this->similarityGameResourcesPackageManager = $similarityGameResourcesPackageManager;
@@ -105,7 +105,7 @@ class ResourceController extends Controller {
             $ret_route = 'game_resources.edit';
             $resourceType = 'game_response';
         } else {
-            throw(new \ValueError('Type not supported'));
+            throw (new \ValueError('Type not supported'));
         }
         try {
             $resource = $this->resourceManager->storeResource($request);
@@ -143,15 +143,15 @@ class ResourceController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse {//after submit, (action-route submit button directs here)
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse { // after submit, (action-route submit button directs here)
         $this->validate($request, [
-            'name' => 'string|max:100',
-            'image' => 'mimes:jpg,png|file|between:3,1000|nullable',
-            'type_id' => 'required',
-        ]);
+                'name' => 'string|max:100',
+                'image' => 'mimes:jpg,png|file|between:3,1000|nullable',
+                'type_id' => 'required',
+            ]);
 
 
-//        $id = intval($request->id);
+        //        $id = intval($request->id);
         $type_id = intval($request->type_id);
         if ($type_id === ResourceTypesLkp::COMMUNICATION) {
             $this->validate($request, ['sound' => 'mimes:mp3|file|between:1,2000|nullable']);
@@ -163,7 +163,7 @@ class ResourceController extends Controller {
         ])) {
             $ret_route = 'game_resources.edit';
         } else {
-            throw(new \ValueError('Type not supported'));
+            throw (new \ValueError('Type not supported'));
         }
 
 
@@ -198,7 +198,7 @@ class ResourceController extends Controller {
         ])) {
             $ret_route = 'game_resources.edit';
         } else {
-            throw(new \ValueError('Type not supported'));
+            throw (new \ValueError('Type not supported'));
         }
         try {
             $request['status_id'] = ResourceStatusesLkp::CREATED_PENDING_APPROVAL;
@@ -226,8 +226,8 @@ class ResourceController extends Controller {
         }
 
         //
-        //Manager get id of card
-        //Manager calls repository
+        // Manager get id of card
+        // Manager calls repository
     }
 
     public function submit(int $id): \Illuminate\Http\RedirectResponse {
@@ -246,8 +246,8 @@ class ResourceController extends Controller {
         }
 
         //
-        //Manager get id of card
-        //Manager calls repository
+        // Manager get id of card
+        // Manager calls repository
     }
 
     public function approve(Request $request): \Illuminate\Http\RedirectResponse {
@@ -405,7 +405,7 @@ class ResourceController extends Controller {
             $manager = $this->responseGameResourcesPackageManager;
             $ret_route = 'game_resources.edit';
         } else {
-            throw(new \ValueError('Type not supported'));
+            throw (new \ValueError('Type not supported'));
         }
 
         try {

@@ -35,7 +35,7 @@ class GameResourceController extends Controller {
 
     protected GameResourcesPackageManager $gameResourcesPackageManager;
 
-    protected UserManager  $userManager;
+    protected UserManager $userManager;
 
     public function __construct(
         SimilarityGameResourcesPackageManager $similarityGameResourcesPackageManager,
@@ -72,7 +72,7 @@ class GameResourceController extends Controller {
      */
     public function create(Request $request): View {
         $this->validate($request, [
-            'type_id' => 'required', //TODO check if exists in DB tab
+            'type_id' => 'required', // TODO check if exists in DB tab
         ]);
 
 
@@ -81,7 +81,7 @@ class GameResourceController extends Controller {
                 $createResourcesPackageViewModel = $this->similarityGameResourcesPackageManager->getCreateResourcesPackageViewModel();
                 $game = 'SIMILAR';
                 break;
-            case  ResourceTypesLkp::TIME_GAME:
+            case ResourceTypesLkp::TIME_GAME:
                 $createResourcesPackageViewModel = $this->timeGameResourcesPackageManager->getCreateResourcesPackageViewModel();
                 $game = 'TIME';
                 break;
@@ -90,13 +90,13 @@ class GameResourceController extends Controller {
                 $game = 'RESPONSE';
                 break;
             default:
-                throw(new ResourceNotFoundException('Game type under development'));
+                throw (new ResourceNotFoundException('Game type under development'));
         }
 
         return view('game_resources.create-edit-game')->with(['viewModel' => $createResourcesPackageViewModel, 'game' => $game]);
     }
 
-    public function edit(int $package_id) {//returns view
+    public function edit(int $package_id) { // returns view
         try {
             $package = $this->resourcesPackageManager->getResourcesPackage($package_id);
             switch ($package->type_id) {
@@ -104,7 +104,7 @@ class GameResourceController extends Controller {
                     $editResourceViewModel = $this->similarityGameResourcesPackageManager->getEditResourceViewModel($package);
                     $game = 'SIMILAR';
                     break;
-                case  ResourceTypesLkp::TIME_GAME:
+                case ResourceTypesLkp::TIME_GAME:
                     $editResourceViewModel = $this->timeGameResourcesPackageManager->getEditResourceViewModel($package);
                     $game = 'TIME';
                     break;
@@ -113,9 +113,9 @@ class GameResourceController extends Controller {
                     $game = 'RESPONSE';
                     break;
                 case ResourceTypesLkp::COMMUNICATION:
-                    throw(new \ValueError('Tried to edit communication cards through the game editing page'));
+                    throw (new \ValueError('Tried to edit communication cards through the game editing page'));
                 default:
-                    throw(new ResourceNotFoundException('Game category not yet implemented'));
+                    throw (new ResourceNotFoundException('Game category not yet implemented'));
             }
 
             return view('game_resources.create-edit-game')->with(['viewModel' => $editResourceViewModel, 'game' => $game]);
@@ -133,11 +133,11 @@ class GameResourceController extends Controller {
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse {//after submit, (action-route submit button directs here)
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse { // after submit, (action-route submit button directs here)
         $this->validate($request, [
-            'name' => 'required|string|max:100',
-            'image' => 'file|between:10,500|nullable',
-        ]);
+                'name' => 'required|string|max:100',
+                'image' => 'file|between:10,500|nullable',
+            ]);
 
         $resource = $this->resourceManager->getResource($id);
         if ($resource->resource_parent_id == null) {
@@ -170,14 +170,14 @@ class GameResourceController extends Controller {
                 case ResourceTypesLkp::SIMILAR_GAME:
                     $gameType = 'similarityGame';
                     break;
-                case  ResourceTypesLkp::TIME_GAME:
+                case ResourceTypesLkp::TIME_GAME:
                     $gameType = 'sequenceGame';
                     break;
                 case ResourceTypesLkp::RESPONSE_GAME:
                     $gameType = 'stimulusReactionGame';
                     break;
                 default:
-                    throw(new ResourceNotFoundException('Game category not yet implemented'));
+                    throw (new ResourceNotFoundException('Game category not yet implemented'));
             }
             $this->resourcesPackageManager->downloadGamePackage($package, $gameType);
         } catch (ModelNotFoundException $e) {

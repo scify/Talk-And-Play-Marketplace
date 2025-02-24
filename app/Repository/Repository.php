@@ -83,7 +83,7 @@ abstract class Repository implements RepositoryInterface {
 
     /**
      * @param  array  $data
-     * @param $id
+     * @param  $id
      * @param  string  $attribute
      * @return mixed
      */
@@ -109,7 +109,7 @@ abstract class Repository implements RepositoryInterface {
     }
 
     /**
-     * @param $id
+     * @param  $id
      * @return mixed
      */
     public function delete($id) {
@@ -117,7 +117,7 @@ abstract class Repository implements RepositoryInterface {
     }
 
     /**
-     * @param $id
+     * @param  $id
      * @param  array  $columns
      * @return mixed
      */

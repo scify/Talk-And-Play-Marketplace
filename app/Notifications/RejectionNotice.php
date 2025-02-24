@@ -10,13 +10,13 @@ use Illuminate\Notifications\Notification;
 class RejectionNotice extends Notification implements ShouldQueue {
     use Queueable;
 
-    protected String $coverResourceCardName;
+    protected string $coverResourceCardName;
 
-    protected String $rejectionMessage;
+    protected string $rejectionMessage;
 
-    protected String $rejectionReason;
+    protected string $rejectionReason;
 
-    protected String $username;
+    protected string $username;
 
     /**
      * Create a new notification instance.

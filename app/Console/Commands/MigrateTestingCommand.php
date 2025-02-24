@@ -6,13 +6,12 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class MigrateTestingCommand extends Command
-{
+class MigrateTestingCommand extends Command {
     protected $signature = 'migrate:testing';
+
     protected $description = 'Run migrations for testing with SQLite compatibility';
 
-    public function handle()
-    {
+    public function handle() {
         // Disable foreign key constraints
         DB::statement('PRAGMA foreign_keys = OFF');
 

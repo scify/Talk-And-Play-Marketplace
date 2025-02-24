@@ -10,7 +10,7 @@ class PlatformStatisticsController extends Controller {
     protected PlatformStatisticsRepository $platformStatisticsRepository;
 
     /**
-     * @param PlatformStatisticsRepository $platformStatisticsRepository
+     * @param  PlatformStatisticsRepository  $platformStatisticsRepository
      */
     public function __construct(PlatformStatisticsRepository $platformStatisticsRepository) {
         $this->platformStatisticsRepository = $platformStatisticsRepository;

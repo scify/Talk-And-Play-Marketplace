@@ -28,10 +28,10 @@ class ResourcesPackageRepository extends Repository {
     }
 
     public function getResourcesPackages(array $type_ids,
-                                         int $user_id = null,
-                                         int $lang_id = null,
-                                         array $status_ids = [ResourceStatusesLkp::APPROVED]
-                                         ) {
+        ?int $user_id = null,
+        ?int $lang_id = null,
+        array $status_ids = [ResourceStatusesLkp::APPROVED]
+    ) {
         $whereArray = [];
         if ($lang_id) {
             $whereArray['lang_id'] = $lang_id;
