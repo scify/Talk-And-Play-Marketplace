@@ -2,5 +2,5 @@ Contact: mailto:info@scify.org
 Expires: 2999-12-31T10:00:00.000Z
 Preferred-Languages: en,el
 Canonical: https://talkandplay.scify.org/.well-known/security.txt
-Policy: https://talkandplay.scify.org/privacy-policy
+Policy: https://go.scify.gr/tnp-marketplace-privacy-en
 

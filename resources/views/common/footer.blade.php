@@ -13,27 +13,32 @@
                     </ul>
                 </div>
                 <div class="col-sm-6 col-md-3 item">
-                    <h3>About</h3>
+                    <h3>{{ __('messages.about') }}</h3>
                     <ul>
                         <li><a href="https://www.scify.gr/site/en/">{!! __('messages.team') !!}</a></li>
                         <li><a href="{{ route('content-guidelines')}}">{!! __('messages.content_guidelines') !!}</a>
                         </li>
-                        <li><a href="{{route('privacy-policy')}}"
-                               target="_blank"> {!! __('messages.privacy-policy') !!}</a></li>
-                        <li><a href="{{route('terms-of-use')}}" target="_blank"> {!! __('messages.terms-of-use') !!}</a>
+                        <li><a href="{{ __('messages.terms-of-service-link') }}"
+                               target="_blank">{!! __('messages.terms-of-use') !!}</a></li>
+                        <li><a href="{{ __('messages.privacy-policy-link') }}"
+                               target="_blank">{!! __('messages.privacy-policy') !!}</a></li>
+                        <li><a href="{{ __('messages.cookies-policy-link') }}"
+                               target="_blank">{!! __('messages.cookies-policy') !!}</a></li>
+                        <li>
+                            <a href="javascript:void(0);" onclick="toggleCookieBanner()"
+                               onkeyup="if (event.key === 'Enter') toggleCookieBanner()"
+                               role="button" aria-label="{{ __('cookies_consent::messages.cookies_settings') }}">
+                                {{ __('cookies_consent::messages.cookies_settings') }}
+                            </a>
                         </li>
-                        <li><a href="https://www.scify.gr/site/en/contact"
-                               target="_blank">{!! __('messages.contact_us') !!}</a></li>
-
                     </ul>
                 </div>
                 <div class="col-md-6 item text">
-                    <h3>Created by</h3>
-                    <p><a href="https://www.scify.gr/site/en/who-we-are/scify" target="_blank"
-                          rel="noopener noreferrer">SciFY</a> is a not-for-profit organization, that develops
-                        cutting-edge information technology systems
-                        and freely offers them to all, including the design, the implementation details, and the support
-                        needed, in order to solve real-life problems.</p>
+                    <h3>{!! __('messages.created_by') !!}</h3>
+                    <p style="font-size: small; color:whitesmoke!important"><a
+                                href="https://scify.org/en/who-we-are/our-mission/"
+                                target="_blank">{!! __('messages.footer-scify') !!}</a>
+                    </p>
                 </div>
             </div>
             <div class="row">
@@ -51,9 +56,9 @@
                         <img alt="Shapes Logo" title="" src="{{asset("img/shapes_logo.png")}}"
                              style="width:70px;height:50px; float: right; display: block; background: white; margin-right:10px;">
                     </div>
-                    <p style="font-size: small; color:white!important">This project has received funding from the
-                        European Union's Horizon 2020 research and innovation programme under grant agreement No.
-                        857159.</p>
+                    <p style="font-size: small; color:white!important">
+                        {{ __('messages.funding-footer') }}
+                    </p>
                 </div>
             </div>
         </div>

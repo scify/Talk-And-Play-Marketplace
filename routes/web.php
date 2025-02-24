@@ -7,7 +7,6 @@ use App\Http\Controllers\Resource\GameResourceController;
 use App\Http\Controllers\Resource\ResourceController;
 use App\Http\Controllers\Resource\ResourcePackageRatingController;
 use App\Http\Controllers\ShapesIntegrationController;
-use App\Http\Controllers\TermsPrivacyController;
 use App\Http\Controllers\UserController;
 use App\Models\Resource\ResourcesPackage;
 use App\Models\User;
@@ -33,7 +32,6 @@ Route::view('/', 'home')->name('home');
 Route::view('/how-it-works-marketplace', 'how_it_works_marketplace')->name('how-it-works-marketplace');
 Route::view('/how-it-works-desktop', 'how_it_works_desktop')->name('how-it-works-desktop');
 Route::view('/content-guidelines', 'content-guidelines')->name('content-guidelines');
-Route::view('/terms-of-use', 'terms-of-use')->name('terms-of-use');
 
 $regexForLocalParameter = config('app.regex_for_validating_locale_at_routes');
 $localeInfo = ['prefix' => '{lang}',
@@ -56,7 +54,6 @@ Route::group(['middleware' => 'auth'], function () {
     })->middleware('can:manage-platform');
 });
 
-Route::get('/privacy-policy', [TermsPrivacyController::class, 'showPrivacyPolicyPage'])->name('privacy-policy');
 Route::get('/lang/{lang}', [UserController::class, 'setLangLocaleCookie'])->name('set-lang-locale');
 Route::get('/communication-cards', [CommunicationResourceController::class, 'index'])->name('communication_resources.index');
 Route::get('/game-cards', [GameResourceController::class, 'index'])->name('game_resources.index');

@@ -5,15 +5,12 @@
 
 @section('content')
 
-
-
-
     <form id="md-form" enctype="multipart/form-data" role="form" method="POST"
           action="{{ $viewModel->isEditMode() ? route('resources.update_resource_package',$viewModel->package->id) : route('communication_resources.store') }}">
         <input type="hidden" id="type_id" value='{{$viewModel->type_id}}'/>
-    @if($viewModel->isEditMode())
-        @method('PUT')
-    @endif
+        @if($viewModel->isEditMode())
+            @method('PUT')
+        @endif
 
         {{ csrf_field() }}
         <div class="container rounded py-4" style="border:1px solid grey">
@@ -25,7 +22,8 @@
 
                 <!-- Content here -->
                 <div class="mb-3">
-                    <label for="category_name" class="form-label">{{__('messages.name')}} <span style="color:#ff0000">*</span></label>
+                    <label for="category_name" class="form-label">{{__('messages.name')}} <span
+                                style="color:#ff0000">*</span></label>
                     <input type="text" class="form-control" id="category_name"
                            name="name"
                            required
@@ -34,23 +32,26 @@
                 <div class="mb-3">
                     <label for="category_lang" class="form-label">{{trans("messages.language")}}</label>
                     <select class="form-select" aria-label="category_lang" name="lang">
-                        @foreach ($viewModel->languages as $lang){
-                        @if($viewModel->package->lang_id === $lang->id)
-                            <option value="{{$lang->id}}" selected> {{$lang->name}} </option>
-                        @else
-                            <option value="{{$lang->id}}"> {{$lang->name}} </option>
-                        @endif
+                        @foreach ($viewModel->languages as $lang)
+                            {
+                            @if($viewModel->package->lang_id === $lang->id)
+                                <option value="{{$lang->id}}" selected> {{$lang->name}} </option>
+                            @else
+                                <option value="{{$lang->id}}"> {{$lang->name}} </option>
+                            @endif
 
                         @endforeach
                     </select>
                     <!--<input type="radio" class="form-control" id="category_lang"> -->
                 </div>
                 <div class="text-center form-new__prototype-file" style="font-style: italic;">
-                    <em> {!!__('messages.content-guideline-terms')!!}  <a target="_blank" href="{{route('content-guidelines')}}"> here. </a></em>
+                    <em> {!!__('messages.content-guideline-terms')!!} <a target="_blank"
+                                                                         href="{{route('content-guidelines')}}">
+                            here. </a></em>
                 </div>
                 <div class="mb-3">
                     <label for="upload_img" class="form-label"> {{trans("messages.upload_img")}} <span
-                            style="color:#ff0000">*</span></label>
+                                style="color:#ff0000">*</span></label>
                     <div class="file-field px-5">
                         <a class="btn-floating float-left">
                             <!--<i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>-->
@@ -79,7 +80,7 @@
                 @enderror
                 <div class="mb-3">
                     <label for="sound_file" class="form-label">{{trans("messages.upload_audio")}}<span
-                            style="color:#ff0000">*</span></label>
+                                style="color:#ff0000">*</span></label>
                     <div class="file-field px-5">
                         <a class="btn-floating purple-gradient mt-0 float-left">
                             <input type="button" class="btn btn-third" id="loadFileXml" value="+"
@@ -108,7 +109,8 @@
                 <div class="copyright-rules mb-2 mt-2">
                     <div class="example">
                         <label class="form-check-label" for="flexCheckDefault">
-                            <input class="form-check-input" type="checkbox" id="flexCheckDefault" value=none name="accept-guideline-terms" style="margin-right: 10pt">
+                            <input class="form-check-input" type="checkbox" id="flexCheckDefault" value=none
+                                   name="accept-guideline-terms" style="margin-right: 10pt">
                             {!!__('messages.checkbox-guidelines')!!}<span style="color:red">*</span>
                         </label>
                     </div>
@@ -119,8 +121,9 @@
                 <div class="copyright-rules">
                     <div class="example">
                         <label class="form-check-label" for="flexCheckDefault">
-                            <input class="form-check-input" type="checkbox" id="flexCheckDefault" value=none name="accept-privacy-terms" style="margin-right: 10pt">
-                            {!!__('messages.checkbox-terms-privacy-')!!}<span style="color:red">*</span>
+                            <input class="form-check-input" type="checkbox" id="flexCheckDefault" value=none
+                                   name="accept-privacy-terms" style="margin-right: 10pt">
+                            {!!__('messages.checkbox-terms-privacy')!!}<span style="color:red">*</span>
                         </label>
                     </div>
                     @error('accept-privacy-terms')
@@ -132,20 +135,18 @@
 
             <hr/>
             <div class="d-flex justify-content-end">
-                <!--<input class="btn btn-outline-primary" type="reset" value="Ακύρωση">-->
                 <a class="btn btn-outline-primary" href="{{route('communication_resources.index')}}">
                     {{trans("messages.cancel")}}
                 </a>
 
-                <input  id="packageSubmitBtn" class="btn btn-primary ms-4" type="submit" value={{trans("messages.save_card")}}>
+                <input id="packageSubmitBtn" class="btn btn-primary ms-4" type="submit"
+                       value={{trans("messages.save_card")}}>
             </div>
         </div>
 
     </form>
 
     @if($viewModel->isEditMode())
-
-
 
         <div class="mt-5 mb-5" align="center">
 
@@ -162,8 +163,8 @@
             @endif
             @if(sizeof($viewModel->childrenCards)>0)
                 <button type="button" id="saveBundleBtn" class="btn btn-primary mt-5 btn-block"
-                    {{--                    data-bs-toggle="modal"--}}
-                    {{--                    data-bs-target="#newCardModal"--}}
+                        {{--                    data-bs-toggle="modal"--}}
+                        {{--                    data-bs-target="#newCardModal"--}}
                 >
                     {{trans("messages.submit_package")}}
                 </button>
@@ -178,14 +179,19 @@
                                 <input type="hidden" value={{$child->id}}>
                                 <img src="{{asset("storage/".$child->img_path)}}" class="card-img-top"
                                      style="width:auto;height:270px;margin: 0 auto;">
-                                <div class="dropdown-container rounder" style="background-color: white;" >
+                                <div class="dropdown-container rounder" style="background-color: white;">
                                     <div class="dropdown">
-                                        <button class="btn btn-outline-secondary dropdown-toggle actions-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <button class="btn btn-outline-secondary dropdown-toggle actions-btn"
+                                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v"></i>
                                         </button>
-                                        <ul class="dropdown-menu" id="dropdown-menu" >
-                                            <li><a class="dropdown-item editCardBtn"  href="#"><i class="far fa-edit me-2"></i>{{trans("messages.edit")}}</a></li>
-                                            <li><a class="dropdown-item deleteCardBtn"  href="#"><i class="fas fa-file-download me-2"></i>{{trans("messages.delete")}}</a></li>
+                                        <ul class="dropdown-menu" id="dropdown-menu">
+                                            <li><a class="dropdown-item editCardBtn" href="#"><i
+                                                            class="far fa-edit me-2"></i>{{trans("messages.edit")}}</a>
+                                            </li>
+                                            <li><a class="dropdown-item deleteCardBtn" href="#"><i
+                                                            class="fas fa-file-download me-2"></i>{{trans("messages.delete")}}
+                                                </a></li>
                                             {{--                                            TODO prevent scrolling cancel (event propagation?) --}}
                                         </ul>
                                     </div>
@@ -208,7 +214,6 @@
 
     @endif
 
-
 @endsection
 @push('modals')
 
@@ -229,7 +234,6 @@
                         {{ csrf_field() }}
 
 
-
                         <div class="container-sm px-5">
 
                             <input type="hidden" name="parentId" id="parentId" value='{{$viewModel->resource->id}}'/>
@@ -237,7 +241,7 @@
                             <!-- Content here -->
                             <div class="mb-3">
                                 <label for="category_name" class="form-label">{{trans("messages.name")}} <span
-                                        style="color:#ff0000">*</span></label>
+                                            style="color:#ff0000">*</span></label>
                                 <input type="text" class="form-control" id="modal_category_name"
                                        name="name"
                                        required>
@@ -245,12 +249,13 @@
                             <div class="mb-3">
                                 <label for="category_lang" class="form-label">{{__('messages.language')}}</label>
                                 <select class="form-select" disabled aria-label="category_lang" name="lang">
-                                    @foreach ($viewModel->languages as $lang){
-                                    @if($viewModel->package->lang_id === $lang->id)
-                                        <option selected> {{$lang->name}} </option>
-                                    @else
-                                        <option value="{{$lang->id}}"> {{$lang->name}} </option>
-                                    @endif
+                                    @foreach ($viewModel->languages as $lang)
+                                        {
+                                        @if($viewModel->package->lang_id === $lang->id)
+                                            <option selected> {{$lang->name}} </option>
+                                        @else
+                                            <option value="{{$lang->id}}"> {{$lang->name}} </option>
+                                        @endif
                                     @endforeach
                                 </select>
                                 <!--<input type="radio" class="form-control" id="category_lang"> -->
@@ -260,7 +265,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="modal_upload_img" class="form-label">{{trans("messages.upload_img")}} <span
-                                        style="color:#ff0000">*</span></label>
+                                            style="color:#ff0000">*</span></label>
                                 <div class="file-field px-5">
                                     <a class="btn-floating float-left">
                                         <!--<i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>-->
@@ -283,7 +288,7 @@
                             <div class="mb-3">
                                 <label for="modal_sound_file" class="form-label">{{trans('messages.upload_audio')}}
                                     <span
-                                        style="color:#ff0000">*</span></label>
+                                            style="color:#ff0000">*</span></label>
                                 <div class="file-field px-5">
                                     <a class="btn-floating purple-gradient mt-0 float-left">
                                         <input type="button" class="btn btn-third" id="ModalLoadFileXml" value="+"
@@ -296,8 +301,8 @@
                                 </div>
                                 <audio id="modal_player" controls style="display:none" class="mt-3">
                                     <source
-                                        src={{asset('/audio/happiness.mp3')}} id="modal_mp3_src"
-                                        type="audio/mpeg">
+                                            src={{asset('/audio/happiness.mp3')}} id="modal_mp3_src"
+                                            type="audio/mpeg">
                                 </audio>
                             </div>
                             @error('sound')
@@ -320,7 +325,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModal">
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog"
+         aria-labelledby="deleteConfirmationModal">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header text-center" id='deleteModalHeader'>

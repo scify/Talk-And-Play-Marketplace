@@ -43,9 +43,7 @@ class GenerateSitemap extends Command {
         $sitemapGenerator->add(Url::create('/register')->setPriority(0.9)->addImage(asset('img/advertisement-poster.png'), 'Talk & Play Marketplace image')->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY));
         $sitemapGenerator->add(Url::create('/how-it-works-marketplace')->setPriority(0.8)->addImage(asset('img/advertisement-poster.png'), 'Talk & Play Marketplace image')->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY));
         $sitemapGenerator->add(Url::create('/how-it-works-desktop')->setPriority(0.8)->addImage(asset('img/advertisement-poster.png'), 'Talk & Play Marketplace image')->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY));
-        $sitemapGenerator->add(Url::create('/terms-of-use')->setPriority(0.2)->addImage(asset('img/advertisement-poster.png'), 'Talk & Play Marketplace image')->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY));
         $sitemapGenerator->add(Url::create('/content-guidelines')->setPriority(0.9)->addImage(asset('img/tp_logo_small.png'), 'Talk & Play Marketplace image')->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY));
-        $sitemapGenerator->add(Url::create('/privacy-policy')->setPriority(0.2)->addImage(asset('img/advertisement-poster.png'), 'Talk & Play Marketplace image')->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY));
         $sitemapGenerator->add(Url::create('/communication-cards')->setPriority(0.9)->addImage(asset('img/advertisement-poster.png'), 'Talk & Play Marketplace image')->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY));
         $sitemapGenerator->add(Url::create('/game-cards')->setPriority(0.9)->addImage(asset('img/advertisement-poster.png'), 'Talk & Play Marketplace image')->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY));
         $sitemapGenerator->writeToFile(public_path('sitemap.xml'));
