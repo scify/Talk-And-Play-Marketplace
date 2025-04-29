@@ -10,7 +10,7 @@
         "production": "mix --production"
     },
     "devDependencies": {
-        "axios": "^1.7.9",
+        "axios": "^1.8.2",
         "eslint": "^9.21.0",
         "eslint-plugin-vue": "^9.32.0",
         "eslint-webpack-plugin": "^4.2.0",
