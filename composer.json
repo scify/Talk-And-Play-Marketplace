@@ -14,7 +14,7 @@
         "ext-simplexml": "*",
         "ext-zip": "*",
         "doctrine/dbal": "^3.10",
-        "guzzlehttp/guzzle": "^7.14.0",
+        "guzzlehttp/guzzle": "^7.15.1",
         "laravel/fortify": "^1.37",
         "laravel/framework": "^12.61",
         "laravel/tinker": "^2.11",
