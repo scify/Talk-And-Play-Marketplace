@@ -28,7 +28,7 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.4",
         "@popperjs/core": "^2.11.8",
-        "@sentry/browser": "^10.69.0",
+        "@sentry/browser": "^10.70.0",
         "bootstrap": "^5.3.8",
         "flickity": "^2.3.0",
         "jquery": "^3.7.1"
