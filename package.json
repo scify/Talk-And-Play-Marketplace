@@ -10,7 +10,7 @@
         "production": "mix --production"
     },
     "devDependencies": {
-        "axios": "^1.19.0",
+        "axios": "^1.20.0",
         "eslint": "^9.39.5",
         "eslint-plugin-vue": "^9.33.0",
         "eslint-webpack-plugin": "^4.2.0",
@@ -28,7 +28,7 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.4",
         "@popperjs/core": "^2.11.8",
-        "@sentry/browser": "^10.70.0",
+        "@sentry/browser": "^10.72.0",
         "bootstrap": "^5.3.8",
         "flickity": "^2.3.0",
         "jquery": "^3.7.1"
