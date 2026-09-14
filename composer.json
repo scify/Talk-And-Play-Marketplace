@@ -16,7 +16,7 @@
         "doctrine/dbal": "^3.10",
         "guzzlehttp/guzzle": "^7.15.3",
         "laravel/fortify": "^1.39",
-        "laravel/framework": "^12.61",
+        "laravel/framework": "^12.69",
         "laravel/tinker": "^2.11",
         "scify/laravel-cookie-guard": "^4.1",
         "sentry/sentry-laravel": "^4.27.0",
