@@ -253,12 +253,11 @@ class ResourceController extends Controller {
         // Manager calls repository
     }
 
-    public function approve(Request $request): RedirectResponse {
-        $data = $request->all();
-        $package = $this->resourcesPackageManager->getResourcesPackage($data['id']);
+    public function approve(Request $request, $package_id): RedirectResponse {
+        $package = $this->findPackageOrFail($package_id);
         $redirect_route = $package->type_id === ResourceTypesLkp::COMMUNICATION ? 'communication_resources.index' : 'game_resources.index';
         try {
-            $this->resourcesPackageManager->approveResourcesPackage($data['id']);
+            $this->resourcesPackageManager->approveResourcesPackage($package->id);
             $coverResourceCardName = $this->resourceManager->getResource($package->card_id)->name;
             $creator = $this->userManager->getUser($package['creator_user_id']);
             Notification::send($creator, new AcceptanceNotice($coverResourceCardName, $creator->name));
@@ -269,16 +268,15 @@ class ResourceController extends Controller {
         }
     }
 
-    public function reject(Request $request): RedirectResponse {
-        $data = $request->all();
-        $rejectionMessage = $data['rejection_comment'];
-        $rejectionReason = $data['rejection_reason'];
-        $package = $this->resourcesPackageManager->getResourcesPackage($data['id']);
+    public function reject(Request $request, $package_id): RedirectResponse {
+        $rejectionMessage = $request->input('rejection_comment');
+        $rejectionReason = $request->input('rejection_reason');
+        $package = $this->findPackageOrFail($package_id);
         $redirect_route = $package->type_id === ResourceTypesLkp::COMMUNICATION ? 'communication_resources.index' : 'game_resources.index';
 
         try {
             $creator = $this->userManager->getUser($package['creator_user_id']);
-            $this->resourcesPackageManager->rejectResourcesPackage($data['id']);
+            $this->resourcesPackageManager->rejectResourcesPackage($package->id);
             $coverResourceCardName = $this->resourceManager->getResource($package->card_id)->name;
             Notification::send($creator, new RejectionNotice($coverResourceCardName, $rejectionMessage, $rejectionReason, $creator->name));
 

@@ -101,8 +101,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/resources/reported-packages', [ResourceController::class, 'reported_packages'])->name('resources_packages.reported-packages');
 
-    Route::post('/resources/approve/{id}', [ResourceController::class, 'approve'])->name('resources.approve');
-    Route::post('/resources/reject/{id}', [ResourceController::class, 'reject'])->name('resources.reject');
+    Route::post('/resources/approve/{id}', [ResourceController::class, 'approve'])->middleware('can:manage-platform')->name('resources.approve');
+    Route::post('/resources/reject/{id}', [ResourceController::class, 'reject'])->middleware('can:manage-platform')->name('resources.reject');
     Route::put('/resources/submit/{id}', [ResourceController::class, 'submit'])->name('resources.submit');
     Route::post('/resources/report/{id}', [ResourceController::class, 'report'])->name('resources.report');
 
