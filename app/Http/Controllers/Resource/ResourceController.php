@@ -249,7 +249,8 @@ class ResourceController extends Controller {
     }
 
     public function submit(int $id): RedirectResponse {
-        $package = $this->resourcesPackageManager->getResourcesPackage($id);
+        $package = $this->findPackageOrFail($id);
+        $this->authorize('manage', $package);
         $redirect_route = $package->type_id === ResourceTypesLkp::COMMUNICATION ? 'communication_resources.index' : 'game_resources.index';
         $admins = $this->userManager->get_admin_users();
         $coverResourceCardName = $this->resourceManager->getResource($package->card_id)->name;
