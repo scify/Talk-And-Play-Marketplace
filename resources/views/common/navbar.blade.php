@@ -250,14 +250,19 @@
                             <div class="col-12">
                                 <label for="password" class="form-label">{{__('messages.password')}}</label>
                                 <input id="password-field" type="password" class="form-control"
-                                       name="password" placeholder="********">
+                                       name="password" placeholder="********" autocomplete="new-password">
                                 <span toggle="#password-field"
                                       class="fa fa-fw fa-eye field-icon toggle-password me-3"></span>
                             </div>
                             <div class="col-12">
                                 <label for="password-confirmation" class="form-label">{{ __('auth.confirm_password_label') }}</label>
                                 <input id="password-confirmation" type="password" class="form-control"
-                                       name="password_confirmation" placeholder="********">
+                                       name="password_confirmation" placeholder="********" autocomplete="new-password">
+                            </div>
+                            <div class="col-12">
+                                <label for="current-password" class="form-label">{{ __('auth.current_password_label') }}</label>
+                                <input id="current-password" type="password" class="form-control"
+                                       name="current_password" placeholder="********" autocomplete="current-password">
                             </div>
                         </div>
                         <div class="form-new__submmit-btn d-flex justify-content-end p-5">

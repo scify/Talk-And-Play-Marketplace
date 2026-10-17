@@ -58,6 +58,7 @@ test('member can change their own name, email and password', function () {
         ->put("/users/update/{$member->id}", [
             'name' => 'Renamed',
             'email' => 'renamed@example.com',
+            'current_password' => 'password',
             'password' => 'New-password-123',
             'password_confirmation' => 'New-password-123',
         ])
@@ -80,4 +81,41 @@ test('an empty password field keeps the password', function () {
     ]);
 
     expect($member->refresh()->password)->toBe($hash);
+});
+
+test('changing the password needs the current password', function () {
+    $member = memberUser();
+    $hash = $member->password;
+
+    actingAs($member)->put("/users/update/{$member->id}", [
+        'name' => $member->name,
+        'email' => $member->email,
+        'password' => 'New-password-123',
+        'password_confirmation' => 'New-password-123',
+    ])->assertSessionHasErrors('current_password');
+
+    expect($member->refresh()->password)->toBe($hash);
+});
+
+test('changing the email needs the current password', function () {
+    $member = memberUser();
+    $email = $member->email;
+
+    actingAs($member)->put("/users/update/{$member->id}", [
+        'name' => $member->name,
+        'email' => 'stolen-session@example.com',
+        'current_password' => 'wrong-password',
+    ])->assertSessionHasErrors('current_password');
+
+    expect($member->refresh()->email)->toBe($email);
+});
+
+test('changing only the name needs no password', function () {
+    $member = memberUser();
+
+    actingAs($member)
+        ->put("/users/update/{$member->id}", ['name' => 'Only the name', 'email' => $member->email])
+        ->assertSessionHasNoErrors();
+
+    expect($member->refresh()->name)->toBe('Only the name');
 });

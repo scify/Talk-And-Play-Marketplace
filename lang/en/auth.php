@@ -15,6 +15,7 @@ return [
     'email_label' => 'E-Mail Address',
     'password_label' => 'Password',
     'confirm_password_label' => 'Confirm Password',
+    'current_password_label' => 'Current Password',
     'remember_me_label' => 'Remember Me',
     'login_btn' => 'Login',
     'forgot_password_link' => 'Forgot Your Password?',
