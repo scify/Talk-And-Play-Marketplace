@@ -19,6 +19,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
@@ -136,10 +137,13 @@ class GameResourceController extends Controller {
      * @throws ValidationException
      */
     public function update(Request $request, int $id): RedirectResponse { // after submit, (action-route submit button directs here)
+        $package = $this->resourcesPackageManager->getPackageOfResource($id) ?? abort(404);
+        $this->authorize('manage', $package);
+
         $this->validate($request, [
-                'name' => 'required|string|max:100',
-                'image' => 'file|between:10,500|nullable',
-            ]);
+            'name' => 'required|string|max:100',
+            'image' => 'file|between:10,500|nullable',
+        ]);
 
         $resource = $this->resourceManager->getResource($id);
         if ($resource->resource_parent_id == null) {
@@ -151,6 +155,7 @@ class GameResourceController extends Controller {
 
         try {
             $ret = $this->resourceManager->updateResource($request, $id);
+            $this->resourcesPackageManager->returnToPendingAfterEdit($package, Gate::allows('manage-platform'));
             $redirect_id = $ret['resource_parent_id'] ?: $ret->id;
 
             return redirect()->route('game_resources.edit', $redirect_id)->with('flash_message_success', __('messages.update-success'));

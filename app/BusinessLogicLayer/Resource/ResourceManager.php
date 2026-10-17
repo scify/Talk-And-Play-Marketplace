@@ -61,7 +61,6 @@ class ResourceManager {
             'name' => $request['name'],
             'img_path' => null,
             'audio_path' => null,
-            'creator_user_id' => Auth::id(),
             'admin_user_id' => null,
         ];
 

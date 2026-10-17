@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\ValidationException;
 
@@ -75,6 +76,12 @@ class ResourceController extends Controller {
      * @throws ValidationException
      */
     public function store(Request $request) {
+        $parentPackage = null;
+        if ($request['parentId']) {
+            $parentPackage = $this->findPackageOfResourceOrFail((int) $request['parentId']);
+            $this->authorize('manage', $parentPackage);
+        }
+
         $this->validate($request, [
             'name' => 'required|string|max:100',
             'image' => 'mimes:jpg,png,jpeg|required|file|between:3,1000|nullable',
@@ -126,6 +133,7 @@ class ResourceController extends Controller {
                     ->with('flash_message_success', __('messages.package-create-success'));
             } else {
                 $resourcePackage = $manager->getResourcesPackageWithCoverCard($resource->resource_parent_id);
+                $this->resourcesPackageManager->returnToPendingAfterEdit($parentPackage, Gate::allows('manage-platform'));
 
                 return redirect()->route($ret_route, $resourcePackage->id)
                     ->with('flash_message_success', __('messages.card-create-success'));
@@ -147,11 +155,14 @@ class ResourceController extends Controller {
      * @return RedirectResponse
      */
     public function update(Request $request, int $id): RedirectResponse { // after submit, (action-route submit button directs here)
+        $package = $this->findPackageOfResourceOrFail($id);
+        $this->authorize('manage', $package);
+
         $this->validate($request, [
-                'name' => 'string|max:100',
-                'image' => 'mimes:jpg,png|file|between:3,1000|nullable',
-                'type_id' => 'required',
-            ]);
+            'name' => 'string|max:100',
+            'image' => 'mimes:jpg,png|file|between:3,1000|nullable',
+            'type_id' => 'required',
+        ]);
 
 
         //        $id = intval($request->id);
@@ -171,8 +182,8 @@ class ResourceController extends Controller {
 
 
         try {
-            $request['status_id'] = ResourceStatusesLkp::CREATED_PENDING_APPROVAL;
-            $ret = $this->resourceManager->updateResource($request, $id);
+            $this->resourceManager->updateResource($request, $id);
+            $this->resourcesPackageManager->returnToPendingAfterEdit($package, Gate::allows('manage-platform'));
 
             return redirect()->back()->with('flash_message_success', __('messages.update-success'));
         } catch (\Exception $e) {
@@ -181,6 +192,9 @@ class ResourceController extends Controller {
     }
 
     public function update_resource_package(Request $request, int $id): RedirectResponse {
+        $package = $this->findPackageOrFail($id);
+        $this->authorize('manage', $package);
+
         $this->validate($request, [
             'name' => 'string|max:100',
             'lang' => 'required',
@@ -204,9 +218,8 @@ class ResourceController extends Controller {
             throw (new \ValueError('Type not supported'));
         }
         try {
-            $request['status_id'] = ResourceStatusesLkp::CREATED_PENDING_APPROVAL;
-
-            $ret = $this->resourcesPackageManager->updateResourcePackage($request, $id);
+            $this->resourcesPackageManager->updateResourcePackage($request, $id);
+            $this->resourcesPackageManager->returnToPendingAfterEdit($package, Gate::allows('manage-platform'));
 
             return redirect()->back()->with('flash_message_success', __('messages.update-success'));
         } catch (\Exception $e) {
@@ -220,6 +233,8 @@ class ResourceController extends Controller {
      * @param  int  $id
      */
     public function destroy(Request $request, int $id): RedirectResponse {
+        $this->authorize('manage', $this->findPackageOfResourceOrFail($id));
+
         try {
             $this->resourceManager->destroyResource($id);
 
@@ -442,5 +457,9 @@ class ResourceController extends Controller {
 
     private function findPackageOrFail($package_id): ResourcesPackage {
         return $this->resourcesPackageManager->getResourcesPackage($package_id) ?? abort(404);
+    }
+
+    private function findPackageOfResourceOrFail(int $resource_id): ResourcesPackage {
+        return $this->resourcesPackageManager->getPackageOfResource($resource_id) ?? abort(404);
     }
 }

@@ -71,6 +71,24 @@ class ResourcesPackageManager extends ResourceManager {
         return $this->resourcesPackageRepository->getResourcesPackageWithCoverCard($id);
     }
 
+    /**
+     * The package that a card belongs to. A cover card belongs to its own package.
+     */
+    public function getPackageOfResource(int $resourceId): ?ResourcesPackage {
+        $resource = $this->resourceRepository->find($resourceId);
+
+        return $this->getResourcesPackageWithCoverCard($resource->resource_parent_id ?: $resource->id);
+    }
+
+    /**
+     * A member's edit of an approved package needs a new approval. Admin edits keep the status.
+     */
+    public function returnToPendingAfterEdit(ResourcesPackage $package, bool $editorIsAdmin): void {
+        if (!$editorIsAdmin && (int) $package->status_id === ResourceStatusesLkp::APPROVED) {
+            $this->submitResourcesPackage($package->id);
+        }
+    }
+
     public function approveResourcesPackage($id) {
         return $this->resourcesPackageRepository->update(
             ['status_id' => ResourceStatusesLkp::APPROVED], $id);
