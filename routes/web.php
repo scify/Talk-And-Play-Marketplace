@@ -117,7 +117,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::put('/resources/update_resource_package/{id}', [ResourceController::class, 'update_resource_package'])->name('resources.update_resource_package');
     Route::put('/resources/update_resource/{id}/{type_id}', [ResourceController::class, 'update_resource'])->name('resources.update_resource');
-    Route::put('/users/update/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::put('/users/update/{user}', [UserController::class, 'updateProfile'])->name('users.update');
 
     Route::resource('game-cards', GameResourceController::class)
         ->except([

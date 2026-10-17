@@ -254,6 +254,11 @@
                                 <span toggle="#password-field"
                                       class="fa fa-fw fa-eye field-icon toggle-password me-3"></span>
                             </div>
+                            <div class="col-12">
+                                <label for="password-confirmation" class="form-label">{{ __('auth.confirm_password_label') }}</label>
+                                <input id="password-confirmation" type="password" class="form-control"
+                                       name="password_confirmation" placeholder="********">
+                            </div>
                         </div>
                         <div class="form-new__submmit-btn d-flex justify-content-end p-5">
                             <div>

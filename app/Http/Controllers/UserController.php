@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 
 class UserController extends Controller {
@@ -77,6 +78,25 @@ class UserController extends Controller {
         } finally {
             return back();
         }
+    }
+
+    /**
+     * The logged-in user updates their own profile. Roles are managed only by
+     * administrators, through update().
+     */
+    public function updateProfile(Request $request, User $user): RedirectResponse {
+        abort_unless($user->is(Auth::user()), 403);
+
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'password' => $request['password'] ? $this->passwordRules() : 'nullable',
+        ]);
+
+        $this->userManager->updateProfile($user, $request->only(['name', 'email', 'password']));
+        session()->flash('flash_message_success', 'User successfuly updated');
+
+        return back();
     }
 
     /**

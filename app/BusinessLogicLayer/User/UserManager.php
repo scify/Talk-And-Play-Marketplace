@@ -6,6 +6,7 @@ use App\Actions\Fortify\PasswordValidationRules;
 use App\BusinessLogicLayer\UserRole\UserRoleManager;
 use App\Models\User;
 use App\Repository\User\UserRepository;
+use Illuminate\Support\Facades\Hash;
 
 class UserManager {
     protected $userRepository;
@@ -64,6 +65,23 @@ class UserManager {
             $this->userRoleManager->assignAdminUserRoleTo($user);
         } else {
             $this->userRoleManager->removeAdminRoleFromUser($user);
+        }
+
+        return $user;
+    }
+
+    /**
+     * The user updates their own profile: name, email and, if given, password.
+     * Roles are managed only by administrators.
+     */
+    public function updateProfile(User $user, array $data): User {
+        $user = $this->userRepository->update([
+            'name' => trim($data['name']),
+            'email' => trim($data['email']),
+        ], $user->id);
+
+        if (!empty($data['password'])) {
+            $user = $this->userRepository->update(['password' => Hash::make($data['password'])], $user->id);
         }
 
         return $user;
