@@ -186,9 +186,13 @@
                                 <h4>{{ trans('messages.warning_deletion') }}</h4>
                             </div>
 
-                            <a :href="getDeletePackageRoute()" class="btn btn-danger">
-                                {{ trans('messages.delete') }}
-                            </a>
+                            <form :action="getDeletePackageRoute()" method="POST">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" :value="csrfToken">
+                                <button type="submit" class="btn btn-danger">
+                                    {{ trans('messages.delete') }}
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -364,6 +368,7 @@ export default {
 			resourceChildrenModalOpen: false,
 			rateModalOpen: false,
 			deleteModalOpen: false,
+			csrfToken: window.Laravel.csrfToken,
 			packageRejectionModalOpen: false,
 			packageDownloadWarningModalOpen: false,
 			packageReportModalOpen: false,
@@ -431,7 +436,7 @@ export default {
 			if (this.userLoggedIn()) {
 				this.get({
 					url: window.route("resources-package.user-rating.get")
-                        + "?resources_package_id=" + this.resourcesPackage.id + "&user_id=" + this.user.id,
+                        + "?resources_package_id=" + this.resourcesPackage.id,
 					urlRelative: false
 				}).then(response => {
 					this.userRating = response.data.rating;
@@ -490,9 +495,7 @@ export default {
 			this.post({
 				url: this.getResponseRoute(),
 				data: {
-					response: this.response,
-					resource_name: this.resource.name,
-					reporting_user_id: this.resource.reportData.reporting_user_id
+					response: this.response
 				},
 				urlRelative: false
 			}).then(() => {
@@ -513,7 +516,6 @@ export default {
 			this.post({
 				url: window.route("resources-package.user-rating.post"),
 				data: {
-					user_id: this.user.id,
 					resources_package_id: this.resourcesPackage.id,
 					rating: rateIndex
 				},
@@ -552,7 +554,7 @@ export default {
 			return this.packagesType === "GAME";
 		},
 		getResponseRoute() {
-			return window.route("resources.respond.post");
+			return window.route("resources.respond.post", this.resourcesPackage.reportData.id);
 		},
 		isAdminPageForPackageApproval() {
 			return this.approvePackages === 1;

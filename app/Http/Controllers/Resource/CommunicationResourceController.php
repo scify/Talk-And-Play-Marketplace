@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class CommunicationResourceController extends Controller {
     protected ResourceManager $resourceManager;
@@ -69,6 +70,12 @@ class CommunicationResourceController extends Controller {
      * @return RedirectResponse
      */
     public function store(Request $request) {
+        $parentPackage = null;
+        if ($request['parentId']) {
+            $parentPackage = $this->communicationResourcesPackageManager->getPackageOfResource((int) $request['parentId']) ?? abort(404);
+            $this->authorize('manage', $parentPackage);
+        }
+
         $this->validate($request, [
             'name' => 'required|string|max:100',
             'sound' => 'mimes:mp3|required|file|between:5,2000|nullable',
@@ -88,15 +95,16 @@ class CommunicationResourceController extends Controller {
                 return redirect()->route('communication_resources.edit', $resourcePackage->id)->with('flash_message_success', __('messages.package-create-success'));
             } else {
                 $resourcePackage = $this->communicationResourcesPackageManager->getResourcesPackageWithCoverCard($resource->resource_parent_id);
+                $this->communicationResourcesPackageManager->returnToPendingAfterEdit($parentPackage, Gate::allows('manage-platform'));
 
                 return redirect()->route('communication_resources.edit', $resourcePackage->id)->with('flash_message_success', __('messages.card-create-success'));
             }
         } catch (Exception $e) {
             if ($resource && $resource->resource_parent_id === null) {
-                return redirect()->with('flash_message_failure', __('messages.package-create-failure'));
+                return redirect()->back()->with('flash_message_failure', __('messages.package-create-failure'));
             }
 
-            return redirect()->with('flash_message_failure', __('messages.card-create-failure'));
+            return redirect()->back()->with('flash_message_failure', __('messages.card-create-failure'));
         }
     }
 
@@ -109,7 +117,8 @@ class CommunicationResourceController extends Controller {
     public function edit($id) { // returns view
         try {
             //            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
-            $package = $this->communicationResourcesPackageManager->getResourcesPackage($id);
+            $package = $this->communicationResourcesPackageManager->getResourcesPackage($id) ?? abort(404);
+            $this->authorize('manage', $package);
             $createResourceViewModel = $this->communicationResourcesPackageManager->getEditResourceViewModel($package->card_id, $package);
 
             return view('communication_resources.create-edit')->with(['viewModel' => $createResourceViewModel]);
@@ -120,7 +129,8 @@ class CommunicationResourceController extends Controller {
 
     public function download_package(int $id) {
         try {
-            $package = $this->communicationResourcesPackageManager->getResourcesPackage($id);
+            $package = $this->communicationResourcesPackageManager->getResourcesPackage($id) ?? abort(404);
+            $this->authorize('view', $package);
 
             $this->communicationResourcesPackageManager->downloadPackage($package);
             $this->analyticsEventManager->storeMarketplaceUsageData(Auth::user(), [
@@ -138,7 +148,9 @@ class CommunicationResourceController extends Controller {
         if ($request->user_id_to_get_content) {
             $user_id = intval($request->user_id_to_get_content);
         }
-        $status_ids = explode(',', $request->status_ids);
+        $status_ids = $this->communicationResourcesPackageManager->visibleStatusIds(
+            Auth::id(), Gate::allows('manage-platform'), $user_id, explode(',', (string) $request->status_ids)
+        );
 
         return $this->communicationResourcesPackageManager->getResourcesPackages(
             $request->lang_id,

@@ -11,6 +11,12 @@
 |
 */
 
+use App\BusinessLogicLayer\UserRole\UserRoleManager;
+use App\Models\Resource\Resource;
+use App\Models\Resource\ResourcesPackage;
+use App\Models\User;
+use App\Repository\Resource\ResourceStatusesLkp;
+use App\Repository\Resource\ResourceTypesLkp;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -45,6 +51,30 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something() {
-    // ..
+function memberUser(): User {
+    $user = User::factory()->create();
+    app(UserRoleManager::class)->assignRegisteredUserRoleTo($user);
+
+    return $user->refresh();
+}
+
+function adminUser(): User {
+    $user = User::factory()->create();
+    app(UserRoleManager::class)->assignAdminUserRoleTo($user);
+
+    return $user->refresh();
+}
+
+function createPackage(User $creator, int $statusId = ResourceStatusesLkp::APPROVED, int $typeId = ResourceTypesLkp::COMMUNICATION): ResourcesPackage {
+    $files = ['img_path' => 'resources/img/test.png', 'audio_path' => 'resources/audio/test.mp3'];
+    $cover = Resource::create(['name' => 'Test package', 'creator_user_id' => $creator->id, ...$files]);
+    Resource::create(['name' => 'Test card', 'creator_user_id' => $creator->id, 'resource_parent_id' => $cover->id, ...$files]);
+
+    return ResourcesPackage::create([
+        'lang_id' => 1,
+        'type_id' => $typeId,
+        'card_id' => $cover->id,
+        'status_id' => $statusId,
+        'creator_user_id' => $creator->id,
+    ]);
 }

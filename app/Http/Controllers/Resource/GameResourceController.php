@@ -19,6 +19,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
@@ -100,7 +101,8 @@ class GameResourceController extends Controller {
 
     public function edit(int $package_id) { // returns view
         try {
-            $package = $this->resourcesPackageManager->getResourcesPackage($package_id);
+            $package = $this->resourcesPackageManager->getResourcesPackage($package_id) ?? abort(404);
+            $this->authorize('manage', $package);
             switch ($package->type_id) {
                 case ResourceTypesLkp::SIMILAR_GAME:
                     $editResourceViewModel = $this->similarityGameResourcesPackageManager->getEditResourceViewModel($package);
@@ -136,10 +138,14 @@ class GameResourceController extends Controller {
      * @throws ValidationException
      */
     public function update(Request $request, int $id): RedirectResponse { // after submit, (action-route submit button directs here)
+        $package = $this->resourcesPackageManager->getPackageOfResource($id) ?? abort(404);
+        $this->authorize('manage', $package);
+
         $this->validate($request, [
-                'name' => 'required|string|max:100',
-                'image' => 'file|between:10,500|nullable',
-            ]);
+            'name' => 'required|string|max:100',
+            'image' => 'mimes:jpg,png,jpeg|file|between:10,500|nullable',
+            'sound' => 'mimes:mp3|file|nullable',
+        ]);
 
         $resource = $this->resourceManager->getResource($id);
         if ($resource->resource_parent_id == null) {
@@ -151,6 +157,7 @@ class GameResourceController extends Controller {
 
         try {
             $ret = $this->resourceManager->updateResource($request, $id);
+            $this->resourcesPackageManager->returnToPendingAfterEdit($package, Gate::allows('manage-platform'));
             $redirect_id = $ret['resource_parent_id'] ?: $ret->id;
 
             return redirect()->route('game_resources.edit', $redirect_id)->with('flash_message_success', __('messages.update-success'));
@@ -166,7 +173,8 @@ class GameResourceController extends Controller {
      * @return Response
      */
     public function download_package(int $id) {
-        $package = $this->resourcesPackageManager->getResourcesPackage($id);
+        $package = $this->resourcesPackageManager->getResourcesPackage($id) ?? abort(404);
+        $this->authorize('view', $package);
         try {
             switch ($package->type_id) {
                 case ResourceTypesLkp::SIMILAR_GAME:
@@ -193,7 +201,9 @@ class GameResourceController extends Controller {
             $user_id = intval($request->user_id_to_get_content);
         }
         $type_ids = explode(',', $request->type_ids);
-        $status_ids = explode(',', $request->status_ids);
+        $status_ids = $this->resourcesPackageManager->visibleStatusIds(
+            Auth::id(), Gate::allows('manage-platform'), $user_id, explode(',', (string) $request->status_ids)
+        );
 
         return $this->resourcesPackageManager->getResourcesPackages(
             $request->lang_id,

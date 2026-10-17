@@ -15,6 +15,7 @@ return [
     'email_label' => 'E-Mail Adresse',
     'password_label' => 'Passwort',
     'confirm_password_label' => 'Bestätigen Sie Ihr Passwort',
+    'current_password_label' => 'Aktuelles Passwort',
     'remember_me_label' => 'Erinnern Sie sich',
     'login_btn' => 'Anmelden',
     'forgot_password_link' => 'Haben Sie Ihr Passwort vergessen?',

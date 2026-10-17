@@ -31,12 +31,6 @@ parameters:
 			path: app/Http/Controllers/Resource/CommunicationResourceController.php
 
 		-
-			message: '#^Call to an undefined method Illuminate\\Routing\\Redirector\:\:with\(\)\.$#'
-			identifier: method.notFound
-			count: 2
-			path: app/Http/Controllers/Resource/CommunicationResourceController.php
-
-		-
 			message: '#^Caught class App\\Http\\Controllers\\Resource\\Exception not found\.$#'
 			identifier: class.notFound
 			count: 1
@@ -48,11 +42,6 @@ parameters:
 			count: 1
 			path: app/Http/Controllers/Resource/CommunicationResourceController.php
 
-		-
-			message: '#^Strict comparison using \=\=\= between null and null will always evaluate to true\.$#'
-			identifier: identical.alwaysTrue
-			count: 1
-			path: app/Http/Controllers/Resource/CommunicationResourceController.php
 
 		-
 			message: '#^Access to an undefined property App\\ViewModels\\GameResourcePackagesIndexPage\:\:\$isAdmin\.$#'
@@ -88,12 +77,6 @@ parameters:
 			message: '#^Access to an undefined property App\\ViewModels\\GameResourcePackagesIndexPage\:\:\$user_id_to_get_content\.$#'
 			identifier: property.notFound
 			count: 3
-			path: app/Http/Controllers/Resource/ResourceController.php
-
-		-
-			message: '#^Call to an undefined method Illuminate\\Routing\\Redirector\:\:with\(\)\.$#'
-			identifier: method.notFound
-			count: 2
 			path: app/Http/Controllers/Resource/ResourceController.php
 
 		-

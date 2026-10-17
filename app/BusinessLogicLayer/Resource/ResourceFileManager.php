@@ -52,7 +52,8 @@ class ResourceFileManager {
         $resourceNameWithoutExtension = $this->getResourceFileWithoutExtension($resourceFullName);
         $resourceNameCleaned = $this->keepLatinCharactersAndNumbersString($resourceNameWithoutExtension);
 
-        return $id . '_' . $resourceNameCleaned . '_' . date('Y-m-d_h_i_s', time()) . '.' . $resource->getClientOriginalExtension();
+        // The extension comes from the file content: a client name such as x.php must not reach the public disk.
+        return $id . '_' . $resourceNameCleaned . '_' . date('Y-m-d_h_i_s', time()) . '.' . $resource->guessExtension();
     }
 
     /**
@@ -63,6 +64,10 @@ class ResourceFileManager {
         if (!$contentAudio) {
             throw (new FileNotFoundException('Audio missing'));
         }
+        // Last line of defence behind the request validation: the content decides, not the name.
+        if ($contentAudio->guessExtension() !== 'mp3') {
+            throw new InvalidArgumentException('A sound file must be mp3.');
+        }
         $audioFolder = $this->getResourceFileFolder('audio');
         $normalizedAudioName = $this->getNormalizedResourceName($contentAudio, $id);
         $contentAudio->storeAs($audioFolder, $normalizedAudioName, ['disk' => 'public']);
@@ -72,6 +77,9 @@ class ResourceFileManager {
 
     public function saveImage($id, Request $request) {
         $contentImage = $request->file('image');
+        if (!in_array($contentImage->guessExtension(), ['jpg', 'jpeg', 'png'], true)) {
+            throw new InvalidArgumentException('An image must be jpg or png.');
+        }
 
         $imageFolder = $this->getResourceFileFolder('image');
         $normalizedImageName = $this->getNormalizedResourceName($contentImage, $id);

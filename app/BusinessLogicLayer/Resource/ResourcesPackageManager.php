@@ -2,8 +2,11 @@
 
 namespace App\BusinessLogicLayer\Resource;
 
+use App\BusinessLogicLayer\User\UserManager;
+use App\Models\Reports;
 use App\Models\Resource\Resource;
 use App\Models\Resource\ResourcesPackage;
+use App\Notifications\AdminNotice;
 use App\Repository\ContentLanguageLkpRepository;
 use App\Repository\ReportsRepository;
 use App\Repository\Resource\ResourceRepository;
@@ -11,8 +14,10 @@ use App\Repository\Resource\ResourcesPackageRepository;
 use App\Repository\Resource\ResourceStatusesLkp;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use InvalidArgumentException;
+use Throwable;
 
 class ResourcesPackageManager extends ResourceManager {
     public ResourcesPackageRepository $resourcesPackageRepository;
@@ -71,6 +76,36 @@ class ResourcesPackageManager extends ResourceManager {
         return $this->resourcesPackageRepository->getResourcesPackageWithCoverCard($id);
     }
 
+    /**
+     * The package that a card belongs to. A cover card belongs to its own package.
+     */
+    public function getPackageOfResource(int $resourceId): ?ResourcesPackage {
+        $resource = $this->resourceRepository->find($resourceId);
+
+        return $this->getResourcesPackageWithCoverCard($resource->resource_parent_id ?: $resource->id);
+    }
+
+    /**
+     * A member's edit of an approved package (card added or changed, package details changed) needs a
+     * new approval, and the admins are told, as on submit. Admin edits keep the status. Deleting a card
+     * removes content only, so it keeps the status.
+     */
+    public function returnToPendingAfterEdit(ResourcesPackage $package, bool $editorIsAdmin): void {
+        if ($editorIsAdmin || (int) $package->status_id !== ResourceStatusesLkp::APPROVED) {
+            return;
+        }
+
+        $this->submitResourcesPackage($package->id);
+        $coverResourceCardName = $this->resourceRepository->find($package->card_id)->name;
+
+        // The edit is already saved; a mail failure (sync queue) must not turn it into an error.
+        try {
+            Notification::send(app(UserManager::class)->get_admin_users(), new AdminNotice($package, $coverResourceCardName));
+        } catch (Throwable $e) {
+            report($e);
+        }
+    }
+
     public function approveResourcesPackage($id) {
         return $this->resourcesPackageRepository->update(
             ['status_id' => ResourceStatusesLkp::APPROVED], $id);
@@ -88,6 +123,28 @@ class ResourcesPackageManager extends ResourceManager {
 
     public function getContentLanguagesForResources() {
         return $this->contentLanguageLkpRepository->all();
+    }
+
+    /**
+     * The statuses that a viewer may list. Admins get what they ask for, and so does a user who lists
+     * their own packages. Everyone else (guests, the desktop app, other users) gets approved packages only.
+     */
+    public function visibleStatusIds(?int $viewerId, bool $viewerIsAdmin, ?int $userIdToGetContent, array $requestedStatusIds): array {
+        $requested = array_values(array_intersect(array_map('intval', $requestedStatusIds), [
+            ResourceStatusesLkp::CREATED_PENDING_APPROVAL,
+            ResourceStatusesLkp::APPROVED,
+            ResourceStatusesLkp::REJECTED,
+        ]));
+        if ($requested === []) {
+            return [ResourceStatusesLkp::APPROVED];
+        }
+
+        $listsOwnPackages = $viewerId !== null && $userIdToGetContent === $viewerId;
+        if ($viewerIsAdmin || $listsOwnPackages) {
+            return $requested;
+        }
+
+        return array_values(array_intersect($requested, [ResourceStatusesLkp::APPROVED]));
     }
 
     public function getResourcesPackages(?int $lang_id, $user_id, array $type_ids, array $status_ids) {
@@ -185,13 +242,17 @@ XML;
         $reports = $this->reportsRepository->create($storeArr);
     }
 
+    public function getReport(int $id): Reports {
+        return $this->reportsRepository->find($id);
+    }
+
     public function getReportedPackages(array $type_ids, ?int $lang_id = null) {
         $reports = $this->reportsRepository->all();
         $packagesWithReportInfo = Collection::empty();
         foreach ($reports as $report) {
             $package = $this->resourcesPackageRepository->getResourcesPackage($report->package_id);
             $package->reportData = $report;
-            $package->creator = $report->creator;
+            $package->creator = $report->creator?->only(['id', 'name']);
             $coverCardId = $package->card_id;
             $package->cover_resource = $this->resourceRepository->find($coverCardId);
             $packagesWithReportInfo->push($package);

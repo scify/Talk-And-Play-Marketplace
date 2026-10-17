@@ -15,6 +15,7 @@ return [
     'email_label' => 'Διεύθυνση email',
     'password_label' => 'Κωδικός',
     'confirm_password_label' => 'Επιβεβαίωση κωδικού',
+    'current_password_label' => 'Τρέχων κωδικός',
     'remember_me_label' => 'Να με θυμάσαι',
     'login_btn' => 'Είσοδος',
     'forgot_password_link' => 'Ξεχάσατε τον κωδικό σας;',

@@ -13,6 +13,7 @@ use App\BusinessLogicLayer\Resource\TimeGameResourcesPackageManager;
 use App\BusinessLogicLayer\User\UserManager;
 use App\Http\Controllers\Controller;
 use App\Models\Resource\Resource;
+use App\Models\Resource\ResourcesPackage;
 use App\Notifications\AcceptanceNotice;
 use App\Notifications\AdminNotice;
 use App\Notifications\RejectionNotice;
@@ -24,6 +25,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\ValidationException;
 
@@ -74,9 +76,17 @@ class ResourceController extends Controller {
      * @throws ValidationException
      */
     public function store(Request $request) {
+        $parentPackage = null;
+        if ($request['parentId']) {
+            $parentPackage = $this->findPackageOfResourceOrFail((int) $request['parentId']);
+            $this->authorize('manage', $parentPackage);
+        }
+
         $this->validate($request, [
             'name' => 'required|string|max:100',
             'image' => 'mimes:jpg,png,jpeg|required|file|between:3,1000|nullable',
+            // Any type: game cards have no sound, but a sent file must not reach the public disk as something else.
+            'sound' => 'mimes:mp3|file|nullable',
             'type_id' => 'required',
         ]);
 
@@ -90,7 +100,7 @@ class ResourceController extends Controller {
         */
         $resourceType = '';
         if ($type_id === ResourceTypesLkp::COMMUNICATION) {
-            $this->validate($request, ['sound' => 'required|file|between:10,1000|nullable']);
+            $this->validate($request, ['sound' => 'mimes:mp3|required|file|between:10,1000|nullable']);
             $manager = $this->communicationResourcesPackageManager;
             $ret_route = 'communication_resources.edit';
             $resourceType = 'communication';
@@ -125,16 +135,17 @@ class ResourceController extends Controller {
                     ->with('flash_message_success', __('messages.package-create-success'));
             } else {
                 $resourcePackage = $manager->getResourcesPackageWithCoverCard($resource->resource_parent_id);
+                $this->resourcesPackageManager->returnToPendingAfterEdit($parentPackage, Gate::allows('manage-platform'));
 
                 return redirect()->route($ret_route, $resourcePackage->id)
                     ->with('flash_message_success', __('messages.card-create-success'));
             }
         } catch (Exception $e) {
             if ($resource && $resource->resource_parent_id == null) {
-                return redirect()->with('flash_message_failure', __('messages.package-create-failure'));
+                return redirect()->back()->with('flash_message_failure', __('messages.package-create-failure'));
             }
 
-            return redirect()->with('flash_message_failure', __('messages.card-create-failure'));
+            return redirect()->back()->with('flash_message_failure', __('messages.card-create-failure'));
         }
     }
 
@@ -146,11 +157,15 @@ class ResourceController extends Controller {
      * @return RedirectResponse
      */
     public function update(Request $request, int $id): RedirectResponse { // after submit, (action-route submit button directs here)
+        $package = $this->findPackageOfResourceOrFail($id);
+        $this->authorize('manage', $package);
+
         $this->validate($request, [
-                'name' => 'string|max:100',
-                'image' => 'mimes:jpg,png|file|between:3,1000|nullable',
-                'type_id' => 'required',
-            ]);
+            'name' => 'string|max:100',
+            'image' => 'mimes:jpg,png|file|between:3,1000|nullable',
+            'sound' => 'mimes:mp3|file|nullable',
+            'type_id' => 'required',
+        ]);
 
 
         //        $id = intval($request->id);
@@ -170,8 +185,8 @@ class ResourceController extends Controller {
 
 
         try {
-            $request['status_id'] = ResourceStatusesLkp::CREATED_PENDING_APPROVAL;
-            $ret = $this->resourceManager->updateResource($request, $id);
+            $this->resourceManager->updateResource($request, $id);
+            $this->resourcesPackageManager->returnToPendingAfterEdit($package, Gate::allows('manage-platform'));
 
             return redirect()->back()->with('flash_message_success', __('messages.update-success'));
         } catch (\Exception $e) {
@@ -180,10 +195,14 @@ class ResourceController extends Controller {
     }
 
     public function update_resource_package(Request $request, int $id): RedirectResponse {
+        $package = $this->findPackageOrFail($id);
+        $this->authorize('manage', $package);
+
         $this->validate($request, [
             'name' => 'string|max:100',
             'lang' => 'required',
             'image' => 'mimes:jpg,png|file|between:3,1000|nullable',
+            'sound' => 'mimes:mp3|file|nullable',
             'type_id' => 'required',
             'accept-guideline-terms' => 'required',
             'accept-privacy-terms' => 'required',
@@ -203,9 +222,8 @@ class ResourceController extends Controller {
             throw (new \ValueError('Type not supported'));
         }
         try {
-            $request['status_id'] = ResourceStatusesLkp::CREATED_PENDING_APPROVAL;
-
-            $ret = $this->resourcesPackageManager->updateResourcePackage($request, $id);
+            $this->resourcesPackageManager->updateResourcePackage($request, $id);
+            $this->resourcesPackageManager->returnToPendingAfterEdit($package, Gate::allows('manage-platform'));
 
             return redirect()->back()->with('flash_message_success', __('messages.update-success'));
         } catch (\Exception $e) {
@@ -219,6 +237,8 @@ class ResourceController extends Controller {
      * @param  int  $id
      */
     public function destroy(Request $request, int $id): RedirectResponse {
+        $this->authorize('manage', $this->findPackageOfResourceOrFail($id));
+
         try {
             $this->resourceManager->destroyResource($id);
 
@@ -233,7 +253,8 @@ class ResourceController extends Controller {
     }
 
     public function submit(int $id): RedirectResponse {
-        $package = $this->resourcesPackageManager->getResourcesPackage($id);
+        $package = $this->findPackageOrFail($id);
+        $this->authorize('manage', $package);
         $redirect_route = $package->type_id === ResourceTypesLkp::COMMUNICATION ? 'communication_resources.index' : 'game_resources.index';
         $admins = $this->userManager->get_admin_users();
         $coverResourceCardName = $this->resourceManager->getResource($package->card_id)->name;
@@ -252,12 +273,11 @@ class ResourceController extends Controller {
         // Manager calls repository
     }
 
-    public function approve(Request $request): RedirectResponse {
-        $data = $request->all();
-        $package = $this->resourcesPackageManager->getResourcesPackage($data['id']);
+    public function approve(Request $request, $package_id): RedirectResponse {
+        $package = $this->findPackageOrFail($package_id);
         $redirect_route = $package->type_id === ResourceTypesLkp::COMMUNICATION ? 'communication_resources.index' : 'game_resources.index';
         try {
-            $this->resourcesPackageManager->approveResourcesPackage($data['id']);
+            $this->resourcesPackageManager->approveResourcesPackage($package->id);
             $coverResourceCardName = $this->resourceManager->getResource($package->card_id)->name;
             $creator = $this->userManager->getUser($package['creator_user_id']);
             Notification::send($creator, new AcceptanceNotice($coverResourceCardName, $creator->name));
@@ -268,16 +288,15 @@ class ResourceController extends Controller {
         }
     }
 
-    public function reject(Request $request): RedirectResponse {
-        $data = $request->all();
-        $rejectionMessage = $data['rejection_comment'];
-        $rejectionReason = $data['rejection_reason'];
-        $package = $this->resourcesPackageManager->getResourcesPackage($data['id']);
+    public function reject(Request $request, $package_id): RedirectResponse {
+        $rejectionMessage = $request->input('rejection_comment');
+        $rejectionReason = $request->input('rejection_reason');
+        $package = $this->findPackageOrFail($package_id);
         $redirect_route = $package->type_id === ResourceTypesLkp::COMMUNICATION ? 'communication_resources.index' : 'game_resources.index';
 
         try {
             $creator = $this->userManager->getUser($package['creator_user_id']);
-            $this->resourcesPackageManager->rejectResourcesPackage($data['id']);
+            $this->resourcesPackageManager->rejectResourcesPackage($package->id);
             $coverResourceCardName = $this->resourceManager->getResource($package->card_id)->name;
             Notification::send($creator, new RejectionNotice($coverResourceCardName, $rejectionMessage, $rejectionReason, $creator->name));
 
@@ -307,14 +326,14 @@ class ResourceController extends Controller {
         }
     }
 
-    public function respond(Request $request): RedirectResponse {
-        $data = $request->all();
-        $response = $data['response'];
-        $package = $this->resourcesPackageManager->getResourcesPackage($data['id']);
+    public function respond(Request $request, int $report_id): RedirectResponse {
+        $response = $request->input('response');
+        $report = $this->resourcesPackageManager->getReport($report_id);
+        $package = $this->findPackageOrFail($report->package_id);
         $coverResourceCardName = $this->resourceManager->getResource($package->card_id)->name;
-        $reporting_user_id = $data['reporting_user_id'];
         try {
-            $reporter = $this->userManager->getUser($reporting_user_id);
+            // The response goes to the user who filed the report, never to a user id from the request.
+            $reporter = $report->creator;
             Notification::send($reporter, new ReportResponseNotice($coverResourceCardName, $response, $reporter->name));
 
             return redirect()->back()->with('flash_message_success', 'Responded successfully');
@@ -380,6 +399,8 @@ class ResourceController extends Controller {
     }
 
     public function delete_package($package_id) {
+        $this->authorize('manage', $this->findPackageOrFail($package_id));
+
         try {
             $this->resourcesPackageManager->destroyResourcesPackage($package_id);
         } catch (ModelNotFoundException $e) {
@@ -392,7 +413,8 @@ class ResourceController extends Controller {
     }
 
     public function clone_package($package_id) {
-        $package = $this->resourcesPackageManager->getResourcesPackage($package_id);
+        $package = $this->findPackageOrFail($package_id);
+        $this->authorize('view', $package);
         $coverResource = $this->resourceManager->cloneResource($package->card_id, null);
         if ($package->type_id === ResourceTypesLkp::COMMUNICATION) {
             $manager = $this->communicationResourcesPackageManager;
@@ -428,14 +450,21 @@ class ResourceController extends Controller {
     }
 
     public function getReports(Request $request) {
-        $data = $request->all();
-        if ($data['type_ids']) {
-            $type_ids = explode(',', $data['type_ids']);
+        if ($request->input('type_ids')) {
+            $type_ids = explode(',', $request->input('type_ids'));
         } else {
             $type_ids = [ResourceTypesLkp::COMMUNICATION];
         }
         $reportedPackagesWithMetadata = $this->resourcesPackageManager->getReportedPackages($type_ids, $request->lang_id);
 
         return $reportedPackagesWithMetadata;
+    }
+
+    private function findPackageOrFail($package_id): ResourcesPackage {
+        return $this->resourcesPackageManager->getResourcesPackage($package_id) ?? abort(404);
+    }
+
+    private function findPackageOfResourceOrFail(int $resource_id): ResourcesPackage {
+        return $this->resourcesPackageManager->getPackageOfResource($resource_id) ?? abort(404);
     }
 }

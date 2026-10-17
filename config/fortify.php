@@ -135,11 +135,13 @@ return [
         Features::registration(),
         Features::resetPasswords(),
         // Features::emailVerification(),
-        Features::updateProfileInformation(),
+        // Profile updates go through PUT /users/update/{user}. There is no two-factor setup
+        // (no TwoFactorAuthenticatable trait and no two_factor_* columns).
+        // Features::updateProfileInformation(),
         Features::updatePasswords(),
-        Features::twoFactorAuthentication([
-            'confirmPassword' => true,
-        ]),
+        // Features::twoFactorAuthentication([
+        //     'confirmPassword' => true,
+        // ]),
     ],
 
 ];
