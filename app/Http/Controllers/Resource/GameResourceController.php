@@ -15,9 +15,11 @@ use App\Repository\Resource\ResourceStatusesLkp;
 use App\Repository\Resource\ResourceTypesLkp;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class GameResourceController extends Controller {
@@ -68,7 +70,7 @@ class GameResourceController extends Controller {
     }
 
     /**
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function create(Request $request): View {
         $this->validate($request, [
@@ -129,11 +131,11 @@ class GameResourceController extends Controller {
      *
      * @param  Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse { // after submit, (action-route submit button directs here)
+    public function update(Request $request, int $id): RedirectResponse { // after submit, (action-route submit button directs here)
         $this->validate($request, [
                 'name' => 'required|string|max:100',
                 'image' => 'file|between:10,500|nullable',

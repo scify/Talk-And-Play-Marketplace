@@ -21,9 +21,11 @@ use App\Notifications\ReportResponseNotice;
 use App\Repository\Resource\ResourceStatusesLkp;
 use App\Repository\Resource\ResourceTypesLkp;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Validation\ValidationException;
 
 class ResourceController extends Controller {
     protected ResourceManager $resourceManager;
@@ -67,9 +69,9 @@ class ResourceController extends Controller {
      * Store a newly created resource in storage.
      *
      * @param  Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function store(Request $request) {
         $this->validate($request, [
@@ -141,9 +143,9 @@ class ResourceController extends Controller {
      *
      * @param  Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse { // after submit, (action-route submit button directs here)
+    public function update(Request $request, int $id): RedirectResponse { // after submit, (action-route submit button directs here)
         $this->validate($request, [
                 'name' => 'string|max:100',
                 'image' => 'mimes:jpg,png|file|between:3,1000|nullable',
@@ -177,7 +179,7 @@ class ResourceController extends Controller {
         }
     }
 
-    public function update_resource_package(Request $request, int $id): \Illuminate\Http\RedirectResponse {
+    public function update_resource_package(Request $request, int $id): RedirectResponse {
         $this->validate($request, [
             'name' => 'string|max:100',
             'lang' => 'required',
@@ -216,7 +218,7 @@ class ResourceController extends Controller {
      *
      * @param  int  $id
      */
-    public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse {
+    public function destroy(Request $request, int $id): RedirectResponse {
         try {
             $this->resourceManager->destroyResource($id);
 
@@ -230,7 +232,7 @@ class ResourceController extends Controller {
         // Manager calls repository
     }
 
-    public function submit(int $id): \Illuminate\Http\RedirectResponse {
+    public function submit(int $id): RedirectResponse {
         $package = $this->resourcesPackageManager->getResourcesPackage($id);
         $redirect_route = $package->type_id === ResourceTypesLkp::COMMUNICATION ? 'communication_resources.index' : 'game_resources.index';
         $admins = $this->userManager->get_admin_users();
@@ -250,7 +252,7 @@ class ResourceController extends Controller {
         // Manager calls repository
     }
 
-    public function approve(Request $request): \Illuminate\Http\RedirectResponse {
+    public function approve(Request $request): RedirectResponse {
         $data = $request->all();
         $package = $this->resourcesPackageManager->getResourcesPackage($data['id']);
         $redirect_route = $package->type_id === ResourceTypesLkp::COMMUNICATION ? 'communication_resources.index' : 'game_resources.index';
@@ -266,7 +268,7 @@ class ResourceController extends Controller {
         }
     }
 
-    public function reject(Request $request): \Illuminate\Http\RedirectResponse {
+    public function reject(Request $request): RedirectResponse {
         $data = $request->all();
         $rejectionMessage = $data['rejection_comment'];
         $rejectionReason = $data['rejection_reason'];
@@ -285,7 +287,7 @@ class ResourceController extends Controller {
         }
     }
 
-    public function report(Request $request): \Illuminate\Http\RedirectResponse {
+    public function report(Request $request): RedirectResponse {
         $data = $request->all();
         $reportComment = $data['report_comment'];
         $reportReason = $data['report_reason'];
@@ -305,7 +307,7 @@ class ResourceController extends Controller {
         }
     }
 
-    public function respond(Request $request): \Illuminate\Http\RedirectResponse {
+    public function respond(Request $request): RedirectResponse {
         $data = $request->all();
         $response = $data['response'];
         $package = $this->resourcesPackageManager->getResourcesPackage($data['id']);
