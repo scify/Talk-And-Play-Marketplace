@@ -436,7 +436,7 @@ export default {
 			if (this.userLoggedIn()) {
 				this.get({
 					url: window.route("resources-package.user-rating.get")
-                        + "?resources_package_id=" + this.resourcesPackage.id + "&user_id=" + this.user.id,
+                        + "?resources_package_id=" + this.resourcesPackage.id,
 					urlRelative: false
 				}).then(response => {
 					this.userRating = response.data.rating;
@@ -516,7 +516,6 @@ export default {
 			this.post({
 				url: window.route("resources-package.user-rating.post"),
 				data: {
-					user_id: this.user.id,
 					resources_package_id: this.resourcesPackage.id,
 					rating: rateIndex
 				},
