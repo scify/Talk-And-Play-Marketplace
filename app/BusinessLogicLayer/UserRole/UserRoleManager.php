@@ -7,7 +7,6 @@ use App\Models\UserRole\UserRole;
 use App\Repository\User\UserRole\UserRoleRepository;
 use App\Repository\User\UserRole\UserRolesLkp;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
 
 class UserRoleManager {
@@ -36,7 +35,6 @@ class UserRoleManager {
         if ($this->userHasRole($user, $roleId)) {
             return $this->userRoleRepository->where($arr)->first();
         }
-        $this->storeUserRoleInCache($user->id, $roleId);
         // check if exists but is soft deleted
         $existingRole = $this->userRoleRepository->getUserRoleWithTrashed($arr);
         if ($existingRole) {
@@ -67,7 +65,6 @@ class UserRoleManager {
         if ($this->userHasRole($user, $roleId)) {
             $userRole = $this->userRoleRepository->where(['user_id' => $user->id, 'role_id' => $roleId]);
             $this->userRoleRepository->delete($userRole->id);
-            $this->removeRoleFromCache($user, $roleId);
         }
     }
 
@@ -84,7 +81,9 @@ class UserRoleManager {
             return false;
         }
 
-        return $this->checkCacheOrDBForRoleAndStore($user, $roleId);
+        // User eager-loads its roles, so no cache is needed. The former cache stored true for every
+        // check and read a different key; it must not come back.
+        return $this->rolesInclude($user->roles, $roleId);
     }
 
     /**
@@ -97,32 +96,6 @@ class UserRoleManager {
      */
     private function rolesInclude(Collection $userRoles, int $roleId) {
         return $userRoles->contains($roleId);
-    }
-
-    private function checkCacheOrDBForRoleAndStore(User $user, $roleId) {
-        $cacheKey = $this->getRoleCacheKey($user->id, $roleId);
-        $result = Cache::get($cacheKey . $user->id);
-        if ($result == null) {
-            $userRoles = $user->roles;
-            $result = $this->rolesInclude($userRoles, $roleId);
-            $this->storeUserRoleInCache($user->id, $roleId);
-        }
-
-        return $result;
-    }
-
-    private function storeUserRoleInCache(int $userId, int $roleId) {
-        $cacheKey = $this->getRoleCacheKey($userId, $roleId);
-
-        return Cache::forever($cacheKey, true);
-    }
-
-    private function removeRoleFromCache(User $user, int $roleId) {
-        Cache::forget($this->getRoleCacheKey($user->id, $roleId));
-    }
-
-    private function getRoleCacheKey(int $userId, int $roleId) {
-        return 'user_' . $userId . '_role_' . $roleId;
     }
 
     public function getAllUserRoles() {
