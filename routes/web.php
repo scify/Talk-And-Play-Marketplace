@@ -12,7 +12,6 @@ use App\Models\User;
 use App\Notifications\AcceptanceNotice;
 use App\Notifications\AdminNotice;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Route;
 
@@ -141,21 +140,11 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('js/translations.js', function () {
     $lang = config('app.locale');
-    Cache::flush();
-    $strings = Cache::rememberForever('lang_' . $lang . '.js', function () use ($lang) {
-        $files = [
-            app()->langPath() . '/' . $lang . '/messages.php',
-            app()->langPath() . '/' . $lang . '/validation.php',
-        ];
-        $strings = [];
+    $strings = [];
 
-        foreach ($files as $file) {
-            $name = basename($file, '.php');
-            $strings[$name] = require $file;
-        }
-
-        return $strings;
-    });
+    foreach (['messages', 'validation'] as $name) {
+        $strings[$name] = require app()->langPath() . '/' . $lang . '/' . $name . '.php';
+    }
 
     return response('window.i18n = ' . json_encode($strings) . ';')
         ->header('Content-Type', 'text/javascript');
