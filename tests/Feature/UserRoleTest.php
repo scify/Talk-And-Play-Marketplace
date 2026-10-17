@@ -14,8 +14,8 @@ test('admin users can access admin routes', function () {
     $user->refresh();
 
     actingAs($user)
-        ->get('/test-sentry/test')
-        ->assertStatus(500); // This route throws an exception, but should be accessible
+        ->get('/administration/users')
+        ->assertOk();
 });
 
 test('regular users cannot access admin routes', function () {
@@ -27,6 +27,6 @@ test('regular users cannot access admin routes', function () {
     $user->refresh();
 
     actingAs($user)
-        ->get('/test-sentry/test')
-        ->assertStatus(403);
+        ->get('/administration/users')
+        ->assertForbidden();
 });
