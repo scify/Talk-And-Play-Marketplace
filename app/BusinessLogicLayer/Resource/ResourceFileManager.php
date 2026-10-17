@@ -52,7 +52,8 @@ class ResourceFileManager {
         $resourceNameWithoutExtension = $this->getResourceFileWithoutExtension($resourceFullName);
         $resourceNameCleaned = $this->keepLatinCharactersAndNumbersString($resourceNameWithoutExtension);
 
-        return $id . '_' . $resourceNameCleaned . '_' . date('Y-m-d_h_i_s', time()) . '.' . $resource->getClientOriginalExtension();
+        // The extension comes from the file content: a client name such as x.php must not reach the public disk.
+        return $id . '_' . $resourceNameCleaned . '_' . date('Y-m-d_h_i_s', time()) . '.' . $resource->guessExtension();
     }
 
     /**

@@ -98,7 +98,7 @@ class ResourceController extends Controller {
         */
         $resourceType = '';
         if ($type_id === ResourceTypesLkp::COMMUNICATION) {
-            $this->validate($request, ['sound' => 'required|file|between:10,1000|nullable']);
+            $this->validate($request, ['sound' => 'mimes:mp3|required|file|between:10,1000|nullable']);
             $manager = $this->communicationResourcesPackageManager;
             $ret_route = 'communication_resources.edit';
             $resourceType = 'communication';

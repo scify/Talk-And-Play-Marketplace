@@ -142,7 +142,7 @@ class GameResourceController extends Controller {
 
         $this->validate($request, [
             'name' => 'required|string|max:100',
-            'image' => 'file|between:10,500|nullable',
+            'image' => 'mimes:jpg,png,jpeg|file|between:10,500|nullable',
         ]);
 
         $resource = $this->resourceManager->getResource($id);
