@@ -101,7 +101,8 @@ class GameResourceController extends Controller {
 
     public function edit(int $package_id) { // returns view
         try {
-            $package = $this->resourcesPackageManager->getResourcesPackage($package_id);
+            $package = $this->resourcesPackageManager->getResourcesPackage($package_id) ?? abort(404);
+            $this->authorize('manage', $package);
             switch ($package->type_id) {
                 case ResourceTypesLkp::SIMILAR_GAME:
                     $editResourceViewModel = $this->similarityGameResourcesPackageManager->getEditResourceViewModel($package);
@@ -171,7 +172,8 @@ class GameResourceController extends Controller {
      * @return Response
      */
     public function download_package(int $id) {
-        $package = $this->resourcesPackageManager->getResourcesPackage($id);
+        $package = $this->resourcesPackageManager->getResourcesPackage($id) ?? abort(404);
+        $this->authorize('view', $package);
         try {
             switch ($package->type_id) {
                 case ResourceTypesLkp::SIMILAR_GAME:

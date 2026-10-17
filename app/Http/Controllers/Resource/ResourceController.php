@@ -408,7 +408,8 @@ class ResourceController extends Controller {
     }
 
     public function clone_package($package_id) {
-        $package = $this->resourcesPackageManager->getResourcesPackage($package_id);
+        $package = $this->findPackageOrFail($package_id);
+        $this->authorize('view', $package);
         $coverResource = $this->resourceManager->cloneResource($package->card_id, null);
         if ($package->type_id === ResourceTypesLkp::COMMUNICATION) {
             $manager = $this->communicationResourcesPackageManager;

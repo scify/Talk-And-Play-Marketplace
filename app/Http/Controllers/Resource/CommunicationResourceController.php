@@ -110,7 +110,8 @@ class CommunicationResourceController extends Controller {
     public function edit($id) { // returns view
         try {
             //            $createResourceViewModel = $this->communicationResourceManager->getEditResourceViewModel($id);
-            $package = $this->communicationResourcesPackageManager->getResourcesPackage($id);
+            $package = $this->communicationResourcesPackageManager->getResourcesPackage($id) ?? abort(404);
+            $this->authorize('manage', $package);
             $createResourceViewModel = $this->communicationResourcesPackageManager->getEditResourceViewModel($package->card_id, $package);
 
             return view('communication_resources.create-edit')->with(['viewModel' => $createResourceViewModel]);
@@ -121,7 +122,8 @@ class CommunicationResourceController extends Controller {
 
     public function download_package(int $id) {
         try {
-            $package = $this->communicationResourcesPackageManager->getResourcesPackage($id);
+            $package = $this->communicationResourcesPackageManager->getResourcesPackage($id) ?? abort(404);
+            $this->authorize('view', $package);
 
             $this->communicationResourcesPackageManager->downloadPackage($package);
             $this->analyticsEventManager->storeMarketplaceUsageData(Auth::user(), [
