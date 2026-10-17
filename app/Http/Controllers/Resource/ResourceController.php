@@ -85,6 +85,8 @@ class ResourceController extends Controller {
         $this->validate($request, [
             'name' => 'required|string|max:100',
             'image' => 'mimes:jpg,png,jpeg|required|file|between:3,1000|nullable',
+            // Any type: game cards have no sound, but a sent file must not reach the public disk as something else.
+            'sound' => 'mimes:mp3|file|nullable',
             'type_id' => 'required',
         ]);
 
@@ -161,6 +163,7 @@ class ResourceController extends Controller {
         $this->validate($request, [
             'name' => 'string|max:100',
             'image' => 'mimes:jpg,png|file|between:3,1000|nullable',
+            'sound' => 'mimes:mp3|file|nullable',
             'type_id' => 'required',
         ]);
 
@@ -199,6 +202,7 @@ class ResourceController extends Controller {
             'name' => 'string|max:100',
             'lang' => 'required',
             'image' => 'mimes:jpg,png|file|between:3,1000|nullable',
+            'sound' => 'mimes:mp3|file|nullable',
             'type_id' => 'required',
             'accept-guideline-terms' => 'required',
             'accept-privacy-terms' => 'required',
