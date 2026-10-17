@@ -7,27 +7,19 @@ use Illuminate\Support\Facades\Hash;
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\put;
 
-function profileUser(bool $admin = false): User {
-    $user = User::factory()->create();
-    $roleManager = app(UserRoleManager::class);
-    $admin ? $roleManager->assignAdminUserRoleTo($user) : $roleManager->assignRegisteredUserRoleTo($user);
-
-    return $user->refresh();
-}
-
 function isAdmin(User $user): bool {
     return app(UserRoleManager::class)->userHasAdminRole($user->refresh());
 }
 
 test('guest cannot update a profile', function () {
-    $user = profileUser();
+    $user = memberUser();
 
     put("/users/update/{$user->id}", ['name' => 'x', 'email' => 'x@example.com'])->assertRedirect('/login');
 });
 
 test('member cannot update another user', function () {
-    $attacker = profileUser();
-    $victim = profileUser();
+    $attacker = memberUser();
+    $victim = memberUser();
 
     actingAs($attacker)
         ->put("/users/update/{$victim->id}", ['name' => 'Taken', 'email' => 'attacker@example.com'])
@@ -37,7 +29,7 @@ test('member cannot update another user', function () {
 });
 
 test('member cannot make themselves admin', function () {
-    $member = profileUser();
+    $member = memberUser();
 
     actingAs($member)->put("/users/update/{$member->id}", [
         'name' => $member->name,
@@ -49,7 +41,7 @@ test('member cannot make themselves admin', function () {
 });
 
 test('admin keeps the admin role after saving their own profile', function () {
-    $admin = profileUser(admin: true);
+    $admin = adminUser();
 
     actingAs($admin)
         ->put("/users/update/{$admin->id}", ['name' => 'New name', 'email' => $admin->email])
@@ -60,7 +52,7 @@ test('admin keeps the admin role after saving their own profile', function () {
 });
 
 test('member can change their own name, email and password', function () {
-    $member = profileUser();
+    $member = memberUser();
 
     actingAs($member)
         ->put("/users/update/{$member->id}", [
@@ -78,7 +70,7 @@ test('member can change their own name, email and password', function () {
 });
 
 test('an empty password field keeps the password', function () {
-    $member = profileUser();
+    $member = memberUser();
     $hash = $member->password;
 
     actingAs($member)->put("/users/update/{$member->id}", [

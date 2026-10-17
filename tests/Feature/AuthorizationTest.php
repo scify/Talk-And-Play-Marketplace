@@ -1,8 +1,5 @@
 <?php
 
-use App\BusinessLogicLayer\UserRole\UserRoleManager;
-use App\Models\User;
-
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\get;
 
@@ -17,20 +14,6 @@ dataset('member pages', [
     'create game package' => '/game-cards/create?type_id=2',
     'my packages' => '/my-packages',
 ]);
-
-function memberUser(): User {
-    $user = User::factory()->create();
-    app(UserRoleManager::class)->assignRegisteredUserRoleTo($user);
-
-    return $user->refresh();
-}
-
-function adminUser(): User {
-    $user = User::factory()->create();
-    app(UserRoleManager::class)->assignAdminUserRoleTo($user);
-
-    return $user->refresh();
-}
 
 test('guest is redirected to login from administration page', function (string $path) {
     get($path)->assertRedirect('/login');
