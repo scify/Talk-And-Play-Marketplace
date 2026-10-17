@@ -12,22 +12,11 @@
 */
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Artisan;
 
 uses(
     Tests\TestCase::class,
     RefreshDatabase::class,
 )->in('Feature', 'Unit');
-
-/*
-|--------------------------------------------------------------------------
-| Setup SQLite Testing
-|--------------------------------------------------------------------------
-*/
-
-beforeEach(function () {
-    Artisan::call('migrate:testing');
-});
 
 /*
 |--------------------------------------------------------------------------
