@@ -2,34 +2,49 @@
 
 namespace Tests;
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTruncation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
+use RuntimeException;
 
 abstract class TestCase extends BaseTestCase {
     use CreatesApplication;
 
     use RefreshDatabase;
 
-    protected function setUp(): void {
-        parent::setUp();
+    /**
+     * Run the DatabaseSeeder after RefreshDatabase migrates.
+     */
+    protected bool $seed = true;
 
-        // Ensure the SQLite testing database exists
-        $dbPath = database_path('testing.sqlite');
-        if (!File::exists($dbPath)) {
-            File::put($dbPath, '');
+    /**
+     * The database traits wipe the database before each test. DDEV container
+     * variables, a cached config or a DATABASE_URL can point the tests at a
+     * real database, so refuse anything other than SQLite in memory before the
+     * traits run.
+     */
+    protected function setUpTraits() {
+        $uses = class_uses_recursive(static::class);
+
+        if (isset($uses[RefreshDatabase::class]) || isset($uses[DatabaseMigrations::class]) || isset($uses[DatabaseTruncation::class])) {
+            $this->ensureTestDatabaseIsInMemory();
         }
 
-        // Drop all tables and run migrations fresh
-        if (Schema::hasTable('users')) {
-            $this->artisan('migrate:fresh', ['--force' => true, '--seed' => true, '--database' => 'sqlite_testing']);
-        } else {
-            $this->artisan('migrate', ['--force' => true, '--seed' => true, '--database' => 'sqlite_testing']);
-        }
+        return parent::setUpTraits();
     }
 
-    protected function tearDown(): void {
-        parent::tearDown();
+    protected function ensureTestDatabaseIsInMemory(): void {
+        $connection = DB::connection();
+        $driver = $connection->getConfig('driver');
+        $database = $connection->getConfig('database');
+
+        if ($driver !== 'sqlite' || $database !== ':memory:') {
+            throw new RuntimeException(
+                "Tests must use SQLite in memory, not [{$driver}] database [{$database}]. "
+                . 'Run "php artisan config:clear" and check DATABASE_URL.'
+            );
+        }
     }
 }
