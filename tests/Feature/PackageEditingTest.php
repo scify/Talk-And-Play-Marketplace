@@ -2,9 +2,11 @@
 
 use App\Models\Resource\Resource;
 use App\Models\Resource\ResourcesPackage;
+use App\Notifications\AdminNotice;
 use App\Repository\Resource\ResourceStatusesLkp;
 use App\Repository\Resource\ResourceTypesLkp;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Notification;
 
 use function Pest\Laravel\actingAs;
 
@@ -116,4 +118,24 @@ test('a card added by the creator through the communication form sends an approv
 
     expect(Resource::where('name', 'New card')->value('resource_parent_id'))->toBe($package->card_id)
         ->and($package->refresh()->status_id)->toBe(ResourceStatusesLkp::CREATED_PENDING_APPROVAL);
+});
+
+test('admins are told when a member\'s edit sends an approved package back to pending', function () {
+    Notification::fake();
+    $admin = adminUser();
+    $creator = memberUser();
+    $card = childCardOf(createPackage($creator));
+
+    actingAs($creator)->put("/resources/{$card->id}", renameCard())->assertRedirect();
+
+    Notification::assertSentTo($admin, AdminNotice::class);
+});
+
+test('an admin edit sends no approval request', function () {
+    Notification::fake();
+    $card = childCardOf(createPackage(memberUser()));
+
+    actingAs(adminUser())->put("/resources/{$card->id}", renameCard())->assertRedirect();
+
+    Notification::assertNothingSent();
 });

@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseTruncation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use RuntimeException;
 
@@ -26,6 +27,8 @@ abstract class TestCase extends BaseTestCase {
         $this->withoutVite();
         // Uploads and deletions in tests must not touch storage/app/public.
         Storage::fake('public');
+        // Tests must not send mail; tests that check notifications assert on the fake.
+        Notification::fake();
     }
 
     /**

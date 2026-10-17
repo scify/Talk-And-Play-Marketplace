@@ -2,9 +2,11 @@
 
 namespace App\BusinessLogicLayer\Resource;
 
+use App\BusinessLogicLayer\User\UserManager;
 use App\Models\Reports;
 use App\Models\Resource\Resource;
 use App\Models\Resource\ResourcesPackage;
+use App\Notifications\AdminNotice;
 use App\Repository\ContentLanguageLkpRepository;
 use App\Repository\ReportsRepository;
 use App\Repository\Resource\ResourceRepository;
@@ -12,6 +14,7 @@ use App\Repository\Resource\ResourcesPackageRepository;
 use App\Repository\Resource\ResourceStatusesLkp;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use InvalidArgumentException;
 
@@ -82,12 +85,18 @@ class ResourcesPackageManager extends ResourceManager {
     }
 
     /**
-     * A member's edit of an approved package needs a new approval. Admin edits keep the status.
+     * A member's edit of an approved package (card added or changed, package details changed) needs a
+     * new approval, and the admins are told, as on submit. Admin edits keep the status. Deleting a card
+     * removes content only, so it keeps the status.
      */
     public function returnToPendingAfterEdit(ResourcesPackage $package, bool $editorIsAdmin): void {
-        if (!$editorIsAdmin && (int) $package->status_id === ResourceStatusesLkp::APPROVED) {
-            $this->submitResourcesPackage($package->id);
+        if ($editorIsAdmin || (int) $package->status_id !== ResourceStatusesLkp::APPROVED) {
+            return;
         }
+
+        $this->submitResourcesPackage($package->id);
+        $coverResourceCardName = $this->resourceRepository->find($package->card_id)->name;
+        Notification::send(app(UserManager::class)->get_admin_users(), new AdminNotice($package, $coverResourceCardName));
     }
 
     public function approveResourcesPackage($id) {
