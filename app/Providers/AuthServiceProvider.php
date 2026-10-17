@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\BusinessLogicLayer\UserRole\UserRoleManager;
+use App\Models\Resource\ResourcesPackage;
+use App\Policies\ResourcesPackagePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\App;
 
@@ -13,7 +15,7 @@ class AuthServiceProvider extends ServiceProvider {
      * @var array
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        ResourcesPackage::class => ResourcesPackagePolicy::class,
     ];
 
     /**

@@ -13,6 +13,7 @@ use App\BusinessLogicLayer\Resource\TimeGameResourcesPackageManager;
 use App\BusinessLogicLayer\User\UserManager;
 use App\Http\Controllers\Controller;
 use App\Models\Resource\Resource;
+use App\Models\Resource\ResourcesPackage;
 use App\Notifications\AcceptanceNotice;
 use App\Notifications\AdminNotice;
 use App\Notifications\RejectionNotice;
@@ -380,6 +381,8 @@ class ResourceController extends Controller {
     }
 
     public function delete_package($package_id) {
+        $this->authorize('manage', $this->findPackageOrFail($package_id));
+
         try {
             $this->resourcesPackageManager->destroyResourcesPackage($package_id);
         } catch (ModelNotFoundException $e) {
@@ -437,5 +440,9 @@ class ResourceController extends Controller {
         $reportedPackagesWithMetadata = $this->resourcesPackageManager->getReportedPackages($type_ids, $request->lang_id);
 
         return $reportedPackagesWithMetadata;
+    }
+
+    private function findPackageOrFail($package_id): ResourcesPackage {
+        return $this->resourcesPackageManager->getResourcesPackage($package_id) ?? abort(404);
     }
 }

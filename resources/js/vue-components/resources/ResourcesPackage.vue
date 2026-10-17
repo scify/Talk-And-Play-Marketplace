@@ -186,9 +186,13 @@
                                 <h4>{{ trans('messages.warning_deletion') }}</h4>
                             </div>
 
-                            <a :href="getDeletePackageRoute()" class="btn btn-danger">
-                                {{ trans('messages.delete') }}
-                            </a>
+                            <form :action="getDeletePackageRoute()" method="POST">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" :value="csrfToken">
+                                <button type="submit" class="btn btn-danger">
+                                    {{ trans('messages.delete') }}
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -364,6 +368,7 @@ export default {
 			resourceChildrenModalOpen: false,
 			rateModalOpen: false,
 			deleteModalOpen: false,
+			csrfToken: window.Laravel.csrfToken,
 			packageRejectionModalOpen: false,
 			packageDownloadWarningModalOpen: false,
 			packageReportModalOpen: false,

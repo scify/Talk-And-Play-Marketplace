@@ -66,8 +66,9 @@ function adminUser(): User {
 }
 
 function createPackage(User $creator, int $statusId = ResourceStatusesLkp::APPROVED, int $typeId = ResourceTypesLkp::COMMUNICATION): ResourcesPackage {
-    $cover = Resource::create(['name' => 'Test package', 'creator_user_id' => $creator->id]);
-    Resource::create(['name' => 'Test card', 'creator_user_id' => $creator->id, 'resource_parent_id' => $cover->id]);
+    $files = ['img_path' => 'resources/img/test.png', 'audio_path' => 'resources/audio/test.mp3'];
+    $cover = Resource::create(['name' => 'Test package', 'creator_user_id' => $creator->id, ...$files]);
+    Resource::create(['name' => 'Test card', 'creator_user_id' => $creator->id, 'resource_parent_id' => $cover->id, ...$files]);
 
     return ResourcesPackage::create([
         'lang_id' => 1,
