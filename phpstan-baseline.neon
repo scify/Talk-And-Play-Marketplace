@@ -48,11 +48,6 @@ parameters:
 			count: 1
 			path: app/Http/Controllers/Resource/CommunicationResourceController.php
 
-		-
-			message: '#^Strict comparison using \=\=\= between null and null will always evaluate to true\.$#'
-			identifier: identical.alwaysTrue
-			count: 1
-			path: app/Http/Controllers/Resource/CommunicationResourceController.php
 
 		-
 			message: '#^Access to an undefined property App\\ViewModels\\GameResourcePackagesIndexPage\:\:\$isAdmin\.$#'

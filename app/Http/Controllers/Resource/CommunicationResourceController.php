@@ -70,6 +70,12 @@ class CommunicationResourceController extends Controller {
      * @return RedirectResponse
      */
     public function store(Request $request) {
+        $parentPackage = null;
+        if ($request['parentId']) {
+            $parentPackage = $this->communicationResourcesPackageManager->getPackageOfResource((int) $request['parentId']) ?? abort(404);
+            $this->authorize('manage', $parentPackage);
+        }
+
         $this->validate($request, [
             'name' => 'required|string|max:100',
             'sound' => 'mimes:mp3|required|file|between:5,2000|nullable',
@@ -89,6 +95,7 @@ class CommunicationResourceController extends Controller {
                 return redirect()->route('communication_resources.edit', $resourcePackage->id)->with('flash_message_success', __('messages.package-create-success'));
             } else {
                 $resourcePackage = $this->communicationResourcesPackageManager->getResourcesPackageWithCoverCard($resource->resource_parent_id);
+                $this->communicationResourcesPackageManager->returnToPendingAfterEdit($parentPackage, Gate::allows('manage-platform'));
 
                 return redirect()->route('communication_resources.edit', $resourcePackage->id)->with('flash_message_success', __('messages.card-create-success'));
             }

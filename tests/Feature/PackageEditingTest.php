@@ -4,6 +4,7 @@ use App\Models\Resource\Resource;
 use App\Models\Resource\ResourcesPackage;
 use App\Repository\Resource\ResourceStatusesLkp;
 use App\Repository\Resource\ResourceTypesLkp;
+use Illuminate\Http\UploadedFile;
 
 use function Pest\Laravel\actingAs;
 
@@ -11,7 +12,7 @@ function childCardOf(ResourcesPackage $package): Resource {
     return Resource::where('resource_parent_id', $package->card_id)->firstOrFail();
 }
 
-function renameCard(Resource $card): array {
+function renameCard(): array {
     return ['name' => 'Renamed card', 'type_id' => ResourceTypesLkp::COMMUNICATION];
 }
 
@@ -19,7 +20,7 @@ test('member cannot update another member\'s card', function () {
     $package = createPackage(memberUser());
     $card = childCardOf($package);
 
-    actingAs(memberUser())->put("/resources/{$card->id}", renameCard($card))->assertForbidden();
+    actingAs(memberUser())->put("/resources/{$card->id}", renameCard())->assertForbidden();
 
     expect($card->refresh()->name)->toBe('Test card');
 });
@@ -72,7 +73,7 @@ test('creator edit keeps the creator and sends an approved package back to pendi
     $package = createPackage($creator);
     $card = childCardOf($package);
 
-    actingAs($creator)->put("/resources/{$card->id}", renameCard($card))->assertRedirect();
+    actingAs($creator)->put("/resources/{$card->id}", renameCard())->assertRedirect();
 
     expect($card->refresh()->name)->toBe('Renamed card')
         ->and($card->creator_user_id)->toBe($creator->id)
@@ -84,9 +85,35 @@ test('admin edit keeps the creator and the approved status', function () {
     $package = createPackage($creator);
     $card = childCardOf($package);
 
-    actingAs(adminUser())->put("/resources/{$card->id}", renameCard($card))->assertRedirect();
+    actingAs(adminUser())->put("/resources/{$card->id}", renameCard())->assertRedirect();
 
     expect($card->refresh()->name)->toBe('Renamed card')
         ->and($card->creator_user_id)->toBe($creator->id)
         ->and($package->refresh()->status_id)->toBe(ResourceStatusesLkp::APPROVED);
+});
+
+test('member cannot add a card to another member\'s package through the communication form', function () {
+    $package = createPackage(memberUser());
+
+    actingAs(memberUser())->post('/communication-resources', [
+        'name' => 'Injected card',
+        'parentId' => $package->card_id,
+    ])->assertForbidden();
+
+    expect(Resource::where('name', 'Injected card')->exists())->toBeFalse();
+});
+
+test('a card added by the creator through the communication form sends an approved package back to pending', function () {
+    $creator = memberUser();
+    $package = createPackage($creator);
+
+    actingAs($creator)->post('/communication-resources', [
+        'name' => 'New card',
+        'parentId' => $package->card_id,
+        'image' => UploadedFile::fake()->image('card.png', 600, 600)->size(50),
+        'sound' => UploadedFile::fake()->create('card.mp3', 50, 'audio/mpeg'),
+    ])->assertRedirect();
+
+    expect(Resource::where('name', 'New card')->value('resource_parent_id'))->toBe($package->card_id)
+        ->and($package->refresh()->status_id)->toBe(ResourceStatusesLkp::CREATED_PENDING_APPROVAL);
 });
