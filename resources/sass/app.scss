@@ -1,12 +1,14 @@
 // bootstrap
 @import "variables";
-@import "~bootstrap/scss/bootstrap";
-@import "~flickity/dist/flickity.min.css";
+@import "bootstrap/scss/bootstrap";
+@import "flickity/dist/flickity.min";
 // FontAwesome
-@import '~@fortawesome/fontawesome-free/scss/fontawesome';
-@import '~@fortawesome/fontawesome-free/scss/regular';
-@import '~@fortawesome/fontawesome-free/scss/solid';
-@import '~@fortawesome/fontawesome-free/scss/brands';
+// Vite resolves url() relative to this entry file, not to the FontAwesome partials.
+$fa-font-path: "../../node_modules/@fortawesome/fontawesome-free/webfonts";
+@import '@fortawesome/fontawesome-free/scss/fontawesome';
+@import '@fortawesome/fontawesome-free/scss/regular';
+@import '@fortawesome/fontawesome-free/scss/solid';
+@import '@fortawesome/fontawesome-free/scss/brands';
 @import "buttons";
 @import "footer";
 

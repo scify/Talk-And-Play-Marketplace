@@ -19,6 +19,12 @@ abstract class TestCase extends BaseTestCase {
      */
     protected bool $seed = true;
 
+    protected function setUp(): void {
+        parent::setUp();
+
+        $this->withoutVite();
+    }
+
     /**
      * The database traits wipe the database before each test. DDEV container
      * variables, a cached config or a DATABASE_URL can point the tests at a

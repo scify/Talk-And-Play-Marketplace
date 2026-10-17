@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @push('css')
-    <link rel="stylesheet" href="{{ mix('dist/css/home.css') }}">
+    @vite('resources/sass/home.scss')
 @endpush
 
 @section('content')

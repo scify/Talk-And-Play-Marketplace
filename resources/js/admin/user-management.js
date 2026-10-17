@@ -1,4 +1,5 @@
 import {Modal} from "bootstrap";
+import $ from "jquery";
 
 (function () {
 	$(document).ready(function () {

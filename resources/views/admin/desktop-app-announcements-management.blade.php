@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @push('css')
-    <link rel="stylesheet" href="{{ mix('dist/css/desktop-app-announcements-management-page.css') }}">
+    @vite('resources/sass/desktop-app-announcements-management-page.scss')
 @endpush
 @push('modals')
 
@@ -206,5 +206,5 @@
         window.announcements = @json($announcements);
         window.languages = @json($languages);
     </script>
-    <script src="{{ mix('dist/js/desktop-app-announcements-management.js') }}"></script>
+    @vite('resources/js/admin/desktop-app-announcements-management.js')
 @endpush

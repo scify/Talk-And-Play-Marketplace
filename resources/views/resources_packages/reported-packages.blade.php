@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @push('css')
-    <link rel="stylesheet" href="{{ mix('dist/css/resources-packages-index.css') }}">
+    @vite('resources/sass/resources-packages-index.scss')
 @endpush
 
 @section('content')
@@ -98,5 +98,5 @@
 
 @endsection
 @push('scripts')
-    <script src="{{ mix('dist/js/create-edit-resource.js') }}"></script>
+    @vite('resources/js/create-edit-resource.js')
 @endpush

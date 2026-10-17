@@ -1,4 +1,5 @@
 import Flickity from "flickity";
+import $ from "jquery";
 
 (function () {
 	let carousel;

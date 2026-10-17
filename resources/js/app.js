@@ -1,10 +1,11 @@
+import "./jquery-global";
 import "bootstrap";
-import $ from "jquery";
 import Vue from "vue";
 
-require("./bootstrap");
-window.$ = window.jQuery = $;
-window.route = require("./backend-route");
+import "./bootstrap";
+import route from "./backend-route";
+
+window.route = route;
 import store from "./store/store";
 
 import getLodash from "lodash/get";
@@ -12,10 +13,13 @@ import eachRightLodash from "lodash/eachRight";
 import replaceLodash from "lodash/replace";
 
 import * as Sentry from "@sentry/browser";
+import ModalComponent from "./vue-components/common/ModalComponent.vue";
+import ResourcesPackagesWithFilters from "./vue-components/resources/ResourcesPackagesWithFilters.vue";
+import ResourcesPackage from "./vue-components/resources/ResourcesPackage.vue";
 
-if(process.env.MIX_SENTRY_DSN_PUBLIC) {
+if(import.meta.env.VITE_SENTRY_DSN_PUBLIC) {
 	Sentry.init({
-		dsn: process.env.MIX_SENTRY_DSN_PUBLIC,
+		dsn: import.meta.env.VITE_SENTRY_DSN_PUBLIC,
 	});
 }
 
@@ -33,10 +37,10 @@ Vue.prototype.trans = (string, args) => {
 };
 
 // eslint-disable-next-line vue/multi-word-component-names
-Vue.component("modal", require("./vue-components/common/ModalComponent").default);
+Vue.component("modal", ModalComponent);
 // Vue.component('pending-resources-packages-with-filters', require('./vue-components/resources/PendingResourcesPackagesWithFilters').default);
-Vue.component("resources-packages-with-filters", require("./vue-components/resources/ResourcesPackagesWithFilters").default);
-Vue.component("resource-package", require("./vue-components/resources/ResourcesPackage").default);
+Vue.component("resources-packages-with-filters", ResourcesPackagesWithFilters);
+Vue.component("resource-package", ResourcesPackage);
 
 
 new Vue({

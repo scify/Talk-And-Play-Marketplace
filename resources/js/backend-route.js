@@ -1,5 +1,5 @@
 const routes = window.Laravel.routes;
-module.exports = function () {
+export default function () {
 	var args = Array.prototype.slice.call(arguments);
 	var name = args.shift();
 	if (routes[name] === undefined) {

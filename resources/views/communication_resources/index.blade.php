@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @push('css')
-    <link rel="stylesheet" href="{{ mix('dist/css/resources-packages-index.css') }}">
+    @vite('resources/sass/resources-packages-index.scss')
 @endpush
 @section('content')
     <section id="intro" class="pt-5 mt-5">

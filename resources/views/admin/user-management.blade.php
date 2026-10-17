@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @push('css')
-    <link rel="stylesheet" href="{{ mix('dist/css/user-management-page.css') }}">
+    @vite('resources/sass/user-management-page.scss')
 @endpush
 
 @section('content')
@@ -144,5 +144,5 @@
     </div><!--.modal-->
 @endpush
 @push('scripts')
-    <script src="{{ mix('dist/js/user-management.js') }}"></script>
+    @vite('resources/js/admin/user-management.js')
 @endpush
