@@ -11,7 +11,7 @@ additional_fqdns: []
 database:
   type: mysql
   version: "8.0"
-nodejs_version: "22"
+nodejs_version: "24.21.0"
 
 # Expose Vite port
 web_extra_exposed_ports:
@@ -23,6 +23,8 @@ web_extra_exposed_ports:
 # Key Features
 hooks:
   post-start:
+    # Keep nodejs_version in sync with .nvmrc
+    - exec: bash .ddev/scripts/sync-node-version.sh
     # Create directories if they don't exist
     - exec: mkdir -p storage/framework/{cache,sessions,views}
     - exec: mkdir -p storage/logs
