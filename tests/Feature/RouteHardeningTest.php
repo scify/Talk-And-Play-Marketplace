@@ -23,6 +23,7 @@ test('routes without a controller method or a backing feature are not registered
     ['PUT', 'communication-resources/{communication_resource}'],
     ['DELETE', 'communication-resources/{communication_resource}'],
     ['DELETE', 'game-cards/{game_card}'],
+    ['POST', 'game-cards'],
     ['GET', 'game-cards/show/package/{id}'],
     ['PUT', 'resources/update_resource/{id}/{type_id}'],
     ['PUT', 'user/profile-information'],

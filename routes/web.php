@@ -100,11 +100,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('game-cards', GameResourceController::class)
         ->only([
-            'create', 'store', 'edit', 'update',
+            'create', 'edit', 'update',
         ])
         ->names([
             'create' => 'game_resources.create',
-            'store' => 'game_resources.store',
             'edit' => 'game_resources.edit',
             'update' => 'game_resources.update',
             'show_package' => 'game_resources.show_package',
