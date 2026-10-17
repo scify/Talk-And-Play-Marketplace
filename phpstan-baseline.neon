@@ -1,0 +1,355 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Call to an undefined method App\\Repository\\Resource\\ResourcesPackageRepository\:\:getPendingResourcePackages\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/BusinessLogicLayer/Resource/ResourcesPackageManager.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Exceptions\\Handler\:\:\$dontFlash is not covariant with PHPDoc type array\<int, string\> of overridden property Illuminate\\Foundation\\Exceptions\\Handler\:\:\$dontFlash\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Exceptions/Handler.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Exceptions\\Handler\:\:\$dontReport is not covariant with PHPDoc type array\<int, class\-string\<Throwable\>\> of overridden property Illuminate\\Foundation\\Exceptions\\Handler\:\:\$dontReport\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Exceptions/Handler.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Support\\Collection\:\:\$isAdmin\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Resource/CommunicationResourceController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Support\\Collection\:\:\$resourcesPackagesStatuses\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Resource/CommunicationResourceController.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Routing\\Redirector\:\:with\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Http/Controllers/Resource/CommunicationResourceController.php
+
+		-
+			message: '#^Caught class App\\Http\\Controllers\\Resource\\Exception not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Http/Controllers/Resource/CommunicationResourceController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Resource\\CommunicationResourceController\:\:edit\(\) should return Illuminate\\Http\\Response but returns Illuminate\\View\\View\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Controllers/Resource/CommunicationResourceController.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between null and null will always evaluate to true\.$#'
+			identifier: identical.alwaysTrue
+			count: 1
+			path: app/Http/Controllers/Resource/CommunicationResourceController.php
+
+		-
+			message: '#^Access to an undefined property App\\ViewModels\\GameResourcePackagesIndexPage\:\:\$isAdmin\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Resource/GameResourceController.php
+
+		-
+			message: '#^Access to an undefined property App\\ViewModels\\GameResourcePackagesIndexPage\:\:\$resourcesPackagesStatuses\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/Resource/GameResourceController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\Resource\\GameResourceController\:\:download_package\(\) should return Illuminate\\Http\\Response but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: app/Http/Controllers/Resource/GameResourceController.php
+
+		-
+			message: '#^Access to an undefined property App\\ViewModels\\GameResourcePackagesIndexPage\:\:\$isAdmin\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Http/Controllers/Resource/ResourceController.php
+
+		-
+			message: '#^Access to an undefined property App\\ViewModels\\GameResourcePackagesIndexPage\:\:\$resourcesPackagesStatuses\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Http/Controllers/Resource/ResourceController.php
+
+		-
+			message: '#^Access to an undefined property App\\ViewModels\\GameResourcePackagesIndexPage\:\:\$user_id_to_get_content\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Http/Controllers/Resource/ResourceController.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Routing\\Redirector\:\:with\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: app/Http/Controllers/Resource/ResourceController.php
+
+		-
+			message: '#^Caught class App\\Http\\Controllers\\Resource\\Exception not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Http/Controllers/Resource/ResourceController.php
+
+		-
+			message: '#^Variable \$newPackage might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: app/Http/Controllers/Resource/ResourceController.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Http\\Kernel\:\:\$middleware is not covariant with PHPDoc type array\<int, string\> of overridden property Illuminate\\Foundation\\Http\\Kernel\:\:\$middleware\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Http/Kernel.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Http\\Kernel\:\:\$middlewareGroups is not covariant with PHPDoc type array\<string, array\<int, string\>\> of overridden property Illuminate\\Foundation\\Http\\Kernel\:\:\$middlewareGroups\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Http/Kernel.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Http\\Kernel\:\:\$routeMiddleware is not covariant with PHPDoc type array\<string, string\> of overridden property Illuminate\\Foundation\\Http\\Kernel\:\:\$routeMiddleware\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Http/Kernel.php
+
+		-
+			message: '#^Method App\\Http\\Middleware\\Authenticate\:\:redirectTo\(\) should return string\|null but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: app/Http/Middleware/Authenticate.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Http\\Middleware\\EncryptCookies\:\:\$except is not covariant with PHPDoc type array\<int, string\> of overridden property Illuminate\\Cookie\\Middleware\\EncryptCookies\:\:\$except\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Http/Middleware/EncryptCookies.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Http\\Middleware\\PreventRequestsDuringMaintenance\:\:\$except is not covariant with PHPDoc type array\<int, string\> of overridden property Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance\:\:\$except\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Http/Middleware/PreventRequestsDuringMaintenance.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Http\\Middleware\\TrimStrings\:\:\$except is not covariant with PHPDoc type array\<int, string\> of overridden property Illuminate\\Foundation\\Http\\Middleware\\TrimStrings\:\:\$except\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Http/Middleware/TrimStrings.php
+
+		-
+			message: '#^PHPDoc type array\|string\|null of property App\\Http\\Middleware\\TrustProxies\:\:\$proxies is not covariant with PHPDoc type array\<int, string\>\|string\|null of overridden property Illuminate\\Http\\Middleware\\TrustProxies\:\:\$proxies\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Http/Middleware/TrustProxies.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Http\\Middleware\\VerifyCsrfToken\:\:\$except is not covariant with PHPDoc type array\<int, string\> of overridden property Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken\:\:\$except\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Http/Middleware/VerifyCsrfToken.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Models\\Analytics\\AnalyticsEvent\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Analytics/AnalyticsEvent.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Models\\ContentLanguageLkp\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/ContentLanguageLkp.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Models\\DesktopAppAnnouncement\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/DesktopAppAnnouncement.php
+
+		-
+			message: '#^Call to function is_array\(\) with string will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: app/Models/DesktopAppAnnouncementTranslation.php
+
+		-
+			message: '#^Method App\\Models\\DesktopAppAnnouncementTranslation\:\:setKeysForSaveQuery\(\) should return Illuminate\\Database\\Eloquent\\Builder\<static\(App\\Models\\DesktopAppAnnouncementTranslation\)\> but returns Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/DesktopAppAnnouncementTranslation.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Models\\DesktopAppAnnouncementTranslation\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/DesktopAppAnnouncementTranslation.php
+
+		-
+			message: '#^Property App\\Models\\DesktopAppAnnouncementTranslation\:\:\$primaryKey \(string\) does not accept default value of type array\<int, string\>\.$#'
+			identifier: property.defaultValue
+			count: 1
+			path: app/Models/DesktopAppAnnouncementTranslation.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: app/Models/DesktopAppAnnouncementTranslation.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Models\\GameCategoriesLkp\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/GameCategoriesLkp.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Models\\Reports\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Reports.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Models\\Resource\\Resource\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Resource/Resource.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Models\\Resource\\ResourceStatusLkp\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Resource/ResourceStatusLkp.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Models\\Resource\\ResourceTypeLkp\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Resource/ResourceTypeLkp.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Models\\Resource\\ResourcesPackage\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Resource/ResourcesPackage.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Models\\Resource\\ResourcesPackageRating\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Resource/ResourcesPackageRating.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Models\\User\:\:\$casts is not covariant with PHPDoc type array\<string, string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$casts\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Models\\User\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Models\\User\:\:\$hidden is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$hidden\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Models\\User\:\:\$with is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$with\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Models\\UserRole\\UserRole\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/UserRole/UserRole.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Models\\UserRole\\UserRoleLkp\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/UserRole/UserRoleLkp.php
+
+		-
+			message: '#^Access to an undefined property App\\Notifications\\ReportNotice\:\:\$rejectionMessage\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/ReportNotice.php
+
+		-
+			message: '#^Access to an undefined property App\\Notifications\\ReportNotice\:\:\$rejectionReason\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/ReportNotice.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Providers\\AuthServiceProvider\:\:\$policies is not covariant with PHPDoc type array\<class\-string, class\-string\> of overridden property Illuminate\\Foundation\\Support\\Providers\\AuthServiceProvider\:\:\$policies\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Providers/AuthServiceProvider.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Providers\\EventServiceProvider\:\:\$listen is not covariant with PHPDoc type array\<string, array\<int, string\>\> of overridden property Illuminate\\Foundation\\Support\\Providers\\EventServiceProvider\:\:\$listen\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Providers/EventServiceProvider.php
+
+		-
+			message: '#^PHPDoc tag @var above a method has no effect\.$#'
+			identifier: varTag.misplaced
+			count: 1
+			path: app/Providers/RouteServiceProvider.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$language\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Repository/DesktopAppAnnouncementRepository.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$link\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Repository/DesktopAppAnnouncementRepository.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$message\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Repository/DesktopAppAnnouncementRepository.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$title\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Repository/DesktopAppAnnouncementRepository.php
+
+		-
+			message: '#^Variable \$results in empty\(\) always exists and is not falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: app/Repository/DesktopAppAnnouncementRepository.php
+
+		-
+			message: '#^PHPDoc tag @var has invalid value \(\)\: Unexpected token "\\n     ", expected type at offset 58 on line 4$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: app/Repository/Repository.php
