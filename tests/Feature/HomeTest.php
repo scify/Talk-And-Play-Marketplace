@@ -9,5 +9,5 @@ test('home page loads successfully', function () {
 
 test('home page contains expected title', function () {
     get('/')
-        ->assertSee('Talk & Play Marketplace');
+        ->assertSee('<h1>Talk & Play marketplace</h1>', false);
 });
