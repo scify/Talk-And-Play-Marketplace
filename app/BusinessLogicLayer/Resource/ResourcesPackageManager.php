@@ -2,6 +2,7 @@
 
 namespace App\BusinessLogicLayer\Resource;
 
+use App\Models\Reports;
 use App\Models\Resource\Resource;
 use App\Models\Resource\ResourcesPackage;
 use App\Repository\ContentLanguageLkpRepository;
@@ -225,13 +226,17 @@ XML;
         $reports = $this->reportsRepository->create($storeArr);
     }
 
+    public function getReport(int $id): Reports {
+        return $this->reportsRepository->find($id);
+    }
+
     public function getReportedPackages(array $type_ids, ?int $lang_id = null) {
         $reports = $this->reportsRepository->all();
         $packagesWithReportInfo = Collection::empty();
         foreach ($reports as $report) {
             $package = $this->resourcesPackageRepository->getResourcesPackage($report->package_id);
             $package->reportData = $report;
-            $package->creator = $report->creator;
+            $package->creator = $report->creator?->only(['id', 'name']);
             $coverCardId = $package->card_id;
             $package->cover_resource = $this->resourceRepository->find($coverCardId);
             $packagesWithReportInfo->push($package);

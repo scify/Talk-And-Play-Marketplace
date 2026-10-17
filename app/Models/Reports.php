@@ -29,6 +29,9 @@ class Reports extends Authenticatable {
         'comment',
     ];
 
+    /**
+     * @return HasOne<User, $this>
+     */
     public function creator(): HasOne {
         return $this->hasOne(User::class, 'id', 'reporting_user_id');
     }

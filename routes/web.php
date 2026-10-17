@@ -105,6 +105,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/resources/reject/{id}', [ResourceController::class, 'reject'])->middleware('can:manage-platform')->name('resources.reject');
     Route::put('/resources/submit/{id}', [ResourceController::class, 'submit'])->name('resources.submit');
     Route::post('/resources/report/{id}', [ResourceController::class, 'report'])->name('resources.report');
+    Route::get('/resources/user-reports', [ResourceController::class, 'getReports'])->middleware('can:manage-platform')->name('resources.user-reports.get');
+    Route::post('/resources/respond/{report_id}', [ResourceController::class, 'respond'])->middleware('can:manage-platform')->name('resources.respond.post');
 
     Route::resource('resources', ResourceController::class)
         ->except([

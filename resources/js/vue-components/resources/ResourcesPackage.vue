@@ -495,9 +495,7 @@ export default {
 			this.post({
 				url: this.getResponseRoute(),
 				data: {
-					response: this.response,
-					resource_name: this.resource.name,
-					reporting_user_id: this.resource.reportData.reporting_user_id
+					response: this.response
 				},
 				urlRelative: false
 			}).then(() => {
@@ -557,7 +555,7 @@ export default {
 			return this.packagesType === "GAME";
 		},
 		getResponseRoute() {
-			return window.route("resources.respond.post");
+			return window.route("resources.respond.post", this.resourcesPackage.reportData.id);
 		},
 		isAdminPageForPackageApproval() {
 			return this.approvePackages === 1;

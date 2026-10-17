@@ -321,14 +321,14 @@ class ResourceController extends Controller {
         }
     }
 
-    public function respond(Request $request): RedirectResponse {
-        $data = $request->all();
-        $response = $data['response'];
-        $package = $this->resourcesPackageManager->getResourcesPackage($data['id']);
+    public function respond(Request $request, int $report_id): RedirectResponse {
+        $response = $request->input('response');
+        $report = $this->resourcesPackageManager->getReport($report_id);
+        $package = $this->findPackageOrFail($report->package_id);
         $coverResourceCardName = $this->resourceManager->getResource($package->card_id)->name;
-        $reporting_user_id = $data['reporting_user_id'];
         try {
-            $reporter = $this->userManager->getUser($reporting_user_id);
+            // The response goes to the user who filed the report, never to a user id from the request.
+            $reporter = $report->creator;
             Notification::send($reporter, new ReportResponseNotice($coverResourceCardName, $response, $reporter->name));
 
             return redirect()->back()->with('flash_message_success', 'Responded successfully');
@@ -444,9 +444,8 @@ class ResourceController extends Controller {
     }
 
     public function getReports(Request $request) {
-        $data = $request->all();
-        if ($data['type_ids']) {
-            $type_ids = explode(',', $data['type_ids']);
+        if ($request->input('type_ids')) {
+            $type_ids = explode(',', $request->input('type_ids'));
         } else {
             $type_ids = [ResourceTypesLkp::COMMUNICATION];
         }

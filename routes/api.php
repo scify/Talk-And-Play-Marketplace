@@ -23,9 +23,6 @@ Route::middleware(['throttle:api'])->group(function () {
     // web: the session tells who is asking, so the lists can include the viewer's own non-approved packages.
     Route::get('/communication-resources-packages', [CommunicationResourceController::class, 'getCommunicationResourcePackages'])->middleware('web')->name('communication_resources.get');
     Route::get('/game-resources-packages/', [GameResourceController::class, 'getGameResourcePackages'])->middleware('web')->name('game_resources.get');
-    Route::get('/resources/user-reports', [ResourceController::class, 'getReports'])->name('resources.user-reports.get');
-    Route::post('/resources/respond', [ResourceController::class, 'respond'])->name('resources.respond.post');
-    Route::get('/resources/user-reports', [ResourceController::class, 'getReports'])->name('resources.user-reports.get');
     Route::get('/desktop-app/options/{version?}', [DesktopAppController::class, 'getOptionsForDesktopApp'])->name('desktop-app.options.get');
     Route::post('/analytics/store', [AnalyticsEventController::class, 'store']);
 });
