@@ -154,7 +154,7 @@ Route::get('js/translations.js', function () {
 
         return $strings;
     });
-    header('Content-Type: text/javascript');
-    echo 'window.i18n = ' . json_encode($strings) . ';';
-    exit();
+
+    return response('window.i18n = ' . json_encode($strings) . ';')
+        ->header('Content-Type', 'text/javascript');
 })->name('translations');

@@ -24,3 +24,6 @@ chmod 777 "$folder"/storage/app/public/application/*
 
 # Change owner group to webserver group user for storage and bootstrap cache folder
 chgrp -R "$groupname" "$folder"/storage "$folder"/bootstrap/cache
+
+# New folders inherit the webserver group, also when a CLI user creates them (the file cache uses 0770)
+find "$folder"/storage -type d -exec chmod g+s {} \;

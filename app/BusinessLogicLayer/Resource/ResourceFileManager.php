@@ -7,6 +7,7 @@ use App\Repository\Resource\ResourceRepository;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use InvalidArgumentException;
 use ZipArchive;
 
 class ResourceFileManager {
@@ -86,6 +87,8 @@ class ResourceFileManager {
         } elseif ($type == 'image') {
             return $this->getResourceFileImagePath($name);
         }
+
+        throw new InvalidArgumentException("Unsupported resource file type [{$type}].");
     }
 
     public function getResourceFileFolder($type): ?string {
@@ -95,6 +98,8 @@ class ResourceFileManager {
         } elseif ($type == 'image') {
             return $this->getResourceImageFolder();
         }
+
+        throw new InvalidArgumentException("Unsupported resource file type [{$type}].");
     }
 
     public function getResourceFileAudioPath($name) {
