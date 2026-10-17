@@ -139,3 +139,22 @@ test('an admin edit sends no approval request', function () {
 
     Notification::assertNothingSent();
 });
+
+test('a failing admin notice does not fail a saved edit', function (string $route) {
+    Notification::shouldReceive('send')->andThrow(new RuntimeException('SMTP down'));
+    $creator = memberUser();
+    $package = createPackage($creator);
+    $card = childCardOf($package);
+
+    $response = $route === 'update'
+        ? actingAs($creator)->put("/resources/{$card->id}", renameCard())
+        : actingAs($creator)->post('/communication-resources', [
+            'name' => 'New card',
+            'parentId' => $package->card_id,
+            'image' => UploadedFile::fake()->image('card.png', 600, 600)->size(50),
+            'sound' => UploadedFile::fake()->create('card.mp3', 50, 'audio/mpeg'),
+        ]);
+
+    $response->assertRedirect()->assertSessionMissing('flash_message_failure');
+    expect($package->refresh()->status_id)->toBe(ResourceStatusesLkp::CREATED_PENDING_APPROVAL);
+})->with(['update', 'add card']);

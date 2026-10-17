@@ -101,10 +101,10 @@ class CommunicationResourceController extends Controller {
             }
         } catch (Exception $e) {
             if ($resource && $resource->resource_parent_id === null) {
-                return redirect()->with('flash_message_failure', __('messages.package-create-failure'));
+                return redirect()->back()->with('flash_message_failure', __('messages.package-create-failure'));
             }
 
-            return redirect()->with('flash_message_failure', __('messages.card-create-failure'));
+            return redirect()->back()->with('flash_message_failure', __('messages.card-create-failure'));
         }
     }
 

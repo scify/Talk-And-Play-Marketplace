@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use InvalidArgumentException;
+use Throwable;
 
 class ResourcesPackageManager extends ResourceManager {
     public ResourcesPackageRepository $resourcesPackageRepository;
@@ -96,7 +97,13 @@ class ResourcesPackageManager extends ResourceManager {
 
         $this->submitResourcesPackage($package->id);
         $coverResourceCardName = $this->resourceRepository->find($package->card_id)->name;
-        Notification::send(app(UserManager::class)->get_admin_users(), new AdminNotice($package, $coverResourceCardName));
+
+        // The edit is already saved; a mail failure (sync queue) must not turn it into an error.
+        try {
+            Notification::send(app(UserManager::class)->get_admin_users(), new AdminNotice($package, $coverResourceCardName));
+        } catch (Throwable $e) {
+            report($e);
+        }
     }
 
     public function approveResourcesPackage($id) {

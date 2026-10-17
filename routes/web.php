@@ -106,7 +106,6 @@ Route::middleware(['auth'])->group(function () {
             'create' => 'game_resources.create',
             'edit' => 'game_resources.edit',
             'update' => 'game_resources.update',
-            'show_package' => 'game_resources.show_package',
             'download_package' => 'game_resources.download_package',
         ]);
 
