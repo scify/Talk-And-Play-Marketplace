@@ -34,7 +34,8 @@ class ResourcesPackage extends Model {
     }
 
     public function creator(): HasOne {
-        return $this->hasOne(User::class, 'id', 'creator_user_id');
+        // Package payloads are public, so they must not reveal the creator's roles.
+        return $this->hasOne(User::class, 'id', 'creator_user_id')->without('roles');
     }
 
     public function ratings(): HasMany {

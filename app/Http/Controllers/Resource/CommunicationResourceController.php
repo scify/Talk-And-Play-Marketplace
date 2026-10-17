@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class CommunicationResourceController extends Controller {
     protected ResourceManager $resourceManager;
@@ -138,7 +139,9 @@ class CommunicationResourceController extends Controller {
         if ($request->user_id_to_get_content) {
             $user_id = intval($request->user_id_to_get_content);
         }
-        $status_ids = explode(',', $request->status_ids);
+        $status_ids = $this->communicationResourcesPackageManager->visibleStatusIds(
+            Auth::id(), Gate::allows('manage-platform'), $user_id, explode(',', (string) $request->status_ids)
+        );
 
         return $this->communicationResourcesPackageManager->getResourcesPackages(
             $request->lang_id,

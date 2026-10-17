@@ -198,7 +198,9 @@ class GameResourceController extends Controller {
             $user_id = intval($request->user_id_to_get_content);
         }
         $type_ids = explode(',', $request->type_ids);
-        $status_ids = explode(',', $request->status_ids);
+        $status_ids = $this->resourcesPackageManager->visibleStatusIds(
+            Auth::id(), Gate::allows('manage-platform'), $user_id, explode(',', (string) $request->status_ids)
+        );
 
         return $this->resourcesPackageManager->getResourcesPackages(
             $request->lang_id,

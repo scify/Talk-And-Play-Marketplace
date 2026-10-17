@@ -6,7 +6,8 @@ use App\Models\Resource\ResourcesPackage;
 use App\Repository\Repository;
 
 class ResourcesPackageRepository extends Repository {
-    protected $defaultRelationships = ['coverResource', 'coverResource.childrenResources', 'creator', 'ratings'];
+    // Package payloads are public: the creator is shown by id and name only.
+    protected $defaultRelationships = ['coverResource', 'coverResource.childrenResources', 'creator:id,name', 'ratings'];
 
     /**
      * {@inheritDoc}

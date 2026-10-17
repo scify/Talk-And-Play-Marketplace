@@ -108,6 +108,28 @@ class ResourcesPackageManager extends ResourceManager {
         return $this->contentLanguageLkpRepository->all();
     }
 
+    /**
+     * The statuses that a viewer may list. Admins get what they ask for, and so does a user who lists
+     * their own packages. Everyone else (guests, the desktop app, other users) gets approved packages only.
+     */
+    public function visibleStatusIds(?int $viewerId, bool $viewerIsAdmin, ?int $userIdToGetContent, array $requestedStatusIds): array {
+        $requested = array_values(array_intersect(array_map('intval', $requestedStatusIds), [
+            ResourceStatusesLkp::CREATED_PENDING_APPROVAL,
+            ResourceStatusesLkp::APPROVED,
+            ResourceStatusesLkp::REJECTED,
+        ]));
+        if ($requested === []) {
+            return [ResourceStatusesLkp::APPROVED];
+        }
+
+        $listsOwnPackages = $viewerId !== null && $userIdToGetContent === $viewerId;
+        if ($viewerIsAdmin || $listsOwnPackages) {
+            return $requested;
+        }
+
+        return array_values(array_intersect($requested, [ResourceStatusesLkp::APPROVED]));
+    }
+
     public function getResourcesPackages(?int $lang_id, $user_id, array $type_ids, array $status_ids) {
         return $this->resourcesPackageRepository->getResourcesPackages($type_ids, $user_id, $lang_id, $status_ids);
     }
