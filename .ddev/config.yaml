@@ -32,17 +32,14 @@ hooks:
     # Set permissions
     - exec: chmod -R ugo+rw storage bootstrap/cache
 
+    # Install dependencies and set up Laravel. composer setup is safe to re-run: it keeps
+    # .env and APP_KEY, installs exactly the lock files and builds the frontend.
+    - exec: composer setup --no-interaction
     # Clear caches
     - exec: php artisan config:clear
     - exec: php artisan cache:clear
     - exec: php artisan view:clear
-
-    # Install dependencies and set up Laravel
-    - exec: composer install --no-interaction --no-progress
-    - exec: cp -n .env.example .env || true
-    - exec: php artisan key:generate --no-interaction
     - exec: php artisan migrate --no-interaction
-    - exec: npm install
   post-import-db:
     - exec: php artisan migrate --no-interaction
 
