@@ -21,6 +21,7 @@ desktop app can download them.
 - [Tests](#tests)
 - [Code quality](#code-quality)
 - [Continuous integration](#continuous-integration)
+- [Releasing](#releasing)
 - [Deployment](#deployment)
 - [Sitemap](#sitemap)
 - [Debugging](#debugging)
@@ -139,9 +140,46 @@ Dependabot opens pull requests for security updates only (`.github/dependabot.ym
 enables GitHub auto-merge for every update except a major version; it needs "Allow auto-merge" in the repository settings and the
 required check `ci / CI` in the branch protection of `main`.
 
+## Releasing
+
+Releases follow [Semantic Versioning](https://semver.org/): increase the **major** version for changes that break
+users or deployments without a migration path, the **minor** version for new features and compatible changes, and the
+**patch** version for bug fixes only. The version is defined only in `package.json`; the app shows it in the footer.
+Releases are tagged `vX.Y.Z`. All changes are recorded in [CHANGELOG.md](CHANGELOG.md).
+
+To release version `X.Y.Z` from an up-to-date `main` with green CI:
+
+1. In `CHANGELOG.md`, rename `## [Unreleased]` to `## [X.Y.Z] - YYYY-MM-DD`, add a new empty `## [Unreleased]` above
+   it, and update the compare links at the end of the file.
+2. Set the version (this updates `package.json` and `package-lock.json`, without a commit or tag):
+
+   ```bash
+   ddev npm version X.Y.Z --no-git-tag-version
+   ```
+
+3. Commit, tag and push:
+
+   ```bash
+   git add CHANGELOG.md package.json package-lock.json
+   git commit -m "chore: release vX.Y.Z"
+   git tag -a vX.Y.Z -m "vX.Y.Z"
+   git push origin main --follow-tags
+   ```
+
+4. Create the GitHub release, with the changelog section as the release notes:
+
+   ```bash
+   awk '/^## \[X.Y.Z\]/{found=1; next} /^## \[/{found=0} found' CHANGELOG.md > release-notes.md
+   gh release create vX.Y.Z --title "vX.Y.Z" --notes-file release-notes.md --verify-tag
+   rm release-notes.md
+   ```
+
+5. Deploy the tag, not the branch (see below).
+
 ## Deployment
 
-A deployment needs these steps:
+Deploy a release tag (`git checkout vX.Y.Z`), not `main`. Read the upgrade notes of every release in
+[CHANGELOG.md](CHANGELOG.md) since the deployed version. A deployment needs these steps:
 
 1. Node.js 24.21.0 on the build machine; build the frontend with `npm ci && npm run build`. The build writes to
    `public/build`.
