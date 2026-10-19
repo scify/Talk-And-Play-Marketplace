@@ -67,7 +67,8 @@
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
             "@composer install",
             "@php -r \"require 'vendor/autoload.php'; empty(Dotenv\\Dotenv::parse(file_get_contents('.env'))['APP_KEY'] ?? null) && exit(pclose(popen(escapeshellarg(PHP_BINARY) . ' artisan key:generate --ansi', 'w')));\"",
-            "@php -r \"is_link('public/storage') && readlink('public/storage') !== '../storage/app/public' && unlink('public/storage');\"",
+            "@php -r \"file_exists('public/storage') && ! is_link('public/storage') && fwrite(STDERR, 'public/storage is a folder, not a link. Move its files to storage/app/public, delete it, and run setup again.' . PHP_EOL) && exit(1);\"",
+            "@php -r \"is_link('public/storage') && readlink('public/storage') !== '../storage/app/public' && (unlink('public/storage') || exit(1));\"",
             "@php -r \"is_link('public/storage') || symlink('../storage/app/public', 'public/storage') || exit(1);\"",
             "@php -r \"file_exists('node_modules/.package-lock.json') && filemtime('node_modules/.package-lock.json') >= filemtime('package-lock.json') || exit(pclose(popen('npm ci', 'w')));\"",
             "npm run build"
