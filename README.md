@@ -191,10 +191,7 @@ goes through a pull request. To release version `X.Y.Z` from an up-to-date `main
 Deploy a release tag (`git checkout vX.Y.Z`), not `main`. Read the upgrade notes of every release in
 [CHANGELOG.md](CHANGELOG.md) since the deployed version. A deployment needs these steps:
 
-1. Node.js 24.21.0 on the build machine; build the frontend with `npm ci && npm run build`. The build writes to
-   `public/build`.
-2. `composer install --no-dev --optimize-autoloader`
-3. `.env` for production:
+1. `.env` for production:
    - `APP_ENV=production`, `APP_DEBUG=false`
    - `APP_URL` must match the host name that users open. Outside the `local` environment, `TrustHosts` accepts only
      the `APP_URL` host and its subdomains, and answers other hosts with HTTP 400. If a reverse proxy is in front of
@@ -202,8 +199,11 @@ Deploy a release tag (`git checkout vX.Y.Z`), not `main`. Read the upgrade notes
    - `MAIL_*`, including `MAIL_FROM_ADDRESS`: the app sends notifications (submissions, approvals, rejections,
      reports) by email.
    - `SENTRY_LARAVEL_DSN` for backend error reporting.
-   - `VITE_SENTRY_DSN_PUBLIC` for frontend error reporting. Vite reads `VITE_*` values at build time, so set them
-     before `npm run build`.
+   - `VITE_SENTRY_DSN_PUBLIC` for frontend error reporting. Vite reads `VITE_*` values at build time, so `.env`
+     must be complete before the build in step 3.
+2. `composer install --no-dev --optimize-autoloader`
+3. Node.js 24.21.0 on the build machine; build the frontend with `npm ci && npm run build`. The build writes to
+   `public/build`.
 4. `php artisan migrate --force`, `php artisan storage:link`, then `php artisan config:cache`, `route:cache` and
    `view:cache`.
 5. The web server's user must be able to write to `storage/` and `bootstrap/cache/`.
