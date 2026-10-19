@@ -21,6 +21,7 @@ desktop app can download them.
 - [Tests](#tests)
 - [Code quality](#code-quality)
 - [Continuous integration](#continuous-integration)
+- [Releasing](#releasing)
 - [Deployment](#deployment)
 - [Sitemap](#sitemap)
 - [Debugging](#debugging)
@@ -139,14 +140,58 @@ Dependabot opens pull requests for security updates only (`.github/dependabot.ym
 enables GitHub auto-merge for every update except a major version; it needs "Allow auto-merge" in the repository settings and the
 required check `ci / CI` in the branch protection of `main`.
 
+## Releasing
+
+Releases follow [Semantic Versioning](https://semver.org/): increase the **major** version for changes that break
+users or deployments without a migration path, the **minor** version for new features and compatible changes, and the
+**patch** version for bug fixes only. The version is defined only in `package.json`; the app shows it in the footer.
+Releases are tagged `vX.Y.Z`. All changes are recorded in [CHANGELOG.md](CHANGELOG.md).
+
+`main` accepts changes only through pull requests with a passing `ci / CI` check (repository ruleset), so a release
+goes through a pull request. To release version `X.Y.Z` from an up-to-date `main` with green CI:
+
+1. Create a branch, for example `git switch -c chore/release-vX.Y.Z`. In `CHANGELOG.md`, rename `## [Unreleased]`
+   to `## [X.Y.Z] - YYYY-MM-DD`, add a new empty `## [Unreleased]` above it, and update the compare links at the end
+   of the file.
+2. Set the version (this updates `package.json` and `package-lock.json`, without a commit or tag):
+
+   ```bash
+   ddev npm version X.Y.Z --no-git-tag-version
+   ```
+
+3. Commit, push and open a pull request; merge it when CI passes:
+
+   ```bash
+   git add CHANGELOG.md package.json package-lock.json
+   git commit -m "chore: release vX.Y.Z"
+   git push -u origin chore/release-vX.Y.Z
+   gh pr create --title "chore: release vX.Y.Z" --body "Release vX.Y.Z. See CHANGELOG.md."
+   ```
+
+4. Tag the merge commit on `main` and push the tag:
+
+   ```bash
+   git switch main && git pull --ff-only
+   git tag -a vX.Y.Z -m "vX.Y.Z"
+   git push origin vX.Y.Z
+   ```
+
+5. Create the GitHub release, with the changelog section as the release notes:
+
+   ```bash
+   awk '/^## \[X.Y.Z\]/{found=1; next} /^## \[/{found=0} found' CHANGELOG.md > release-notes.md
+   gh release create vX.Y.Z --title "vX.Y.Z" --notes-file release-notes.md --verify-tag
+   rm release-notes.md
+   ```
+
+6. Deploy the tag, not the branch (see below).
+
 ## Deployment
 
-A deployment needs these steps:
+Deploy a release tag (`git checkout vX.Y.Z`), not `main`. Read the upgrade notes of every release in
+[CHANGELOG.md](CHANGELOG.md) since the deployed version. A deployment needs these steps:
 
-1. Node.js 24.21.0 on the build machine; build the frontend with `npm ci && npm run build`. The build writes to
-   `public/build`.
-2. `composer install --no-dev --optimize-autoloader`
-3. `.env` for production:
+1. `.env` for production:
    - `APP_ENV=production`, `APP_DEBUG=false`
    - `APP_URL` must match the host name that users open. Outside the `local` environment, `TrustHosts` accepts only
      the `APP_URL` host and its subdomains, and answers other hosts with HTTP 400. If a reverse proxy is in front of
@@ -154,8 +199,11 @@ A deployment needs these steps:
    - `MAIL_*`, including `MAIL_FROM_ADDRESS`: the app sends notifications (submissions, approvals, rejections,
      reports) by email.
    - `SENTRY_LARAVEL_DSN` for backend error reporting.
-   - `VITE_SENTRY_DSN_PUBLIC` for frontend error reporting. Vite reads `VITE_*` values at build time, so set them
-     before `npm run build`.
+   - `VITE_SENTRY_DSN_PUBLIC` for frontend error reporting. Vite reads `VITE_*` values at build time, so `.env`
+     must be complete before the build in step 3.
+2. `composer install --no-dev --optimize-autoloader`
+3. Node.js 24.21.0 on the build machine; build the frontend with `npm ci && npm run build`. The build writes to
+   `public/build`.
 4. `php artisan migrate --force`, `php artisan storage:link`, then `php artisan config:cache`, `route:cache` and
    `view:cache`.
 5. The web server's user must be able to write to `storage/` and `bootstrap/cache/`.
@@ -165,17 +213,10 @@ A deployment needs these steps:
 7. The notifications are queued. With `QUEUE_CONNECTION=sync` they are sent during the request; with any other queue
    connection, run a queue worker (`php artisan queue:work`) under a process manager such as Supervisor.
 
-### Upgrading from the Laravel Mix version
+### Upgrading
 
-The first deployment after the move from Laravel Mix to Vite needs these extra steps:
-
-- Install Node.js 24.21.0 and build with `npm ci && npm run build` (not `npm run prod`).
-- In `.env`, rename `MIX_PUSHER_*` to `VITE_PUSHER_*`, remove `MIX_APP_URL`, and set `VITE_SENTRY_DSN_PUBLIC`
-  instead of `MIX_SENTRY_DSN_PUBLIC`.
-- Delete the old build output: `public/dist`, `public/mix-manifest.json` and `public/fonts`.
-- Run `set-file-permissions.sh` again (see step 5), so that the existing storage folders get the setgid bit.
-- Check `storage/app/public/resources` for uploaded files that are not `.mp3`, `.png`, `.jpg` or `.jpeg`. Earlier versions
-  did not check the file type of uploads.
+Each release lists the extra steps for an existing installation under **Upgrade notes** in
+[CHANGELOG.md](CHANGELOG.md). The first release after the move from Laravel Mix to Vite has several.
 
 ## Sitemap
 
