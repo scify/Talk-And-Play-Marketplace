@@ -10,22 +10,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Upgrade notes
 
-This release changes how the application is built, configured and checked. Before you deploy it:
+This release changes how the application is built, configured and checked. Before you deploy it, in this order:
 
-- Install Node.js 24.21.0 on the build machine and build with `npm ci && npm run build` (Vite writes to
-  `public/build`; the `npm run prod` script no longer exists).
-- In `.env`, rename `MIX_PUSHER_*` to `VITE_PUSHER_*`, set `VITE_SENTRY_DSN_PUBLIC` instead of
-  `MIX_SENTRY_DSN_PUBLIC` (before the build), delete `MIX_APP_URL` and `APP_VERSION`, and set `MAIL_FROM_ADDRESS`.
-- Make sure that `APP_URL` matches the host name that users open: requests for other hosts now get HTTP 400.
-- Before `php artisan migrate`, check that `SELECT DISTINCT type_id FROM resources_package;` returns only ids that
-  exist in `resource_types_lkp`. Otherwise the new migration stops and names the unknown ids.
-- Delete the old build output: `public/dist`, `public/mix-manifest.json` and `public/fonts`.
-- Run `set-file-permissions.sh` again, so that the storage folders get the setgid bit.
-- After the deployment:
-  - Check the `user_roles` table for unexpected administrators (role 1). Earlier versions let any member grant
-    themselves the admin role.
-  - Check `storage/app/public/resources` for uploaded files that are not `.mp3`, `.png`, `.jpg` or `.jpeg`. Earlier
-    versions did not check the type of uploaded files.
+1. In `.env`: set `VITE_SENTRY_DSN_PUBLIC` instead of `MIX_SENTRY_DSN_PUBLIC`; delete `MIX_APP_URL`,
+   `MIX_PUSHER_*` (no code uses them) and `APP_VERSION`; check that `MAIL_FROM_ADDRESS` is set. Vite reads `VITE_*`
+   values at build time, so change `.env` before the build.
+2. Make sure that `APP_URL` matches the host name that users open: requests for other hosts now get HTTP 400.
+3. Install Node.js 24.21.0 on the build machine and build with `npm ci && npm run build` (Vite writes to
+   `public/build`; the `npm run prod` script no longer exists). Delete the old build output: `public/dist`,
+   `public/mix-manifest.json` and `public/fonts`.
+4. Back up the database. Then check that this query returns no rows; otherwise fix those packages first:
+
+   ```sql
+   SELECT DISTINCT type_id FROM resources_package
+   WHERE type_id IS NOT NULL AND type_id NOT IN (SELECT id FROM resource_types_lkp);
+   ```
+
+   The new migration replaces the foreign key on `resources_package.type_id`, and it stops if such rows exist.
+5. Run `php artisan migrate --force` and `php artisan cache:clear` (the file cache permissions changed).
+6. Run `set-file-permissions.sh` again (see "Deployment" in `README.md`), so that the storage folders get the
+   setgid bit.
+7. After the deployment:
+   - Check the `user_roles` table for unexpected administrators (role 1). Earlier versions let any member grant
+     themselves the admin role.
+   - Check `storage/app/public/resources` for uploaded files that are not `.mp3`, `.png`, `.jpg` or `.jpeg`.
+     Earlier versions did not check the type of uploaded files.
 
 ### Added
 
@@ -44,7 +53,8 @@ This release changes how the application is built, configured and checked. Befor
 
 - The frontend is built with Vite 7 instead of Laravel Mix and webpack.
 - Node.js 24.21.0 is required (`.nvmrc`, `engines` in `package.json`, `nodejs_version` in DDEV).
-- The application version comes from `package.json` instead of the `APP_VERSION` environment variable.
+- The application version comes from `package.json` instead of the `APP_VERSION` environment variable. The footer
+  and the analytics events show it in SemVer form (for example `1.1.0` instead of `vBeta1`).
 - A member's change to an approved package sends it back to pending approval; changes by administrators keep the
   status.
 - Changing the email or the password in the profile needs the current password. A new password now takes effect;
@@ -52,7 +62,9 @@ This release changes how the application is built, configured and checked. Befor
 - Deleting a package is a `DELETE` request.
 - The package lists show pending and rejected packages only to administrators and to their creator. The desktop app
   and other visitors get approved packages, with the creator's id and name only.
-- The moderation pages, the user reports and the response to a reporter are for administrators only.
+- The moderation pages, the user reports and the response to a reporter are for administrators only. The user
+  reports moved from `GET /api/resources/user-reports` to `GET /resources/user-reports`, and the response to a
+  reporter from `POST /api/resources/respond` to `POST /resources/respond/{report_id}`.
 - The README is rewritten around DDEV and the Composer scripts, with a deployment checklist.
 - The PHP code is formatted with Pint.
 
@@ -60,6 +72,7 @@ This release changes how the application is built, configured and checked. Befor
 
 - Laravel Mix, webpack and their loaders.
 - The debug routes `/test-sentry`, `/test-email` and `administration/test-email`.
+- The API routes `GET /api/resources/user-reports` and `POST /api/resources/respond` (see "Changed").
 - Routes to controller methods that did not exist, and the unused Fortify profile-information and two-factor
   features.
 - The custom DDEV `composer` and `artisan` commands (DDEV provides both).
@@ -91,6 +104,6 @@ This release changes how the application is built, configured and checked. Befor
 
 ## [1.0.0]
 
-The state of the application before release tags were introduced. It is not tagged.
+The state of the application before release tags were introduced (commit `889272c`). It is not tagged.
 
 [Unreleased]: https://github.com/scify/Talk-And-Play-Marketplace/compare/889272c...HEAD

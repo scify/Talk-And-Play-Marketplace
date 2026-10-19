@@ -147,26 +147,36 @@ users or deployments without a migration path, the **minor** version for new fea
 **patch** version for bug fixes only. The version is defined only in `package.json`; the app shows it in the footer.
 Releases are tagged `vX.Y.Z`. All changes are recorded in [CHANGELOG.md](CHANGELOG.md).
 
-To release version `X.Y.Z` from an up-to-date `main` with green CI:
+`main` accepts changes only through pull requests with a passing `ci / CI` check (repository ruleset), so a release
+goes through a pull request. To release version `X.Y.Z` from an up-to-date `main` with green CI:
 
-1. In `CHANGELOG.md`, rename `## [Unreleased]` to `## [X.Y.Z] - YYYY-MM-DD`, add a new empty `## [Unreleased]` above
-   it, and update the compare links at the end of the file.
+1. Create a branch, for example `git switch -c chore/release-vX.Y.Z`. In `CHANGELOG.md`, rename `## [Unreleased]`
+   to `## [X.Y.Z] - YYYY-MM-DD`, add a new empty `## [Unreleased]` above it, and update the compare links at the end
+   of the file.
 2. Set the version (this updates `package.json` and `package-lock.json`, without a commit or tag):
 
    ```bash
    ddev npm version X.Y.Z --no-git-tag-version
    ```
 
-3. Commit, tag and push:
+3. Commit, push and open a pull request; merge it when CI passes:
 
    ```bash
    git add CHANGELOG.md package.json package-lock.json
    git commit -m "chore: release vX.Y.Z"
-   git tag -a vX.Y.Z -m "vX.Y.Z"
-   git push origin main --follow-tags
+   git push -u origin chore/release-vX.Y.Z
+   gh pr create --title "chore: release vX.Y.Z" --body "Release vX.Y.Z. See CHANGELOG.md."
    ```
 
-4. Create the GitHub release, with the changelog section as the release notes:
+4. Tag the merge commit on `main` and push the tag:
+
+   ```bash
+   git switch main && git pull --ff-only
+   git tag -a vX.Y.Z -m "vX.Y.Z"
+   git push origin vX.Y.Z
+   ```
+
+5. Create the GitHub release, with the changelog section as the release notes:
 
    ```bash
    awk '/^## \[X.Y.Z\]/{found=1; next} /^## \[/{found=0} found' CHANGELOG.md > release-notes.md
@@ -174,7 +184,7 @@ To release version `X.Y.Z` from an up-to-date `main` with green CI:
    rm release-notes.md
    ```
 
-5. Deploy the tag, not the branch (see below).
+6. Deploy the tag, not the branch (see below).
 
 ## Deployment
 
@@ -203,17 +213,10 @@ Deploy a release tag (`git checkout vX.Y.Z`), not `main`. Read the upgrade notes
 7. The notifications are queued. With `QUEUE_CONNECTION=sync` they are sent during the request; with any other queue
    connection, run a queue worker (`php artisan queue:work`) under a process manager such as Supervisor.
 
-### Upgrading from the Laravel Mix version
+### Upgrading
 
-The first deployment after the move from Laravel Mix to Vite needs these extra steps:
-
-- Install Node.js 24.21.0 and build with `npm ci && npm run build` (not `npm run prod`).
-- In `.env`, rename `MIX_PUSHER_*` to `VITE_PUSHER_*`, remove `MIX_APP_URL`, and set `VITE_SENTRY_DSN_PUBLIC`
-  instead of `MIX_SENTRY_DSN_PUBLIC`.
-- Delete the old build output: `public/dist`, `public/mix-manifest.json` and `public/fonts`.
-- Run `set-file-permissions.sh` again (see step 5), so that the existing storage folders get the setgid bit.
-- Check `storage/app/public/resources` for uploaded files that are not `.mp3`, `.png`, `.jpg` or `.jpeg`. Earlier versions
-  did not check the file type of uploads.
+Each release lists the extra steps for an existing installation under **Upgrade notes** in
+[CHANGELOG.md](CHANGELOG.md). The first release after the move from Laravel Mix to Vite has several.
 
 ## Sitemap
 
