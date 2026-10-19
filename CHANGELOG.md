@@ -14,6 +14,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- `composer setup` links `public/storage` with the relative path `../storage/app/public`, so the link works on the host
+  and in DDEV. It replaces an existing absolute link.
+- DDEV uses its default OPcache settings, so code changes show at once (before: up to 60 seconds).
+- `.env.example` sets `MAIL_FROM_ADDRESS` to `noreply@example.com`.
 - The cookie consent assets (`public/vendor/scify`) are no longer tracked in git; Composer publishes them on every
   install. Override their colours in `resources/sass/app.scss` (README "Cookie consent").
 

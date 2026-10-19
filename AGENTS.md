@@ -12,7 +12,9 @@ the desktop app downloads approved ones through `routes/api.php`. Default branch
 ## Working rules
 
 - **Run everything in DDEV** (`ddev composer …`, `ddev artisan …`, `ddev npm …`, `ddev exec …`). The host may have a
-  different PHP. `ddev start` runs `composer setup` and `php artisan migrate` on the DDEV database (post-start hook).
+  different PHP.
+- **Ask Paul before `ddev start`, `ddev restart` and `ddev import-db`.** Start and restart run `composer setup` and
+  `php artisan migrate` on the DDEV database (post-start hook); `import-db` replaces the database.
 - **The developer's DDEV database holds real local data.** Ask before `migrate`, `db:seed` or tinker writes against
   it. For browser checks, create temporary users and data, and delete them afterwards.
 - **Commit gate**: run each tool as its own command and read its exit code, then commit in a separate command:
@@ -20,6 +22,8 @@ the desktop app downloads approved ones through `routes/api.php`. Default branch
   with a PHPStan error.
 - `phpstan-baseline.neon`: new code adds no entries. When a change removes code that an entry ignores, remove that
   entry in the same commit (PHPStan fails on unmatched entries).
+- New npm packages: versions released at least 7 days ago (`.npmrc` `min-release-age=7` enforces it). npm 12 on the
+  host may print `install-scripts` warnings; they are expected (`ignore-scripts=true`).
 - `composer require` / `composer update` without `-W`; use `-w` with the exact packages instead.
 - `main` accepts only pull requests with a passing `ci / CI` check (ruleset, no bypass). Work on a branch; ask before
   every push, force push, tag and release.
@@ -66,7 +70,8 @@ the desktop app downloads approved ones through `routes/api.php`. Default branch
   Package payloads show the creator by `id` and `name` only.
 - Uploads: `mimes` rules on every card route (sound mp3, images jpg/png), and `ResourceFileManager` stores only
   content that matches, with the extension taken from the content.
-- `TrustHosts` is on outside `local`: only the `APP_URL` host and its subdomains (others get HTTP 400).
+- `TrustHosts` is off in `local` and in tests; elsewhere it accepts only the `APP_URL` host and its subdomains (others
+  get HTTP 400). Tests of it set the environment to `production` and reset `Request::setTrustedHosts([])` afterwards.
 
 ## Frontend
 

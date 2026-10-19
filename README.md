@@ -60,8 +60,8 @@ comes from `.nvmrc` (**24.21.0**); a DDEV start hook keeps `nodejs_version` in `
 
 2. Edit `.env`:
    - `DEFAULT_ADMIN_USER_PASSWORD_FOR_SEED`: the password of the seeded administrator
-   - `MAIL_FROM_ADDRESS`: any sender address, for example `noreply@example.com`. Without it, the app cannot send its
-     notification emails. DDEV catches all mail in [Mailpit](https://mailpit.axllent.org/) (`ddev mailpit`).
+   - `MAIL_FROM_ADDRESS`: the sender of the notification emails (`.env.example` sets `noreply@example.com`). DDEV
+     catches all mail in [Mailpit](https://mailpit.axllent.org/) (`ddev mailpit`).
 
 3. Create the starter data:
 
