@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+## Description: Run the tests with a coverage report in coverage/ (turns Xdebug on for the run)
+## Usage: coverage
+## Example: "ddev coverage"
+
+# Remember whether Xdebug was on, so that the run leaves it as it was, also when the tests fail.
+was_enabled=false
+ddev xdebug status 2>/dev/null | grep -q 'xdebug enabled' && was_enabled=true
+
+ddev xdebug on >/dev/null
+ddev composer test:coverage
+status=$?
+[ "$was_enabled" = true ] || ddev xdebug off >/dev/null
+
+exit $status

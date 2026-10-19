@@ -101,14 +101,15 @@ Use `npm ci` to install exactly what `package-lock.json` specifies (`composer se
 ## Tests
 
 ```bash
-ddev composer test            # run the test suite
-ddev composer test:coverage   # the same, with a coverage summary and an HTML report in coverage/
+ddev composer test   # run the test suite
+ddev coverage        # the same, with a coverage summary and an HTML report in coverage/
 ```
 
 The tests run on SQLite in memory (see the `<server>` values in `phpunit.xml`). They never use the DDEV MySQL database:
 `<server>` values override the database variables that DDEV sets in the container, `tests/TestCase.php` refuses to
 reset any database except SQLite in memory, and `composer test` clears a cached configuration first.
-`composer test:coverage` needs a coverage driver, for example Xdebug (`ddev xdebug on`).
+`ddev coverage` turns Xdebug on for the run and then restores its previous state (also when a test fails), because
+Xdebug slows down every request. It runs `composer test:coverage`, which needs a coverage driver such as Xdebug or PCOV.
 
 ## Code quality
 
