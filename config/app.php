@@ -118,7 +118,7 @@ return [
 
     'asset_url' => env('ASSET_URL', null),
     // The version is defined only in package.json (see "Releasing" in README.md).
-    'version' => json_decode(file_get_contents(base_path('package.json')), true)['version'],
+    'version' => json_decode(file_get_contents(base_path('package.json')), true, flags: JSON_THROW_ON_ERROR)['version'],
     'sentry_desktop_app_dsn' => env('SENTRY_DESKTOP_APP_DSN'),
     'firebase_desktop_app_url' => env('FIREBASE_DESKTOP_APP_URL'),
     'default_admin_password_for_seed' => env('DEFAULT_ADMIN_USER_PASSWORD_FOR_SEED'),
