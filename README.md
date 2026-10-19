@@ -136,7 +136,7 @@ The repository uses the shared [SciFY workflows](https://github.com/scify/.githu
   and `npm audit`.
 
 Dependabot opens pull requests for security updates only (`.github/dependabot.yml`). `dependabot-auto-merge.yml`
-enables GitHub auto-merge for minor and patch updates; it needs "Allow auto-merge" in the repository settings and the
+enables GitHub auto-merge for every update except a major version; it needs "Allow auto-merge" in the repository settings and the
 required check `ci / CI` in the branch protection of `main`.
 
 ## Deployment
@@ -174,7 +174,7 @@ The first deployment after the move from Laravel Mix to Vite needs these extra s
   instead of `MIX_SENTRY_DSN_PUBLIC`.
 - Delete the old build output: `public/dist`, `public/mix-manifest.json` and `public/fonts`.
 - Run `set-file-permissions.sh` again (see step 5), so that the existing storage folders get the setgid bit.
-- Check `storage/app/public/resources` for uploaded files that are not `.mp3`, `.png` or `.jpg`. Earlier versions
+- Check `storage/app/public/resources` for uploaded files that are not `.mp3`, `.png`, `.jpg` or `.jpeg`. Earlier versions
   did not check the file type of uploads.
 
 ## Sitemap
