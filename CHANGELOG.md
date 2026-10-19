@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- `AGENTS.md` with guidance for AI coding agents; `CLAUDE.md` imports it.
+
 ## [1.1.0] - 2026-10-19
 
 ### Upgrade notes
