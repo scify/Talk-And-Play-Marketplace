@@ -24,3 +24,4 @@ public/*.html
 .ddev/db_snapshots
 .ddev/import-db
 .ddev/import.yaml
+/coverage
