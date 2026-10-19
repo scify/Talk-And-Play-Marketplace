@@ -1,61 +1,196 @@
-# Talk & Play Marketplace Web Application
+# Talk & Play Marketplace
 
-[![GitHub Issues](https://img.shields.io/github/issues/scify/Talk-And-Play-Marketplace)](https://img.shields.io/github/issues/scify/Talk-And-Play-Marketplace)
-[![GitHub Stars](https://img.shields.io/github/stars/scify/Talk-And-Play-Marketplace)](https://img.shields.io/github/stars/scify/Talk-And-Play-Marketplace)
-[![GitHub forks](https://img.shields.io/github/forks/scify/Talk-And-Play-Marketplace)](https://img.shields.io/github/forks/scify/Talk-And-Play-Marketplace)
-[![JavaScript Style Guide: Good Parts](https://img.shields.io/badge/code%20style-goodparts-brightgreen.svg?style=flat)](https://github.com/dwyl/goodparts "JavaScript The Good Parts")
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
-[![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://GitHub.com/scify)
+[![CI](https://github.com/scify/Talk-And-Play-Marketplace/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/scify/Talk-And-Play-Marketplace/actions/workflows/ci.yml)
+[![Security](https://github.com/scify/Talk-And-Play-Marketplace/actions/workflows/security.yml/badge.svg)](https://github.com/scify/Talk-And-Play-Marketplace/actions/workflows/security.yml)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENCE.md)
+[![GitHub Issues](https://img.shields.io/github/issues/scify/Talk-And-Play-Marketplace)](https://github.com/scify/Talk-And-Play-Marketplace/issues)
 
-**Laravel 11** Web Application for Creating content for the Talk & Play application
+A marketplace web application where specialists and family members create and share communication cards and game
+cards for the Talk & Play desktop app. Administrators review each package; approved packages are public and the
+desktop app can download them.
 
-[Project URL](https://crowdsourcing.scify.org/)
+[Project URL](https://talkandplay.scify.org/)
 
-## Installation Instructions
+## Contents
 
-1. Install [ddev](https://ddev.readthedocs.io/en/stable/users/install/ddev-installation/)
-2. Clone the repository `git clone https://github.com/scify/Talk-And-Play-Marketplace.git`
-3. Copy the `.env.example` file to `.env` and set the environment variables
-4. Start the development server `ddev start`
-5. Run the Laravel commands `ddev composer install` and `ddev npm install`
-6. Run the Laravel commands `ddev artisan migrate` and `ddev artisan db:seed`
-7. Run the Laravel commands `ddev npm run dev` (or `ddev npm run watch` for hot reloading)
-8. Open the application at [https://talkandplay-marketplace.ddev.site:8443/](https://talkandplay-marketplace.ddev.site:8443/)
+- [Tech stack](#tech-stack)
+- [Requirements](#requirements)
+- [Getting started](#getting-started)
+  - [Everyday commands](#everyday-commands)
+  - [npm supply-chain settings](#npm-supply-chain-settings)
+- [Tests](#tests)
+- [Code quality](#code-quality)
+- [Continuous integration](#continuous-integration)
+- [Deployment](#deployment)
+- [Sitemap](#sitemap)
+- [Debugging](#debugging)
+- [License](#license)
 
-## Development
+## Tech stack
 
-### Available Commands
+- **Backend:** Laravel 12, PHP 8.2 or newer (DDEV runs PHP 8.2, CI runs PHP 8.4), MySQL 8.0
+- **Frontend:** Vue 2.7, Vite 7, Bootstrap 5, Sass, jQuery
+- **Tooling:** Pest (PHPUnit), Laravel Pint, Larastan (PHPStan), ESLint
+- **Local environment:** [DDEV](https://ddev.com/)
 
-- Start the environment: `ddev start`
-- Stop the environment: `ddev stop`
-- Run artisan commands: `ddev artisan [command]`
-- Run composer commands: `ddev composer [command]`
-- Run npm commands: `ddev npm [command]`
+## Requirements
 
-### URLs
+- [DDEV](https://ddev.readthedocs.io/en/stable/users/install/ddev-installation/) and Docker
+- Git
 
-- Main application: <https://talkandplay-marketplace.ddev.site:8443>
-- Database admin: <https://talkandplay-marketplace.ddev.site:8443/phpmyadmin>
+DDEV runs PHP, Composer, MySQL and Node.js in containers, so you do not need them on your machine. The Node.js version
+comes from `.nvmrc` (**24.21.0**); a DDEV start hook keeps `nodejs_version` in `.ddev/config.yaml` in sync with it.
 
-### Database Credentials
+## Getting started
 
-These are automatically configured by DDEV:
+1. Clone the repository and start DDEV:
 
-- Host: db
-- Database: db
-- Username: db
-- Password: db
+   ```bash
+   git clone https://github.com/scify/Talk-And-Play-Marketplace.git
+   cd Talk-And-Play-Marketplace
+   ddev start
+   ```
 
-## How to run tests
+   Every `ddev start` runs `composer setup` and then the database migrations. `composer setup` creates `.env` from
+   `.env.example` (only if `.env` is missing), installs the PHP and npm dependencies, generates `APP_KEY` (only if it
+   is empty), links `public/storage` to `storage/app/public` and builds the frontend. It is safe to run again at any
+   time, also by hand: `ddev composer setup`. DDEV writes the database, mail and `APP_URL` settings into `.env`.
+
+2. Edit `.env`:
+   - `DEFAULT_ADMIN_USER_PASSWORD_FOR_SEED`: the password of the seeded administrator
+   - `MAIL_FROM_ADDRESS`: any sender address, for example `noreply@example.com`. Without it, the app cannot send its
+     notification emails. DDEV catches all mail in [Mailpit](https://mailpit.axllent.org/) (`ddev mailpit`).
+
+3. Create the starter data:
+
+   ```bash
+   ddev artisan db:seed
+   ```
+
+   The seeders create the lookup data and the administrator `admin-tnp@scify.org`.
+
+4. For frontend work, start the Vite dev server (hot reload through port 5179):
+
+   ```bash
+   ddev npm run dev
+   ```
+
+5. Open <https://talkandplay-marketplace.ddev.site:8443>.
+
+### Everyday commands
+
+| Task | Command |
+|---|---|
+| Start or stop the environment | `ddev start`, `ddev stop` |
+| Run Artisan, Composer or npm in the container | `ddev artisan ...`, `ddev composer ...`, `ddev npm ...` |
+| Open a MySQL shell | `ddev mysql` |
+| Open Mailpit (all outgoing mail) | `ddev mailpit` |
+| Show URLs and services | `ddev describe` |
+
+### npm supply-chain settings
+
+`.npmrc` hardens npm for this project. CI checks these settings:
+
+- `ignore-scripts=true`: npm does not run install scripts of dependencies
+- `min-release-age=7`: npm installs only package versions that are at least 7 days old
+- `engine-strict=true`: npm refuses to install with a Node or npm version outside `engines` in `package.json`
+
+Use `npm ci` to install exactly what `package-lock.json` specifies (`composer setup` does this).
+
+## Tests
 
 ```bash
-php artisan test
+ddev composer test            # run the test suite
+ddev composer test:coverage   # the same, with a coverage summary and an HTML report in coverage/
 ```
 
-## How to debug
+The tests run on SQLite in memory (see the `<server>` values in `phpunit.xml`). They never use the DDEV MySQL database:
+`<server>` values override the database variables that DDEV sets in the container, `tests/TestCase.php` refuses to
+reset any database except SQLite in memory, and `composer test` clears a cached configuration first.
+`composer test:coverage` needs a coverage driver, for example Xdebug (`ddev xdebug on`).
 
-- Install and configure Xdebug on your machine
-- At Chrome install [Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc?utm_source=chrome-app-launcher-info-dialog)
-- At PhpStorm/IntelliJ click the "Start listening for PHP debug connections"
+## Code quality
+
+The project uses three tools:
+
+- [Laravel Pint](https://laravel.com/docs/pint) for the PHP code style (rules in `pint.json`)
+- [Larastan](https://github.com/larastan/larastan) (PHPStan) for static analysis of `app/` (settings in `phpstan.neon`;
+  known errors are in `phpstan-baseline.neon`, and new code must not add entries)
+- [ESLint](https://eslint.org/) for `resources/js` (rules in `eslint.config.js`)
+
+```bash
+ddev composer lint:check   # run all three tools; report problems, change nothing
+ddev composer lint:fix     # fix the PHP style and the JavaScript, then report what PHPStan still finds
+```
+
+`lint:check` stops at the first tool that reports a problem. PHPStan cannot fix code, so after `lint:fix` you fix the
+remaining PHPStan errors by hand. CI runs the same checks.
+
+## Continuous integration
+
+The repository uses the shared [SciFY workflows](https://github.com/scify/.github):
+
+- `ci.yml` (`laravel-ci.yml`) runs on pull requests and on pushes to `main`: Pint, PHPStan, ESLint, the frontend
+  build and the tests. The required check is **`ci / CI`**.
+- `security.yml` runs on pull requests and every Monday: secret scanning, npm supply-chain checks, `composer audit`
+  and `npm audit`.
+
+Dependabot opens pull requests for security updates only (`.github/dependabot.yml`). `dependabot-auto-merge.yml`
+enables GitHub auto-merge for minor and patch updates; it needs "Allow auto-merge" in the repository settings and the
+required check `ci / CI` in the branch protection of `main`.
+
+## Deployment
+
+A deployment needs these steps:
+
+1. Node.js 24.21.0 on the build machine; build the frontend with `npm ci && npm run build`. The build writes to
+   `public/build`.
+2. `composer install --no-dev --optimize-autoloader`
+3. `.env` for production:
+   - `APP_ENV=production`, `APP_DEBUG=false`
+   - `APP_URL` must match the host name that users open. Outside the `local` environment, `TrustHosts` accepts only
+     the `APP_URL` host and its subdomains, and answers other hosts with HTTP 400. If a reverse proxy is in front of
+     the app, make sure that it forwards the original `Host` header.
+   - `MAIL_*`, including `MAIL_FROM_ADDRESS`: the app sends notifications (submissions, approvals, rejections,
+     reports) by email.
+   - `SENTRY_LARAVEL_DSN` for backend error reporting.
+   - `VITE_SENTRY_DSN_PUBLIC` for frontend error reporting. Vite reads `VITE_*` values at build time, so set them
+     before `npm run build`.
+4. `php artisan migrate --force`, `php artisan storage:link`, then `php artisan config:cache`, `route:cache` and
+   `view:cache`.
+5. The web server's user must be able to write to `storage/` and `bootstrap/cache/`.
+   `sudo ./set-file-permissions.sh www-data <deploy-user> .` sets the owner group, the permissions and the setgid bit
+   on the storage folders, so that folders created by the deploy user keep the web server group.
+6. The web server's document root is `public/`.
+7. The notifications are queued. With `QUEUE_CONNECTION=sync` they are sent during the request; with any other queue
+   connection, run a queue worker (`php artisan queue:work`) under a process manager such as Supervisor.
+
+### Upgrading from the Laravel Mix version
+
+The first deployment after the move from Laravel Mix to Vite needs these extra steps:
+
+- Install Node.js 24.21.0 and build with `npm ci && npm run build` (not `npm run prod`).
+- In `.env`, rename `MIX_PUSHER_*` to `VITE_PUSHER_*`, remove `MIX_APP_URL`, and set `VITE_SENTRY_DSN_PUBLIC`
+  instead of `MIX_SENTRY_DSN_PUBLIC`.
+- Delete the old build output: `public/dist`, `public/mix-manifest.json` and `public/fonts`.
+- Run `set-file-permissions.sh` again (see step 5), so that the existing storage folders get the setgid bit.
+- Check `storage/app/public/resources` for uploaded files that are not `.mp3`, `.png` or `.jpg`. Earlier versions
+  did not check the file type of uploads.
+
+## Sitemap
+
+[Spatie Laravel Sitemap](https://github.com/spatie/laravel-sitemap) creates `public/sitemap.xml` (not in git):
+
+```bash
+ddev artisan sitemap:generate
+```
+
+## Debugging
+
+Turn on Xdebug in the container with `ddev xdebug on` (and off again with `ddev xdebug off`), then start listening for
+debug connections in your IDE (for example PhpStorm). With `APP_DEBUG=true`, the
+[Laravel Debugbar](https://github.com/barryvdh/laravel-debugbar) shows queries and timings at the bottom of each page.
+
+## License
+
+Apache License 2.0. See [LICENCE.md](LICENCE.md).
