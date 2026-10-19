@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-19
+
 ### Upgrade notes
 
 This release changes how the application is built, configured and checked. Before you deploy it, in this order:
@@ -39,7 +41,7 @@ This release changes how the application is built, configured and checked. Befor
 ### Added
 
 - Composer scripts: `setup`, `test`, `test:coverage`, `lint:check` and `lint:fix`. In DDEV, `ddev start` runs
-  `composer setup` and the migrations.
+  `composer setup` and the migrations, and `ddev coverage` runs the tests with a coverage report.
 - Feature tests for pages, access control, profile updates, packages, uploads, ratings, reports, trusted hosts and
   the file cache. They run on SQLite in memory, with a guard that refuses to reset any other database.
 - CI and security checks through the shared SciFY workflows (`ci.yml`, `security.yml`).
@@ -80,6 +82,7 @@ This release changes how the application is built, configured and checked. Befor
 ### Fixed
 
 - The DDEV start no longer replaces `APP_KEY` on every start.
+- No deprecation of `PDO::MYSQL_ATTR_SSL_CA` on PHP 8.5.
 - The cookie consent script no longer throws a JSON error on every page; its assets are republished after every
   `composer install`.
 - Creating a package no longer fails when no resource has the id of the package type (wrong foreign key on
@@ -106,4 +109,5 @@ This release changes how the application is built, configured and checked. Befor
 
 The state of the application before release tags were introduced (commit `889272c`). It is not tagged.
 
-[Unreleased]: https://github.com/scify/Talk-And-Play-Marketplace/compare/889272c...HEAD
+[Unreleased]: https://github.com/scify/Talk-And-Play-Marketplace/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/scify/Talk-And-Play-Marketplace/compare/889272c...v1.1.0
