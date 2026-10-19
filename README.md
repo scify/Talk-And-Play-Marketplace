@@ -24,6 +24,7 @@ desktop app can download them.
 - [Releasing](#releasing)
 - [Deployment](#deployment)
 - [Sitemap](#sitemap)
+- [Cookie consent](#cookie-consent)
 - [Debugging](#debugging)
 - [License](#license)
 
@@ -226,6 +227,24 @@ Each release lists the extra steps for an existing installation under **Upgrade 
 ```bash
 ddev artisan sitemap:generate
 ```
+
+## Cookie consent
+
+[SciFY Laravel Cookie Guard](https://github.com/scify/laravel-cookie-guard) shows the cookie consent dialog. Composer
+publishes its assets to `public/vendor/scify` after every install (`post-autoload-dump`, with `--force`), so that folder
+is not in git and any edit there is lost. To change the colours, override the plugin's CSS variables in
+`resources/sass/app.scss`. The `html` prefix makes the rule win over the plugin's `_variables.css`, which loads later:
+
+```scss
+html #scify-cookies-consent-wrapper,
+html #scify-cookie-policy-page,
+html #scify-cookie-consent-floating-button {
+    --scify-cookies-primary-color: #ff5722;
+    --scify-cookies-primary-hover-color: #e64a19;
+}
+```
+
+The full list of variables is in `vendor/scify/laravel-cookie-guard/public/_variables.css`.
 
 ## Debugging
 

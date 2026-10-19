@@ -12,6 +12,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - `AGENTS.md` with guidance for AI coding agents; `CLAUDE.md` imports it.
 
+### Changed
+
+- The cookie consent assets (`public/vendor/scify`) are no longer tracked in git; Composer publishes them on every
+  install. Override their colours in `resources/sass/app.scss` (README "Cookie consent").
+
 ## [1.1.0] - 2026-10-19
 
 ### Upgrade notes

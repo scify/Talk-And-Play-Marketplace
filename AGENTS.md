@@ -76,6 +76,8 @@ the desktop app downloads approved ones through `routes/api.php`. Default branch
   supports Vite ≤ 7.
 - jQuery: `resources/js/jquery-global.js` sets `window.$`; modules import `$`. Inline Blade scripts that use jQuery
   must be `type="module"` (`tests/Unit/InlineScriptsTest.php` enforces it).
+- `public/vendor/scify` is published by Composer on every install (`--force`) and is not in git. Cookie dialog
+  colours are CSS-variable overrides in `resources/sass/app.scss` (README "Cookie consent").
 - `common/footer-scripts.blade.php` sets `window.Laravel` (`csrfToken`, `baseUrl`, route map); the frontend calls
   routes by name through `window.route()`, so keep route names stable. Use `window.Laravel.baseUrl` for URLs;
   `VITE_*` values are fixed at build time.
