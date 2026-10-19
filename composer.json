@@ -60,7 +60,43 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "setup": [
+            "Composer\\Config::disableProcessTimeout",
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@composer install",
+            "@php -r \"require 'vendor/autoload.php'; empty(Dotenv\\Dotenv::parse(file_get_contents('.env'))['APP_KEY'] ?? null) && exit(pclose(popen(escapeshellarg(PHP_BINARY) . ' artisan key:generate --ansi', 'w')));\"",
+            "@php -r \"is_link('public/storage') || exit(pclose(popen(escapeshellarg(PHP_BINARY) . ' artisan storage:link --ansi', 'w')));\"",
+            "npm ci",
+            "npm run build"
+        ],
+        "test": [
+            "@php artisan config:clear --ansi",
+            "@php artisan test"
+        ],
+        "test:coverage": [
+            "Composer\\Config::disableProcessTimeout",
+            "@putenv XDEBUG_MODE=coverage",
+            "@php artisan config:clear --ansi",
+            "@php artisan test --coverage --coverage-html=coverage"
+        ],
+        "lint:check": [
+            "pint --test",
+            "phpstan analyse --no-progress",
+            "npm run lint"
+        ],
+        "lint:fix": [
+            "pint",
+            "npm run lint:fix",
+            "phpstan analyse --no-progress"
         ]
+    },
+    "scripts-descriptions": {
+        "setup": "Create .env if missing, install PHP and npm dependencies, generate APP_KEY if empty, link storage and build the frontend.",
+        "test": "Run the test suite (SQLite in memory).",
+        "test:coverage": "Run the test suite with a coverage summary and an HTML report in coverage/ (needs PCOV or Xdebug).",
+        "lint:check": "Check PHP style (Pint), run static analysis (PHPStan) and lint JavaScript (ESLint) without changing files.",
+        "lint:fix": "Fix PHP style (Pint) and JavaScript (ESLint --fix), then report what PHPStan still finds."
     },
     "extra": {
         "laravel": {
