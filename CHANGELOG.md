@@ -8,9 +8,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Upgrade notes
+
+- `public/vendor/scify` is no longer in git. Before the checkout of this release, run
+  `git checkout -- public/vendor/scify` (move any colour edits from `_variables.css` to `resources/sass/app.scss`,
+  see README "Cookie consent"). After the checkout, run `composer install` with scripts: it publishes the files again.
+  Until then every page answers HTTP 500.
+
 ### Added
 
 - `AGENTS.md` with guidance for AI coding agents; `CLAUDE.md` imports it.
+
+### Changed
+
+- `composer setup` links `public/storage` with the relative path `../storage/app/public`, so the link works on the host
+  and in DDEV. It replaces an existing absolute link.
+- DDEV uses its default OPcache settings, so code changes show at once (before: up to 60 seconds).
+- `.env.example` sets `MAIL_FROM_ADDRESS` to `noreply@example.com`.
+- The cookie consent assets (`public/vendor/scify`) are no longer tracked in git; Composer publishes them on every
+  install. Override their colours in `resources/sass/app.scss` (README "Cookie consent").
 
 ## [1.1.0] - 2026-10-19
 

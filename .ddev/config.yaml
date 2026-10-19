@@ -52,9 +52,5 @@ web_environment:
   - DB_USERNAME=db
   - DB_PASSWORD=db
 
-# Health check settings
-web_environment_add:
-  - DDEV_PHP_VERSION=8.2
-
 # Use default nginx configuration
 nginx_full_override: false

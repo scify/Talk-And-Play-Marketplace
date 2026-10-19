@@ -25,3 +25,5 @@ public/*.html
 .ddev/import-db
 .ddev/import.yaml
 /coverage
+# Published by composer (post-autoload-dump); override colours in resources/sass, not here.
+/public/vendor/scify
