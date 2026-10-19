@@ -68,7 +68,7 @@
             "@composer install",
             "@php -r \"require 'vendor/autoload.php'; empty(Dotenv\\Dotenv::parse(file_get_contents('.env'))['APP_KEY'] ?? null) && exit(pclose(popen(escapeshellarg(PHP_BINARY) . ' artisan key:generate --ansi', 'w')));\"",
             "@php -r \"is_link('public/storage') || exit(pclose(popen(escapeshellarg(PHP_BINARY) . ' artisan storage:link --ansi', 'w')));\"",
-            "npm ci",
+            "@php -r \"file_exists('node_modules/.package-lock.json') && filemtime('node_modules/.package-lock.json') >= filemtime('package-lock.json') || exit(pclose(popen('npm ci', 'w')));\"",
             "npm run build"
         ],
         "test": [
@@ -93,7 +93,7 @@
         ]
     },
     "scripts-descriptions": {
-        "setup": "Create .env if missing, install PHP and npm dependencies, generate APP_KEY if empty, link storage and build the frontend.",
+        "setup": "Create .env if missing, install PHP dependencies and (when package-lock.json changed) npm dependencies, generate APP_KEY if empty, link storage and build the frontend.",
         "test": "Run the test suite (SQLite in memory).",
         "test:coverage": "Run the test suite with a coverage summary and an HTML report in coverage/ (needs PCOV or Xdebug).",
         "lint:check": "Check PHP style (Pint), run static analysis (PHPStan) and lint JavaScript (ESLint) without changing files.",

@@ -52,8 +52,8 @@ comes from `.nvmrc` (**24.21.0**); a DDEV start hook keeps `nodejs_version` in `
    ```
 
    Every `ddev start` runs `composer setup` and then the database migrations. `composer setup` creates `.env` from
-   `.env.example` (only if `.env` is missing), installs the PHP and npm dependencies, generates `APP_KEY` (only if it
-   is empty), links `public/storage` to `storage/app/public` and builds the frontend. It is safe to run again at any
+   `.env.example` (only if `.env` is missing), installs the PHP dependencies and, when `package-lock.json` changed, the
+   npm dependencies (`npm ci`), generates `APP_KEY` (only if it is empty), links `public/storage` to `storage/app/public` and builds the frontend. It is safe to run again at any
    time, also by hand: `ddev composer setup`. DDEV writes the database, mail and `APP_URL` settings into `.env`.
 
 2. Edit `.env`:
