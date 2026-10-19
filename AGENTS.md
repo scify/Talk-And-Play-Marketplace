@@ -18,7 +18,8 @@ the desktop app downloads approved ones through `routes/api.php`. Default branch
 - **The developer's DDEV database holds real local data.** Ask before `migrate`, `db:seed` or tinker writes against
   it. For browser checks, create temporary users and data, and delete them afterwards.
 - **Commit gate**: run each tool as its own command and read its exit code, then commit in a separate command:
-  `ddev composer lint:check`, `ddev npm run build`, `ddev composer test`. A commit chained after a gate once went in
+  `ddev composer lint:check`, `ddev npm run build`, and the tests (`ddev exec php artisan config:clear`, then
+  `ddev exec php artisan test --compact`, which prints the failures also without a terminal). A commit chained after a gate once went in
   with a PHPStan error.
 - `phpstan-baseline.neon`: new code adds no entries. When a change removes code that an entry ignores, remove that
   entry in the same commit (PHPStan fails on unmatched entries).

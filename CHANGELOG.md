@@ -8,6 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Upgrade notes
+
+- `public/vendor/scify` is no longer in git. Before the checkout of this release, run
+  `git checkout -- public/vendor/scify` (move any colour edits from `_variables.css` to `resources/sass/app.scss`,
+  see README "Cookie consent"). After the checkout, run `composer install` with scripts: it publishes the files again.
+  Until then every page answers HTTP 500.
+
 ### Added
 
 - `AGENTS.md` with guidance for AI coding agents; `CLAUDE.md` imports it.
