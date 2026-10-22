@@ -14,6 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
   `git checkout -- public/vendor/scify` (move any colour edits from `_variables.css` to `resources/sass/app.scss`,
   see README "Cookie consent"). After the checkout, run `composer install` with scripts: it publishes the files again.
   Until then every page answers HTTP 500.
+- Node.js 24.22.1 or newer (or 22.23.4+ / 26.12.1+) and npm 11.19.1 or newer are required to build the frontend.
+  `npm ci` and `npm run` refuse older versions (`engines` and `devEngines` in `package.json`).
 
 ### Added
 
@@ -27,6 +29,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - `.env.example` sets `MAIL_FROM_ADDRESS` to `noreply@example.com`.
 - The cookie consent assets (`public/vendor/scify`) are no longer tracked in git; Composer publishes them on every
   install. Override their colours in `resources/sass/app.scss` (README "Cookie consent").
+
+### Security
+
+- Node.js 24.22.1 in `.nvmrc` and DDEV (CVE-2026-111497, CVE-2026-105483, CVE-2026-106069, CVE-2026-105482).
+- Laravel 12.70.1, now the minimum (`^12.70.1`): Mail Markdown did not escape inline Markdown in user input
+  (laravel/framework #61755, #62027).
 
 ## [1.1.0] - 2026-10-19
 
